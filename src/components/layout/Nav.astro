@@ -35,7 +35,7 @@ const otherLocalePath = localizedPath(otherLocale, path);
             <polyline points="6 9 12 15 18 9" />
           </svg>
         </button>
-        <ul class="hidden group-hover:block absolute top-full left-0 mt-2 w-64 bg-white border border-divider rounded-card shadow-card-elevated p-2">
+        <ul class="hidden group-hover:block group-focus-within:block absolute top-full left-0 mt-2 w-64 bg-white border border-divider rounded-card shadow-card-elevated p-2 before:content-[''] before:absolute before:-top-2 before:left-0 before:right-0 before:h-2">
           {useCases.map((u) => (
             <li>
               <a

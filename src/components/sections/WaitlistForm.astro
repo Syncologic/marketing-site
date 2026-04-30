@@ -1,6 +1,7 @@
 ---
 import Button from '../ui/Button.astro';
 import Input from '../ui/Input.astro';
+import ProviderLogo from '../ui/ProviderLogo.astro';
 import { getLocaleFromUrl, getT } from '../../i18n/utils';
 import type { WaitlistPost } from '../../lib/validation';
 
@@ -13,12 +14,22 @@ const { segmentHint = null, id = 'waitlist' } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 const sourcePage = Astro.url.pathname;
+
+const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive' | 'dropbox' | 's3' | 'sftp' | 'webdav' | 'nextcloud' }> = [
+  { value: 'google_drive', logoId: 'google-drive' },
+  { value: 'onedrive', logoId: 'onedrive' },
+  { value: 'dropbox', logoId: 'dropbox' },
+  { value: 's3', logoId: 's3' },
+  { value: 'sftp', logoId: 'sftp' },
+  { value: 'webdav', logoId: 'webdav' },
+  { value: 'nextcloud', logoId: 'nextcloud' },
+];
 ---
 
 <section id={id} data-locale={locale} class="bg-white py-section">
   <div class="container-wide max-w-2xl text-center">
     <h2 class="text-h1 font-medium text-dark-charcoal mb-4">{t('nav.joinWaitlist')}</h2>
-    <p class="text-body text-slate-gray mb-8">{t('site.tagline')}</p>
+    <p class="text-body text-slate-gray mb-8 max-w-xl mx-auto">{t('waitlist.step1Subtitle')}</p>
 
     <form
       class="waitlist-form-step1 flex flex-col sm:flex-row gap-3 justify-center"
@@ -43,20 +54,34 @@ const sourcePage = Astro.url.pathname;
       data-msg-error-rate={t('waitlist.errorRate')}
     ></p>
 
-    <div class="waitlist-step2 hidden mt-10 max-w-md mx-auto" data-row-id="" data-token="" data-segment-hint={segmentHint ?? ''}>
-      <div class="step2-progress flex justify-center gap-1.5 mb-6" aria-hidden="true"></div>
-      <p class="step2-progress-label text-caption text-slate-gray text-center mb-4" role="status" aria-live="polite"></p>
+    <div class="waitlist-step2 hidden mt-10 max-w-xl mx-auto bg-soft-gray rounded-card p-6 sm:p-8 text-left flex flex-col" data-row-id="" data-token="" data-segment-hint={segmentHint ?? ''}>
+      <div class="step2-progress flex justify-center items-center gap-1.5 mb-3" role="tablist" aria-label="Question steps"></div>
+      <p class="step2-progress-label text-caption text-slate-gray text-center mb-6" role="status" aria-live="polite"></p>
 
-      <h3 class="step2-title text-h3 font-bold text-dark-charcoal text-center mb-6 min-h-[2.5rem]"></h3>
+      <div class="step2-stage relative overflow-hidden flex-grow flex flex-col justify-start">
+        <div class="step2-card transition-all duration-300 ease-out">
+          <p class="step2-eyebrow text-compact font-medium text-dark-charcoal text-center mb-3 min-h-[1.5rem]"></p>
+          <h3 class="step2-title text-h3 font-bold text-dark-charcoal text-center mb-6"></h3>
+          <div class="step2-options grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+        </div>
+      </div>
 
-      <div class="step2-options flex flex-wrap justify-center gap-2 mb-8"></div>
+      <p class="step2-hint text-small text-slate-gray text-center mt-5 min-h-[1.25rem]"></p>
 
-      <div class="step2-controls flex items-center justify-between gap-3">
-        <button type="button" class="step2-back text-caption text-slate-gray underline disabled:opacity-30 disabled:no-underline" disabled>← Back</button>
-        <button type="button" class="step2-skip text-caption text-slate-gray underline">{t('waitlist.step2Skip')}</button>
+      <div class="step2-controls flex items-center justify-between gap-3 mt-6">
+        <button type="button" class="step2-back text-caption text-slate-gray hover:text-dark-charcoal underline disabled:opacity-30 disabled:no-underline disabled:hover:text-slate-gray transition-colors" disabled>← Back</button>
+        <button type="button" class="step2-skip text-caption text-slate-gray hover:text-dark-charcoal underline transition-colors">{t('waitlist.step2Skip')}</button>
         <Button type="button" variant="primary" size="sm" class="step2-next">Next →</Button>
       </div>
     </div>
+
+    <template class="step2-icon-template">
+      {providerIconMap.map((p) => (
+        <div data-id={p.value}>
+          <ProviderLogo provider={p.logoId} size={24} />
+        </div>
+      ))}
+    </template>
   </div>
 </section>
 
@@ -76,8 +101,15 @@ const sourcePage = Astro.url.pathname;
       questionFrequency: 'How often?',
       questionRunner: 'Where should the transfer run?',
       questionRole: 'Which best describes you?',
+      hintAutoAdvance: 'Tap one — we go to the next question automatically.',
+      hintLastStep: "Last one. Tap an option, then hit Done.",
+      encourageFirst: "Welcome aboard! We'd love to know a bit about you.",
+      encourageMid: 'Awesome. Tell us a bit more.',
+      encourageLast: "Last one! You're almost there.",
       done: '✓ Thanks — that helps a lot.',
       doneCta: 'Done',
+      next: 'Next →',
+      back: '← Back',
     },
     'pt-br': {
       success: '✓ Você está na lista',
@@ -90,8 +122,15 @@ const sourcePage = Astro.url.pathname;
       questionFrequency: 'Com que frequência?',
       questionRunner: 'Onde a transferência deve rodar?',
       questionRole: 'O que descreve você melhor?',
+      hintAutoAdvance: 'Toque uma — vamos pra próxima automaticamente.',
+      hintLastStep: 'Última. Escolha uma opção e clique em Concluir.',
+      encourageFirst: 'Bem-vindo! A gente quer te conhecer um pouco.',
+      encourageMid: 'Boa. Conta um pouco mais.',
+      encourageLast: 'Última! Quase lá.',
       done: '✓ Valeu — isso ajuda muito.',
       doneCta: 'Concluir',
+      next: 'Próxima →',
+      back: '← Voltar',
     },
   } as const;
 
@@ -223,6 +262,11 @@ const sourcePage = Astro.url.pathname;
           localStorage.setItem(`waitlist:${data.id}`, JSON.stringify({ token: data.token, email }));
         } catch {}
         renderStep2(step2, locale);
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        requestAnimationFrame(() => {
+          step2.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+        });
       } catch {
         msg.textContent = I18N[locale].errorNetwork;
       } finally {
@@ -240,73 +284,197 @@ const sourcePage = Astro.url.pathname;
 
     const progress = step2.querySelector<HTMLElement>('.step2-progress')!;
     const progressLabel = step2.querySelector<HTMLElement>('.step2-progress-label')!;
+    const stageEl = step2.querySelector<HTMLElement>('.step2-stage')!;
+    const cardEl = step2.querySelector<HTMLElement>('.step2-card')!;
+    const eyebrowEl = step2.querySelector<HTMLElement>('.step2-eyebrow')!;
     const titleEl = step2.querySelector<HTMLElement>('.step2-title')!;
     const optionsEl = step2.querySelector<HTMLElement>('.step2-options')!;
+    const hintEl = step2.querySelector<HTMLElement>('.step2-hint')!;
     const backBtn = step2.querySelector<HTMLButtonElement>('.step2-back')!;
     const nextBtn = step2.querySelector<HTMLButtonElement>('.step2-next')!;
     const skipBtn = step2.querySelector<HTMLButtonElement>('.step2-skip')!;
+
+    const iconTpl = document.querySelector<HTMLTemplateElement>('.step2-icon-template')!;
+    function getProviderIcon(value: string): SVGElement | null {
+      const wrapper = iconTpl.content.querySelector<HTMLElement>(`div[data-id="${value}"]`);
+      const svg = wrapper?.querySelector('svg');
+      return svg ? (svg.cloneNode(true) as SVGElement) : null;
+    }
+    const PROVIDER_FIELDS = new Set(['source_provider', 'dest_provider']);
 
     const answers: Record<string, string | undefined> = {};
     if (hint) answers.use_case = hint;
 
     let cursor = 0;
+    let pendingAdvance: number | null = null;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     progress.innerHTML = '';
-    QUESTIONS.forEach(() => {
-      const dot = document.createElement('span');
-      dot.className = 'h-1.5 w-6 rounded-pill bg-divider transition-colors';
+    QUESTIONS.forEach((q, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', `Question ${i + 1}: ${I18N[locale][q.key]}`);
+      dot.className = 'h-1.5 w-6 rounded-pill bg-divider transition-all duration-300 cursor-pointer hover:bg-slate-gray';
+      dot.addEventListener('click', () => goTo(i));
       progress.appendChild(dot);
     });
 
-    function renderQuestion() {
-      const q = QUESTIONS[cursor];
-      progress.querySelectorAll<HTMLSpanElement>('span').forEach((dot, i) => {
-        dot.className =
-          'h-1.5 w-6 rounded-pill transition-colors ' +
-          (i < cursor
-            ? 'bg-brand-blue'
-            : i === cursor
-            ? 'bg-brand-blue'
-            : 'bg-divider');
+    function paintProgress() {
+      progress.querySelectorAll<HTMLButtonElement>('button').forEach((dot, i) => {
+        const base = 'h-1.5 rounded-pill transition-all duration-300 cursor-pointer ';
+        if (i < cursor) {
+          dot.className = base + 'w-6 bg-brand-blue hover:bg-brand-blue-hover';
+          dot.setAttribute('aria-current', 'false');
+        } else if (i === cursor) {
+          dot.className = base + 'w-10 bg-brand-blue';
+          dot.setAttribute('aria-current', 'step');
+        } else {
+          dot.className = base + 'w-6 bg-divider hover:bg-slate-gray';
+          dot.setAttribute('aria-current', 'false');
+        }
       });
+    }
+
+    function buildOption(q: typeof QUESTIONS[number], opt: typeof q.options[number], isLast: boolean, idx: number): HTMLButtonElement {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.dataset.field = q.field;
+      btn.dataset.value = opt.value;
+      btn.style.transitionDelay = reduceMotion ? '0ms' : `${idx * 25}ms`;
+      btn.className =
+        'group flex items-center gap-3 w-full px-4 py-3 text-caption font-medium text-left bg-white border border-divider rounded-input hover:border-brand-blue hover:bg-baby-blue/30 data-[selected=true]:bg-brand-blue data-[selected=true]:border-brand-blue data-[selected=true]:text-white transition-all duration-200';
+
+      const iconSlot = document.createElement('span');
+      iconSlot.className = 'flex-shrink-0 w-6 h-6 grid place-items-center';
+      if (PROVIDER_FIELDS.has(q.field)) {
+        const ic = getProviderIcon(opt.value);
+        if (ic) {
+          iconSlot.appendChild(ic);
+        } else {
+          const dot = document.createElement('span');
+          dot.className = 'block w-2.5 h-2.5 rounded-pill bg-divider group-data-[selected=true]:bg-white/70';
+          iconSlot.appendChild(dot);
+        }
+      } else {
+        const dot = document.createElement('span');
+        dot.className = 'block w-2 h-2 rounded-pill bg-divider group-hover:bg-brand-blue group-data-[selected=true]:bg-white transition-colors';
+        iconSlot.appendChild(dot);
+      }
+      btn.appendChild(iconSlot);
+
+      const label = document.createElement('span');
+      label.className = 'flex-1';
+      label.textContent = opt.label[locale];
+      btn.appendChild(label);
+
+      const check = document.createElement('span');
+      check.className = 'hidden group-data-[selected=true]:grid place-items-center w-5 h-5 rounded-pill bg-white text-brand-blue text-small font-bold flex-shrink-0';
+      check.setAttribute('aria-hidden', 'true');
+      check.textContent = '✓';
+      btn.appendChild(check);
+
+      if (answers[q.field] === opt.value) btn.dataset.selected = 'true';
+      btn.addEventListener('click', () => onPick(q.field, opt.value, isLast));
+      return btn;
+    }
+
+    function paintQuestion() {
+      const q = QUESTIONS[cursor];
+      const isFirst = cursor === 0;
+      const isLast = cursor === QUESTIONS.length - 1;
       progressLabel.textContent = `${cursor + 1} / ${QUESTIONS.length}`;
+      eyebrowEl.textContent = isFirst
+        ? I18N[locale].encourageFirst
+        : isLast
+        ? I18N[locale].encourageLast
+        : I18N[locale].encourageMid;
       titleEl.textContent = I18N[locale][q.key];
+      hintEl.textContent = isLast
+        ? I18N[locale].hintLastStep
+        : I18N[locale].hintAutoAdvance;
 
       optionsEl.innerHTML = '';
-      q.options.forEach((opt) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.dataset.field = q.field;
-        btn.dataset.value = opt.value;
-        btn.className =
-          'px-4 py-2 text-caption border border-divider rounded-pill hover:bg-soft-gray data-[selected=true]:bg-brand-blue data-[selected=true]:border-brand-blue data-[selected=true]:text-white';
-        btn.textContent = opt.label[locale];
-        if (answers[q.field] === opt.value) btn.dataset.selected = 'true';
-        btn.addEventListener('click', () => {
-          answers[q.field] = opt.value;
-          optionsEl.querySelectorAll<HTMLButtonElement>('button[data-field]').forEach((b) => {
-            b.dataset.selected = b.dataset.value === opt.value ? 'true' : 'false';
-          });
-          patch({ [q.field]: opt.value });
-        });
-        optionsEl.appendChild(btn);
+      q.options.forEach((opt, idx) => {
+        optionsEl.appendChild(buildOption(q, opt, isLast, idx));
       });
 
       backBtn.disabled = cursor === 0;
-      nextBtn.textContent = cursor === QUESTIONS.length - 1 ? I18N[locale].doneCta : 'Next →';
+      backBtn.textContent = I18N[locale].back;
+      nextBtn.textContent = isLast ? I18N[locale].doneCta : I18N[locale].next;
+
+      paintProgress();
+    }
+
+    function lockMaxHeight() {
+      const startCursor = cursor;
+      const savedAnswers: Record<string, string | undefined> = { ...answers };
+      QUESTIONS.forEach((q) => {
+        if (!answers[q.field]) answers[q.field] = q.options[0]?.value;
+      });
+      let max = 0;
+      for (let i = 0; i < QUESTIONS.length; i++) {
+        cursor = i;
+        paintQuestion();
+        const h = step2.offsetHeight;
+        if (h > max) max = h;
+      }
+      Object.keys(answers).forEach((k) => delete answers[k]);
+      Object.assign(answers, savedAnswers);
+      cursor = startCursor;
+      paintQuestion();
+      step2.style.minHeight = `${max}px`;
+    }
+
+    function transitionTo(direction: 1 | -1, render: () => void) {
+      if (reduceMotion) {
+        render();
+        return;
+      }
+      const offset = direction === 1 ? '-translate-x-3' : 'translate-x-3';
+      cardEl.classList.add('opacity-0', offset);
+      window.setTimeout(() => {
+        render();
+        cardEl.classList.add(direction === 1 ? 'translate-x-3' : '-translate-x-3');
+        cardEl.classList.remove(offset);
+        requestAnimationFrame(() => {
+          cardEl.classList.remove('opacity-0', 'translate-x-3', '-translate-x-3');
+        });
+      }, 180);
+    }
+
+    function goTo(target: number) {
+      if (target === cursor) return;
+      if (pendingAdvance !== null) {
+        clearTimeout(pendingAdvance);
+        pendingAdvance = null;
+      }
+      const dir: 1 | -1 = target > cursor ? 1 : -1;
+      cursor = target;
+      transitionTo(dir, paintQuestion);
+    }
+
+    function onPick(field: string, value: string, isLast: boolean) {
+      answers[field] = value;
+      optionsEl.querySelectorAll<HTMLButtonElement>('button[data-field]').forEach((b) => {
+        b.dataset.selected = b.dataset.value === value ? 'true' : 'false';
+      });
+      patch({ [field]: value });
+      if (isLast) return;
+      if (pendingAdvance !== null) clearTimeout(pendingAdvance);
+      pendingAdvance = window.setTimeout(() => {
+        pendingAdvance = null;
+        if (cursor < QUESTIONS.length - 1) goTo(cursor + 1);
+      }, 380);
     }
 
     backBtn.addEventListener('click', () => {
-      if (cursor > 0) {
-        cursor--;
-        renderQuestion();
-      }
+      if (cursor > 0) goTo(cursor - 1);
     });
 
     nextBtn.addEventListener('click', () => {
       if (cursor < QUESTIONS.length - 1) {
-        cursor++;
-        renderQuestion();
+        goTo(cursor + 1);
       } else {
         complete();
       }
@@ -326,9 +494,11 @@ const sourcePage = Astro.url.pathname;
 
     async function complete() {
       await patch({ ...answers, _complete: true });
-      step2.innerHTML = `<p class="text-caption text-success text-center">${I18N[locale].done}</p>`;
+      step2.style.minHeight = '';
+      stageEl.style.minHeight = '';
+      step2.innerHTML = `<div class="text-center py-8"><p class="text-h3 font-bold text-success mb-2">${I18N[locale].done}</p><p class="text-caption text-slate-gray">We'll be in touch.</p></div>`;
     }
 
-    renderQuestion();
+    lockMaxHeight();
   }
 </script>

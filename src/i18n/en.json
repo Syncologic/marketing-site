@@ -44,6 +44,7 @@
     "success": "✓ You're on the list",
     "errorNetwork": "Couldn't reach the server. Try again?",
     "errorRate": "Slow down — try again in a minute.",
+    "step1Subtitle": "Help us build the right tool. Drop your email, then tell us what you need — it takes about a minute.",
     "step2Title": "Help us build this for you",
     "step2Intro": "7 quick questions.",
     "step2Skip": "Skip — finish later",
@@ -91,24 +92,24 @@
   },
   "trust": {
     "preview": {
-      "title": "Preview before running",
-      "desc": "See exactly what will be added, modified, or skipped — before you commit."
+      "title": "See what will happen first",
+      "desc": "Before anything moves, we show you which files will be copied, replaced, or left alone — so there are no surprises."
     },
     "scoped": {
-      "title": "Scoped access",
-      "desc": "Provider connections request only the permissions the transfer needs."
+      "title": "We only ask for what we need",
+      "desc": "When you connect Google Drive or another cloud, we ask for the smallest permission to do the job — nothing more."
     },
     "progress": {
-      "title": "Live progress",
-      "desc": "File counts, bytes transferred, and estimated time remaining."
+      "title": "Watch it work in real time",
+      "desc": "See how many files have moved, how much is left, and roughly how long until it's done."
     },
     "reports": {
-      "title": "Completion reports",
-      "desc": "Per-run audit trail you can share with your team."
+      "title": "A clear summary at the end",
+      "desc": "Every transfer ends with a simple report you can save or share, so you know exactly what happened."
     },
     "transparency": {
-      "title": "Runner transparency",
-      "desc": "You see and choose where your bytes flow — cloud, browser, or your own machine."
+      "title": "You choose where your files go",
+      "desc": "Run the transfer through us, in your browser, or on your own computer. Your call, every time."
     }
   }
 }
