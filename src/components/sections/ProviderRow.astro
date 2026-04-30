@@ -1,0 +1,28 @@
+---
+import ProviderLogo from '../ui/ProviderLogo.astro';
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+
+const providers = [
+  { id: 'google-drive' as const, key: 'googleDrive' },
+  { id: 'onedrive' as const, key: 'oneDrive' },
+  { id: 'dropbox' as const, key: 'dropbox' },
+  { id: 's3' as const, key: 's3' },
+  { id: 'sftp' as const, key: 'sftp' },
+  { id: 'webdav' as const, key: 'webdav' },
+  { id: 'nextcloud' as const, key: 'nextcloud' },
+];
+---
+
+<div class="overflow-x-auto">
+  <ul class="flex items-center gap-8 min-w-max px-4 py-6 justify-center">
+    {providers.map((p) => (
+      <li class="flex items-center gap-2 text-caption text-slate-gray whitespace-nowrap">
+        <ProviderLogo provider={p.id} size={28} />
+        <span>{t(`providers.${p.key}`)}</span>
+      </li>
+    ))}
+  </ul>
+</div>

@@ -1,0 +1,25 @@
+---
+import Card from '../ui/Card.astro';
+import { getLocaleFromUrl, getT, localizedPath } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+
+const useCases = [
+  { slug: 'cloud-to-cloud-transfer', key: 'cloudToCloud' },
+  { slug: 'business-cloud-migration', key: 'businessMigration' },
+  { slug: 'scheduled-cloud-backup', key: 'scheduledBackup' },
+  { slug: 'private-runner', key: 'privateRunner' },
+];
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  {useCases.map((u) => (
+    <a href={localizedPath(locale, `/use-cases/${u.slug}`)} class="block group">
+      <Card class="p-6 transition-transform group-hover:-translate-y-0.5 group-hover:shadow-card">
+        <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{t(`useCaseRouter.${u.key}.title`)}</h3>
+        <p class="text-caption text-slate-gray">{t(`useCaseRouter.${u.key}.desc`)}</p>
+      </Card>
+    </a>
+  ))}
+</div>

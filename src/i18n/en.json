@@ -56,5 +56,45 @@
     "cloud": { "name": "Cloud Runner", "tagline": "Hosted convenience" },
     "browser": { "name": "Browser Runner", "tagline": "Run it in a tab" },
     "private": { "name": "Private Runner", "tagline": "Your machine, your bandwidth" }
+  },
+  "useCaseRouter": {
+    "cloudToCloud": {
+      "title": "Move files between clouds",
+      "desc": "Direct provider-to-provider transfers without local download."
+    },
+    "businessMigration": {
+      "title": "Migrate a team",
+      "desc": "Move a Workspace or Microsoft 365 tenant with reports and previews."
+    },
+    "scheduledBackup": {
+      "title": "Schedule recurring backups",
+      "desc": "Cloud-to-cloud or cloud-to-S3 on a schedule."
+    },
+    "privateRunner": {
+      "title": "Run it on your own machine",
+      "desc": "Keep credentials and bytes on your infrastructure."
+    }
+  },
+  "trust": {
+    "preview": {
+      "title": "Preview before running",
+      "desc": "See exactly what will be added, modified, or skipped — before you commit."
+    },
+    "scoped": {
+      "title": "Scoped access",
+      "desc": "Provider connections request only the permissions the transfer needs."
+    },
+    "progress": {
+      "title": "Live progress",
+      "desc": "File counts, bytes transferred, and estimated time remaining."
+    },
+    "reports": {
+      "title": "Completion reports",
+      "desc": "Per-run audit trail you can share with your team."
+    },
+    "transparency": {
+      "title": "Runner transparency",
+      "desc": "You see and choose where your bytes flow — cloud, browser, or your own machine."
+    }
   }
 }
