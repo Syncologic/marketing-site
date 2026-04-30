@@ -43,29 +43,141 @@ const sourcePage = Astro.url.pathname;
       data-msg-error-rate={t('waitlist.errorRate')}
     ></p>
 
-    <div class="waitlist-step2 hidden mt-8" data-row-id="" data-token="">
-      <!-- Step 2 content rendered by Task 23 -->
+    <div class="waitlist-step2 hidden mt-8 text-left" data-row-id="" data-token="" data-segment-hint={segmentHint ?? ''}>
+      <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{t('waitlist.step2Title')}</h3>
+      <p class="text-caption text-slate-gray mb-6">7 quick questions. <button type="button" class="step2-skip underline">{t('waitlist.step2Skip')}</button></p>
+
+      <div class="step2-questions space-y-4"></div>
+
+      <div class="step2-controls hidden mt-6 flex justify-end">
+        <button type="button" class="step2-done bg-brand-blue text-white rounded-pill px-6 py-2 text-caption font-medium">{t('waitlist.step2Done')}</button>
+      </div>
     </div>
   </div>
 </section>
 
 <script>
+  type Locale = 'en' | 'pt-br';
   type Stage1Result = { id: string; token: string; status: 'created' | 'existed' };
 
+  const I18N = {
+    en: {
+      success: "✓ You're on the list",
+      errorNetwork: "Couldn't reach the server. Try again?",
+      errorRate: "Slow down — try again in a minute.",
+      questionUseCase: 'What are you trying to move?',
+      questionSourceProvider: 'Where do the files live now?',
+      questionDestProvider: 'Where do they need to go?',
+      questionSize: 'How much data?',
+      questionFrequency: 'How often?',
+      questionRunner: 'Where should the transfer run?',
+      questionRole: 'Which best describes you?',
+      done: '✓ Thanks — that helps a lot.',
+    },
+    'pt-br': {
+      success: '✓ Você está na lista',
+      errorNetwork: 'Não consegui falar com o servidor. Tentar de novo?',
+      errorRate: 'Mais devagar — tente daqui a um minuto.',
+      questionUseCase: 'O que você quer transferir?',
+      questionSourceProvider: 'Onde os arquivos estão hoje?',
+      questionDestProvider: 'Para onde eles precisam ir?',
+      questionSize: 'Quanto de dados?',
+      questionFrequency: 'Com que frequência?',
+      questionRunner: 'Onde a transferência deve rodar?',
+      questionRole: 'O que descreve você melhor?',
+      done: '✓ Valeu — isso ajuda muito.',
+    },
+  } as const;
+
+  const QUESTIONS: Array<{ field: string; key: keyof typeof I18N.en; options: Array<{ value: string; label: { en: string; 'pt-br': string } }> }> = [
+    {
+      field: 'use_case', key: 'questionUseCase',
+      options: [
+        { value: 'one_time_transfer', label: { en: 'One-time transfer', 'pt-br': 'Transferência única' } },
+        { value: 'business_migration', label: { en: 'Business migration', 'pt-br': 'Migração de empresa' } },
+        { value: 'scheduled_backup', label: { en: 'Scheduled backup', 'pt-br': 'Backup agendado' } },
+        { value: 'private_runner', label: { en: 'Private runner', 'pt-br': 'Runner privado' } },
+        { value: 'browser_runner', label: { en: 'Browser transfer', 'pt-br': 'Transferência no navegador' } },
+        { value: 'local_backup', label: { en: 'Local / NAS backup', 'pt-br': 'Backup local / NAS' } },
+        { value: 'developer', label: { en: 'API / automation', 'pt-br': 'API / automação' } },
+        { value: 'self_hosted', label: { en: 'Self-hosting', 'pt-br': 'Auto-hospedagem' } },
+      ],
+    },
+    {
+      field: 'source_provider', key: 'questionSourceProvider',
+      options: [
+        { value: 'google_drive', label: { en: 'Google Drive', 'pt-br': 'Google Drive' } },
+        { value: 'onedrive', label: { en: 'OneDrive', 'pt-br': 'OneDrive' } },
+        { value: 'dropbox', label: { en: 'Dropbox', 'pt-br': 'Dropbox' } },
+        { value: 's3', label: { en: 'S3 / S3-compatible', 'pt-br': 'S3 / compatível com S3' } },
+        { value: 'sftp', label: { en: 'SFTP', 'pt-br': 'SFTP' } },
+        { value: 'webdav', label: { en: 'WebDAV', 'pt-br': 'WebDAV' } },
+        { value: 'nextcloud', label: { en: 'Nextcloud', 'pt-br': 'Nextcloud' } },
+        { value: 'other', label: { en: 'Other', 'pt-br': 'Outro' } },
+      ],
+    },
+    {
+      field: 'dest_provider', key: 'questionDestProvider',
+      options: [
+        { value: 'google_drive', label: { en: 'Google Drive', 'pt-br': 'Google Drive' } },
+        { value: 'onedrive', label: { en: 'OneDrive', 'pt-br': 'OneDrive' } },
+        { value: 'dropbox', label: { en: 'Dropbox', 'pt-br': 'Dropbox' } },
+        { value: 's3', label: { en: 'S3 / S3-compatible', 'pt-br': 'S3 / compatível com S3' } },
+        { value: 'sftp', label: { en: 'SFTP', 'pt-br': 'SFTP' } },
+        { value: 'webdav', label: { en: 'WebDAV', 'pt-br': 'WebDAV' } },
+        { value: 'nextcloud', label: { en: 'Nextcloud', 'pt-br': 'Nextcloud' } },
+        { value: 'other', label: { en: 'Other', 'pt-br': 'Outro' } },
+      ],
+    },
+    {
+      field: 'est_size', key: 'questionSize',
+      options: [
+        { value: 'lt_10gb', label: { en: 'Less than 10 GB', 'pt-br': 'Menos de 10 GB' } },
+        { value: '10_to_100gb', label: { en: '10–100 GB', 'pt-br': '10–100 GB' } },
+        { value: '100gb_to_1tb', label: { en: '100 GB – 1 TB', 'pt-br': '100 GB – 1 TB' } },
+        { value: 'gt_1tb', label: { en: 'More than 1 TB', 'pt-br': 'Mais de 1 TB' } },
+      ],
+    },
+    {
+      field: 'frequency', key: 'questionFrequency',
+      options: [
+        { value: 'one_time', label: { en: 'One time', 'pt-br': 'Uma vez' } },
+        { value: 'weekly', label: { en: 'Weekly', 'pt-br': 'Semanalmente' } },
+        { value: 'daily', label: { en: 'Daily', 'pt-br': 'Diariamente' } },
+        { value: 'continuous', label: { en: 'Continuous sync', 'pt-br': 'Sincronização contínua' } },
+      ],
+    },
+    {
+      field: 'preferred_runner', key: 'questionRunner',
+      options: [
+        { value: 'cloud', label: { en: 'Syncologic cloud', 'pt-br': 'Nuvem da Syncologic' } },
+        { value: 'browser', label: { en: 'My browser', 'pt-br': 'Meu navegador' } },
+        { value: 'private', label: { en: 'My own server / NAS', 'pt-br': 'Meu próprio servidor / NAS' } },
+        { value: 'not_sure', label: { en: 'Not sure yet', 'pt-br': 'Ainda não sei' } },
+      ],
+    },
+    {
+      field: 'role', key: 'questionRole',
+      options: [
+        { value: 'consumer', label: { en: 'Personal user', 'pt-br': 'Usuário pessoal' } },
+        { value: 'business', label: { en: 'Small business / founder', 'pt-br': 'Pequena empresa / fundador' } },
+        { value: 'it', label: { en: 'IT / sysadmin', 'pt-br': 'TI / sysadmin' } },
+        { value: 'developer', label: { en: 'Developer', 'pt-br': 'Desenvolvedor' } },
+        { value: 'homelab', label: { en: 'Homelab / hobbyist', 'pt-br': 'Homelab / hobbyista' } },
+      ],
+    },
+  ];
+
   document.querySelectorAll<HTMLFormElement>('.waitlist-form-step1').forEach((form) => {
-    const msg = form.parentElement!.querySelector<HTMLElement>('.waitlist-msg')!;
-    const step2 = form.parentElement!.querySelector<HTMLElement>('.waitlist-step2')!;
+    const root = form.parentElement!;
+    const msg = root.querySelector<HTMLElement>('.waitlist-msg')!;
+    const step2 = root.querySelector<HTMLElement>('.waitlist-step2')!;
     const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const labelDefault = submitBtn.querySelector<HTMLElement>('.btn-label-default')!;
     const labelLoading = submitBtn.querySelector<HTMLElement>('.btn-label-loading')!;
-    const locale = form.dataset.locale ?? 'en';
+    const locale = (form.dataset.locale ?? 'en') as Locale;
     const sourcePage = form.dataset.sourcePage ?? '/';
     const segmentHint = form.dataset.segmentHint || null;
-    const messages = {
-      success: msg.dataset.msgSuccess ?? '',
-      errorNetwork: msg.dataset.msgErrorNetwork ?? '',
-      errorRate: msg.dataset.msgErrorRate ?? '',
-    };
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -87,16 +199,16 @@ const sourcePage = Astro.url.pathname;
         });
 
         if (res.status === 429) {
-          msg.textContent = messages.errorRate;
+          msg.textContent = I18N[locale].errorRate;
           return;
         }
         if (!res.ok) {
-          msg.textContent = messages.errorNetwork;
+          msg.textContent = I18N[locale].errorNetwork;
           return;
         }
 
         const data = (await res.json()) as Stage1Result;
-        msg.textContent = messages.success;
+        msg.textContent = I18N[locale].success;
         step2.dataset.rowId = data.id;
         step2.dataset.token = data.token;
         step2.classList.remove('hidden');
@@ -104,8 +216,9 @@ const sourcePage = Astro.url.pathname;
         try {
           localStorage.setItem(`waitlist:${data.id}`, JSON.stringify({ token: data.token, email }));
         } catch {}
+        renderStep2(step2, locale);
       } catch {
-        msg.textContent = messages.errorNetwork;
+        msg.textContent = I18N[locale].errorNetwork;
       } finally {
         labelDefault.classList.remove('hidden');
         labelLoading.classList.add('hidden');
@@ -113,4 +226,68 @@ const sourcePage = Astro.url.pathname;
       }
     });
   });
+
+  function renderStep2(step2: HTMLElement, locale: Locale) {
+    const id = step2.dataset.rowId!;
+    const token = step2.dataset.token!;
+    const hint = step2.dataset.segmentHint || null;
+    const container = step2.querySelector<HTMLElement>('.step2-questions')!;
+    const controls = step2.querySelector<HTMLElement>('.step2-controls')!;
+    const doneBtn = step2.querySelector<HTMLButtonElement>('.step2-done')!;
+    const skipBtn = step2.querySelector<HTMLButtonElement>('.step2-skip')!;
+
+    const answers: Record<string, string | undefined> = {};
+    if (hint) answers.use_case = hint;
+
+    container.innerHTML = '';
+    QUESTIONS.forEach((q) => {
+      const wrapper = document.createElement('fieldset');
+      wrapper.className = 'border border-divider rounded-card p-4';
+      const legend = document.createElement('legend');
+      legend.className = 'text-caption font-medium text-slate-gray px-2';
+      legend.textContent = I18N[locale][q.key];
+      wrapper.appendChild(legend);
+
+      const grid = document.createElement('div');
+      grid.className = 'flex flex-wrap gap-2 mt-3';
+      q.options.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.dataset.field = q.field;
+        btn.dataset.value = opt.value;
+        btn.className = 'px-3 py-1.5 text-caption border border-divider rounded-pill hover:bg-soft-gray data-[selected=true]:bg-brand-blue data-[selected=true]:border-brand-blue data-[selected=true]:text-white';
+        btn.textContent = opt.label[locale];
+        if (answers[q.field] === opt.value) btn.dataset.selected = 'true';
+        btn.addEventListener('click', () => {
+          answers[q.field] = opt.value;
+          wrapper.querySelectorAll<HTMLButtonElement>('button[data-field]').forEach((b) => {
+            b.dataset.selected = b.dataset.value === opt.value ? 'true' : 'false';
+          });
+          patch({ [q.field]: opt.value });
+          if (Object.keys(answers).length === QUESTIONS.length) controls.classList.remove('hidden');
+        });
+        grid.appendChild(btn);
+      });
+      wrapper.appendChild(grid);
+      container.appendChild(wrapper);
+    });
+
+    async function patch(body: Record<string, unknown>) {
+      try {
+        await fetch(`/api/waitlist/${id}`, {
+          method: 'PATCH',
+          headers: { 'content-type': 'application/json', 'x-waitlist-token': token },
+          body: JSON.stringify(body),
+        });
+      } catch {}
+    }
+
+    async function complete() {
+      await patch({ ...answers, _complete: true });
+      step2.innerHTML = `<p class="text-caption text-success">${I18N[locale].done}</p>`;
+    }
+
+    doneBtn.addEventListener('click', complete);
+    skipBtn?.addEventListener('click', complete);
+  }
 </script>
