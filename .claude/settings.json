@@ -60,14 +60,13 @@
       "WebFetch(domain:upstash.com)",
       "WebFetch(domain:tailwindcss.com)",
       "WebFetch(domain:vercel.com)",
-      "WebFetch(domain:zod.dev)"
-    ],
-    "deny": [
+      "WebFetch(domain:zod.dev)",
       "Read(./.env)",
       "Read(./.env.*)",
       "Read(./**/.env)",
-      "Read(./**/.env.*)",
-
+      "Read(./**/.env.*)"
+    ],
+    "deny": [
       "Bash(rm -rf:*)",
       "Bash(rm -fr:*)",
       "Bash(rm -r:*)",

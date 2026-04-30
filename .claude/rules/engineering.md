@@ -84,7 +84,7 @@ If you can't test the UI in a browser, **say so explicitly** rather than claimin
 
 ## Git workflow
 
-- **Don't start implementation on `main`.** Use a feature branch or worktree.
+- **Don't start implementation on `main`.** **ALWAYS** create an isolated git worktree via `superpowers:using-git-worktrees` before touching code — every task, no exceptions.
 - Plans live in `./docs/superpowers/plans/`. Execute task-by-task; commit after each task as the plan instructs.
 - **Never** skip git hooks (`--no-verify`) or commit signing.
 - **Never** force-push to `main`/`master`.
