@@ -115,9 +115,9 @@ import ProviderLogo from '../ui/ProviderLogo.astro';
   }
   .window-dots { display: flex; gap: 6px; }
   .window-dots span { width: 10px; height: 10px; border-radius: 100px; }
-  .window-dots span:nth-child(1) { background: #FF5F57; }
-  .window-dots span:nth-child(2) { background: #FEBC2E; }
-  .window-dots span:nth-child(3) { background: #28C840; }
+  .window-dots span:nth-child(1) { background: theme('colors.chrome-red'); }
+  .window-dots span:nth-child(2) { background: theme('colors.chrome-yellow'); }
+  .window-dots span:nth-child(3) { background: theme('colors.chrome-green'); }
   .window-title { flex: 1; text-align: center; font-size: 11px; color: theme('colors.slate-gray'); font-weight: 500; }
   .view-toggle { display: flex; background: #FFFFFF; border: 1px solid theme('colors.divider'); border-radius: 100px; padding: 2px; font-size: 10px; font-weight: 500; }
   .view-toggle span { padding: 3px 9px; border-radius: 100px; color: theme('colors.slate-gray'); }
@@ -128,7 +128,7 @@ import ProviderLogo from '../ui/ProviderLogo.astro';
   .field-value {
     display: flex; align-items: center; justify-content: space-between;
     padding: 11px 14px; background: theme('colors.warm-gray');
-    border: 1px solid theme('colors.divider'); border-radius: 8px;
+    border: 1px solid theme('colors.divider'); border-radius: theme('borderRadius.input');
     font-size: 13px; font-weight: 500; gap: 12px;
   }
   .pchip { display: inline-flex; align-items: center; gap: 8px; }
@@ -141,7 +141,7 @@ import ProviderLogo from '../ui/ProviderLogo.astro';
   .runner {
     flex: 1; padding: 9px 6px; text-align: center;
     border: 1px solid theme('colors.divider'); background: theme('colors.warm-gray');
-    border-radius: 8px; font-size: 12px; font-weight: 500; color: theme('colors.slate-gray');
+    border-radius: theme('borderRadius.input'); font-size: 12px; font-weight: 500; color: theme('colors.slate-gray');
   }
   .runner.active { border-color: theme('colors.brand-blue.DEFAULT'); background: theme('colors.baby-blue'); color: theme('colors.brand-blue.DEFAULT'); }
 
@@ -200,7 +200,7 @@ import ProviderLogo from '../ui/ProviderLogo.astro';
   .done-card {
     display: flex; align-items: center; gap: 10px; padding: 12px 14px;
     background: theme('colors.success-bg');
-    border: 1px solid rgba(0,125,30,0.18); border-radius: 10px;
+    border: 1px solid theme('colors.success-border'); border-radius: theme('borderRadius.input');
   }
   .done-icon {
     width: 26px; height: 26px; border-radius: 100px;

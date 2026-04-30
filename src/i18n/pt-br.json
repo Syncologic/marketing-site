@@ -45,6 +45,7 @@
     "errorNetwork": "Couldn't reach the server. Try again?",
     "errorRate": "Slow down — try again in a minute.",
     "step2Title": "Help us build this for you",
+    "step2Intro": "7 quick questions.",
     "step2Skip": "Skip — finish later",
     "step2Done": "Done",
     "questionUseCase": "What are you trying to move?",

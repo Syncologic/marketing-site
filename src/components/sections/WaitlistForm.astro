@@ -45,12 +45,12 @@ const sourcePage = Astro.url.pathname;
 
     <div class="waitlist-step2 hidden mt-8 text-left" data-row-id="" data-token="" data-segment-hint={segmentHint ?? ''}>
       <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{t('waitlist.step2Title')}</h3>
-      <p class="text-caption text-slate-gray mb-6">7 quick questions. <button type="button" class="step2-skip underline">{t('waitlist.step2Skip')}</button></p>
+      <p class="text-caption text-slate-gray mb-6">{t('waitlist.step2Intro')} <button type="button" class="step2-skip underline">{t('waitlist.step2Skip')}</button></p>
 
       <div class="step2-questions space-y-4"></div>
 
-      <div class="step2-controls hidden mt-6 flex justify-end">
-        <button type="button" class="step2-done bg-brand-blue text-white rounded-pill px-6 py-2 text-caption font-medium">{t('waitlist.step2Done')}</button>
+      <div class="step2-controls hidden mt-6 justify-end">
+        <Button type="button" variant="primary" size="sm" class="step2-done">{t('waitlist.step2Done')}</Button>
       </div>
     </div>
   </div>
@@ -264,7 +264,10 @@ const sourcePage = Astro.url.pathname;
             b.dataset.selected = b.dataset.value === opt.value ? 'true' : 'false';
           });
           patch({ [q.field]: opt.value });
-          if (Object.keys(answers).length === QUESTIONS.length) controls.classList.remove('hidden');
+          if (Object.keys(answers).length === QUESTIONS.length) {
+            controls.classList.remove('hidden');
+            controls.classList.add('flex');
+          }
         });
         grid.appendChild(btn);
       });
