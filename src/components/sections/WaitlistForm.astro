@@ -1,0 +1,116 @@
+---
+import Button from '../ui/Button.astro';
+import Input from '../ui/Input.astro';
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+import type { WaitlistPost } from '../../lib/validation';
+
+interface Props {
+  segmentHint?: WaitlistPost['segment_hint'];
+  id?: string;
+}
+
+const { segmentHint = null, id = 'waitlist' } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const sourcePage = Astro.url.pathname;
+---
+
+<section id={id} data-locale={locale} class="bg-white py-section">
+  <div class="container-wide max-w-2xl text-center">
+    <h2 class="text-h1 font-medium text-dark-charcoal mb-4">{t('nav.joinWaitlist')}</h2>
+    <p class="text-body text-slate-gray mb-8">{t('site.tagline')}</p>
+
+    <form
+      class="waitlist-form-step1 flex flex-col sm:flex-row gap-3 justify-center"
+      data-source-page={sourcePage}
+      data-locale={locale}
+      data-segment-hint={segmentHint}
+      novalidate
+    >
+      <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+      <Input type="email" name="email" required placeholder={t('waitlist.emailPlaceholder')} ariaLabel={t('waitlist.emailLabel')} class="sm:max-w-xs" />
+      <Button type="submit" variant="primary">
+        <span class="btn-label-default">{t('waitlist.submit')}</span>
+        <span class="btn-label-loading hidden">{t('waitlist.submitting')}</span>
+      </Button>
+    </form>
+    <p
+      class="waitlist-msg mt-3 text-caption text-slate-gray min-h-[20px]"
+      role="status"
+      aria-live="polite"
+      data-msg-success={t('waitlist.success')}
+      data-msg-error-network={t('waitlist.errorNetwork')}
+      data-msg-error-rate={t('waitlist.errorRate')}
+    ></p>
+
+    <div class="waitlist-step2 hidden mt-8" data-row-id="" data-token="">
+      <!-- Step 2 content rendered by Task 23 -->
+    </div>
+  </div>
+</section>
+
+<script>
+  type Stage1Result = { id: string; token: string; status: 'created' | 'existed' };
+
+  document.querySelectorAll<HTMLFormElement>('.waitlist-form-step1').forEach((form) => {
+    const msg = form.parentElement!.querySelector<HTMLElement>('.waitlist-msg')!;
+    const step2 = form.parentElement!.querySelector<HTMLElement>('.waitlist-step2')!;
+    const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const labelDefault = submitBtn.querySelector<HTMLElement>('.btn-label-default')!;
+    const labelLoading = submitBtn.querySelector<HTMLElement>('.btn-label-loading')!;
+    const locale = form.dataset.locale ?? 'en';
+    const sourcePage = form.dataset.sourcePage ?? '/';
+    const segmentHint = form.dataset.segmentHint || null;
+    const messages = {
+      success: msg.dataset.msgSuccess ?? '',
+      errorNetwork: msg.dataset.msgErrorNetwork ?? '',
+      errorRate: msg.dataset.msgErrorRate ?? '',
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const email = String(fd.get('email') ?? '').trim();
+      const honeypot = String(fd.get('website') ?? '');
+      if (!email || honeypot) return;
+
+      msg.textContent = '';
+      labelDefault.classList.add('hidden');
+      labelLoading.classList.remove('hidden');
+      submitBtn.disabled = true;
+
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email, locale, source_page: sourcePage, segment_hint: segmentHint }),
+        });
+
+        if (res.status === 429) {
+          msg.textContent = messages.errorRate;
+          return;
+        }
+        if (!res.ok) {
+          msg.textContent = messages.errorNetwork;
+          return;
+        }
+
+        const data = (await res.json()) as Stage1Result;
+        msg.textContent = messages.success;
+        step2.dataset.rowId = data.id;
+        step2.dataset.token = data.token;
+        step2.classList.remove('hidden');
+        form.classList.add('hidden');
+        try {
+          localStorage.setItem(`waitlist:${data.id}`, JSON.stringify({ token: data.token, email }));
+        } catch {}
+      } catch {
+        msg.textContent = messages.errorNetwork;
+      } finally {
+        labelDefault.classList.remove('hidden');
+        labelLoading.classList.add('hidden');
+        submitBtn.disabled = false;
+      }
+    });
+  });
+</script>
