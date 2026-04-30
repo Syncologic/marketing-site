@@ -1,0 +1,219 @@
+---
+import ProviderLogo from '../ui/ProviderLogo.astro';
+---
+
+<div
+  class="visual"
+  role="img"
+  aria-label="Demonstration: 2,341 files transferring from Google Drive to OneDrive via the Cloud Runner. Transfer complete."
+>
+  <div class="window-chrome" aria-hidden="true">
+    <div class="window-dots"><span></span><span></span><span></span></div>
+    <div class="window-title">Transfer · /Photos 2024</div>
+    <div class="view-toggle">
+      <span class="on">Compact</span>
+      <span>Detailed</span>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="field-row">
+      <span class="field-label">Source</span>
+      <div class="field-value">
+        <span class="pchip">
+          <ProviderLogo provider="google-drive" size={18} />
+          Google Drive · /Photos 2024
+        </span>
+        <span class="meta-group">
+          <span class="files">2,341 files</span>
+          <span class="meta-divider"></span>
+          <span class="delta-source">1.80 GB</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <span class="field-label">Destination</span>
+      <div class="field-value">
+        <span class="pchip">
+          <ProviderLogo provider="onedrive" size={18} />
+          OneDrive · /Backup
+        </span>
+        <span class="meta-group">
+          <span class="files">empty</span>
+          <span class="meta-divider"></span>
+          <span class="delta-dest">+1.80 GB</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <span class="field-label">Runner</span>
+      <div class="runner-row">
+        <div class="runner active">Cloud</div>
+        <div class="runner">Browser</div>
+        <div class="runner">Private</div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <span class="field-label">Status</span>
+      <div class="status-block">
+        <div class="status progress">
+          <div class="step-row">
+            <div class="progress-line step-1">
+              <span class="count">Transferring · 0 / 2,341 files · 0.00 / 1.80 GB</span>
+              <span class="pct">0%</span>
+            </div>
+            <div class="progress-line step-2">
+              <span class="count">Transferring · 585 / 2,341 files · 0.45 / 1.80 GB</span>
+              <span class="pct">25%</span>
+            </div>
+            <div class="progress-line step-3">
+              <span class="count">Transferring · 1,170 / 2,341 files · 0.90 / 1.80 GB</span>
+              <span class="pct">50%</span>
+            </div>
+            <div class="progress-line step-4">
+              <span class="count">Transferring · 1,756 / 2,341 files · 1.35 / 1.80 GB</span>
+              <span class="pct">75%</span>
+            </div>
+            <div class="progress-line step-5">
+              <span class="count">Transferring · 2,341 / 2,341 files · 1.80 / 1.80 GB</span>
+              <span class="pct">100%</span>
+            </div>
+          </div>
+          <div class="progress-track"><div class="progress-fill"></div></div>
+        </div>
+        <div class="status done">
+          <div class="done-card">
+            <div class="done-icon" aria-hidden="true">✓</div>
+            <div class="done-text">
+              <strong>Transfer complete</strong>
+              <span class="meta">2,341 files · 1.80 GB · 4 min 12 s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .visual {
+    background: #FFFFFF;
+    border: 1px solid theme('colors.divider');
+    border-radius: theme('borderRadius.card');
+    overflow: hidden;
+    box-shadow: theme('boxShadow.card-elevated');
+    position: relative;
+  }
+  .window-chrome {
+    display: flex; align-items: center; padding: 10px 14px;
+    background: theme('colors.warm-gray');
+    border-bottom: 1px solid theme('colors.divider');
+    gap: 10px;
+  }
+  .window-dots { display: flex; gap: 6px; }
+  .window-dots span { width: 10px; height: 10px; border-radius: 100px; }
+  .window-dots span:nth-child(1) { background: #FF5F57; }
+  .window-dots span:nth-child(2) { background: #FEBC2E; }
+  .window-dots span:nth-child(3) { background: #28C840; }
+  .window-title { flex: 1; text-align: center; font-size: 11px; color: theme('colors.slate-gray'); font-weight: 500; }
+  .view-toggle { display: flex; background: #FFFFFF; border: 1px solid theme('colors.divider'); border-radius: 100px; padding: 2px; font-size: 10px; font-weight: 500; }
+  .view-toggle span { padding: 3px 9px; border-radius: 100px; color: theme('colors.slate-gray'); }
+  .view-toggle span.on { background: theme('colors.brand-blue.DEFAULT'); color: white; }
+  .card-body { padding: 24px; display: flex; flex-direction: column; gap: 18px; }
+  .field-row { display: flex; flex-direction: column; gap: 6px; }
+  .field-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: theme('colors.slate-gray'); }
+  .field-value {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 14px; background: theme('colors.warm-gray');
+    border: 1px solid theme('colors.divider'); border-radius: 8px;
+    font-size: 13px; font-weight: 500; gap: 12px;
+  }
+  .pchip { display: inline-flex; align-items: center; gap: 8px; }
+  .meta-group { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 400; }
+  .files { color: theme('colors.slate-gray'); }
+  .delta-source { color: theme('colors.slate-gray'); font-weight: 500; }
+  .delta-dest   { color: theme('colors.success'); font-weight: 600; }
+  .meta-divider { width: 3px; height: 3px; border-radius: 100px; background: theme('colors.divider'); }
+  .runner-row { display: flex; gap: 6px; }
+  .runner {
+    flex: 1; padding: 9px 6px; text-align: center;
+    border: 1px solid theme('colors.divider'); background: theme('colors.warm-gray');
+    border-radius: 8px; font-size: 12px; font-weight: 500; color: theme('colors.slate-gray');
+  }
+  .runner.active { border-color: theme('colors.brand-blue.DEFAULT'); background: theme('colors.baby-blue'); color: theme('colors.brand-blue.DEFAULT'); }
+
+  .status-block { position: relative; min-height: 64px; }
+  .status { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 10px; opacity: 0; }
+  .status.progress { animation: phaseProgress 14s infinite; }
+  .status.done     { animation: phaseDone 14s infinite; }
+
+  @keyframes phaseProgress {
+    0%, 3%      { opacity: 0; transform: translateY(4px); }
+    7%, 43%     { opacity: 1; transform: translateY(0); }
+    46%, 100%   { opacity: 0; transform: translateY(-4px); }
+  }
+  @keyframes phaseDone {
+    0%, 46%     { opacity: 0; transform: translateY(4px); }
+    50%, 93%    { opacity: 1; transform: translateY(0); }
+    97%, 100%   { opacity: 0; transform: translateY(-4px); }
+  }
+
+  .step-row { position: relative; height: 18px; }
+  .progress-line {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; font-weight: 500; gap: 8px;
+    font-variant-numeric: tabular-nums;
+    opacity: 0;
+  }
+  .progress-line .count { color: theme('colors.dark-charcoal'); }
+  .progress-line .pct   { color: theme('colors.brand-blue.DEFAULT'); font-weight: 600; flex-shrink: 0; }
+
+  .step-1 { animation: step1 14s infinite; }
+  .step-2 { animation: step2 14s infinite; }
+  .step-3 { animation: step3 14s infinite; }
+  .step-4 { animation: step4 14s infinite; }
+  .step-5 { animation: step5 14s infinite; }
+
+  @keyframes step1 { 0%, 6.5% { opacity: 0; } 7%, 14.5% { opacity: 1; } 15%, 100% { opacity: 0; } }
+  @keyframes step2 { 0%, 14.5% { opacity: 0; } 15%, 22.5% { opacity: 1; } 23%, 100% { opacity: 0; } }
+  @keyframes step3 { 0%, 22.5% { opacity: 0; } 23%, 30.5% { opacity: 1; } 31%, 100% { opacity: 0; } }
+  @keyframes step4 { 0%, 30.5% { opacity: 0; } 31%, 38% { opacity: 1; } 38.5%, 100% { opacity: 0; } }
+  @keyframes step5 { 0%, 38% { opacity: 0; } 38.5%, 42.5% { opacity: 1; } 43%, 100% { opacity: 0; } }
+
+  .progress-track { width: 100%; height: 6px; background: theme('colors.divider'); border-radius: 100px; overflow: hidden; }
+  .progress-fill {
+    height: 100%; background: theme('colors.brand-blue.DEFAULT'); border-radius: 100px;
+    width: 0%; animation: forwardOnly 14s infinite linear;
+  }
+  @keyframes forwardOnly {
+    0%, 7% { width: 0%; }
+    38.5%  { width: 100%; }
+    43%    { width: 100%; }
+    43.01% { width: 0%; }
+    100%   { width: 0%; }
+  }
+
+  .done-card {
+    display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+    background: theme('colors.success-bg');
+    border: 1px solid rgba(0,125,30,0.18); border-radius: 10px;
+  }
+  .done-icon {
+    width: 26px; height: 26px; border-radius: 100px;
+    background: theme('colors.success'); color: white;
+    display: grid; place-items: center; font-size: 14px; font-weight: 700; flex-shrink: 0;
+  }
+  .done-text { font-size: 13px; line-height: 1.4; }
+  .done-text strong { color: theme('colors.success'); font-weight: 600; }
+  .done-text .meta { color: theme('colors.slate-gray'); font-size: 11px; display: block; margin-top: 2px; }
+
+  /* Reduced motion: show success state statically, skip cycling */
+  @media (prefers-reduced-motion: reduce) {
+    .status.progress { display: none; }
+    .status.done { opacity: 1 !important; transform: none !important; animation: none !important; }
+  }
+</style>
