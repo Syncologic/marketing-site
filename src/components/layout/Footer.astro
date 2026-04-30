@@ -1,0 +1,48 @@
+---
+import { getLocaleFromUrl, getT, localizedPath } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const year = new Date().getFullYear();
+const pathname = Astro.url.pathname;
+---
+
+<footer class="bg-soft-gray border-t border-divider">
+  <div class="container-wide py-section">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="col-span-2 md:col-span-1">
+        <a href={localizedPath(locale, '/')} class="flex items-center gap-2 mb-4">
+          <img src="/assets/brand/icon-black.png" alt={t('site.name')} width="32" height="32" class="rounded-input" />
+          <span class="text-compact font-medium">{t('site.name').toLowerCase()}</span>
+        </a>
+        <p class="text-caption text-slate-gray max-w-xs">{t('site.tagline')}</p>
+      </div>
+
+      <div>
+        <h3 class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{t('footer.product')}</h3>
+        <ul class="space-y-2 text-caption">
+          <li><a href={localizedPath(locale, '/pricing')} class="hover:underline">{t('nav.pricing')}</a></li>
+          <li><a href={localizedPath(locale, '/self-hosted')} class="hover:underline">{t('nav.selfHosted')}</a></li>
+          <li><a href={localizedPath(locale, '/developers')} class="hover:underline">{t('nav.developers')}</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{t('footer.resources')}</h3>
+        <ul class="space-y-2 text-caption">
+          <li><a href={localizedPath(locale, '/use-cases/cloud-to-cloud-transfer')} class="hover:underline">{t('nav.useCases')}</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{t('language.label')}</h3>
+        <ul class="space-y-2 text-caption">
+          <li><a href={localizedPath('en', pathname)} class="hover:underline" hreflang="en">{t('language.en')}</a></li>
+          <li><a href={localizedPath('pt-br', pathname)} class="hover:underline" hreflang="pt-br">{t('language.pt-br')}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="text-small text-slate-gray mt-12">{t('footer.copyright', { year })}</p>
+  </div>
+</footer>
