@@ -1,0 +1,52 @@
+---
+interface Props {
+  type?: 'text' | 'email' | 'tel';
+  name: string;
+  id?: string;
+  placeholder?: string;
+  value?: string;
+  required?: boolean;
+  autocomplete?: string;
+  ariaLabel?: string;
+  ariaDescribedBy?: string;
+  ariaInvalid?: boolean;
+  class?: string;
+}
+
+const {
+  type = 'text',
+  name,
+  id,
+  placeholder,
+  value,
+  required,
+  autocomplete,
+  ariaLabel,
+  ariaDescribedBy,
+  ariaInvalid,
+  class: extra = '',
+} = Astro.props;
+
+const classes = [
+  'w-full px-4 py-3 bg-white border border-divider rounded-input text-compact text-dark-charcoal',
+  'placeholder:text-slate-gray',
+  'focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/30 focus:outline-none',
+  'aria-[invalid=true]:border-error aria-[invalid=true]:ring-error/30',
+  'transition-colors duration-200',
+  extra,
+].join(' ');
+---
+
+<input
+  type={type}
+  name={name}
+  id={id ?? name}
+  placeholder={placeholder}
+  value={value}
+  required={required}
+  autocomplete={autocomplete}
+  aria-label={ariaLabel}
+  aria-describedby={ariaDescribedBy}
+  aria-invalid={ariaInvalid ? 'true' : undefined}
+  class={classes}
+/>
