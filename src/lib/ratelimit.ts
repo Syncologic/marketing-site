@@ -1,5 +1,10 @@
-import { kv } from '@vercel/kv';
+import { createClient } from '@vercel/kv';
 import { createHash } from 'node:crypto';
+
+const kv = createClient({
+  url: import.meta.env.KV_REST_API_URL,
+  token: import.meta.env.KV_REST_API_TOKEN,
+});
 
 export function hashIp(ip: string): string {
   return createHash('sha256')
