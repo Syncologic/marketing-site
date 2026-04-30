@@ -16,7 +16,7 @@ create table if not exists waitlist (
   user_agent                  text,
   referrer                    text,
   ip_hash                     text,
-  unsubscribe_token           text default encode(gen_random_bytes(16), 'hex'),
+  unsubscribe_token           text default encode(extensions.gen_random_bytes(16), 'hex'),
   segmentation_completed_at   timestamptz,
   removed_at                  timestamptz,
   confirmed_at                timestamptz,
