@@ -1,0 +1,62 @@
+---
+type ProviderId = 'google-drive' | 'onedrive' | 'dropbox' | 's3' | 'sftp' | 'webdav' | 'nextcloud';
+
+interface Props {
+  provider: ProviderId;
+  size?: number;
+  class?: string;
+}
+
+const { provider, size = 24, class: extra = '' } = Astro.props;
+const dim = `${size}px`;
+---
+
+{provider === 'google-drive' && (
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="Google Drive">
+    <path fill="#0066DA" d="M2.5 16.5L4 19l3 1.5h10l3-1.5 1.5-2.5h-19z" />
+    <path fill="#00AC47" d="M7 4.5L2.5 12.5l2.5 4 5-9z" />
+    <path fill="#EA4335" d="M17 4.5h-5l5 9 4-7z" />
+    <path fill="#FFBA00" d="M12 4.5L7 13l5 9 5-9z" opacity="0" />
+  </svg>
+)}
+
+{provider === 'onedrive' && (
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="OneDrive">
+    <path fill="#0078D4" d="M14 8a5 5 0 0 0-9.6 1.7A4 4 0 0 0 5 17h13a3 3 0 0 0 .4-6 5 5 0 0 0-4.4-3z" />
+  </svg>
+)}
+
+{provider === 'dropbox' && (
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="Dropbox">
+    <path fill="#0061FF" d="M6 4l6 4-6 4-6-4zm12 0l6 4-6 4-6-4zm-12 9l6 4-6 4-6-4zm12 0l6 4-6 4-6-4zM6 18l6-4 6 4-6 4z" transform="scale(0.5) translate(12 4)" />
+    <path fill="#0061FF" d="M3 6l4.5 3-4.5 3-4.5-3zm9 0l4.5 3-4.5 3-4.5-3zm-9 6l4.5 3-4.5 3-4.5-3zm9 0l4.5 3-4.5 3-4.5-3zm-4.5 6l4.5-3 4.5 3-4.5 3z" transform="translate(4.5)" />
+  </svg>
+)}
+
+{provider === 's3' && (
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="S3-compatible storage">
+    <rect width="24" height="24" rx="6" fill="#FF9900" />
+    <text x="12" y="16" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="700" font-size="11">S3</text>
+  </svg>
+)}
+
+{provider === 'sftp' && (
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="SFTP">
+    <rect width="24" height="24" rx="6" fill="#5D6C7B" />
+    <path fill="white" d="M7 9h10v2H7zM7 13h10v2H7z" />
+  </svg>
+)}
+
+{provider === 'webdav' && (
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="WebDAV">
+    <rect width="24" height="24" rx="6" fill="#1C2B33" />
+    <text x="12" y="15.5" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="700" font-size="9">DAV</text>
+  </svg>
+)}
+
+{provider === 'nextcloud' && (
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="Nextcloud">
+    <rect width="24" height="24" rx="6" fill="#0082C9" />
+    <path fill="white" d="M9 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm6 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" opacity="0.9" />
+  </svg>
+)}
