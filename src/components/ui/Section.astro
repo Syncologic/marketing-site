@@ -1,0 +1,35 @@
+---
+type Surface = 'white' | 'soft' | 'dark';
+type Padding = 'sm' | 'md' | 'lg';
+
+interface Props {
+  surface?: Surface;
+  padding?: Padding;
+  class?: string;
+  id?: string;
+  as?: 'section' | 'div' | 'header' | 'footer';
+}
+
+const { surface = 'white', padding = 'lg', class: extra = '', id, as = 'section' } = Astro.props as Props;
+
+const surfaces: Record<Surface, string> = {
+  white: 'bg-white text-dark-charcoal',
+  soft: 'bg-soft-gray text-dark-charcoal',
+  dark: 'bg-near-black text-white',
+};
+
+const paddings: Record<Padding, string> = {
+  sm: 'py-section-sm',
+  md: 'py-section',
+  lg: 'py-section-lg',
+};
+
+const classes = [surfaces[surface], paddings[padding], extra].filter(Boolean).join(' ');
+const Tag = as;
+---
+
+<Tag id={id} class={classes} data-surface={surface}>
+  <div class="container-wide">
+    <slot />
+  </div>
+</Tag>
