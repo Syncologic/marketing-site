@@ -1,0 +1,52 @@
+---
+import '../../styles/global.css';
+import { getLocaleFromUrl, pathWithoutLocale, localizedPath, getT } from '../../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'http://localhost:4321';
+const pathSansLocale = pathWithoutLocale(Astro.url.pathname);
+const canonical = `${siteUrl}${localizedPath(locale, pathSansLocale)}`;
+const altEn = `${siteUrl}${localizedPath('en', pathSansLocale)}`;
+const altPt = `${siteUrl}${localizedPath('pt-br', pathSansLocale)}`;
+const og = ogImage ?? `${siteUrl}/og-default.png`;
+---
+
+<!DOCTYPE html>
+<html lang={locale === 'pt-br' ? 'pt-BR' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={altEn} />
+    <link rel="alternate" hreflang="pt-br" href={altPt} />
+    <link rel="alternate" hreflang="x-default" href={altEn} />
+    <link rel="icon" href="/assets/brand/icon-black.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:site_name" content={t('site.name')} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={og} />
+  </head>
+  <body>
+    <slot name="nav" />
+    <main id="main">
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>
