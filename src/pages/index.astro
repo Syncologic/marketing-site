@@ -1,0 +1,98 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import Nav from '../components/layout/Nav.astro';
+import Footer from '../components/layout/Footer.astro';
+import Section from '../components/ui/Section.astro';
+import Button from '../components/ui/Button.astro';
+import TransferPlanner from '../components/homepage/TransferPlanner.astro';
+import ProviderRow from '../components/sections/ProviderRow.astro';
+import RunnerCards from '../components/sections/RunnerCards.astro';
+import UseCaseRouter from '../components/sections/UseCaseRouter.astro';
+import TrustStory from '../components/sections/TrustStory.astro';
+import WaitlistForm from '../components/sections/WaitlistForm.astro';
+import StickyWaitlistBar from '../components/sections/StickyWaitlistBar.astro';
+import { getT } from '../i18n/utils';
+
+const t = getT('en');
+const title = `${t('site.name')} — ${t('site.tagline')}`;
+const description = t('site.description');
+---
+
+<Layout title={title} description={description}>
+  <Nav slot="nav" />
+
+  <Section surface="white" padding="lg" class="!py-section-sm lg:!py-section-lg">
+    <div data-hero class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <span
+          class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-5 block"
+        >
+          {t('homepage.heroEyebrow')}
+        </span>
+        <h1
+          class="text-display-2 lg:text-display-1 font-medium text-dark-charcoal mb-5 leading-[1.14] tracking-tight"
+        >
+          {t('site.tagline')}
+        </h1>
+        <p class="text-body text-slate-gray mb-8 max-w-lg">
+          {t('homepage.heroBody')}
+        </p>
+        <div class="flex gap-3 flex-wrap">
+          <Button href="#waitlist" variant="primary" size="lg">
+            {t('nav.joinWaitlist')}
+          </Button>
+          <Button href="#how-it-works" variant="secondary" size="lg">
+            {t('homepage.heroSecondaryCta')}
+          </Button>
+        </div>
+      </div>
+      <div>
+        <TransferPlanner />
+      </div>
+    </div>
+  </Section>
+
+  <Section surface="soft" padding="md">
+    <p
+      class="text-caption text-center text-slate-gray uppercase tracking-wide mb-2"
+    >
+      {t('homepage.providersLabel')}
+    </p>
+    <ProviderRow />
+  </Section>
+
+  <Section surface="white" padding="lg" id="how-it-works">
+    <div class="text-center mb-12">
+      <h2 class="text-h1 font-medium mb-3">{t('homepage.runnersTitle')}</h2>
+      <p class="text-body text-slate-gray max-w-xl mx-auto">
+        {t('homepage.runnersSubtitle')}
+      </p>
+    </div>
+    <RunnerCards />
+  </Section>
+
+  <Section surface="soft" padding="lg">
+    <div class="text-center mb-12">
+      <h2 class="text-h1 font-medium mb-3">{t('homepage.useCasesTitle')}</h2>
+      <p class="text-body text-slate-gray max-w-xl mx-auto">
+        {t('homepage.useCasesSubtitle')}
+      </p>
+    </div>
+    <UseCaseRouter />
+  </Section>
+
+  <Section surface="white" padding="lg">
+    <div class="text-center mb-12">
+      <h2 class="text-h1 font-medium mb-3">{t('homepage.trustTitle')}</h2>
+      <p class="text-body text-slate-gray max-w-xl mx-auto">
+        {t('homepage.trustSubtitle')}
+      </p>
+    </div>
+    <TrustStory />
+  </Section>
+
+  <WaitlistForm />
+
+  <Footer slot="footer" />
+  <StickyWaitlistBar />
+</Layout>

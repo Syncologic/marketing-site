@@ -1,7 +1,20 @@
 {
   "site": {
     "name": "Syncologic",
-    "tagline": "Move files between clouds without downloading them first."
+    "tagline": "Move files between clouds without downloading them first.",
+    "description": "Connect a source and destination, preview what changes, then run the transfer in the cloud or on your own machine."
+  },
+  "homepage": {
+    "heroEyebrow": "Cloud-to-cloud transfer",
+    "heroBody": "Connect a source and destination, preview what changes, then run the transfer in the cloud or on your own machine.",
+    "heroSecondaryCta": "See how it works",
+    "providersLabel": "Connects to",
+    "runnersTitle": "Three ways to run a transfer",
+    "runnersSubtitle": "Pick the runner that matches your trust and convenience needs.",
+    "useCasesTitle": "Find your use case",
+    "useCasesSubtitle": "We're building for several different audiences — start with the one that fits.",
+    "trustTitle": "Built around your trust",
+    "trustSubtitle": "No surprises. No silent changes. You see what runs, where, and what changed."
   },
   "nav": {
     "useCases": "Use cases",
