@@ -13,50 +13,125 @@ const dim = `${size}px`;
 
 {provider === 'google-drive' && (
   <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="Google Drive">
-    <path fill="#0066DA" d="M2.5 16.5L4 19l3 1.5h10l3-1.5 1.5-2.5h-19z" />
-    <path fill="#00AC47" d="M7 4.5L2.5 12.5l2.5 4 5-9z" />
-    <path fill="#EA4335" d="M17 4.5h-5l5 9 4-7z" />
-    <path fill="#FFBA00" d="M12 4.5L7 13l5 9 5-9z" opacity="0" />
+    <rect x="0.5" y="0.5" width="23" height="23" rx="5.5" fill="#FFFFFF" stroke="#DEE3E9" />
+    <g transform="translate(4 4.852) scale(0.18327)">
+      <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
+      <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/>
+      <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/>
+      <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
+      <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/>
+      <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/>
+    </g>
   </svg>
 )}
 
 {provider === 'onedrive' && (
-  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="OneDrive">
-    <path fill="#0078D4" d="M14 8a5 5 0 0 0-9.6 1.7A4 4 0 0 0 5 17h13a3 3 0 0 0 .4-6 5 5 0 0 0-4.4-3z" />
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="OneDrive" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="od-r0" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(130.864814,156.804864,-260.089994,217.063603,48.669602,228.766494)">
+        <stop offset="0" stop-color="#4894FE"/>
+        <stop offset="0.695072" stop-color="#0934B3"/>
+      </radialGradient>
+      <radialGradient id="od-r1" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(-575.289668,663.594003,-491.728488,-426.294267,596.956501,-6.380235)">
+        <stop offset="0.165327" stop-color="#23C0FE"/>
+        <stop offset="0.534" stop-color="#1C91FF"/>
+      </radialGradient>
+      <radialGradient id="od-r2" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(-136.753383,-114.806698,262.816935,-313.057562,181.196995,240.395994)">
+        <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.4"/>
+        <stop offset="0.660528" stop-color="#ADC0FF" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="od-r3" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(-153.638428,-130.000063,197.433014,-233.332948,375.353994,451.43549)">
+        <stop offset="0" stop-color="#033ACC"/>
+        <stop offset="1" stop-color="#368EFF" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="od-r4" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(175.585899,405.198026,-437.434522,189.555055,169.378495,125.589294)">
+        <stop offset="0.592618" stop-color="#3464E3" stop-opacity="0"/>
+        <stop offset="1" stop-color="#033ACC" stop-opacity="0.6"/>
+      </radialGradient>
+      <radialGradient id="od-r5" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(-459.329491,459.329491,-719.614455,-719.614455,589.876499,39.484649)">
+        <stop offset="0" stop-color="#4BFDE8" stop-opacity="0.898"/>
+        <stop offset="0.543937" stop-color="#4BFDE8" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="od-l0" gradientUnits="userSpaceOnUse" x1="29.999701" y1="37.9823" x2="29.999701" y2="18.398199" gradientTransform="matrix(15,0,0,15,0,0)">
+        <stop offset="0" stop-color="#0086FF"/>
+        <stop offset="0.49" stop-color="#00BBFF"/>
+      </linearGradient>
+      <radialGradient id="od-r6" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(273.622108,108.513684,-205.488428,518.148261,296.488495,307.441492)">
+        <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.4"/>
+        <stop offset="0.785262" stop-color="#FFFFFF" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="od-r7" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(-305.683909,263.459223,-264.352324,-306.720147,674.845505,249.378004)">
+        <stop offset="0" stop-color="#4BFDE8" stop-opacity="0.898"/>
+        <stop offset="0.584724" stop-color="#4BFDE8" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect x="0.5" y="0.5" width="23" height="23" rx="5.5" fill="#FFFFFF" stroke="#DEE3E9" />
+    <g transform="translate(4 6.681) scale(0.02469) translate(-35.98 -139.2)">
+      <path fill="url(#od-r0)" d="M 215.078125 205.089844 C 116.011719 205.09375 41.957031 286.1875 36.382812 376.527344 C 39.835938 395.992188 51.175781 434.429688 68.941406 432.457031 C 91.144531 429.988281 147.066406 432.457031 194.765625 346.105469 C 229.609375 283.027344 301.285156 205.085938 215.078125 205.089844 Z"/>
+      <path fill="url(#od-r1)" d="M 192.171875 238.8125 C 158.871094 291.535156 114.042969 367.085938 98.914062 390.859375 C 80.929688 419.121094 33.304688 407.113281 37.25 366.609375 C 36.863281 369.894531 36.5625 373.210938 36.355469 376.546875 C 29.84375 481.933594 113.398438 569.453125 217.375 569.453125 C 331.96875 569.453125 605.269531 426.671875 577.609375 283.609375 C 548.457031 199.519531 466.523438 139.203125 373.664062 139.203125 C 280.808594 139.203125 221.296875 192.699219 192.171875 238.8125 Z"/>
+      <path fill="url(#od-r2)" d="M 192.171875 238.8125 C 158.871094 291.535156 114.042969 367.085938 98.914062 390.859375 C 80.929688 419.121094 33.304688 407.113281 37.25 366.609375 C 36.863281 369.894531 36.5625 373.210938 36.355469 376.546875 C 29.84375 481.933594 113.398438 569.453125 217.375 569.453125 C 331.96875 569.453125 605.269531 426.671875 577.609375 283.609375 C 548.457031 199.519531 466.523438 139.203125 373.664062 139.203125 C 280.808594 139.203125 221.296875 192.699219 192.171875 238.8125 Z"/>
+      <path fill="url(#od-r3)" d="M 192.171875 238.8125 C 158.871094 291.535156 114.042969 367.085938 98.914062 390.859375 C 80.929688 419.121094 33.304688 407.113281 37.25 366.609375 C 36.863281 369.894531 36.5625 373.210938 36.355469 376.546875 C 29.84375 481.933594 113.398438 569.453125 217.375 569.453125 C 331.96875 569.453125 605.269531 426.671875 577.609375 283.609375 C 548.457031 199.519531 466.523438 139.203125 373.664062 139.203125 C 280.808594 139.203125 221.296875 192.699219 192.171875 238.8125 Z"/>
+      <path fill="url(#od-r4)" d="M 192.171875 238.8125 C 158.871094 291.535156 114.042969 367.085938 98.914062 390.859375 C 80.929688 419.121094 33.304688 407.113281 37.25 366.609375 C 36.863281 369.894531 36.5625 373.210938 36.355469 376.546875 C 29.84375 481.933594 113.398438 569.453125 217.375 569.453125 C 331.96875 569.453125 605.269531 426.671875 577.609375 283.609375 C 548.457031 199.519531 466.523438 139.203125 373.664062 139.203125 C 280.808594 139.203125 221.296875 192.699219 192.171875 238.8125 Z"/>
+      <path fill="url(#od-r5)" d="M 192.171875 238.8125 C 158.871094 291.535156 114.042969 367.085938 98.914062 390.859375 C 80.929688 419.121094 33.304688 407.113281 37.25 366.609375 C 36.863281 369.894531 36.5625 373.210938 36.355469 376.546875 C 29.84375 481.933594 113.398438 569.453125 217.375 569.453125 C 331.96875 569.453125 605.269531 426.671875 577.609375 283.609375 C 548.457031 199.519531 466.523438 139.203125 373.664062 139.203125 C 280.808594 139.203125 221.296875 192.699219 192.171875 238.8125 Z"/>
+      <path fill="url(#od-l0)" d="M 215.699219 569.496094 C 215.699219 569.496094 489.320312 570.035156 535.734375 570.035156 C 619.960938 570.035156 684 501.273438 684 421.03125 C 684 340.789062 618.671875 272.445312 535.734375 272.445312 C 452.792969 272.445312 405.027344 334.492188 369.152344 402.226562 C 327.117188 481.59375 273.488281 568.546875 215.699219 569.496094 Z"/>
+      <path fill="url(#od-r6)" d="M 215.699219 569.496094 C 215.699219 569.496094 489.320312 570.035156 535.734375 570.035156 C 619.960938 570.035156 684 501.273438 684 421.03125 C 684 340.789062 618.671875 272.445312 535.734375 272.445312 C 452.792969 272.445312 405.027344 334.492188 369.152344 402.226562 C 327.117188 481.59375 273.488281 568.546875 215.699219 569.496094 Z"/>
+      <path fill="url(#od-r7)" d="M 215.699219 569.496094 C 215.699219 569.496094 489.320312 570.035156 535.734375 570.035156 C 619.960938 570.035156 684 501.273438 684 421.03125 C 684 340.789062 618.671875 272.445312 535.734375 272.445312 C 452.792969 272.445312 405.027344 334.492188 369.152344 402.226562 C 327.117188 481.59375 273.488281 568.546875 215.699219 569.496094 Z"/>
+    </g>
   </svg>
 )}
 
 {provider === 'dropbox' && (
-  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="Dropbox">
-    <path fill="#0061FF" d="M6 4l6 4-6 4-6-4zm12 0l6 4-6 4-6-4zm-12 9l6 4-6 4-6-4zm12 0l6 4-6 4-6-4zM6 18l6-4 6 4-6 4z" transform="scale(0.5) translate(12 4)" />
-    <path fill="#0061FF" d="M3 6l4.5 3-4.5 3-4.5-3zm9 0l4.5 3-4.5 3-4.5-3zm-9 6l4.5 3-4.5 3-4.5-3zm9 0l4.5 3-4.5 3-4.5-3zm-4.5 6l4.5-3 4.5 3-4.5 3z" transform="translate(4.5)" />
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="Dropbox" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0.5" y="0.5" width="23" height="23" rx="5.5" fill="#FFFFFF" stroke="#DEE3E9" />
+    <g transform="translate(4 4) scale(0.5) translate(-89.9 -347.3)">
+      <path fill="#007EE5" d="M99.337 348.42L89.9 354.5l6.533 5.263 9.467-5.837m-16 11l9.437 6.2 6.563-5.505-9.467-5.868m9.467 5.868l6.594 5.505 9.406-6.14-6.503-5.233m6.503-5.203l-9.406-6.14-6.594 5.505 9.497 5.837m-9.467 7.047l-6.594 5.474-2.843-1.845v2.087l9.437 5.656 9.437-5.656v-2.087l-2.843 1.845"/>
+    </g>
   </svg>
 )}
 
 {provider === 's3' && (
-  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="S3-compatible storage">
-    <rect width="24" height="24" rx="6" fill="#FF9900" />
-    <text x="12" y="16" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="700" font-size="11">S3</text>
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="S3-compatible storage" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0.5" y="0.5" width="23" height="23" rx="5.5" fill="#FFFFFF" stroke="#DEE3E9" />
+    <g transform="translate(5.3125 4) scale(0.03125)" fill-rule="evenodd">
+      <path fill="#E25444" d="M378,99L295,257l83,158,34-19V118Z"/>
+      <path fill="#7B1D13" d="M378,99L212,118,127.5,257,212,396l166,19V99Z"/>
+      <path fill="#58150D" d="M43,99L16,111V403l27,12L212,257Z"/>
+      <path fill="#E25444" d="M42.637,98.667l169.587,47.111V372.444L42.637,415.111V98.667Z"/>
+      <path fill="#58150D" d="M212.313,170.667l-72.008-11.556,72.008-81.778,71.83,81.778Z"/>
+      <path fill="#58150D" d="M284.143,159.111l-71.919,11.733-71.919-11.733V77.333"/>
+      <path fill="#58150D" d="M212.313,342.222l-72.008,13.334,72.008,70.222,71.83-70.222Z"/>
+      <path fill="#7B1D13" d="M212,16L140,54V159l72.224-20.333Z"/>
+      <path fill="#7B1D13" d="M212.224,196.444l-71.919,7.823V309.105l71.919,8.228V196.444Z"/>
+      <path fill="#7B1D13" d="M212.224,373.333L140.305,355.3V458.363L212.224,496V373.333Z"/>
+      <path fill="#E25444" d="M284.143,355.3l-71.919,18.038V496l71.919-37.637V355.3Z"/>
+      <path fill="#E25444" d="M212.224,196.444l71.919,7.823V309.105l-71.919,8.228V196.444Z"/>
+      <path fill="#E25444" d="M212,16l72,38V159l-72-20V16Z"/>
+    </g>
   </svg>
 )}
 
 {provider === 'sftp' && (
-  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="SFTP">
-    <rect width="24" height="24" rx="6" fill="#5D6C7B" />
-    <path fill="white" d="M7 9h10v2H7zM7 13h10v2H7z" />
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="SFTP" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0.5" y="0.5" width="23" height="23" rx="5.5" fill="#FFFFFF" stroke="#DEE3E9" />
+    <text x="12" y="14.5" text-anchor="middle" fill="#1C2B33" font-family="Montserrat, sans-serif" font-weight="700" font-size="6.2" letter-spacing="-0.1">SFTP</text>
   </svg>
 )}
 
 {provider === 'webdav' && (
-  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="WebDAV">
-    <rect width="24" height="24" rx="6" fill="#1C2B33" />
-    <text x="12" y="15.5" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="700" font-size="9">DAV</text>
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="WebDAV" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0.5" y="0.5" width="23" height="23" rx="5.5" fill="#FFFFFF" stroke="#DEE3E9" />
+    <text x="12" y="10.5" text-anchor="middle" fill="#1C2B33" font-family="Montserrat, sans-serif" font-weight="700" font-size="5.5">Web</text>
+    <text x="12" y="17" text-anchor="middle" fill="#1C2B33" font-family="Montserrat, sans-serif" font-weight="700" font-size="5.5">DAV</text>
   </svg>
 )}
 
 {provider === 'nextcloud' && (
-  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="Nextcloud">
-    <rect width="24" height="24" rx="6" fill="#0082C9" />
-    <path fill="white" d="M9 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm6 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" opacity="0.9" />
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="Nextcloud" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0.5" y="0.5" width="23" height="23" rx="5.5" fill="#FFFFFF" stroke="#DEE3E9" />
+    <g transform="translate(-0.8 -0.8) scale(0.05)" stroke="#0082C9" stroke-width="33" fill="none">
+      <circle r="40" cy="256" cx="120"/>
+      <circle r="71" cy="256" cx="256"/>
+      <circle r="40" cy="256" cx="392"/>
+    </g>
   </svg>
 )}
