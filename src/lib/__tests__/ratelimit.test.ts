@@ -6,8 +6,8 @@ const kvState = {
   sets: new Map<string, Set<string>>(),
 };
 
-vi.mock('@vercel/kv', () => ({
-  kv: {
+vi.mock('@vercel/kv', () => {
+  const kvMock = {
     incr: vi.fn(async (key: string) => {
       const next = (kvState.counters.get(key) ?? 0) + 1;
       kvState.counters.set(key, next);
@@ -25,8 +25,9 @@ vi.mock('@vercel/kv', () => ({
       return had ? 0 : 1;
     }),
     scard: vi.fn(async (key: string) => kvState.sets.get(key)?.size ?? 0),
-  },
-}));
+  };
+  return { kv: kvMock, createClient: () => kvMock };
+});
 
 import {
   hashIp,
