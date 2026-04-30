@@ -90,6 +90,13 @@
       "desc": "Keep credentials and bytes on your infrastructure."
     }
   },
+  "notFound": {
+    "eyebrow": "Under construction",
+    "title": "This page is on the way.",
+    "body": "We're shipping pages one at a time. The homepage is live; the rest follow soon. Want to know when this one lands?",
+    "backHome": "Back to home",
+    "joinWaitlist": "Join the waitlist"
+  },
   "trust": {
     "preview": {
       "title": "See what will happen first",
