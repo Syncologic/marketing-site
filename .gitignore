@@ -24,3 +24,7 @@ npm-debug.log*
 
 # Brainstorming companion (local mockups)
 .superpowers/
+
+# Claude Code — local-only overrides
+.claude/settings.local.json
+
