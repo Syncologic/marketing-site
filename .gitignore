@@ -31,3 +31,9 @@ npm-debug.log*
 # Git worktrees
 .worktrees/
 
+# Vercel CLI
+.vercel/
+
+# Supabase CLI
+supabase/.temp/
+
