@@ -1,0 +1,65 @@
+---
+import Button from '../ui/Button.astro';
+import { getLocaleFromUrl, getT, localizedPath, pathWithoutLocale } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const path = pathWithoutLocale(Astro.url.pathname);
+
+const useCases = [
+  { slug: 'cloud-to-cloud-transfer', label: 'Cloud-to-cloud transfer' },
+  { slug: 'business-cloud-migration', label: 'Business migration' },
+  { slug: 'scheduled-cloud-backup', label: 'Scheduled backup' },
+  { slug: 'private-runner', label: 'Private Runner' },
+];
+
+const otherLocale = locale === 'en' ? 'pt-br' : 'en';
+const otherLocalePath = localizedPath(otherLocale, path);
+---
+
+<header
+  class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur border-b border-[rgba(0,0,0,0.06)]"
+  data-locale={locale}
+>
+  <nav class="container-wide flex items-center justify-between h-14">
+    <a href={localizedPath(locale, '/')} class="flex items-center gap-2 text-compact font-medium text-dark-charcoal">
+      <img src="/assets/brand/icon-black.png" alt="" width="28" height="28" class="rounded-input" />
+      <span>{t('site.name').toLowerCase()}</span>
+    </a>
+
+    <ul class="hidden lg:flex items-center gap-7 text-compact text-dark-charcoal">
+      <li class="relative group">
+        <button class="flex items-center gap-1 hover:underline" type="button" aria-haspopup="true" aria-expanded="false">
+          {t('nav.useCases')}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <ul class="hidden group-hover:block absolute top-full left-0 mt-2 w-64 bg-white border border-divider rounded-card shadow-card-elevated p-2">
+          {useCases.map((u) => (
+            <li>
+              <a
+                href={localizedPath(locale, `/use-cases/${u.slug}`)}
+                class="block px-3 py-2 text-caption rounded-input hover:bg-soft-gray"
+              >{u.label}</a>
+            </li>
+          ))}
+        </ul>
+      </li>
+      <li><a href={localizedPath(locale, '/pricing')} class="hover:underline">{t('nav.pricing')}</a></li>
+      <li><a href={localizedPath(locale, '/self-hosted')} class="hover:underline">{t('nav.selfHosted')}</a></li>
+      <li><a href={localizedPath(locale, '/developers')} class="hover:underline">{t('nav.developers')}</a></li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <a
+        href={otherLocalePath}
+        class="hidden lg:inline-block text-caption text-slate-gray hover:text-dark-charcoal"
+        aria-label={`${t('language.label')}: ${t(`language.${otherLocale}`)}`}
+      >
+        {otherLocale === 'pt-br' ? 'PT' : 'EN'}
+      </a>
+      <Button href="#waitlist" variant="primary" size="sm">{t('nav.joinWaitlist')}</Button>
+    </div>
+  </nav>
+</header>
