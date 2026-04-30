@@ -34,7 +34,14 @@ const sourcePage = Astro.url.pathname;
         <span class="btn-label-loading hidden">{t('waitlist.submitting')}</span>
       </Button>
     </form>
-    <p class="waitlist-msg mt-3 text-caption text-slate-gray min-h-[20px]" role="status" aria-live="polite"></p>
+    <p
+      class="waitlist-msg mt-3 text-caption text-slate-gray min-h-[20px]"
+      role="status"
+      aria-live="polite"
+      data-msg-success={t('waitlist.success')}
+      data-msg-error-network={t('waitlist.errorNetwork')}
+      data-msg-error-rate={t('waitlist.errorRate')}
+    ></p>
 
     <div class="waitlist-step2 hidden mt-8" data-row-id="" data-token="">
       <!-- Step 2 content rendered by Task 23 -->
@@ -43,21 +50,7 @@ const sourcePage = Astro.url.pathname;
 </section>
 
 <script>
-  type Locale = 'en' | 'pt-br';
   type Stage1Result = { id: string; token: string; status: 'created' | 'existed' };
-
-  const I18N = {
-    en: {
-      success: "✓ You're on the list",
-      errorNetwork: "Couldn't reach the server. Try again?",
-      errorRate: 'Slow down — try again in a minute.',
-    },
-    'pt-br': {
-      success: '✓ Você está na lista',
-      errorNetwork: 'Não consegui falar com o servidor. Tentar de novo?',
-      errorRate: 'Mais devagar — tente daqui a um minuto.',
-    },
-  } as const;
 
   document.querySelectorAll<HTMLFormElement>('.waitlist-form-step1').forEach((form) => {
     const msg = form.parentElement!.querySelector<HTMLElement>('.waitlist-msg')!;
@@ -65,9 +58,14 @@ const sourcePage = Astro.url.pathname;
     const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const labelDefault = submitBtn.querySelector<HTMLElement>('.btn-label-default')!;
     const labelLoading = submitBtn.querySelector<HTMLElement>('.btn-label-loading')!;
-    const locale = (form.dataset.locale ?? 'en') as Locale;
+    const locale = form.dataset.locale ?? 'en';
     const sourcePage = form.dataset.sourcePage ?? '/';
     const segmentHint = form.dataset.segmentHint || null;
+    const messages = {
+      success: msg.dataset.msgSuccess ?? '',
+      errorNetwork: msg.dataset.msgErrorNetwork ?? '',
+      errorRate: msg.dataset.msgErrorRate ?? '',
+    };
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -89,16 +87,16 @@ const sourcePage = Astro.url.pathname;
         });
 
         if (res.status === 429) {
-          msg.textContent = I18N[locale].errorRate;
+          msg.textContent = messages.errorRate;
           return;
         }
         if (!res.ok) {
-          msg.textContent = I18N[locale].errorNetwork;
+          msg.textContent = messages.errorNetwork;
           return;
         }
 
         const data = (await res.json()) as Stage1Result;
-        msg.textContent = I18N[locale].success;
+        msg.textContent = messages.success;
         step2.dataset.rowId = data.id;
         step2.dataset.token = data.token;
         step2.classList.remove('hidden');
@@ -107,7 +105,7 @@ const sourcePage = Astro.url.pathname;
           localStorage.setItem(`waitlist:${data.id}`, JSON.stringify({ token: data.token, email }));
         } catch {}
       } catch {
-        msg.textContent = I18N[locale].errorNetwork;
+        msg.textContent = messages.errorNetwork;
       } finally {
         labelDefault.classList.remove('hidden');
         labelLoading.classList.add('hidden');
