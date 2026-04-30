@@ -50,3 +50,5 @@ create policy waitlist_insert_anon on waitlist
 drop policy if exists waitlist_service_all on waitlist;
 create policy waitlist_service_all on waitlist
   for all to service_role using (true) with check (true);
+
+grant select, insert, update, delete on waitlist to service_role;

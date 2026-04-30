@@ -16,6 +16,14 @@ describe('waitlistPostSchema', () => {
     const r = waitlistPostSchema.safeParse({ email: 'a@b.test', locale: 'en', evil: 'x' });
     expect(r.success).toBe(false);
   });
+  it('accepts a filled honeypot so the handler can silently 200', () => {
+    const r = waitlistPostSchema.safeParse({
+      email: 'a@b.test',
+      locale: 'en',
+      website: 'http://spam',
+    });
+    expect(r.success).toBe(true);
+  });
 });
 
 describe('waitlistPatchSchema', () => {

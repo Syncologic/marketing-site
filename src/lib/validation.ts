@@ -34,7 +34,7 @@ export const waitlistPostSchema = z
     locale: z.enum(LOCALES).default('en'),
     source_page: z.string().max(255).optional(),
     segment_hint: z.enum(USE_CASES).nullable().optional(),
-    website: z.string().max(0).optional(),
+    website: z.string().optional(),
   })
   .strict();
 
