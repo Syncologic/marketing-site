@@ -1,0 +1,60 @@
+{
+  "site": {
+    "name": "Syncologic",
+    "tagline": "Move files between clouds without downloading them first."
+  },
+  "nav": {
+    "useCases": "Use cases",
+    "pricing": "Pricing",
+    "selfHosted": "Self-hosted",
+    "developers": "Developers",
+    "joinWaitlist": "Join the waitlist",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "footer": {
+    "product": "Product",
+    "resources": "Resources",
+    "company": "Company",
+    "copyright": "© {year} Syncologic"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "pt-br": "Português (Brasil)"
+  },
+  "waitlist": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "submit": "Join the waitlist",
+    "submitting": "Joining…",
+    "success": "✓ You're on the list",
+    "errorNetwork": "Couldn't reach the server. Try again?",
+    "errorRate": "Slow down — try again in a minute.",
+    "step2Title": "Help us build this for you",
+    "step2Skip": "Skip — finish later",
+    "step2Done": "Done",
+    "questionUseCase": "What are you trying to move?",
+    "questionSourceProvider": "Where do the files live now?",
+    "questionDestProvider": "Where do they need to go?",
+    "questionSize": "How much data?",
+    "questionFrequency": "How often?",
+    "questionRunner": "Where should the transfer run?",
+    "questionRole": "Which best describes you?"
+  },
+  "providers": {
+    "googleDrive": "Google Drive",
+    "oneDrive": "OneDrive",
+    "dropbox": "Dropbox",
+    "s3": "S3-compatible storage",
+    "sftp": "SFTP",
+    "webdav": "WebDAV",
+    "nextcloud": "Nextcloud",
+    "other": "Other"
+  },
+  "runners": {
+    "cloud": { "name": "Cloud Runner", "tagline": "Hosted convenience" },
+    "browser": { "name": "Browser Runner", "tagline": "Run it in a tab" },
+    "private": { "name": "Private Runner", "tagline": "Your machine, your bandwidth" }
+  }
+}
