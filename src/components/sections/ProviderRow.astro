@@ -17,10 +17,10 @@ const providers = [
 ---
 
 <div class="overflow-x-auto">
-  <ul class="flex items-center gap-8 min-w-max px-4 py-6 justify-center">
+  <ul class="flex items-center gap-10 sm:gap-14 min-w-max px-4 py-6 justify-center">
     {providers.map((p) => (
-      <li class="flex items-center gap-2 text-caption text-slate-gray whitespace-nowrap">
-        <ProviderLogo provider={p.id} size={28} />
+      <li class="flex flex-col items-center gap-3 text-caption text-slate-gray whitespace-nowrap">
+        <ProviderLogo provider={p.id} size={56} />
         <span>{t(`providers.${p.key}`)}</span>
       </li>
     ))}

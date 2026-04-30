@@ -43,14 +43,18 @@ const sourcePage = Astro.url.pathname;
       data-msg-error-rate={t('waitlist.errorRate')}
     ></p>
 
-    <div class="waitlist-step2 hidden mt-8 text-left" data-row-id="" data-token="" data-segment-hint={segmentHint ?? ''}>
-      <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{t('waitlist.step2Title')}</h3>
-      <p class="text-caption text-slate-gray mb-6">{t('waitlist.step2Intro')} <button type="button" class="step2-skip underline">{t('waitlist.step2Skip')}</button></p>
+    <div class="waitlist-step2 hidden mt-10 max-w-md mx-auto" data-row-id="" data-token="" data-segment-hint={segmentHint ?? ''}>
+      <div class="step2-progress flex justify-center gap-1.5 mb-6" aria-hidden="true"></div>
+      <p class="step2-progress-label text-caption text-slate-gray text-center mb-4" role="status" aria-live="polite"></p>
 
-      <div class="step2-questions space-y-4"></div>
+      <h3 class="step2-title text-h3 font-bold text-dark-charcoal text-center mb-6 min-h-[2.5rem]"></h3>
 
-      <div class="step2-controls hidden mt-6 justify-end">
-        <Button type="button" variant="primary" size="sm" class="step2-done">{t('waitlist.step2Done')}</Button>
+      <div class="step2-options flex flex-wrap justify-center gap-2 mb-8"></div>
+
+      <div class="step2-controls flex items-center justify-between gap-3">
+        <button type="button" class="step2-back text-caption text-slate-gray underline disabled:opacity-30 disabled:no-underline" disabled>← Back</button>
+        <button type="button" class="step2-skip text-caption text-slate-gray underline">{t('waitlist.step2Skip')}</button>
+        <Button type="button" variant="primary" size="sm" class="step2-next">Next →</Button>
       </div>
     </div>
   </div>
@@ -73,6 +77,7 @@ const sourcePage = Astro.url.pathname;
       questionRunner: 'Where should the transfer run?',
       questionRole: 'Which best describes you?',
       done: '✓ Thanks — that helps a lot.',
+      doneCta: 'Done',
     },
     'pt-br': {
       success: '✓ Você está na lista',
@@ -86,6 +91,7 @@ const sourcePage = Astro.url.pathname;
       questionRunner: 'Onde a transferência deve rodar?',
       questionRole: 'O que descreve você melhor?',
       done: '✓ Valeu — isso ajuda muito.',
+      doneCta: 'Concluir',
     },
   } as const;
 
@@ -231,49 +237,82 @@ const sourcePage = Astro.url.pathname;
     const id = step2.dataset.rowId!;
     const token = step2.dataset.token!;
     const hint = step2.dataset.segmentHint || null;
-    const container = step2.querySelector<HTMLElement>('.step2-questions')!;
-    const controls = step2.querySelector<HTMLElement>('.step2-controls')!;
-    const doneBtn = step2.querySelector<HTMLButtonElement>('.step2-done')!;
+
+    const progress = step2.querySelector<HTMLElement>('.step2-progress')!;
+    const progressLabel = step2.querySelector<HTMLElement>('.step2-progress-label')!;
+    const titleEl = step2.querySelector<HTMLElement>('.step2-title')!;
+    const optionsEl = step2.querySelector<HTMLElement>('.step2-options')!;
+    const backBtn = step2.querySelector<HTMLButtonElement>('.step2-back')!;
+    const nextBtn = step2.querySelector<HTMLButtonElement>('.step2-next')!;
     const skipBtn = step2.querySelector<HTMLButtonElement>('.step2-skip')!;
 
     const answers: Record<string, string | undefined> = {};
     if (hint) answers.use_case = hint;
 
-    container.innerHTML = '';
-    QUESTIONS.forEach((q) => {
-      const wrapper = document.createElement('fieldset');
-      wrapper.className = 'border border-divider rounded-card p-4';
-      const legend = document.createElement('legend');
-      legend.className = 'text-caption font-medium text-slate-gray px-2';
-      legend.textContent = I18N[locale][q.key];
-      wrapper.appendChild(legend);
+    let cursor = 0;
 
-      const grid = document.createElement('div');
-      grid.className = 'flex flex-wrap gap-2 mt-3';
+    progress.innerHTML = '';
+    QUESTIONS.forEach(() => {
+      const dot = document.createElement('span');
+      dot.className = 'h-1.5 w-6 rounded-pill bg-divider transition-colors';
+      progress.appendChild(dot);
+    });
+
+    function renderQuestion() {
+      const q = QUESTIONS[cursor];
+      progress.querySelectorAll<HTMLSpanElement>('span').forEach((dot, i) => {
+        dot.className =
+          'h-1.5 w-6 rounded-pill transition-colors ' +
+          (i < cursor
+            ? 'bg-brand-blue'
+            : i === cursor
+            ? 'bg-brand-blue'
+            : 'bg-divider');
+      });
+      progressLabel.textContent = `${cursor + 1} / ${QUESTIONS.length}`;
+      titleEl.textContent = I18N[locale][q.key];
+
+      optionsEl.innerHTML = '';
       q.options.forEach((opt) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.dataset.field = q.field;
         btn.dataset.value = opt.value;
-        btn.className = 'px-3 py-1.5 text-caption border border-divider rounded-pill hover:bg-soft-gray data-[selected=true]:bg-brand-blue data-[selected=true]:border-brand-blue data-[selected=true]:text-white';
+        btn.className =
+          'px-4 py-2 text-caption border border-divider rounded-pill hover:bg-soft-gray data-[selected=true]:bg-brand-blue data-[selected=true]:border-brand-blue data-[selected=true]:text-white';
         btn.textContent = opt.label[locale];
         if (answers[q.field] === opt.value) btn.dataset.selected = 'true';
         btn.addEventListener('click', () => {
           answers[q.field] = opt.value;
-          wrapper.querySelectorAll<HTMLButtonElement>('button[data-field]').forEach((b) => {
+          optionsEl.querySelectorAll<HTMLButtonElement>('button[data-field]').forEach((b) => {
             b.dataset.selected = b.dataset.value === opt.value ? 'true' : 'false';
           });
           patch({ [q.field]: opt.value });
-          if (Object.keys(answers).length === QUESTIONS.length) {
-            controls.classList.remove('hidden');
-            controls.classList.add('flex');
-          }
         });
-        grid.appendChild(btn);
+        optionsEl.appendChild(btn);
       });
-      wrapper.appendChild(grid);
-      container.appendChild(wrapper);
+
+      backBtn.disabled = cursor === 0;
+      nextBtn.textContent = cursor === QUESTIONS.length - 1 ? I18N[locale].doneCta : 'Next →';
+    }
+
+    backBtn.addEventListener('click', () => {
+      if (cursor > 0) {
+        cursor--;
+        renderQuestion();
+      }
     });
+
+    nextBtn.addEventListener('click', () => {
+      if (cursor < QUESTIONS.length - 1) {
+        cursor++;
+        renderQuestion();
+      } else {
+        complete();
+      }
+    });
+
+    skipBtn?.addEventListener('click', complete);
 
     async function patch(body: Record<string, unknown>) {
       try {
@@ -287,10 +326,9 @@ const sourcePage = Astro.url.pathname;
 
     async function complete() {
       await patch({ ...answers, _complete: true });
-      step2.innerHTML = `<p class="text-caption text-success">${I18N[locale].done}</p>`;
+      step2.innerHTML = `<p class="text-caption text-success text-center">${I18N[locale].done}</p>`;
     }
 
-    doneBtn.addEventListener('click', complete);
-    skipBtn?.addEventListener('click', complete);
+    renderQuestion();
   }
 </script>

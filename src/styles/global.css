@@ -11,6 +11,8 @@
     background: theme('colors.white');
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    scroll-padding-top: 24px;
   }
 
   body {
