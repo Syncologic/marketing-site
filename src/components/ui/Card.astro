@@ -1,0 +1,31 @@
+---
+type Radius = 'card' | 'feature';
+type Elevation = 'flat' | 'card' | 'elevated';
+
+interface Props {
+  radius?: Radius;
+  elevation?: Elevation;
+  class?: string;
+  as?: 'div' | 'article' | 'section';
+}
+
+const { radius = 'card', elevation = 'flat', class: extra = '', as = 'div' } = Astro.props as Props;
+
+const radii: Record<Radius, string> = {
+  card: 'rounded-card',
+  feature: 'rounded-feature',
+};
+
+const elevations: Record<Elevation, string> = {
+  flat: '',
+  card: 'shadow-card',
+  elevated: 'shadow-card-elevated',
+};
+
+const classes = ['bg-white border border-divider', radii[radius], elevations[elevation], extra]
+  .filter(Boolean)
+  .join(' ');
+const Tag = as;
+---
+
+<Tag class={classes}><slot /></Tag>
