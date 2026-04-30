@@ -28,6 +28,30 @@ All cross-cutting project knowledge lives under `./.claude/rules/`. Read the fil
 
 When rules conflict: `DESIGN.md` wins for visual choices, the active plan in `docs/superpowers/plans/` wins for current task sequencing, the rules files win for everything else, defaults lose to all of the above. Explicit user instructions always win.
 
+## Working with Claude on this project
+
+### Standard workflow (every task)
+
+1. **Execute the task** on a feature branch — never on `main`. Use `superpowers:using-git-worktrees` to create an isolated worktree before touching code.
+2. **Self-review** with `superpowers:verification-before-completion`. At minimum: `npm run lint`, the relevant test suite, and a real-browser pass at the targeted breakpoints for any UI change.
+3. **Request review** via `superpowers:requesting-code-review` (or `design-check` for visual-only changes) before opening the PR.
+4. **Open a PR** with `superpowers:finishing-a-development-branch`. The PR body **must reference the issue** it closes (e.g. `Closes #123`) so GitHub auto-links and auto-closes on merge. If there is no issue, create one first or state explicitly why none exists.
+
+### Skills by task type
+
+- **New feature / unclear requirements** → `superpowers:brainstorming` before any code.
+- **Multi-step implementation** → `superpowers:writing-plans`, then `superpowers:executing-plans` or `superpowers:subagent-driven-development`.
+- **Bug or unexpected behavior** → `superpowers:systematic-debugging` before proposing a fix.
+- **Implementing any feature or bugfix** → `superpowers:test-driven-development` for anything in `src/lib/*` or `src/i18n/utils.ts`.
+
+### Project-local skills
+
+- **`astro-workflow`** (`.claude/skills/astro-workflow/SKILL.md`) — authoritative command list for running, validating, testing, building, and previewing this project.
+- **`using-astro`** (`.claude/skills/using-astro/SKILL.md`) — Astro 5 best practices when editing `.astro` files, content collections, API routes, or images.
+- **`design-check`** — audit a component, page, or section against `DESIGN.md` and the `.claude/rules/` Always/Never lists.
+
+**Visual correctness cannot be verified headlessly.** For any UI, layout, animation, or responsive change, state explicitly that visual verification was not performed in a real browser at the targeted breakpoints — do not claim the change looks right based on code inspection or `astro check` alone.
+
 ## Tech stack (don't substitute without explicit reason)
 
 - **Astro 4+** static-first, output `'static'`, `@astrojs/vercel` adapter
