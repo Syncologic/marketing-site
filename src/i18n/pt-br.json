@@ -121,6 +121,13 @@
       "file5": "marketing-assets/",
       "viewFinalReport": "View final report"
     },
+    "privateRunnerPath": {
+      "alt": "A file packet travels from a cloud source through your machine inside your network, then continues to a destination — never touching Syncologic infrastructure.",
+      "boundary": "your network",
+      "source": "Source",
+      "machine": "Your machine",
+      "destination": "Destination"
+    },
     "scheduleClock": {
       "alt": "A monthly calendar with a Today cursor walking day by day; on each scheduled Wednesday it pauses to run the backup, the marker turns green, and the cursor moves on."
     }
