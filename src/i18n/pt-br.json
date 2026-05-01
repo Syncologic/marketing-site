@@ -104,6 +104,22 @@
   "visuals": {
     "providerArc": {
       "alt": "Files moving from Google Drive to OneDrive along a connecting arc."
+    },
+    "migrationChecklist": {
+      "title": "Workspace migration",
+      "ariaLabel": "Migration dashboard with file count, total size, errors, a progress bar, and a recent activity feed.",
+      "statusRunning": "Running",
+      "statusComplete": "Complete",
+      "filesLabel": "Files",
+      "sizeLabel": "Total size",
+      "errorsLabel": "Errors",
+      "recentActivityLabel": "Recent activity",
+      "file1": "Q3-financials.xlsx",
+      "file2": "design-handoff/icons.zip",
+      "file3": "Customer notes (Folder)",
+      "file4": "team-photo.heic",
+      "file5": "marketing-assets/",
+      "viewFinalReport": "View final report"
     }
   },
   "guides": {

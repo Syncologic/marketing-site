@@ -7,9 +7,11 @@ import Hero from '../../../components/sections/Hero.astro';
 import WaitlistForm from '../../../components/sections/WaitlistForm.astro';
 import StickyWaitlistBar from '../../../components/sections/StickyWaitlistBar.astro';
 import ProviderArc from '../../../components/visuals/ProviderArc.astro';
+import MigrationChecklist from '../../../components/visuals/MigrationChecklist.astro';
 
 const visualMap: Record<string, typeof ProviderArc | undefined> = {
   'cloud-to-cloud-transfer': ProviderArc,
+  'business-cloud-migration': MigrationChecklist,
 };
 
 export async function getStaticPaths() {
@@ -21,9 +23,9 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const slug = entry.slug.replace(/^pt-br\//, '');
 const { Content } = await entry.render();
 const ogImage = entry.data.ogImage ?? '/og/default-pt-br.png';
-const slug = entry.slug.replace(/^pt-br\//, '');
 const Visual = visualMap[slug];
 ---
 
