@@ -122,8 +122,7 @@
       "viewFinalReport": "View final report"
     },
     "scheduleClock": {
-      "alt": "A weekly calendar with three scheduled backups on Wednesdays — each turns from blue to green as Today advances past it.",
-      "today": "Today"
+      "alt": "A monthly calendar with a Today cursor walking day by day; on each scheduled Wednesday it pauses to run the backup, the marker turns green, and the cursor moves on."
     }
   },
   "guides": {
