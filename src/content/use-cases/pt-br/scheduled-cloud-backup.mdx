@@ -1,0 +1,66 @@
+---
+locale: pt-br
+title: "Scheduled cloud backup — Syncologic"
+description: "Back up important cloud folders to S3 or another destination on a schedule, with change detection and a report at the end of every run."
+eyebrow: "For users and small teams who want recurring backups"
+headline: "Back up important cloud folders on a schedule — without babysitting manual exports."
+subheading: "Connect a source and a destination, set a schedule, and let each run copy only what changed. Get a clear report when it finishes."
+primaryCta:
+  label: "Join the backup waitlist"
+  href: "#waitlist"
+secondaryCta:
+  label: "See how it works"
+  href: "#how-it-works"
+waitlistSegment: scheduled_backup
+publishedAt: 2026-05-01
+---
+
+## Who this is for
+
+- Users who treat their Google Drive, OneDrive, or Dropbox as the working copy and want a separate backup somewhere durable.
+- Small teams whose important folders live in a workspace provider but whose disaster-recovery plan is "we hope it stays there".
+- Anyone who has tried to remember to export a folder on the first of every month and given up by month three.
+
+## Cloud storage is not a backup plan
+
+A single cloud drive holds the live copy. Sync isn't backup — a deletion, a ransomware run, or a billing lapse takes the destination down with it. A real backup lives somewhere else, on a different account, ideally on a different provider.
+
+Manual exports work once. They don't survive a busy quarter. The folder you forgot to export is the one you'll wish you had.
+
+## How it works
+
+1. Connect the source — Google Drive, OneDrive, Dropbox, Nextcloud, or another provider.
+2. Connect the destination — S3-compatible storage is the common choice, but Drive, Dropbox, and others are supported.
+3. Pick a schedule — daily, weekly, or continuous.
+4. Pick a runner — Cloud Runner for convenience, Private Runner if the data has to stay in your own infrastructure.
+5. Let the schedule run. Each run only moves what changed since the last one.
+
+## Scheduled jobs that actually run
+
+Set a schedule once and the job runs on its own. Daily snapshots of a working folder. A weekly copy of an entire workspace. A continuous mirror of a critical project. The schedule keeps the backup current; you stop being the cron job.
+
+## Change detection between runs
+
+Each run compares the source against the last successful backup and copies only what's new or changed. The first run moves everything. Every run after that moves a fraction of it — fast, predictable, and cheap to store.
+
+## A report after every run
+
+When a run finishes you get a structured report: what copied, what was skipped, what failed. Keep it as the audit trail. If something failed, re-run only the failed items instead of redoing the whole job.
+
+## Destination options
+
+S3-compatible storage is the most common backup destination — durable, cheap at rest, and decoupled from your working provider. The same scheduled job can also write to a second cloud drive (Drive → Dropbox, OneDrive → Drive) or to a Nextcloud or WebDAV target you control.
+
+Common pairs we expect to see:
+
+- Google Drive → S3-compatible storage
+- OneDrive → S3-compatible storage
+- Dropbox → S3-compatible storage
+- Nextcloud → S3-compatible storage
+- Google Drive → Dropbox
+
+## Pricing signal
+
+Backups are about volume, frequency, and retention — not seats. Pricing will reflect that. Expect a free tier for small recurring jobs, paid tiers as data and frequency grow, and a Private Runner option when you'd rather pay for software and bring your own bandwidth and destination.
+
+How often would you want backups to run? Tell us on the waitlist below — it's the first question we'll ask after your email.
