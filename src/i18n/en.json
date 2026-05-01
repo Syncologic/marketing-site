@@ -264,13 +264,13 @@
     "title": "Developers — automate cloud file transfers",
     "description": "Move files between clouds with a typed HTTP API, a CLI, webhooks, and runners you can host yourself.",
     "heroEyebrow": "For developers and platform teams",
-    "heroHeadline": "Automate cloud file transfers with an API, CLI, webhooks, and runners.",
-    "heroSubheading": "For agencies moving client assets, SaaS teams importing or exporting customer files, and internal tools that move bytes between provider APIs without writing the glue.",
+    "heroHeadline": "Move files between clouds with one API.",
+    "heroSubheading": "For agencies, SaaS teams, and internal tools that move files between cloud providers without writing the glue.",
     "heroPrimaryCta": "Join the developer waitlist",
     "heroSecondaryCta": "See the API",
     "audienceLabel": "Built for agencies, SaaS engineering teams, platform groups, and internal tooling.",
     "apiTitle": "A typed HTTP API",
-    "apiBody": "Create a job with a source, a destination, a runner choice, and an optional schedule. The control plane validates, picks a runner, and emits progress events.",
+    "apiBody": "Create a job with a source, destination, runner, and optional schedule. The control plane validates, dispatches, and emits progress events.",
     "apiCaption": "Sketch — final shape will land with the v1 API.",
     "cliTitle": "A CLI for scripts and CI",
     "cliBody": "Same jobs, driven from a terminal or a CI runner. Useful for one-shot migrations and for backups owned by a script you can read in a code review.",
@@ -294,15 +294,6 @@
     "webhookEventsLabel": "Planned events",
     "noSdkTitle": "No SDK promises yet",
     "noSdkBody": "We will not ship an official SDK before the API is stable. The OpenAPI spec will be public, so you can generate a typed client in any language you already use.",
-    "surveyTitle": "Which developer surface matters most to you?",
-    "surveyBody": "Pick the one you would reach for first. It helps us decide what ships first.",
-    "surveyOptions": {
-      "api": "HTTP API",
-      "cli": "CLI",
-      "webhooks": "Webhooks",
-      "selfHosted": "Self-hosting"
-    },
-    "surveyHint": "Local signal only — your pick is not sent anywhere. Use the waitlist below to share more.",
     "faqTitle": "Developer FAQ",
     "webhookEvents": [
       "job.created",
@@ -315,23 +306,24 @@
     "faq": [
       {
         "q": "When will the API ship?",
-        "a": "We are not committing to a date. The API will land alongside the first paid Cloud Runner tier. The waitlist is the right way to be first in line for early access."
+        "a": "We're not committing to a date. The API ships with the first paid Cloud Runner tier — join the waitlist for early access."
       },
       {
         "q": "Will there be a free tier for developers?",
-        "a": "The Browser Runner stays free, and the Private Runner is free for the runner itself. Cloud Runner usage is what we plan to bill for."
+        "a": "There's no special developer offer — everything you'd pay (or not pay) is in the current plans.",
+        "link": { "href": "/pricing", "label": "See pricing" }
       },
       {
         "q": "Do you handle OAuth on behalf of my users?",
-        "a": "Yes. The control plane handles provider OAuth so transfers can run unattended. Users connect their accounts through Syncologic, not through your app."
+        "a": "Yes. Users connect their cloud accounts to Syncologic — not to your app. You don't store provider credentials; the control plane manages the OAuth lifecycle."
       },
       {
         "q": "Can I run jobs entirely on my own infrastructure?",
-        "a": "Yes. The Private Runner runs in your VPC, on a NAS, or on a developer machine. The control plane never touches your file bytes."
+        "a": "Yes for the data path — Private Runner runs in your VPC, NAS, or any machine you control, and file bytes never reach Syncologic. The control plane (accounts, jobs, schedules) is hosted by us at launch; full self-host is on the roadmap."
       },
       {
         "q": "Are webhook payloads signed?",
-        "a": "Webhook payloads will be HMAC-signed with a per-workspace secret you control. Replay protection and timestamp tolerance follow the same conventions you would expect from Stripe or Linear."
+        "a": "Webhook payloads will be HMAC-signed with a per-workspace secret you control."
       }
     ]
   },

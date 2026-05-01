@@ -4,6 +4,10 @@ import Section from '../ui/Section.astro';
 interface FaqItem {
   q: string;
   a: string;
+  link?: {
+    href: string;
+    label: string;
+  };
 }
 
 interface Props {
@@ -40,6 +44,17 @@ const { title, items, surface = 'soft', id } = Astro.props;
             </summary>
             <div class="px-6 pb-5 -mt-1 text-body text-slate-gray">
               {item.a}
+              {item.link && (
+                <>
+                  {' '}
+                  <a
+                    href={item.link.href}
+                    class="text-brand-blue hover:underline focus-visible:underline"
+                  >
+                    {item.link.label} →
+                  </a>
+                </>
+              )}
             </div>
           </details>
         </li>

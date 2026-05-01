@@ -294,15 +294,6 @@
     "webhookEventsLabel": "Planned events",
     "noSdkTitle": "No SDK promises yet",
     "noSdkBody": "We will not ship an official SDK before the API is stable. The OpenAPI spec will be public, so you can generate a typed client in any language you already use.",
-    "surveyTitle": "Which developer surface matters most to you?",
-    "surveyBody": "Pick the one you would reach for first. It helps us decide what ships first.",
-    "surveyOptions": {
-      "api": "HTTP API",
-      "cli": "CLI",
-      "webhooks": "Webhooks",
-      "selfHosted": "Self-hosting"
-    },
-    "surveyHint": "Local signal only — your pick is not sent anywhere. Use the waitlist below to share more.",
     "faqTitle": "Developer FAQ",
     "webhookEvents": [
       "job.created",
@@ -319,7 +310,8 @@
       },
       {
         "q": "Will there be a free tier for developers?",
-        "a": "The Browser Runner stays free, and the Private Runner is free for the runner itself. Cloud Runner usage is what we plan to bill for."
+        "a": "There's no special developer offer — everything you'd pay (or not pay) is in the current plans.",
+        "link": { "href": "/pt-br/pricing", "label": "See pricing" }
       },
       {
         "q": "Do you handle OAuth on behalf of my users?",
