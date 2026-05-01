@@ -81,6 +81,34 @@
   .prose-syncologic code {
     @apply bg-soft-gray rounded-input px-1.5 py-0.5 text-caption;
   }
+  .prose-syncologic table {
+    @apply w-full my-6 text-body border-collapse;
+  }
+  .prose-syncologic thead {
+    @apply border-b border-divider;
+  }
+  .prose-syncologic th {
+    @apply text-left font-medium text-dark-charcoal py-3 pr-4 align-top;
+  }
+  .prose-syncologic td {
+    @apply py-3 pr-4 align-top border-b border-divider;
+  }
+  .prose-syncologic tr:last-child td {
+    @apply border-b-0;
+  }
+  @media (max-width: 767px) {
+    .prose-syncologic table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+    }
+    .prose-syncologic th,
+    .prose-syncologic td {
+      min-width: 11rem;
+      white-space: normal;
+    }
+  }
   .prose-syncologic > :first-child {
     margin-top: 0;
   }

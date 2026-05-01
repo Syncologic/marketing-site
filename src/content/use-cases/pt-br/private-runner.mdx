@@ -26,9 +26,7 @@ publishedAt: 2026-05-01
 
 The Cloud Runner sends bytes through Syncologic infrastructure. The Private Runner doesn't.
 
-```
-Source provider  →  Your Private Runner  →  Destination provider
-```
+`Source provider` → `Your Private Runner` → `Destination provider`
 
 Files flow directly from the source API to the runner you operate, then on to the destination. Our control plane sees what the job is, when it ran, and a structured report at the end. It never sees the file contents and never holds the long-lived credentials.
 
@@ -71,14 +69,23 @@ If you decommission the runner, revoke the enrolment from the control plane and 
 
 ## Cloud Runner vs Private Runner
 
-| | Cloud Runner | Private Runner |
-|---|---|---|
-| Where bytes flow | Source → Syncologic infra → destination | Source → your machine → destination |
-| Where credentials live | Encrypted in our infra, short-lived | On your runner, never leaves |
-| Setup effort | None — pick it from the dropdown | Install + pair once |
-| Best for | Convenience, very large jobs | Privacy, sensitive data, homelabs, high volume |
-| Pricing model | Usage-based on our infra | Pay for software; you bring bandwidth |
-| Network requirements | None | Outbound HTTPS from the runner |
+### Cloud Runner
+
+- **Where bytes flow:** source → Syncologic infrastructure → destination.
+- **Where credentials live:** encrypted in our infrastructure, short-lived.
+- **Setup effort:** none — pick it from the dropdown.
+- **Best for:** convenience, very large jobs you don't want to host yourself.
+- **Pricing model:** usage-based on our infrastructure.
+- **Network requirements:** none.
+
+### Private Runner
+
+- **Where bytes flow:** source → your machine → destination.
+- **Where credentials live:** on your runner, never leaves.
+- **Setup effort:** install and pair once.
+- **Best for:** privacy, sensitive data, homelabs, high-volume users.
+- **Pricing model:** pay for software; you bring bandwidth.
+- **Network requirements:** outbound HTTPS from the runner.
 
 Both runners use the same control plane, the same job definitions, the same preview, and the same completion reports. The only difference is where the bytes flow.
 
