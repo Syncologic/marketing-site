@@ -129,15 +129,11 @@
       "destination": "Destination"
     },
     "pricingCurves": {
-      "alt": "Two stacked option cards comparing runner choices. Cloud Runner sits faded above; Private Runner is highlighted as the selected option, with an active status indicator and three benefits — your hardware, your bandwidth, your data.",
+      "alt": "Two stacked runner cards. Cloud Runner is selected first — files transfer through it while dollar signs accumulate, showing cost rising on demand. Then Private Runner is selected; the same files transfer through it, but the cost stays at zero.",
       "cloudTitle": "Cloud Runner",
       "cloudSubtitle": "Hosted infrastructure",
-      "cloudPriceTag": "$$",
       "privateTitle": "Private Runner",
-      "privateStatus": "Active on your machine",
-      "benefit1": "Your hardware",
-      "benefit2": "Your bandwidth",
-      "benefit3": "Your data"
+      "privateStatus": "Active on your machine"
     }
   },
   "guides": {
