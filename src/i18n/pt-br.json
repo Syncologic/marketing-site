@@ -97,6 +97,17 @@
     "backHome": "Back to home",
     "joinWaitlist": "Join the waitlist"
   },
+  "useCases": {
+    "indexTitle": "Use cases",
+    "indexDescription": "Pick the workflow that matches what you're trying to do."
+  },
+  "guides": {
+    "indexTitle": "Guides",
+    "indexDescription": "How to move files between cloud providers without downloading them first."
+  },
+  "faq": {
+    "title": "Common questions"
+  },
   "trust": {
     "preview": {
       "title": "See what will happen first",
