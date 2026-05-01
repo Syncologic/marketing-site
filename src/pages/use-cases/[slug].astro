@@ -6,6 +6,7 @@ import Footer from '../../components/layout/Footer.astro';
 import Hero from '../../components/sections/Hero.astro';
 import WaitlistForm from '../../components/sections/WaitlistForm.astro';
 import StickyWaitlistBar from '../../components/sections/StickyWaitlistBar.astro';
+import MigrationChecklist from '../../components/visuals/MigrationChecklist.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('use-cases', (e) => e.data.locale === 'en');
@@ -16,6 +17,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const slug = entry.slug.replace(/^en\//, '');
 const { Content } = await entry.render();
 const ogImage = entry.data.ogImage ?? '/og/default-en.png';
 ---
@@ -28,7 +30,13 @@ const ogImage = entry.data.ogImage ?? '/og/default-en.png';
     subheading={entry.data.subheading}
     primaryCta={entry.data.primaryCta}
     secondaryCta={entry.data.secondaryCta}
-  />
+  >
+    {slug === 'business-cloud-migration' && (
+      <Fragment slot="visual">
+        <MigrationChecklist />
+      </Fragment>
+    )}
+  </Hero>
   <article class="prose-syncologic container-wide max-w-[760px] py-section">
     <Content />
   </article>

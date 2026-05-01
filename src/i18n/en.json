@@ -393,5 +393,16 @@
       "title": "Why core code stays public",
       "body": "Runner code, transfer logic, and provider adapters will ship source-visible. You'll be able to audit how files move before trusting the system."
     }
+  },
+  "visuals": {
+    "migrationChecklist": {
+      "title": "Migration checklist",
+      "ariaLabel": "Migration checklist showing five steps progressing from start to finish.",
+      "connectSource": "Connect source",
+      "connectDestination": "Connect destination",
+      "previewChanges": "Preview changes",
+      "runTransfer": "Run transfer",
+      "generateReport": "Generate report"
+    }
   }
 }

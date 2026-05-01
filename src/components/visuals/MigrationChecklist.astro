@@ -1,0 +1,168 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+
+const titleText = t('visuals.migrationChecklist.title');
+const ariaLabel = t('visuals.migrationChecklist.ariaLabel');
+
+const rowKeys = [
+  'connectSource',
+  'connectDestination',
+  'previewChanges',
+  'runTransfer',
+  'generateReport',
+] as const;
+const rows = rowKeys.map((k) => t(`visuals.migrationChecklist.${k}`));
+---
+
+<svg
+  viewBox="0 0 480 480"
+  class="mc-svg w-full h-auto max-w-[480px] mx-auto font-sans"
+  role="img"
+  aria-labelledby="mc-title"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title id="mc-title">{ariaLabel}</title>
+
+  <rect
+    x="0.5"
+    y="0.5"
+    width="479"
+    height="479"
+    rx="20"
+    class="fill-white stroke-divider"
+    stroke-width="1"
+  />
+
+  <text
+    x="32"
+    y="50"
+    class="fill-dark-charcoal"
+    font-size="18"
+    font-weight="500"
+  >{titleText}</text>
+  <line x1="0" y1="80" x2="480" y2="80" class="stroke-divider" stroke-width="1" />
+
+  {rows.map((label, i) => {
+    const y = 80 + i * 80;
+    const cy = y + 40;
+    const altRow = i % 2 === 1;
+    return (
+      <g class={`mc-row mc-row-${i + 1}`}>
+        <rect
+          x="1"
+          y={y}
+          width="478"
+          height="80"
+          class={altRow ? 'fill-white' : 'fill-warm-gray'}
+        />
+        <circle
+          class="mc-outline stroke-divider"
+          cx="40"
+          cy={cy}
+          r="14"
+          fill="none"
+          stroke-width="1.5"
+        />
+        <circle
+          class="mc-spinner stroke-brand-blue"
+          cx="40"
+          cy={cy}
+          r="14"
+          fill="none"
+          stroke-width="2"
+          stroke-dasharray="22 66"
+          stroke-linecap="round"
+        />
+        <g class="mc-check">
+          <circle cx="40" cy={cy} r="14" class="fill-success" />
+          <path
+            d={`M ${40 - 6} ${cy} l 4.5 4.5 l 8 -8`}
+            class="stroke-white"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </g>
+        <text
+          x="76"
+          y={cy}
+          class="fill-dark-charcoal"
+          font-size="16"
+          font-weight="500"
+          dominant-baseline="middle"
+        >{label}</text>
+      </g>
+    );
+  })}
+</svg>
+
+<style>
+  .mc-spinner,
+  .mc-check {
+    opacity: 0;
+  }
+
+  .mc-spinner,
+  .mc-check {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mc-row-1 .mc-outline { animation: mc-out-1 6s linear infinite; }
+    .mc-row-1 .mc-spinner { animation: mc-spin-fade-1 6s linear infinite, mc-rotate 0.8s linear infinite; }
+    .mc-row-1 .mc-check   { animation: mc-check-1 6s linear infinite; }
+
+    .mc-row-2 .mc-outline { animation: mc-out-2 6s linear infinite; }
+    .mc-row-2 .mc-spinner { animation: mc-spin-fade-2 6s linear infinite, mc-rotate 0.8s linear infinite; }
+    .mc-row-2 .mc-check   { animation: mc-check-2 6s linear infinite; }
+
+    .mc-row-3 .mc-outline { animation: mc-out-3 6s linear infinite; }
+    .mc-row-3 .mc-spinner { animation: mc-spin-fade-3 6s linear infinite, mc-rotate 0.8s linear infinite; }
+    .mc-row-3 .mc-check   { animation: mc-check-3 6s linear infinite; }
+
+    .mc-row-4 .mc-outline { animation: mc-out-4 6s linear infinite; }
+    .mc-row-4 .mc-spinner { animation: mc-spin-fade-4 6s linear infinite, mc-rotate 0.8s linear infinite; }
+    .mc-row-4 .mc-check   { animation: mc-check-4 6s linear infinite; }
+
+    .mc-row-5 .mc-outline { animation: mc-out-5 6s linear infinite; }
+    .mc-row-5 .mc-spinner { animation: mc-spin-fade-5 6s linear infinite, mc-rotate 0.8s linear infinite; }
+    .mc-row-5 .mc-check   { animation: mc-check-5 6s linear infinite; }
+  }
+
+  @keyframes mc-rotate { to { transform: rotate(360deg); } }
+
+  /* Row N activates at (N-1) * 16.67% of the 6s loop, over a 15% window
+     (≈900 ms): brief outline → ~700 ms spinner → check fades in. Check
+     persists through the remainder of the loop, snapping back at reset. */
+
+  @keyframes mc-out-1   { 0%, 1.5%   { opacity: 1; } 3%,   100% { opacity: 0; } }
+  @keyframes mc-spin-fade-1 { 0%, 1.5% { opacity: 0; } 3%, 13.3% { opacity: 1; } 15%, 100% { opacity: 0; } }
+  @keyframes mc-check-1 { 0%, 13.3%  { opacity: 0; } 15%,  100% { opacity: 1; } }
+
+  @keyframes mc-out-2   { 0%, 18.2%  { opacity: 1; } 19.7%, 100% { opacity: 0; } }
+  @keyframes mc-spin-fade-2 { 0%, 18.2% { opacity: 0; } 19.7%, 30% { opacity: 1; } 31.7%, 100% { opacity: 0; } }
+  @keyframes mc-check-2 { 0%, 30%    { opacity: 0; } 31.7%, 100% { opacity: 1; } }
+
+  @keyframes mc-out-3   { 0%, 34.8%  { opacity: 1; } 36.3%, 100% { opacity: 0; } }
+  @keyframes mc-spin-fade-3 { 0%, 34.8% { opacity: 0; } 36.3%, 46.6% { opacity: 1; } 48.3%, 100% { opacity: 0; } }
+  @keyframes mc-check-3 { 0%, 46.6%  { opacity: 0; } 48.3%, 100% { opacity: 1; } }
+
+  @keyframes mc-out-4   { 0%, 51.5%  { opacity: 1; } 53%,   100% { opacity: 0; } }
+  @keyframes mc-spin-fade-4 { 0%, 51.5% { opacity: 0; } 53%, 63.3% { opacity: 1; } 65%, 100% { opacity: 0; } }
+  @keyframes mc-check-4 { 0%, 63.3%  { opacity: 0; } 65%,   100% { opacity: 1; } }
+
+  @keyframes mc-out-5   { 0%, 68.2%  { opacity: 1; } 69.7%, 100% { opacity: 0; } }
+  @keyframes mc-spin-fade-5 { 0%, 68.2% { opacity: 0; } 69.7%, 80% { opacity: 1; } 81.7%, 100% { opacity: 0; } }
+  @keyframes mc-check-5 { 0%, 80%    { opacity: 0; } 81.7%, 100% { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mc-outline { opacity: 0; }
+    .mc-spinner { opacity: 0; animation: none; }
+    .mc-check   { opacity: 1; animation: none; }
+  }
+</style>
