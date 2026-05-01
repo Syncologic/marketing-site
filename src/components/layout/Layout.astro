@@ -1,5 +1,6 @@
 ---
 import '../../styles/global.css';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import { getLocaleFromUrl, pathWithoutLocale, localizedPath, getT } from '../../i18n/utils';
 
 interface Props {
@@ -16,7 +17,7 @@ const pathSansLocale = pathWithoutLocale(Astro.url.pathname);
 const canonical = `${siteUrl}${localizedPath(locale, pathSansLocale)}`;
 const altEn = `${siteUrl}${localizedPath('en', pathSansLocale)}`;
 const altPt = `${siteUrl}${localizedPath('pt-br', pathSansLocale)}`;
-const og = ogImage ?? `${siteUrl}/og-default.png`;
+const og = ogImage ?? `${siteUrl}/og/default-${locale}.png`;
 ---
 
 <!DOCTYPE html>
@@ -41,6 +42,7 @@ const og = ogImage ?? `${siteUrl}/og-default.png`;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={og} />
+    <slot name="head" />
   </head>
   <body>
     <slot name="nav" />
@@ -48,5 +50,6 @@ const og = ogImage ?? `${siteUrl}/og-default.png`;
       <slot />
     </main>
     <slot name="footer" />
+    <SpeedInsights />
   </body>
 </html>
