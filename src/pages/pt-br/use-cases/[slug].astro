@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../components/layout/Layout.astro';
+import Nav from '../../../components/layout/Nav.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import Hero from '../../../components/sections/Hero.astro';
+import WaitlistForm from '../../../components/sections/WaitlistForm.astro';
+import StickyWaitlistBar from '../../../components/sections/StickyWaitlistBar.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('use-cases', (e) => e.data.locale === 'pt-br');
+  return entries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const ogImage = entry.data.ogImage ?? '/og/default-pt-br.png';
+---
+
+<Layout title={entry.data.title} description={entry.data.description} ogImage={ogImage}>
+  <Nav slot="nav" />
+  <Hero
+    eyebrow={entry.data.eyebrow}
+    headline={entry.data.headline}
+    subheading={entry.data.subheading}
+    primaryCta={entry.data.primaryCta}
+    secondaryCta={entry.data.secondaryCta}
+  />
+  <article class="prose-syncologic container-wide max-w-[760px] py-section">
+    <Content />
+  </article>
+  <WaitlistForm segmentHint={entry.data.waitlistSegment} />
+  <Footer slot="footer" />
+  <StickyWaitlistBar />
+</Layout>
