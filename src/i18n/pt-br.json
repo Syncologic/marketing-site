@@ -129,5 +129,73 @@
       "title": "You choose where your files go",
       "desc": "Run the transfer through us, in your browser, or on your own computer. Your call, every time."
     }
+  },
+  "selfHosted": {
+    "meta": {
+      "title": "Self-hosted future — Syncologic",
+      "description": "Source-visible, self-hostable cloud file transfer. Private Runner first, then full self-host, then air-gapped — on your timeline."
+    },
+    "hero": {
+      "eyebrow": "Self-hosted future",
+      "headline": "Source-visible. Self-hostable. On your timeline.",
+      "subheading": "Syncologic is being designed with a path toward source-visible, self-hostable infrastructure. Here's what's available now, and what we're planning.",
+      "audience": "For technical buyers, homelab operators, and businesses that want an exit path from hosted SaaS.",
+      "primaryCta": "Join the self-hosting waitlist",
+      "secondaryCta": "See the principles"
+    },
+    "principles": {
+      "title": "Architecture principles",
+      "intro": "We separate the metadata layer from where files actually move. That split is what makes self-hosting tractable.",
+      "controlPlane": {
+        "title": "Control plane",
+        "desc": "Auth, jobs, schedules, reports. The metadata layer — what you'd self-host first."
+      },
+      "dataPlane": {
+        "title": "Data plane",
+        "desc": "Where bytes flow. Source → runner → destination. Never through us by default."
+      },
+      "note": "Files do not flow through our server. The server holds metadata; the runner moves the bytes."
+    },
+    "privateRunner": {
+      "title": "Private Runner: the first concrete step",
+      "body": "Before any full self-host story, you can plan to run transfers on your own infrastructure. Connect your machine, NAS, or VPS to our control plane — credentials and bytes stay with you.",
+      "outbound": {
+        "title": "Outbound only",
+        "desc": "Your runner reaches out to us. No inbound ports, no exposed services."
+      },
+      "credentials": {
+        "title": "Credentials stay with you",
+        "desc": "Provider tokens live where your runner runs. We never see them."
+      },
+      "dataPath": {
+        "title": "Direct data path",
+        "desc": "Files flow source → your runner → destination. Nothing in between."
+      }
+    },
+    "futureModel": {
+      "title": "Future self-host levels",
+      "label": "Planned, not committed",
+      "intro": "Three levels we're planning, in increasing order of independence from our infrastructure.",
+      "level1": {
+        "name": "Private Runner",
+        "status": "Available first",
+        "desc": "Hosted control plane, your data path. For users who want our convenience and your bandwidth."
+      },
+      "level2": {
+        "name": "Full self-host",
+        "status": "Planned",
+        "desc": "Bring your own control plane. Your auth, your database, your runners. Same product, your infrastructure."
+      },
+      "level3": {
+        "name": "Air-gapped",
+        "status": "Planned",
+        "desc": "No outbound dependency on syncologic.com. For high-compliance environments that can't reach the public internet."
+      }
+    },
+    "sourceTrust": {
+      "title": "Why core code stays public",
+      "body": "Runner code, transfer logic, and provider adapters are source-visible. You can audit how files move before trusting the system.",
+      "body2": "Private repos exist only for ops runbooks, security incidents, and business material — never for product code."
+    }
   }
 }
