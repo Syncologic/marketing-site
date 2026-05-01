@@ -101,6 +101,11 @@
     "indexTitle": "Use cases",
     "indexDescription": "Pick the workflow that matches what you're trying to do."
   },
+  "visuals": {
+    "providerArc": {
+      "alt": "Files moving from Google Drive to OneDrive along a connecting arc."
+    }
+  },
   "guides": {
     "indexTitle": "Guides",
     "indexDescription": "How to move files between cloud providers without downloading them first."
