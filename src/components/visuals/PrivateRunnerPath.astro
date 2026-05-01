@@ -19,6 +19,14 @@ const destinationLabel = t('visuals.privateRunnerPath.destination');
     aria-label={altLabel}
     class="w-full h-auto block"
   >
+    <defs>
+      <g id="prp-pkt" class="stroke-brand-blue" stroke-width="1.5" stroke-linecap="round" fill="none">
+        <rect x="-14" y="-10" width="28" height="20" rx="4" class="fill-white" />
+        <line x1="-7" y1="-3" x2="7" y2="-3" />
+        <line x1="-7" y1="3"  x2="3" y2="3" />
+      </g>
+    </defs>
+
     <rect
       class="boundary-box stroke-divider"
       x="170" y="130" width="140" height="260" rx="20"
@@ -37,27 +45,30 @@ const destinationLabel = t('visuals.privateRunnerPath.destination');
       <ProviderLogo provider="s3" size={88} />
     </g>
 
-    <g transform="translate(240 260)" aria-hidden="true">
-      <rect x="-30" y="-22" width="60" height="18" rx="4" class="fill-white stroke-divider" stroke-width="1.5" />
-      <rect x="-30" y="-2"  width="60" height="18" rx="4" class="fill-white stroke-divider" stroke-width="1.5" />
-      <circle cx="-22" cy="-13" r="2" class="fill-divider" />
-      <circle cx="-22" cy="7"   r="2" class="fill-divider" />
-      <line x1="-12" y1="-13" x2="22" y2="-13" stroke-width="1.5" stroke-linecap="round" class="stroke-divider" />
-      <line x1="-12" y1="7"   x2="22" y2="7"   stroke-width="1.5" stroke-linecap="round" class="stroke-divider" />
+    <g transform="translate(240 260)" aria-hidden="true" class="stroke-divider" stroke-width="1.5" stroke-linecap="round">
+      <rect x="-30" y="-22" width="60" height="18" rx="4" class="fill-white" />
+      <rect x="-30" y="-2"  width="60" height="18" rx="4" class="fill-white" />
+      <circle cx="-22" cy="-13" r="2" class="fill-divider" stroke="none" />
+      <circle cx="-22" cy="7"   r="2" class="fill-divider" stroke="none" />
+      <line x1="-12" y1="-13" x2="22" y2="-13" />
+      <line x1="-12" y1="7"   x2="22" y2="7" />
     </g>
 
     <text x="80"  y="350" text-anchor="middle" class="node-label fill-slate-gray">{sourceLabel}</text>
     <text x="240" y="350" text-anchor="middle" class="node-label fill-slate-gray">{machineLabel}</text>
     <text x="400" y="350" text-anchor="middle" class="node-label fill-slate-gray">{destinationLabel}</text>
 
-    <g class="packet" aria-hidden="true">
-      <rect
-        x="-14" y="-10" width="28" height="20" rx="4"
-        class="fill-white stroke-brand-blue" stroke-width="1.5"
-      />
-      <line x1="-7" y1="-3" x2="7"  y2="-3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
-      <line x1="-7" y1="3"  x2="3"  y2="3"  stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+    <g class="static-flow stroke-brand-blue" aria-hidden="true" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="140" y1="260" x2="186" y2="260" />
+      <polyline points="178,254 186,260 178,266" />
+      <line x1="294" y1="260" x2="340" y2="260" />
+      <polyline points="332,254 340,260 332,266" />
+      <use href="#prp-pkt" x="163" y="260" />
+      <use href="#prp-pkt" x="240" y="260" />
+      <use href="#prp-pkt" x="317" y="260" />
     </g>
+
+    <use class="packet" href="#prp-pkt" aria-hidden="true" />
   </svg>
 </div>
 
@@ -91,6 +102,8 @@ const destinationLabel = t('visuals.privateRunnerPath.destination');
     opacity: 0;
   }
 
+  .static-flow { display: none; }
+
   @media (prefers-reduced-motion: no-preference) {
     .packet {
       animation: prp-packet 5s ease-in-out infinite;
@@ -119,9 +132,7 @@ const destinationLabel = t('visuals.privateRunnerPath.destination');
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .packet {
-      offset-distance: 100%;
-      opacity: 1;
-    }
+    .packet { display: none; }
+    .static-flow { display: inline; }
   }
 </style>
