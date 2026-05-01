@@ -4,7 +4,7 @@ import { getLocaleFromUrl, getT } from '../../i18n/utils';
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 const altLabel = t('visuals.scheduleClock.alt');
-const nextRunLabel = t('visuals.scheduleClock.nextRun');
+const todayLabel = t('visuals.scheduleClock.today');
 
 const CELLS = Array.from({ length: 28 }, (_, i) => {
   const col = i % 7;
@@ -18,8 +18,7 @@ const CELLS = Array.from({ length: 28 }, (_, i) => {
   };
 });
 
-const HIGHLIGHT_COL = 2;
-const HIGHLIGHT_ROWS = [0, 1, 2];
+const SCHEDULED = [0, 1, 2].map((row) => CELLS[row * 7 + 2]);
 ---
 
 <div class="schedule-clock relative w-full max-w-[480px] mx-auto" role="presentation">
@@ -32,9 +31,10 @@ const HIGHLIGHT_ROWS = [0, 1, 2];
   >
     <g class="sc-pill" aria-hidden="true">
       <rect x="120" y="16" width="240" height="40" rx="20" class="fill-baby-blue" />
-      <text x="240" y="41" text-anchor="middle" class="sc-pill-text sc-t1 fill-brand-blue">{nextRunLabel} · 12h 04m</text>
-      <text x="240" y="41" text-anchor="middle" class="sc-pill-text sc-t2 fill-brand-blue">{nextRunLabel} · 06h 21m</text>
-      <text x="240" y="41" text-anchor="middle" class="sc-pill-text sc-t3 fill-brand-blue">{nextRunLabel} · 01h 12m</text>
+      <text x="240" y="41" text-anchor="middle" class="sc-pill-text sc-p1 fill-brand-blue">{todayLabel} · Mar 1</text>
+      <text x="240" y="41" text-anchor="middle" class="sc-pill-text sc-p2 fill-brand-blue">{todayLabel} · Mar 5</text>
+      <text x="240" y="41" text-anchor="middle" class="sc-pill-text sc-p3 fill-brand-blue">{todayLabel} · Mar 12</text>
+      <text x="240" y="41" text-anchor="middle" class="sc-pill-text sc-p4 fill-brand-blue">{todayLabel} · Mar 18</text>
     </g>
 
     <g class="sc-dow" aria-hidden="true">
@@ -57,18 +57,20 @@ const HIGHLIGHT_ROWS = [0, 1, 2];
     </g>
 
     <g class="sc-hl-layer" aria-hidden="true">
-      {HIGHLIGHT_ROWS.map((row) => {
-        const cell = CELLS[row * 7 + HIGHLIGHT_COL];
-        return (
-          <g class={`sc-hl sc-hl-${row}`}>
-            <circle cx={cell.cx} cy={cell.cy} r="34" fill-opacity="0.06" class="fill-brand-blue" />
-            <circle cx={cell.cx} cy={cell.cy} r="26" fill-opacity="0.10" class="fill-brand-blue" />
-            <circle cx={cell.cx} cy={cell.cy} r="20" fill-opacity="0.14" class="fill-brand-blue" />
+      {SCHEDULED.map((cell, i) => (
+        <g class={`sc-slot sc-s${i + 1}`}>
+          <g class="sc-blue">
+            <circle cx={cell.cx} cy={cell.cy} r="22" fill-opacity="0.10" class="fill-brand-blue" />
             <rect x={cell.x} y={cell.y} width="58" height="58" rx="10" fill="none" stroke-width="1.5" class="stroke-brand-blue" />
             <circle cx={cell.cx} cy={cell.cy + 18} r="3" class="fill-brand-blue" />
           </g>
-        );
-      })}
+          <g class="sc-green">
+            <circle cx={cell.cx} cy={cell.cy} r="22" fill-opacity="0.12" class="fill-success" />
+            <rect x={cell.x} y={cell.y} width="58" height="58" rx="10" fill="none" stroke-width="1.5" class="stroke-success" />
+            <circle cx={cell.cx} cy={cell.cy + 18} r="3" class="fill-success" />
+          </g>
+        </g>
+      ))}
     </g>
   </svg>
 </div>
@@ -101,40 +103,42 @@ const HIGHLIGHT_ROWS = [0, 1, 2];
   }
 
   .sc-pill-text { opacity: 0; }
-  .sc-pill-text.sc-t1 { opacity: 1; }
-  .sc-hl { opacity: 0; }
+  .sc-pill-text.sc-p1 { opacity: 1; }
+  .sc-blue { opacity: 1; }
+  .sc-green { opacity: 0; }
 
+  /* 10 s loop: 0–7 s sequence (3 dots turn green as Today advances),
+     7–10 s hold all-green before snapping back. */
   @media (prefers-reduced-motion: no-preference) {
-    .sc-pill-text.sc-t1 { animation: sc-t1 5s steps(1, end) infinite; }
-    .sc-pill-text.sc-t2 { animation: sc-t2 5s steps(1, end) infinite; }
-    .sc-pill-text.sc-t3 { animation: sc-t3 5s steps(1, end) infinite; }
-    .sc-hl-0 { animation: sc-hl 5s ease-in-out infinite; animation-delay: 0s; }
-    .sc-hl-1 { animation: sc-hl 5s ease-in-out infinite; animation-delay: 1.667s; }
-    .sc-hl-2 { animation: sc-hl 5s ease-in-out infinite; animation-delay: 3.333s; }
+    .sc-pill-text.sc-p1 { animation: sc-p1 10s steps(1, end) infinite; }
+    .sc-pill-text.sc-p2 { animation: sc-p2 10s steps(1, end) infinite; }
+    .sc-pill-text.sc-p3 { animation: sc-p3 10s steps(1, end) infinite; }
+    .sc-pill-text.sc-p4 { animation: sc-p4 10s steps(1, end) infinite; }
 
-    @keyframes sc-t1 {
-      0%, 33%      { opacity: 1; }
-      33.01%, 100% { opacity: 0; }
-    }
-    @keyframes sc-t2 {
-      0%, 33%      { opacity: 0; }
-      33.01%, 66%  { opacity: 1; }
-      66.01%, 100% { opacity: 0; }
-    }
-    @keyframes sc-t3 {
-      0%, 66%      { opacity: 0; }
-      66.01%, 100% { opacity: 1; }
-    }
-    @keyframes sc-hl {
-      0%   { opacity: 0; }
-      6%   { opacity: 1; }
-      28%  { opacity: 1; }
-      33%  { opacity: 0; }
-      100% { opacity: 0; }
-    }
+    .sc-s1 .sc-blue  { animation: sc-blue-1  10s steps(1, end) infinite; }
+    .sc-s1 .sc-green { animation: sc-green-1 10s steps(1, end) infinite; }
+    .sc-s2 .sc-blue  { animation: sc-blue-2  10s steps(1, end) infinite; }
+    .sc-s2 .sc-green { animation: sc-green-2 10s steps(1, end) infinite; }
+    .sc-s3 .sc-blue  { animation: sc-blue-3  10s steps(1, end) infinite; }
+    .sc-s3 .sc-green { animation: sc-green-3 10s steps(1, end) infinite; }
+
+    @keyframes sc-p1 { 0%, 15%      { opacity: 1; } 15.01%, 100% { opacity: 0; } }
+    @keyframes sc-p2 { 0%, 15%      { opacity: 0; } 15.01%, 35%  { opacity: 1; } 35.01%, 100% { opacity: 0; } }
+    @keyframes sc-p3 { 0%, 35%      { opacity: 0; } 35.01%, 55%  { opacity: 1; } 55.01%, 100% { opacity: 0; } }
+    @keyframes sc-p4 { 0%, 55%      { opacity: 0; } 55.01%, 100% { opacity: 1; } }
+
+    @keyframes sc-blue-1  { 0%, 15%   { opacity: 1; } 15.01%, 100% { opacity: 0; } }
+    @keyframes sc-green-1 { 0%, 15%   { opacity: 0; } 15.01%, 100% { opacity: 1; } }
+    @keyframes sc-blue-2  { 0%, 35%   { opacity: 1; } 35.01%, 100% { opacity: 0; } }
+    @keyframes sc-green-2 { 0%, 35%   { opacity: 0; } 35.01%, 100% { opacity: 1; } }
+    @keyframes sc-blue-3  { 0%, 55%   { opacity: 1; } 55.01%, 100% { opacity: 0; } }
+    @keyframes sc-green-3 { 0%, 55%   { opacity: 0; } 55.01%, 100% { opacity: 1; } }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sc-hl { opacity: 1; }
+    .sc-pill-text.sc-p1 { opacity: 0; }
+    .sc-pill-text.sc-p4 { opacity: 1; }
+    .sc-blue  { opacity: 0; }
+    .sc-green { opacity: 1; }
   }
 </style>

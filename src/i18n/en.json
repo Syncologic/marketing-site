@@ -122,8 +122,8 @@
       "viewFinalReport": "View final report"
     },
     "scheduleClock": {
-      "alt": "A weekly calendar with a recurring backup running every Wednesday and a countdown to the next run.",
-      "nextRun": "Next run · in"
+      "alt": "A weekly calendar with three scheduled backups on Wednesdays — each turns from blue to green as Today advances past it.",
+      "today": "Today"
     }
   },
   "guides": {
