@@ -1,0 +1,64 @@
+---
+locale: pt-br
+slug: move-files-between-clouds-without-downloading
+title: "Move files between clouds without downloading them first"
+description: "A practical guide to moving files between cloud providers — Drive, OneDrive, Dropbox, S3 — without dragging every byte through your laptop."
+eyebrow: "Guide"
+headline: "Move files between clouds without downloading them first"
+subheading: "Why download-and-reupload fails on large folders, what actually works, and where a dedicated transfer tool earns its keep."
+primaryCta:
+  label: "Join the waitlist"
+  href: "#waitlist"
+publishedAt: 2026-04-30
+---
+
+You have a folder in Google Drive, Dropbox, or OneDrive. You want it in another cloud. The obvious path — download everything, then re-upload — is also the slowest, most fragile one. This guide walks through the alternatives honestly: what works for small jobs, where each approach breaks, and what to reach for when none of them are enough.
+
+## What people usually try first
+
+The default plan is to right-click the folder, hit **Download**, wait for a zip, and re-upload it on the destination. For a few hundred megabytes, that's fine. For anything bigger, three things tend to go wrong.
+
+First, the zip itself fails. Google Drive's web UI silently splits very large folders into multiple archives or stops mid-export. Dropbox refuses to zip past a size limit. OneDrive's "Download" can quietly skip shared items you don't fully own.
+
+Second, the upload chokes on home internet. A 200&nbsp;GB folder over a 50&nbsp;Mbps upload link is roughly nine hours of uninterrupted streaming — which means it's actually a week of restarts, because anything from a Wi-Fi blip to a tab close kills it. Resume support across providers is uneven.
+
+Third, you lose metadata. Comments, share permissions, version history, "Last modified" timestamps — most of it doesn't survive a download/re-upload round trip. For a personal photo dump that's annoying. For a company migration it's a real problem.
+
+## What works better
+
+A handful of approaches sidestep the laptop entirely. They're worth knowing on their own merits — not every job needs a paid product.
+
+- **Provider-native migration tools.** Google Workspace, Microsoft 365, and Dropbox each ship admin-level migration tooling for their own platform. They're the right answer when you're staying within one vendor (e.g., consolidating two Google Workspace tenants). Outside that lane, they don't help.
+- **`rclone`.** The open-source command-line tool that mounts and copies between most cloud providers, server-to-server, without round-tripping through your machine. It's powerful, free, and battle-tested. The trade-off is that it's a CLI: you write a config file, you understand OAuth scopes, you read the docs. For technical users, it's often the right choice. For most people, it isn't.
+- **Google Takeout / equivalents.** Useful for a one-shot personal export, especially before leaving a service. The export is asynchronous (sometimes a day or more), the archives are split by size, and you still have to upload them somewhere. Fine for backups; painful for migrations.
+- **Server-to-server hosted tools.** Mover.io was the canonical example before Microsoft acquired it and shut it down to non-Microsoft destinations. MultCloud, CloudHQ, and similar services still exist; they vary widely in pricing, provider coverage, and how transparent they are about where your data flows.
+
+For a one-off transfer of moderate size, one of those will probably do the job.
+
+## When that still isn't enough
+
+The honest answer to "which is best" is "it depends on the job." A few situations push past what the simple answers cover:
+
+- **Large folders with mixed file types** — hundreds of thousands of small files, where per-file API overhead matters more than raw bandwidth.
+- **Recurring transfers, not a one-time migration** — you want a backup that runs every Sunday, not a tool you click once.
+- **Privacy or compliance constraints** — you can't have files traversing a vendor's hosted infrastructure, even briefly.
+- **Cross-organization moves** — a company switching from Google Workspace to Microsoft 365, with permissions and shared drives to preserve.
+- **Verification needs** — you need a manifest of what was copied, what was skipped, and why, so the migration doesn't end with "I think it's done."
+
+If any of those describe your situation, a CLI plus a cron job can still work — but you're now maintaining transfer infrastructure as a side project. That's the gap dedicated tools try to fill.
+
+## How Syncologic does this
+
+Syncologic moves files between clouds without ever pulling them through your laptop. The workflow is the same regardless of provider pair:
+
+You connect a source and a destination — Google Drive, OneDrive, Dropbox, S3-compatible storage, SFTP, WebDAV, or Nextcloud. You scope access to the folder you actually care about, not the whole drive. You preview what will be transferred before anything moves: count, total size, conflicts, files that will be skipped. Then you choose where the transfer runs.
+
+There are three options for that. **Cloud Runner** is the convenient default — Syncologic infrastructure does the work, with short-lived credentials and isolated job state. **Browser Runner** ("This Device") streams the bytes through your open browser tab, so nothing lives on a hosted runner; the trade-off is that the tab must stay open. **Private Runner** is a small binary you run yourself, on your own machine, NAS, or VPS — the bytes flow source → your hardware → destination, and Syncologic only sees metadata.
+
+Once it's running, you watch progress live and get a completion report at the end: what copied, what was skipped, what failed and why. The same workflow handles a one-time migration, a scheduled backup, or a cross-cloud sync.
+
+## Caveats
+
+A few things to be straight about. Syncologic is pre-launch — you can join the waitlist, but you can't run a transfer today. Provider coverage starts with the seven listed above; we're not promising every cloud on the internet. The Browser Runner trades convenience for transparency: it works, but a one-terabyte job over a residential link will still take hours, and you'll need to keep the tab open. And no transfer tool — ours or anyone else's — preserves every piece of provider-specific metadata across vendors. Some things (Google Drive comments, OneDrive sharing intricacies) live in the source provider and don't have a destination equivalent.
+
+If your job is small, one-off, and within a single vendor, you may not need any of this. If it's anything more — large, recurring, sensitive, or cross-vendor — that's the case Syncologic is being built for. Drop your email below and we'll let you know when it's ready.
