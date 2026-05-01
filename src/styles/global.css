@@ -49,3 +49,67 @@
     scroll-behavior: auto !important;
   }
 }
+
+@layer components {
+  .prose-syncologic {
+    @apply text-slate-gray;
+  }
+  .prose-syncologic h2 {
+    @apply text-h1 font-medium text-dark-charcoal mt-12 mb-4;
+  }
+  .prose-syncologic h3 {
+    @apply text-h3 font-bold text-dark-charcoal mt-8 mb-3;
+  }
+  .prose-syncologic p {
+    @apply text-body mb-5;
+  }
+  .prose-syncologic ul {
+    @apply list-disc pl-6 mb-5 text-body;
+  }
+  .prose-syncologic ol {
+    @apply list-decimal pl-6 mb-5 text-body;
+  }
+  .prose-syncologic li {
+    @apply mb-2;
+  }
+  .prose-syncologic a {
+    @apply text-brand-blue underline underline-offset-2;
+  }
+  .prose-syncologic strong {
+    @apply text-dark-charcoal font-medium;
+  }
+  .prose-syncologic code {
+    @apply bg-soft-gray rounded-input px-1.5 py-0.5 text-caption;
+  }
+  .prose-syncologic table {
+    @apply w-full my-6 text-body border-collapse;
+  }
+  .prose-syncologic thead {
+    @apply border-b border-divider;
+  }
+  .prose-syncologic th {
+    @apply text-left font-medium text-dark-charcoal py-3 pr-4 align-top;
+  }
+  .prose-syncologic td {
+    @apply py-3 pr-4 align-top border-b border-divider;
+  }
+  .prose-syncologic tr:last-child td {
+    @apply border-b-0;
+  }
+  @media (max-width: 767px) {
+    .prose-syncologic table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+    }
+    .prose-syncologic th,
+    .prose-syncologic td {
+      min-width: 11rem;
+      white-space: normal;
+    }
+  }
+  .prose-syncologic > :first-child {
+    margin-top: 0;
+  }
+}

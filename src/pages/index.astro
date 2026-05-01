@@ -1,5 +1,6 @@
 ---
 import Layout from '../components/layout/Layout.astro';
+import JsonLd from '../components/layout/JsonLd.astro';
 import Nav from '../components/layout/Nav.astro';
 import Footer from '../components/layout/Footer.astro';
 import Section from '../components/ui/Section.astro';
@@ -16,9 +17,26 @@ import { getT } from '../i18n/utils';
 const t = getT('en');
 const title = `${t('site.name')} — ${t('site.tagline')}`;
 const description = t('site.description');
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://syncologic.com';
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Syncologic',
+  url: siteUrl,
+  logo: `${siteUrl}/assets/brand/icon-black.png`,
+  sameAs: [],
+};
+const siteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  url: siteUrl,
+  name: 'Syncologic',
+  inLanguage: ['en', 'pt-BR'],
+};
 ---
 
 <Layout title={title} description={description}>
+  <JsonLd slot="head" schema={[orgSchema, siteSchema]} />
   <Nav slot="nav" />
 
   <Section surface="white" padding="lg" class="!py-section-sm lg:!py-section-lg">
