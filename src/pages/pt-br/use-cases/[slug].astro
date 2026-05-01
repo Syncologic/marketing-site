@@ -10,7 +10,7 @@ import StickyWaitlistBar from '../../../components/sections/StickyWaitlistBar.as
 export async function getStaticPaths() {
   const entries = await getCollection('use-cases', (e) => e.data.locale === 'pt-br');
   return entries.map((entry) => ({
-    params: { slug: entry.data.slug },
+    params: { slug: entry.slug },
     props: { entry },
   }));
 }

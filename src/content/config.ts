@@ -11,7 +11,6 @@ const ctaSchema = z.object({
 
 const useCaseSchema = z.object({
   locale: localeEnum,
-  slug: z.string(),
   title: z.string().min(8).max(70),
   description: z.string().min(40).max(180),
   ogImage: z.string().optional(),
@@ -27,7 +26,6 @@ const useCaseSchema = z.object({
 
 const guideSchema = z.object({
   locale: localeEnum,
-  slug: z.string(),
   title: z.string().min(8).max(70),
   description: z.string().min(40).max(180),
   ogImage: z.string().optional(),
