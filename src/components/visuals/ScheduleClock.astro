@@ -1,0 +1,140 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const altLabel = t('visuals.scheduleClock.alt');
+const nextRunLabel = t('visuals.scheduleClock.nextRun');
+
+const CELLS = Array.from({ length: 28 }, (_, i) => {
+  const col = i % 7;
+  const row = Math.floor(i / 7);
+  return {
+    x: 13 + col * 66,
+    y: 122 + row * 66,
+    cx: 13 + col * 66 + 29,
+    cy: 122 + row * 66 + 29,
+    date: i + 1,
+  };
+});
+
+const HIGHLIGHT_COL = 2;
+const HIGHLIGHT_ROWS = [0, 1, 2];
+---
+
+<div class="schedule-clock relative w-full max-w-[480px] mx-auto" role="presentation">
+  <svg
+    viewBox="0 0 480 480"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label={altLabel}
+    class="w-full h-auto block"
+  >
+    <g class="sc-pill" aria-hidden="true">
+      <rect x="120" y="16" width="240" height="40" rx="20" class="fill-baby-blue" />
+      <text x="240" y="41" text-anchor="middle" class="sc-pill-text sc-t1 fill-brand-blue">{nextRunLabel} · 12h 04m</text>
+      <text x="240" y="41" text-anchor="middle" class="sc-pill-text sc-t2 fill-brand-blue">{nextRunLabel} · 06h 21m</text>
+      <text x="240" y="41" text-anchor="middle" class="sc-pill-text sc-t3 fill-brand-blue">{nextRunLabel} · 01h 12m</text>
+    </g>
+
+    <g class="sc-dow" aria-hidden="true">
+      <text x="42"  y="100" class="sc-dow-text fill-slate-gray">M</text>
+      <text x="108" y="100" class="sc-dow-text fill-slate-gray">T</text>
+      <text x="174" y="100" class="sc-dow-text fill-slate-gray">W</text>
+      <text x="240" y="100" class="sc-dow-text fill-slate-gray">T</text>
+      <text x="306" y="100" class="sc-dow-text fill-slate-gray">F</text>
+      <text x="372" y="100" class="sc-dow-text fill-slate-gray">S</text>
+      <text x="438" y="100" class="sc-dow-text fill-slate-gray">S</text>
+    </g>
+
+    <g class="sc-cells" aria-hidden="true">
+      {CELLS.map((c) => (
+        <g>
+          <rect x={c.x} y={c.y} width="58" height="58" rx="10" stroke-width="1" class="fill-warm-gray stroke-divider" />
+          <text x={c.cx} y={c.cy + 6} class="sc-cell-num fill-slate-gray">{c.date}</text>
+        </g>
+      ))}
+    </g>
+
+    <g class="sc-hl-layer" aria-hidden="true">
+      {HIGHLIGHT_ROWS.map((row) => {
+        const cell = CELLS[row * 7 + HIGHLIGHT_COL];
+        return (
+          <g class={`sc-hl sc-hl-${row}`}>
+            <circle cx={cell.cx} cy={cell.cy} r="34" fill-opacity="0.06" class="fill-brand-blue" />
+            <circle cx={cell.cx} cy={cell.cy} r="26" fill-opacity="0.10" class="fill-brand-blue" />
+            <circle cx={cell.cx} cy={cell.cy} r="20" fill-opacity="0.14" class="fill-brand-blue" />
+            <rect x={cell.x} y={cell.y} width="58" height="58" rx="10" fill="none" stroke-width="1.5" class="stroke-brand-blue" />
+            <circle cx={cell.cx} cy={cell.cy + 18} r="3" class="fill-brand-blue" />
+          </g>
+        );
+      })}
+    </g>
+  </svg>
+</div>
+
+<style>
+  .schedule-clock { min-width: 320px; }
+
+  @media (max-width: 1023px) {
+    .schedule-clock { margin-block: -1rem -2rem; }
+  }
+  @media (max-width: 639px) {
+    .schedule-clock { min-width: 0; max-width: 360px; margin-block: -1rem -3rem; }
+  }
+
+  .sc-pill-text {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+  }
+  .sc-dow-text {
+    font-size: 13px;
+    font-weight: 600;
+    text-anchor: middle;
+    letter-spacing: 0.06em;
+  }
+  .sc-cell-num {
+    font-size: 14px;
+    font-weight: 500;
+    text-anchor: middle;
+  }
+
+  .sc-pill-text { opacity: 0; }
+  .sc-pill-text.sc-t1 { opacity: 1; }
+  .sc-hl { opacity: 0; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sc-pill-text.sc-t1 { animation: sc-t1 5s steps(1, end) infinite; }
+    .sc-pill-text.sc-t2 { animation: sc-t2 5s steps(1, end) infinite; }
+    .sc-pill-text.sc-t3 { animation: sc-t3 5s steps(1, end) infinite; }
+    .sc-hl-0 { animation: sc-hl 5s ease-in-out infinite; animation-delay: 0s; }
+    .sc-hl-1 { animation: sc-hl 5s ease-in-out infinite; animation-delay: 1.667s; }
+    .sc-hl-2 { animation: sc-hl 5s ease-in-out infinite; animation-delay: 3.333s; }
+
+    @keyframes sc-t1 {
+      0%, 33%      { opacity: 1; }
+      33.01%, 100% { opacity: 0; }
+    }
+    @keyframes sc-t2 {
+      0%, 33%      { opacity: 0; }
+      33.01%, 66%  { opacity: 1; }
+      66.01%, 100% { opacity: 0; }
+    }
+    @keyframes sc-t3 {
+      0%, 66%      { opacity: 0; }
+      66.01%, 100% { opacity: 1; }
+    }
+    @keyframes sc-hl {
+      0%   { opacity: 0; }
+      6%   { opacity: 1; }
+      28%  { opacity: 1; }
+      33%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sc-hl { opacity: 1; }
+  }
+</style>

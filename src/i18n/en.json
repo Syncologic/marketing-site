@@ -120,6 +120,10 @@
       "file4": "team-photo.heic",
       "file5": "marketing-assets/",
       "viewFinalReport": "View final report"
+    },
+    "scheduleClock": {
+      "alt": "A weekly calendar with a recurring backup running every Wednesday and a countdown to the next run.",
+      "nextRun": "Next run · in"
     }
   },
   "guides": {
