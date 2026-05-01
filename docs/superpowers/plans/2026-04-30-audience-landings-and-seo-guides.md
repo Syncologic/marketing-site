@@ -4,7 +4,7 @@
 
 **Goal:** Ship the eight Plan-2 routes — `/pricing`, `/self-hosted`, `/developers`, the four core use-case landings, and the two first SEO guides — at both `/` and `/pt-br/`, fed by Astro content collections, served with proper SEO metadata, JSON-LD, robots.txt, and Vercel Analytics, ready to merge from `development` to `main` (production).
 
-**Architecture:** Two tightly-scoped foundation tasks (#A page templates + content collections + shared section components, #B site-wide SEO + analytics) unblock six independently-shippable page tasks (#C-#G). Each page task ships its own English content **plus** an English-copy placeholder pt-BR mirror (real translations are Plan 3). Once all pages land, #H verifies + opens the deploy PR.
+**Architecture:** Two tightly-scoped foundation tasks (#74 page templates + content collections + shared section components, #75 site-wide SEO + analytics) unblock six independently-shippable page tasks (#76-#84). Each page task ships its own English content **plus** an English-copy placeholder pt-BR mirror (real translations are Plan 3). Once all pages land, #87 verifies + opens the deploy PR.
 
 **Tech Stack:** Astro 5+ (existing), MDX content collections (Astro `defineCollection` + zod schemas), Tailwind tokens (existing `tailwind.config.mjs`), `@astrojs/sitemap` (already wired), `@vercel/speed-insights/astro` (new), schema.org JSON-LD (inline), no new runtime dependencies.
 
@@ -29,7 +29,7 @@ Plan 2 starts from `development` (branched from production `main` on 2026-04-30)
 
 1. Branches off **`development`** (`git worktree add .worktrees/<branch> -b <branch> development`).
 2. Lands via PR targeting **`development`**, body must include `Closes #<issue>`.
-3. After all Plan-2 PRs merge to `development` and #H verifies, a single `development` → `main` deploy PR ships everything to production.
+3. After all Plan-2 PRs merge to `development` and #87 verifies, a single `development` → `main` deploy PR ships everything to production.
 
 Never commit to `main` or `development` directly.
 
@@ -38,53 +38,53 @@ Never commit to `main` or `development` directly.
 ```
 src/
 ├── content/
-│   ├── config.ts                                  # #A1 — defines useCases + guides collections
+│   ├── config.ts                                  # #74 step 1 — defines useCases + guides collections
 │   ├── use-cases/
 │   │   ├── en/
-│   │   │   ├── cloud-to-cloud-transfer.mdx        # #F1
-│   │   │   ├── business-cloud-migration.mdx       # #F2
-│   │   │   ├── scheduled-cloud-backup.mdx         # #F3
-│   │   │   └── private-runner.mdx                 # #F4
+│   │   │   ├── cloud-to-cloud-transfer.mdx        # #80
+│   │   │   ├── business-cloud-migration.mdx       # #81
+│   │   │   ├── scheduled-cloud-backup.mdx         # #82
+│   │   │   └── private-runner.mdx                 # #83
 │   │   └── pt-br/
-│   │       ├── cloud-to-cloud-transfer.mdx        # #F1
-│   │       ├── business-cloud-migration.mdx       # #F2
-│   │       ├── scheduled-cloud-backup.mdx         # #F3
-│   │       └── private-runner.mdx                 # #F4
+│   │       ├── cloud-to-cloud-transfer.mdx        # #80
+│   │       ├── business-cloud-migration.mdx       # #81
+│   │       ├── scheduled-cloud-backup.mdx         # #82
+│   │       └── private-runner.mdx                 # #83
 │   └── guides/
 │       ├── en/
-│       │   ├── move-files-between-clouds-without-downloading.mdx  # #G1
-│       │   └── transfer-google-drive-to-onedrive.mdx              # #G2
+│       │   ├── move-files-between-clouds-without-downloading.mdx  # #85
+│       │   └── transfer-google-drive-to-onedrive.mdx              # #86
 │       └── pt-br/
-│           ├── move-files-between-clouds-without-downloading.mdx  # #G1
-│           └── transfer-google-drive-to-onedrive.mdx              # #G2
+│           ├── move-files-between-clouds-without-downloading.mdx  # #85
+│           └── transfer-google-drive-to-onedrive.mdx              # #86
 ├── components/
 │   ├── sections/
-│   │   ├── Hero.astro                             # #A — generic landing/guide hero
-│   │   └── FAQ.astro                              # #A — accordion (pricing + developers)
+│   │   ├── Hero.astro                             # #74 — generic landing/guide hero
+│   │   └── FAQ.astro                              # #74 — accordion (pricing + developers)
 │   └── layout/
-│       └── JsonLd.astro                           # #B — script JSON-LD injector
+│       └── JsonLd.astro                           # #75 — script JSON-LD injector
 ├── pages/
-│   ├── pricing.astro                              # #C
-│   ├── self-hosted.astro                          # #D
-│   ├── developers.astro                           # #E
+│   ├── pricing.astro                              # #76
+│   ├── self-hosted.astro                          # #77
+│   ├── developers.astro                           # #78
 │   ├── use-cases/
-│   │   └── [slug].astro                           # #A — dynamic template (en)
+│   │   └── [slug].astro                           # #74 — dynamic template (en)
 │   ├── guides/
-│   │   └── [slug].astro                           # #A — dynamic template (en)
+│   │   └── [slug].astro                           # #74 — dynamic template (en)
 │   └── pt-br/
-│       ├── index.astro                            # #C? actually exists or not — see below
-│       ├── pricing.astro                          # #C
-│       ├── self-hosted.astro                      # #D
-│       ├── developers.astro                       # #E
+│       ├── index.astro                            # #76? actually exists or not — see below
+│       ├── pricing.astro                          # #76
+│       ├── self-hosted.astro                      # #77
+│       ├── developers.astro                       # #78
 │       ├── use-cases/
-│       │   └── [slug].astro                       # #A — dynamic template (pt-br)
+│       │   └── [slug].astro                       # #74 — dynamic template (pt-br)
 │       └── guides/
-│           └── [slug].astro                       # #A — dynamic template (pt-br)
+│           └── [slug].astro                       # #74 — dynamic template (pt-br)
 public/
-├── robots.txt                                     # #B
-└── og/                                            # #B — per-page OG images (1200x630)
-    ├── default-en.png                             # #B (rename of og-default.png if needed)
-    └── default-pt-br.png                          # #B
+├── robots.txt                                     # #75
+└── og/                                            # #75 — per-page OG images (1200x630)
+    ├── default-en.png                             # #75 (rename of og-default.png if needed)
+    └── default-pt-br.png                          # #75
 src/i18n/
 ├── en.json                                        # extended by every page task
 └── pt-br.json                                     # extended by every page task (English placeholder copy)
@@ -93,43 +93,43 @@ src/i18n/
 ## Issue tree (mirrors GitHub parent/sub-issue structure)
 
 ```
-#Z Plan 2 Tracking — Audience Landings & SEO Guides     (umbrella)
-├── #A Foundation: page templates + collections + Hero + FAQ
-├── #B Foundation: site-wide SEO, robots, JSON-LD, Speed Insights
-├── #C Bespoke page: /pricing (en + pt-br)
-├── #D Bespoke page: /self-hosted (en + pt-br)
-├── #E Bespoke page: /developers (en + pt-br)
-├── #F Use-case landings (parent)
-│   ├── #F1 /use-cases/cloud-to-cloud-transfer
-│   ├── #F2 /use-cases/business-cloud-migration
-│   ├── #F3 /use-cases/scheduled-cloud-backup
-│   └── #F4 /use-cases/private-runner
-├── #G SEO guides (parent)
-│   ├── #G1 /guides/move-files-between-clouds-without-downloading
-│   └── #G2 /guides/transfer-google-drive-to-onedrive
-└── #H Verification, Lighthouse, deploy PR (development → main)
+#73 Plan 2 Tracking — Audience Landings & SEO Guides     (umbrella)
+├── #74 Foundation: page templates + collections + Hero + FAQ
+├── #75 Foundation: site-wide SEO, robots, JSON-LD, Speed Insights
+├── #76 Bespoke page: /pricing (en + pt-br)
+├── #77 Bespoke page: /self-hosted (en + pt-br)
+├── #78 Bespoke page: /developers (en + pt-br)
+├── #79 Use-case landings (parent)
+│   ├── #80 /use-cases/cloud-to-cloud-transfer
+│   ├── #81 /use-cases/business-cloud-migration
+│   ├── #82 /use-cases/scheduled-cloud-backup
+│   └── #83 /use-cases/private-runner
+├── #84 SEO guides (parent)
+│   ├── #85 /guides/move-files-between-clouds-without-downloading
+│   └── #86 /guides/transfer-google-drive-to-onedrive
+└── #87 Verification, Lighthouse, deploy PR (development → main)
 ```
 
 ## Dependency graph (parallelism)
 
 ```
-#A ─┐
-    ├─→ #C  (pricing)        ─┐
-    ├─→ #D  (self-hosted)    ─┤
-    ├─→ #E  (developers)     ─┤
-    ├─→ #F1 #F2 #F3 #F4      ─┤── #H (verify + deploy)
-    └─→ #G1 #G2              ─┘
-#B  (parallel with everything; no code dep on #A)
+#74 ─┐
+    ├─→ #76  (pricing)        ─┐
+    ├─→ #77  (self-hosted)    ─┤
+    ├─→ #78  (developers)     ─┤
+    ├─→ #80 #81 #82 #83      ─┤── #87 (verify + deploy)
+    └─→ #85 #86              ─┘
+#75  (parallel with everything; no code dep on #74)
 ```
 
-**#A and #B are the only foundation tasks; once #A merges, #C through #G are all parallel.** #B can run in parallel with the page work (independent files). #H is the final gate.
+**#74 and #75 are the only foundation tasks; once #74 merges, #76 through #84 are all parallel.** #75 can run in parallel with the page work (independent files). #87 is the final gate.
 
 ---
 
-## Task #A — Foundation: page templates + content collections + Hero + FAQ
+## Task #74 — Foundation: page templates + content collections + Hero + FAQ
 
 **Branch:** `feat/plan-2-foundation-templates`
-**Closes:** #A
+**Closes:** #74
 **Public dependencies:** Plan-1 primitives (`Button`, `Card`, `Section`, `Input`, `ProviderLogo`, `WaitlistForm`, `Layout`, `Nav`, `Footer`), Tailwind tokens, i18n utils.
 
 ### Files
@@ -262,7 +262,7 @@ const {
 
 ### Step 3: Create `FAQ.astro` accordion
 
-Used by `/pricing` (#C) and `/developers` (#E). Pure HTML `<details>` — no JS required.
+Used by `/pricing` (#76) and `/developers` (#78). Pure HTML `<details>` — no JS required.
 
 - [ ] Create `src/components/sections/FAQ.astro`:
 
@@ -471,15 +471,15 @@ The MDX article body needs sane typography defaults inside the constrained conta
 - [ ] `npx astro sync && npx astro check` — zero errors. Templates compile against empty collections (zero static paths is fine).
 - [ ] `npm run dev` — visit `/use-cases/anything` and `/guides/anything` — both should 404 (no MDX yet) but not error.
 - [ ] `npm run build` — clean static build, no warnings about missing routes.
-- [ ] Push, open PR `feat: page templates + content collections + Hero + FAQ` against `development`. PR body: `Closes #A`.
+- [ ] Push, open PR `feat: page templates + content collections + Hero + FAQ` against `development`. PR body: `Closes #74`.
 
 ---
 
-## Task #B — Foundation: site-wide SEO + analytics + robots + JSON-LD
+## Task #75 — Foundation: site-wide SEO + analytics + robots + JSON-LD
 
 **Branch:** `feat/plan-2-seo-foundation`
-**Closes:** #B
-**Public dependencies:** none on #A. Independent of all page work — can land in parallel.
+**Closes:** #75
+**Public dependencies:** none on #74. Independent of all page work — can land in parallel.
 
 ### Files
 
@@ -582,7 +582,7 @@ const siteSchema = {
 </Layout>
 ```
 
-- [ ] Mirror to `src/pages/pt-br/index.astro` (will be created in #C/#D/#E flow if not already; if it doesn't exist yet, create a minimal pt-BR index that imports the English homepage components — copy stays English placeholder per i18n rules).
+- [ ] Mirror to `src/pages/pt-br/index.astro` (will be created in #76/#77/#78 flow if not already; if it doesn't exist yet, create a minimal pt-BR index that imports the English homepage components — copy stays English placeholder per i18n rules).
 - [ ] Commit: `feat(seo): homepage Organization + WebSite JSON-LD`
 
 ### Step 5: Vercel Speed Insights
@@ -613,16 +613,16 @@ import { SpeedInsights } from '@vercel/speed-insights/astro';
 - [ ] `npm run build` — no errors. Confirm `dist/sitemap-*.xml` is generated.
 - [ ] Open `dist/index.html` — confirm `<script type="application/ld+json">` is present and valid JSON.
 - [ ] `npm run dev`, hit `http://localhost:4321/robots.txt` — confirm content.
-- [ ] PR `feat: site-wide SEO foundation (robots, JSON-LD, OG defaults, Speed Insights)` against `development`. Body: `Closes #B`.
+- [ ] PR `feat: site-wide SEO foundation (robots, JSON-LD, OG defaults, Speed Insights)` against `development`. Body: `Closes #75`.
 
 ---
 
-## Task #C — Bespoke page: `/pricing` (en + pt-br)
+## Task #76 — Bespoke page: `/pricing` (en + pt-br)
 
 **Branch:** `feat/plan-2-pricing`
-**Closes:** #C
-**Depends on:** #A (uses `Hero`, `FAQ`).
-**Parallelizable with:** #D, #E, #F*, #G*, #B.
+**Closes:** #76
+**Depends on:** #74 (uses `Hero`, `FAQ`).
+**Parallelizable with:** #77, #78, #79*, #84*, #75.
 
 ### Files
 
@@ -670,16 +670,16 @@ Sections, top-to-bottom:
 - [ ] `npm run lint` — zero errors.
 - [ ] `npm run build` — clean.
 - [ ] `design-check` skill — audit page against `DESIGN.md` and the `.claude/rules/` Always/Never lists.
-- [ ] PR `feat: /pricing landing page (en + pt-br)` against `development`. Body: `Closes #C`.
+- [ ] PR `feat: /pricing landing page (en + pt-br)` against `development`. Body: `Closes #76`.
 
 ---
 
-## Task #D — Bespoke page: `/self-hosted` (en + pt-br)
+## Task #77 — Bespoke page: `/self-hosted` (en + pt-br)
 
 **Branch:** `feat/plan-2-self-hosted`
-**Closes:** #D
-**Depends on:** #A (`Hero`).
-**Parallelizable with:** #C, #E, #F*, #G*, #B.
+**Closes:** #77
+**Depends on:** #74 (`Hero`).
+**Parallelizable with:** #76, #78, #79*, #84*, #75.
 
 ### Files
 
@@ -697,19 +697,19 @@ Sections, top-to-bottom:
 6. `<WaitlistForm defaultSegment="self_hosted">`.
 7. `<Footer />`.
 
-### Step 1 / 2 / 3: same shape as #C — English page → pt-BR mirror → verify.
+### Step 1 / 2 / 3: same shape as #76 — English page → pt-BR mirror → verify.
 
-- [ ] Commit per file as in #C.
-- [ ] PR `feat: /self-hosted landing page (en + pt-br)` against `development`. Body: `Closes #D`.
+- [ ] Commit per file as in #76.
+- [ ] PR `feat: /self-hosted landing page (en + pt-br)` against `development`. Body: `Closes #77`.
 
 ---
 
-## Task #E — Bespoke page: `/developers` (en + pt-br)
+## Task #78 — Bespoke page: `/developers` (en + pt-br)
 
 **Branch:** `feat/plan-2-developers`
-**Closes:** #E
-**Depends on:** #A (`Hero`, `FAQ`).
-**Parallelizable with:** #C, #D, #F*, #G*, #B.
+**Closes:** #78
+**Depends on:** #74 (`Hero`, `FAQ`).
+**Parallelizable with:** #76, #77, #79*, #84*, #75.
 
 ### Files
 
@@ -731,25 +731,25 @@ Sections, top-to-bottom:
 
 If `WaitlistForm` doesn't already accept an additional segmentation question, this task adds a `extraQuestion?` prop (no new segment enum — collected in `localStorage` and skipped if not provided). **Don't expand the DB schema** in this plan; the question is signal-only on the front end and can be PATCHed into a future generic `notes` column if Plan 3+ adds one.
 
-### Step 1 / 2 / 3: same shape as #C — English page → pt-BR mirror → verify.
+### Step 1 / 2 / 3: same shape as #76 — English page → pt-BR mirror → verify.
 
-- [ ] PR `feat: /developers landing page (en + pt-br)` against `development`. Body: `Closes #E`.
+- [ ] PR `feat: /developers landing page (en + pt-br)` against `development`. Body: `Closes #78`.
 
 ---
 
-## Task #F — Use-case landings (parent)
+## Task #79 — Use-case landings (parent)
 
-**Closes:** #F
-**Depends on:** #A.
-**Sub-issues:** #F1–#F4 are content-authoring tasks. Each sub-issue is independently parallelizable once #A is merged.
+**Closes:** #79
+**Depends on:** #74.
+**Sub-issues:** #80–#83 are content-authoring tasks. Each sub-issue is independently parallelizable once #74 is merged.
 
 Each sub-issue:
 
 - Branch: `feat/plan-2-use-case-<slug>`
 - Files: `src/content/use-cases/en/<slug>.mdx` + `src/content/use-cases/pt-br/<slug>.mdx`
-- PR body: `Closes #F<N>` and `Refs #F`.
+- PR body: `Closes #79<N>` and `Refs #79`.
 
-The dynamic templates from #A render these MDX files at `/use-cases/<slug>` (en) and `/pt-br/use-cases/<slug>` (pt-BR).
+The dynamic templates from #74 render these MDX files at `/use-cases/<slug>` (en) and `/pt-br/use-cases/<slug>` (pt-BR).
 
 ### Frontmatter contract (every MDX file)
 
@@ -803,39 +803,39 @@ After the body, the template injects `<WaitlistForm defaultSegment={frontmatter.
 
 ### Sub-issue list
 
-#### #F1 `/use-cases/cloud-to-cloud-transfer`
+#### #80 `/use-cases/cloud-to-cloud-transfer`
 
 - [ ] Create `src/content/use-cases/en/cloud-to-cloud-transfer.mdx` with `waitlistSegment: one_time_transfer`. Body sections per the contract; segmentation question: "Which two clouds do you want to connect?".
 - [ ] Mirror to `src/content/use-cases/pt-br/cloud-to-cloud-transfer.mdx` (English placeholder copy).
 - [ ] Verify: `npm run dev`, visit `/use-cases/cloud-to-cloud-transfer` and `/pt-br/use-cases/cloud-to-cloud-transfer`. Manual visual at desktop + mobile.
-- [ ] PR. Body: `Closes #F1` (and `Refs #F`).
+- [ ] PR. Body: `Closes #80` (and `Refs #79`).
 
-#### #F2 `/use-cases/business-cloud-migration`
+#### #81 `/use-cases/business-cloud-migration`
 
 - [ ] Create both MDX files with `waitlistSegment: business_migration`. Segmentation phrasing: "Are you migrating a team, company, or personal account?". Sections emphasize: preview/dry-run, run reports, scheduling, Private Runner option for sensitive moves.
-- [ ] PR. `Closes #F2`.
+- [ ] PR. `Closes #81`.
 
-#### #F3 `/use-cases/scheduled-cloud-backup`
+#### #82 `/use-cases/scheduled-cloud-backup`
 
 - [ ] Create both MDX files with `waitlistSegment: scheduled_backup`. Body emphasizes scheduled jobs, change detection, backup reports, destination options (S3 prominent).
-- [ ] PR. `Closes #F3`.
+- [ ] PR. `Closes #82`.
 
-#### #F4 `/use-cases/private-runner`
+#### #83 `/use-cases/private-runner`
 
 - [ ] Create both MDX files with `waitlistSegment: private_runner`. Body emphasizes the data path (source → user's runner → destination), outbound connection model, NAS/VPS examples, comparison vs Cloud Runner.
-- [ ] PR. `Closes #F4`.
+- [ ] PR. `Closes #83`.
 
-After all four sub-issues merge, close #F (the parent) with a verification comment listing the 4 PRs.
+After all four sub-issues merge, close #79 (the parent) with a verification comment listing the 4 PRs.
 
 ---
 
-## Task #G — SEO guides (parent)
+## Task #84 — SEO guides (parent)
 
-**Closes:** #G
-**Depends on:** #A.
-**Sub-issues:** #G1, #G2 — content-authoring, parallelizable.
+**Closes:** #84
+**Depends on:** #74.
+**Sub-issues:** #85, #86 — content-authoring, parallelizable.
 
-Same workflow as #F. The frontmatter contract is the same as use-cases (with `waitlistSegment` optional). The body structure is different — guides answer the search query first and only mention Syncologic at the end.
+Same workflow as #79. The frontmatter contract is the same as use-cases (with `waitlistSegment` optional). The body structure is different — guides answer the search query first and only mention Syncologic at the end.
 
 ### Body section template (every guide)
 
@@ -860,28 +860,28 @@ The template injects a soft `<WaitlistForm>` at the end — guide pages do not p
 
 ### Sub-issue list
 
-#### #G1 `/guides/move-files-between-clouds-without-downloading`
+#### #85 `/guides/move-files-between-clouds-without-downloading`
 
 - [ ] Create `src/content/guides/en/move-files-between-clouds-without-downloading.mdx`. Frontmatter: title and meta-description anchoring on the broad query; **no `waitlistSegment`** (broad intent).
 - [ ] Mirror to `src/content/guides/pt-br/move-files-between-clouds-without-downloading.mdx` (English placeholder).
 - [ ] Verify routes + visual.
-- [ ] PR. `Closes #G1` (and `Refs #G`).
+- [ ] PR. `Closes #85` (and `Refs #84`).
 
-#### #G2 `/guides/transfer-google-drive-to-onedrive`
+#### #86 `/guides/transfer-google-drive-to-onedrive`
 
 - [ ] Create both MDX files. Frontmatter: title/description targeting the GDrive → OneDrive query. `waitlistSegment: one_time_transfer` (this query maps cleanly to the cloud-to-cloud use case).
 - [ ] Body emphasizes: official Microsoft Mover.io is gone; Google Takeout-then-upload is fragile for large drives; Workspace migrations differ from personal; Syncologic offers preview + report + runner choice.
-- [ ] PR. `Closes #G2`.
+- [ ] PR. `Closes #86`.
 
-After both sub-issues merge, close #G with a verification comment.
+After both sub-issues merge, close #84 with a verification comment.
 
 ---
 
-## Task #H — Verification + Lighthouse + deploy PR
+## Task #87 — Verification + Lighthouse + deploy PR
 
 **Branch:** N/A (no code changes — verification + deploy PR)
-**Closes:** #H
-**Depends on:** #A, #B, #C, #D, #E, #F, #G all merged to `development`.
+**Closes:** #87
+**Depends on:** #74, #75, #76, #77, #78, #79, #84 all merged to `development`.
 
 ### Step 1: Branch sanity
 
@@ -922,7 +922,7 @@ If any route fails: open a fix PR against `development`. Do not promote to `main
 - [ ] PR body: bulleted list of every Plan-2 PR merged into development, plus Lighthouse summary.
 - [ ] **Wait for explicit user approval before merging.** This is a production deploy — confirm before clicking.
 - [ ] After merge: Vercel auto-deploys. Spot-check `https://syncologic.com/pricing` and one of the use-case pages live.
-- [ ] Close #H with a comment listing the deploy commit SHA.
+- [ ] Close #87 with a comment listing the deploy commit SHA.
 
 ---
 
@@ -931,14 +931,14 @@ If any route fails: open a fix PR against `development`. Do not promote to `main
 - **Real Brazilian Portuguese translations** of all 9 new routes + existing homepage. Plan 2 ships English-placeholder pt-BR.
 - **Comparison pages** (`/compare/*`) — wait for first waitlist signal on which competitors visitors mention.
 - **Remaining 4 use cases** (`browser-transfer`, `local-nas-backup`, `developer-automation`, additional self-host variants) — wait for waitlist data.
-- **Remaining 4–5 SEO guides** — validate format with #G1+#G2 first.
+- **Remaining 4–5 SEO guides** — validate format with #85+#86 first.
 - **Per-page custom OG images** beyond defaults — add them when a page underperforms in social shares.
 
 ## Self-review checklist (run after writing the plan)
 
-- [x] **Spec coverage:** every "first-build priority" page in `.claude/rules/content.md` (homepage already shipped + pricing + self-hosted + 4 use cases + 2 guides) is covered. `/developers` is included in #E because spec section 5 lists it as a bespoke route.
+- [x] **Spec coverage:** every "first-build priority" page in `.claude/rules/content.md` (homepage already shipped + pricing + self-hosted + 4 use cases + 2 guides) is covered. `/developers` is included in #78 because spec section 5 lists it as a bespoke route.
 - [x] **No placeholders:** every step has concrete file paths and code/copy direction. No "TBD" or "implement appropriately".
 - [x] **Type consistency:** `waitlistSegment` enum matches `src/lib/validation.ts` exactly.
-- [x] **Branching:** every task explicitly branches from `development` and PRs target `development`. The deploy gate (#H) is the only `development → main` PR.
-- [x] **Parallelism:** after #A merges, #B/#C/#D/#E/#F1-F4/#G1-G2 are all independent. #B is independent of #A and can land any time. The dependency tree has only one foundation gate.
+- [x] **Branching:** every task explicitly branches from `development` and PRs target `development`. The deploy gate (#87) is the only `development → main` PR.
+- [x] **Parallelism:** after #74 merges, #75/#76/#77/#78/#80-F4/#85-G2 are all independent. #75 is independent of #74 and can land any time. The dependency tree has only one foundation gate.
 - [x] **Issue count:** 1 tracking + 8 parents + 6 sub-issues = 15. Down from 40+ in Plan 1.
