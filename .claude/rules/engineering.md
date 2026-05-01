@@ -84,11 +84,13 @@ If you can't test the UI in a browser, **say so explicitly** rather than claimin
 
 ## Git workflow
 
-- **Don't start implementation on `main`.** **ALWAYS** create an isolated git worktree via `superpowers:using-git-worktrees` before touching code — every task, no exceptions.
+- **`main` is production.** It auto-deploys to Vercel. Never commit directly to `main`.
+- **`development` is the integration branch.** All feature work branches from `development`, and PRs target `development`. Promotion to `main` is a separate deliberate "deploy" PR after a batch of features is verified on the dev preview.
+- **ALWAYS** create an isolated worktree via `superpowers:using-git-worktrees` before touching code, branched from `development` (not `main`). Every task, no exceptions.
 - Plans live in `./docs/superpowers/plans/`. Execute task-by-task; commit after each task as the plan instructs.
 - **Never** skip git hooks (`--no-verify`) or commit signing.
-- **Never** force-push to `main`/`master`.
-- Commit messages follow conventional format: `feat(scope):`, `fix(scope):`, `chore:`, `docs:`, `test:`.
+- **Never** force-push to `main` or `development`.
+- Commit messages follow conventional format: `feat(scope):`, `fix(scope):`, `chore:`, `docs:`, `test:`. Do **not** include `Co-Authored-By: Claude` trailers.
 - Stage files explicitly (`git add <path>`), never `git add -A` or `git add .` — too easy to grab `.env` or local junk.
 
 ## Risky actions — confirm first

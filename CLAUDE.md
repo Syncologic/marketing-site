@@ -32,10 +32,10 @@ When rules conflict: `DESIGN.md` wins for visual choices, the active plan in `do
 
 ### Standard workflow (every task)
 
-1. **Execute the task** on a feature branch — never on `main`. **ALWAYS** use `superpowers:using-git-worktrees` to create an isolated worktree before touching code. This is non-negotiable: every task starts in a worktree, no exceptions (including small fixes, doc edits, and config changes).
+1. **Execute the task** on a feature branch off `development` — never on `main` (production) or `development` directly. **ALWAYS** use `superpowers:using-git-worktrees` to create an isolated worktree branched from `development` before touching code. This is non-negotiable: every task starts in a worktree, no exceptions (including small fixes, doc edits, and config changes).
 2. **Self-review** with `superpowers:verification-before-completion`. At minimum: `npm run lint`, the relevant test suite, and a real-browser pass at the targeted breakpoints for any UI change.
 3. **Request review** via `superpowers:requesting-code-review` (or `design-check` for visual-only changes) before opening the PR.
-4. **Open a PR** with `superpowers:finishing-a-development-branch`. The PR body **must reference the issue** it closes (e.g. `Closes #123`) so GitHub auto-links and auto-closes on merge. If there is no issue, create one first or state explicitly why none exists.
+4. **Open a PR targeting `development`** with `superpowers:finishing-a-development-branch`. The PR body **must reference the issue** it closes (e.g. `Closes #123`) so GitHub auto-links and auto-closes on merge. If there is no issue, create one first or state explicitly why none exists. `development` → `main` is a separate deliberate deploy event.
 
 ### Skills by task type
 
