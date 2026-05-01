@@ -40,6 +40,28 @@
   }
 }
 
+/* Scroll-reveal + hero entrance motion (Phase B0) */
+@keyframes hero-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.hero-fade-in {
+  animation: hero-fade-in 600ms ease both;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 /* Site-wide reduced motion: disables non-essential animation */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -47,6 +69,15 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .hero-fade-in {
+    animation: none;
+  }
+  [data-reveal],
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

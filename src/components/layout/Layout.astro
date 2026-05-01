@@ -51,5 +51,30 @@ const og = ogImage ?? `${siteUrl}/og/default-${locale}.png`;
     </main>
     <slot name="footer" />
     <SpeedInsights />
+    <script>
+      const targets = document.querySelectorAll('[data-reveal]');
+      if (targets.length > 0) {
+        const reveal = (el: Element) => el.classList.add('is-visible');
+        if (
+          'IntersectionObserver' in window &&
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ) {
+          const io = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (entry.isIntersecting) {
+                  reveal(entry.target);
+                  io.unobserve(entry.target);
+                }
+              }
+            },
+            { threshold: 0.15, rootMargin: '0px 0px -10% 0px' },
+          );
+          targets.forEach((el) => io.observe(el));
+        } else {
+          targets.forEach(reveal);
+        }
+      }
+    </script>
   </body>
 </html>
