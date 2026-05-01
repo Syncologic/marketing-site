@@ -1,0 +1,127 @@
+---
+import ProviderLogo from '../ui/ProviderLogo.astro';
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const altLabel = t('visuals.privateRunnerPath.alt');
+const boundaryLabel = t('visuals.privateRunnerPath.boundary');
+const sourceLabel = t('visuals.privateRunnerPath.source');
+const machineLabel = t('visuals.privateRunnerPath.machine');
+const destinationLabel = t('visuals.privateRunnerPath.destination');
+---
+
+<div class="private-runner-path relative w-full max-w-[480px] mx-auto" role="presentation">
+  <svg
+    viewBox="0 0 480 480"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label={altLabel}
+    class="w-full h-auto block"
+  >
+    <rect
+      class="boundary-box stroke-divider"
+      x="170" y="130" width="140" height="260" rx="20"
+      stroke-width="1.5" stroke-dasharray="6 6"
+    />
+    <text x="240" y="156" text-anchor="middle" class="boundary-label fill-slate-gray">{boundaryLabel}</text>
+
+    <rect x="20" y="200" width="120" height="120" rx="20" class="fill-warm-gray" />
+    <rect x="190" y="200" width="100" height="120" rx="20" class="fill-warm-gray" />
+    <rect x="340" y="200" width="120" height="120" rx="20" class="fill-warm-gray" />
+
+    <g transform="translate(36 216)">
+      <ProviderLogo provider="google-drive" size={88} />
+    </g>
+    <g transform="translate(356 216)">
+      <ProviderLogo provider="s3" size={88} />
+    </g>
+
+    <g transform="translate(240 260)" aria-hidden="true">
+      <rect x="-30" y="-22" width="60" height="18" rx="4" class="fill-white stroke-divider" stroke-width="1.5" />
+      <rect x="-30" y="-2"  width="60" height="18" rx="4" class="fill-white stroke-divider" stroke-width="1.5" />
+      <circle cx="-22" cy="-13" r="2" class="fill-divider" />
+      <circle cx="-22" cy="7"   r="2" class="fill-divider" />
+      <line x1="-12" y1="-13" x2="22" y2="-13" stroke-width="1.5" stroke-linecap="round" class="stroke-divider" />
+      <line x1="-12" y1="7"   x2="22" y2="7"   stroke-width="1.5" stroke-linecap="round" class="stroke-divider" />
+    </g>
+
+    <text x="80"  y="350" text-anchor="middle" class="node-label fill-slate-gray">{sourceLabel}</text>
+    <text x="240" y="350" text-anchor="middle" class="node-label fill-slate-gray">{machineLabel}</text>
+    <text x="400" y="350" text-anchor="middle" class="node-label fill-slate-gray">{destinationLabel}</text>
+
+    <g class="packet" aria-hidden="true">
+      <rect
+        x="-14" y="-10" width="28" height="20" rx="4"
+        class="fill-white stroke-brand-blue" stroke-width="1.5"
+      />
+      <line x1="-7" y1="-3" x2="7"  y2="-3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+      <line x1="-7" y1="3"  x2="3"  y2="3"  stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .private-runner-path { min-width: 320px; }
+
+  @media (max-width: 1023px) {
+    .private-runner-path { margin-block: -2rem -5rem; }
+  }
+  @media (max-width: 639px) {
+    .private-runner-path { min-width: 0; max-width: 360px; margin-block: -3rem -6rem; }
+  }
+
+  .boundary-label {
+    font-size: theme('fontSize.caption[0]');
+    letter-spacing: theme('fontSize.caption[1].letterSpacing');
+  }
+  .node-label {
+    font-size: theme('fontSize.small[0]');
+  }
+
+  .boundary-box {
+    fill: transparent;
+    transition: fill 0.4s ease;
+  }
+
+  .packet {
+    offset-path: path('M 140 260 L 240 260 L 340 260');
+    offset-distance: 0%;
+    offset-rotate: 0deg;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .packet {
+      animation: prp-packet 5s ease-in-out infinite;
+    }
+    .boundary-box {
+      animation: prp-boundary 5s ease-in-out infinite;
+    }
+
+    @keyframes prp-packet {
+      0%   { offset-distance: 0%;   opacity: 0; transform: rotate(0deg); }
+      6%   { offset-distance: 4%;   opacity: 1; transform: rotate(0deg); }
+      30%  { offset-distance: 50%;  opacity: 1; transform: rotate(0deg); }
+      40%  { offset-distance: 50%;  opacity: 1; transform: rotate(8deg); }
+      55%  { offset-distance: 50%;  opacity: 1; transform: rotate(-8deg); }
+      62%  { offset-distance: 50%;  opacity: 1; transform: rotate(0deg); }
+      90%  { offset-distance: 100%; opacity: 1; transform: rotate(0deg); }
+      96%  { offset-distance: 100%; opacity: 0; transform: rotate(0deg); }
+      100% { offset-distance: 100%; opacity: 0; transform: rotate(0deg); }
+    }
+
+    @keyframes prp-boundary {
+      0%, 28%   { fill: transparent; }
+      34%, 60%  { fill: theme('colors.baby-blue'); }
+      66%, 100% { fill: transparent; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .packet {
+      offset-distance: 100%;
+      opacity: 1;
+    }
+  }
+</style>

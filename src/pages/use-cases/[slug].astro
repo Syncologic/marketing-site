@@ -8,10 +8,12 @@ import WaitlistForm from '../../components/sections/WaitlistForm.astro';
 import StickyWaitlistBar from '../../components/sections/StickyWaitlistBar.astro';
 import ProviderArc from '../../components/visuals/ProviderArc.astro';
 import MigrationChecklist from '../../components/visuals/MigrationChecklist.astro';
+import PrivateRunnerPath from '../../components/visuals/PrivateRunnerPath.astro';
 
 const visualMap: Record<string, typeof ProviderArc | undefined> = {
   'cloud-to-cloud-transfer': ProviderArc,
   'business-cloud-migration': MigrationChecklist,
+  'private-runner': PrivateRunnerPath,
 };
 
 export async function getStaticPaths() {

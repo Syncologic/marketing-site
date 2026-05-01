@@ -120,6 +120,13 @@
       "file4": "team-photo.heic",
       "file5": "marketing-assets/",
       "viewFinalReport": "View final report"
+    },
+    "privateRunnerPath": {
+      "alt": "A file packet travels from a cloud source through your machine inside your network, then continues to a destination — never touching Syncologic infrastructure.",
+      "boundary": "your network",
+      "source": "Source",
+      "machine": "Your machine",
+      "destination": "Destination"
     }
   },
   "guides": {
