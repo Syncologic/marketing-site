@@ -101,6 +101,27 @@
     "indexTitle": "Use cases",
     "indexDescription": "Pick the workflow that matches what you're trying to do."
   },
+  "visuals": {
+    "providerArc": {
+      "alt": "Files moving from Google Drive to OneDrive along a connecting arc."
+    },
+    "migrationChecklist": {
+      "title": "Workspace migration",
+      "ariaLabel": "Migration dashboard with file count, total size, errors, a progress bar, and a recent activity feed.",
+      "statusRunning": "Running",
+      "statusComplete": "Complete",
+      "filesLabel": "Files",
+      "sizeLabel": "Total size",
+      "errorsLabel": "Errors",
+      "recentActivityLabel": "Recent activity",
+      "file1": "Q3-financials.xlsx",
+      "file2": "design-handoff/icons.zip",
+      "file3": "Customer notes (Folder)",
+      "file4": "team-photo.heic",
+      "file5": "marketing-assets/",
+      "viewFinalReport": "View final report"
+    }
+  },
   "guides": {
     "indexTitle": "Guides",
     "indexDescription": "How to move files between cloud providers without downloading them first."
@@ -392,24 +413,6 @@
     "sourceTrust": {
       "title": "Why core code stays public",
       "body": "Runner code, transfer logic, and provider adapters will ship source-visible. You'll be able to audit how files move before trusting the system."
-    }
-  },
-  "visuals": {
-    "migrationChecklist": {
-      "title": "Workspace migration",
-      "ariaLabel": "Migration dashboard with file count, total size, errors, a progress bar, and a recent activity feed.",
-      "statusRunning": "Running",
-      "statusComplete": "Complete",
-      "filesLabel": "Files",
-      "sizeLabel": "Total size",
-      "errorsLabel": "Errors",
-      "recentActivityLabel": "Recent activity",
-      "file1": "Q3-financials.xlsx",
-      "file2": "design-handoff/icons.zip",
-      "file3": "Customer notes (Folder)",
-      "file4": "team-photo.heic",
-      "file5": "marketing-assets/",
-      "viewFinalReport": "View final report"
     }
   }
 }
