@@ -1,0 +1,138 @@
+---
+import ProviderLogo from '../ui/ProviderLogo.astro';
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const altLabel = t('visuals.privateRunnerPath.alt');
+const boundaryLabel = t('visuals.privateRunnerPath.boundary');
+const sourceLabel = t('visuals.privateRunnerPath.source');
+const machineLabel = t('visuals.privateRunnerPath.machine');
+const destinationLabel = t('visuals.privateRunnerPath.destination');
+---
+
+<div class="private-runner-path relative w-full max-w-[480px] mx-auto" role="presentation">
+  <svg
+    viewBox="0 0 480 480"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label={altLabel}
+    class="w-full h-auto block"
+  >
+    <defs>
+      <g id="prp-pkt" class="stroke-brand-blue" stroke-width="1.5" stroke-linecap="round" fill="none">
+        <rect x="-14" y="-10" width="28" height="20" rx="4" class="fill-white" />
+        <line x1="-7" y1="-3" x2="7" y2="-3" />
+        <line x1="-7" y1="3"  x2="3" y2="3" />
+      </g>
+    </defs>
+
+    <rect
+      class="boundary-box stroke-divider"
+      x="170" y="130" width="140" height="260" rx="20"
+      stroke-width="1.5" stroke-dasharray="6 6"
+    />
+    <text x="240" y="156" text-anchor="middle" class="boundary-label fill-slate-gray">{boundaryLabel}</text>
+
+    <rect x="20" y="200" width="120" height="120" rx="20" class="fill-warm-gray" />
+    <rect x="190" y="200" width="100" height="120" rx="20" class="fill-warm-gray" />
+    <rect x="340" y="200" width="120" height="120" rx="20" class="fill-warm-gray" />
+
+    <g transform="translate(36 216)">
+      <ProviderLogo provider="google-drive" size={88} />
+    </g>
+    <g transform="translate(356 216)">
+      <ProviderLogo provider="s3" size={88} />
+    </g>
+
+    <g transform="translate(240 260)" aria-hidden="true" class="stroke-divider" stroke-width="1.5" stroke-linecap="round">
+      <rect x="-30" y="-22" width="60" height="18" rx="4" class="fill-white" />
+      <rect x="-30" y="-2"  width="60" height="18" rx="4" class="fill-white" />
+      <circle cx="-22" cy="-13" r="2" class="fill-divider" stroke="none" />
+      <circle cx="-22" cy="7"   r="2" class="fill-divider" stroke="none" />
+      <line x1="-12" y1="-13" x2="22" y2="-13" />
+      <line x1="-12" y1="7"   x2="22" y2="7" />
+    </g>
+
+    <text x="80"  y="350" text-anchor="middle" class="node-label fill-slate-gray">{sourceLabel}</text>
+    <text x="240" y="350" text-anchor="middle" class="node-label fill-slate-gray">{machineLabel}</text>
+    <text x="400" y="350" text-anchor="middle" class="node-label fill-slate-gray">{destinationLabel}</text>
+
+    <g class="static-flow stroke-brand-blue" aria-hidden="true" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <use href="#prp-pkt" x="163" y="260" />
+      <use href="#prp-pkt" x="240" y="260" />
+      <use href="#prp-pkt" x="317" y="260" />
+      <line x1="180" y1="260" x2="222" y2="260" />
+      <polyline points="214,254 222,260 214,266" />
+      <line x1="258" y1="260" x2="299" y2="260" />
+      <polyline points="291,254 299,260 291,266" />
+    </g>
+
+    <use class="packet" href="#prp-pkt" aria-hidden="true" />
+  </svg>
+</div>
+
+<style>
+  .private-runner-path { min-width: 320px; }
+
+  @media (max-width: 1023px) {
+    .private-runner-path { margin-block: -2rem -5rem; }
+  }
+  @media (max-width: 639px) {
+    .private-runner-path { min-width: 0; max-width: 440px; margin-block: -3rem -6rem; }
+  }
+
+  .boundary-label {
+    font-size: theme('fontSize.caption[0]');
+    letter-spacing: theme('fontSize.caption[1].letterSpacing');
+  }
+  .node-label {
+    font-size: theme('fontSize.small[0]');
+  }
+
+  .boundary-box {
+    fill: transparent;
+    transition: fill 0.4s ease;
+  }
+
+  .packet {
+    offset-path: path('M 140 260 L 240 260 L 340 260');
+    offset-distance: 0%;
+    offset-rotate: 0deg;
+    opacity: 0;
+  }
+
+  .static-flow { display: none; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .packet {
+      animation: prp-packet 5s ease-in-out infinite;
+    }
+    .boundary-box {
+      animation: prp-boundary 5s ease-in-out infinite;
+    }
+
+    @keyframes prp-packet {
+      0%   { offset-distance: 0%;   opacity: 0; transform: rotate(0deg); }
+      6%   { offset-distance: 4%;   opacity: 1; transform: rotate(0deg); }
+      30%  { offset-distance: 50%;  opacity: 1; transform: rotate(0deg); }
+      40%  { offset-distance: 50%;  opacity: 1; transform: rotate(8deg); }
+      55%  { offset-distance: 50%;  opacity: 1; transform: rotate(-8deg); }
+      62%  { offset-distance: 50%;  opacity: 1; transform: rotate(0deg); }
+      90%  { offset-distance: 100%; opacity: 1; transform: rotate(0deg); }
+      96%  { offset-distance: 100%; opacity: 0; transform: rotate(0deg); }
+      100% { offset-distance: 100%; opacity: 0; transform: rotate(0deg); }
+    }
+
+    @keyframes prp-boundary {
+      0%, 28%   { fill: transparent; }
+      34%, 60%  { fill: theme('colors.baby-blue'); }
+      66%, 100% { fill: transparent; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .packet { display: none; }
+    .static-flow { display: inline; }
+  }
+</style>
