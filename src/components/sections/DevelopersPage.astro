@@ -1,0 +1,132 @@
+---
+import Section from '../ui/Section.astro';
+import Card from '../ui/Card.astro';
+import Hero from './Hero.astro';
+import FAQ from './FAQ.astro';
+import WaitlistForm from './WaitlistForm.astro';
+import { getLocaleFromUrl } from '../../i18n/utils';
+import en from '../../i18n/en.json';
+import ptBr from '../../i18n/pt-br.json';
+
+const locale = getLocaleFromUrl(Astro.url);
+const dict = (locale === 'pt-br' ? ptBr : en) as typeof en;
+const dev = dict.developers;
+
+const apiSnippet = `POST /v1/jobs
+Authorization: Bearer sk_live_…
+Content-Type: application/json
+
+{
+  "source":      { "provider": "google_drive", "path": "/Marketing" },
+  "destination": { "provider": "s3", "bucket": "acme-archive", "prefix": "marketing/" },
+  "runner":      "cloud",
+  "schedule":    "0 2 * * *",
+  "on_conflict": "skip"
+}`;
+
+const cliSnippet = `syncologic jobs create \\
+  --source google_drive:/Marketing \\
+  --destination s3://acme-archive/marketing/ \\
+  --runner cloud \\
+  --schedule "0 2 * * *" \\
+  --on-conflict skip`;
+
+const runners = [dev.runnerCloud, dev.runnerBrowser, dev.runnerPrivate];
+
+const surveyOptions = [
+  { value: 'api', label: dev.surveyOptions.api },
+  { value: 'cli', label: dev.surveyOptions.cli },
+  { value: 'webhooks', label: dev.surveyOptions.webhooks },
+  { value: 'self_hosted', label: dev.surveyOptions.selfHosted },
+];
+---
+
+<Hero
+  surface="white"
+  eyebrow={dev.heroEyebrow}
+  headline={dev.heroHeadline}
+  subheading={dev.heroSubheading}
+  primaryCta={{ label: dev.heroPrimaryCta, href: '#waitlist' }}
+  secondaryCta={{ label: dev.heroSecondaryCta, href: '#api' }}
+>
+  <p slot="meta" class="text-caption text-slate-gray max-w-[640px]">{dev.audienceLabel}</p>
+</Hero>
+
+<Section surface="soft" padding="lg" id="api">
+  <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] gap-10 items-start">
+    <div class="flex flex-col gap-3">
+      <h2 class="text-h1 font-medium text-dark-charcoal">{dev.apiTitle}</h2>
+      <p class="text-body text-slate-gray">{dev.apiBody}</p>
+      <p class="text-caption text-slate-gray">{dev.apiCaption}</p>
+    </div>
+    <div class="bg-near-black rounded-card p-6 sm:p-8">
+      <pre class="text-caption text-white/90 font-mono whitespace-pre overflow-x-auto leading-relaxed"><code>{apiSnippet}</code></pre>
+    </div>
+  </div>
+</Section>
+
+<Section surface="white" padding="lg" id="cli">
+  <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] gap-10 items-start">
+    <div class="flex flex-col gap-3">
+      <h2 class="text-h1 font-medium text-dark-charcoal">{dev.cliTitle}</h2>
+      <p class="text-body text-slate-gray">{dev.cliBody}</p>
+      <p class="text-caption text-slate-gray">{dev.cliCaption}</p>
+    </div>
+    <div class="bg-near-black rounded-card p-6 sm:p-8">
+      <pre class="text-caption text-white/90 font-mono whitespace-pre overflow-x-auto leading-relaxed"><code>{cliSnippet}</code></pre>
+    </div>
+  </div>
+</Section>
+
+<Section surface="soft" padding="lg" id="runners">
+  <div class="text-center mb-12 max-w-2xl mx-auto">
+    <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{dev.runnersTitle}</h2>
+    <p class="text-body text-slate-gray">{dev.runnersBody}</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {runners.map((r) => (
+      <Card class="p-8">
+        <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{r.title}</h3>
+        <p class="text-caption text-slate-gray">{r.desc}</p>
+      </Card>
+    ))}
+  </div>
+</Section>
+
+<Section surface="white" padding="lg" id="webhooks">
+  <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] gap-10 items-start">
+    <div class="flex flex-col gap-3">
+      <h2 class="text-h1 font-medium text-dark-charcoal">{dev.webhooksTitle}</h2>
+      <p class="text-body text-slate-gray">{dev.webhooksBody}</p>
+    </div>
+    <div>
+      <p class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-4">{dev.webhookEventsLabel}</p>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 list-none p-0">
+        {dev.webhookEvents.map((evt) => (
+          <li class="flex items-center gap-3 px-4 py-3 bg-soft-gray rounded-input">
+            <span class="font-mono text-caption text-dark-charcoal">{evt}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</Section>
+
+<Section surface="dark" padding="md" id="no-sdk">
+  <div class="max-w-3xl mx-auto text-center flex flex-col gap-4">
+    <h2 class="text-h1 font-medium text-white">{dev.noSdkTitle}</h2>
+    <p class="text-body text-white/80">{dev.noSdkBody}</p>
+  </div>
+</Section>
+
+<WaitlistForm
+  segmentHint="developer"
+  extraQuestion={{
+    storageKey: 'syncologic.dev.surface_pref',
+    label: dev.surveyTitle,
+    options: surveyOptions,
+    hint: dev.surveyHint,
+  }}
+/>
+
+<FAQ title={dev.faqTitle} items={dev.faq} surface="soft" />
