@@ -127,6 +127,13 @@
       "source": "Source",
       "machine": "Your machine",
       "destination": "Destination"
+    },
+    "pricingCurves": {
+      "alt": "A two-line chart showing how cost grows with transfer volume — Cloud Runner rises sharply at high volume while Private Runner stays flatter.",
+      "xAxis": "Volume",
+      "yAxis": "Cost",
+      "cloud": "Cloud Runner",
+      "private": "Private Runner"
     }
   },
   "guides": {

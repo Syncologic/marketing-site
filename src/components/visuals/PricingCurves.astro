@@ -1,0 +1,95 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const altLabel = t('visuals.pricingCurves.alt');
+const xAxisLabel = t('visuals.pricingCurves.xAxis');
+const yAxisLabel = t('visuals.pricingCurves.yAxis');
+const cloudLabel = t('visuals.pricingCurves.cloud');
+const privateLabel = t('visuals.pricingCurves.private');
+---
+
+<div class="pricing-curves relative w-full max-w-[480px] mx-auto" role="presentation">
+  <svg
+    viewBox="0 0 480 480"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label={altLabel}
+    class="w-full h-auto block"
+  >
+    <g class="axes stroke-divider" stroke-width="1.5" stroke-linecap="round" fill="none">
+      <line x1="80" y1="380" x2="440" y2="380" />
+      <line x1="80" y1="80" x2="80" y2="380" />
+    </g>
+
+    <path
+      class="curve curve-cloud stroke-slate-gray"
+      d="M 80 350 C 220 340, 320 300, 440 110"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <path
+      class="curve curve-private stroke-dark-charcoal"
+      d="M 80 332 C 200 312, 320 252, 440 200"
+      fill="none"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <text x="436" y="104" class="series-label font-medium fill-slate-gray" text-anchor="end">{cloudLabel}</text>
+    <text x="436" y="194" class="series-label font-medium fill-dark-charcoal" text-anchor="end">{privateLabel}</text>
+
+    <text x="260" y="420" class="axis-label fill-slate-gray" text-anchor="middle">{xAxisLabel}</text>
+    <text class="axis-label fill-slate-gray" text-anchor="middle" transform="translate(46 230) rotate(-90)">{yAxisLabel}</text>
+  </svg>
+</div>
+
+<style>
+  .pricing-curves { min-width: 320px; }
+
+  @media (max-width: 1023px) {
+    .pricing-curves { margin-block: -2rem -3rem; }
+  }
+  @media (max-width: 639px) {
+    .pricing-curves { min-width: 0; max-width: 400px; margin-block: -2rem -4rem; }
+  }
+
+  .series-label {
+    font-size: theme('fontSize.caption[0]');
+    letter-spacing: theme('fontSize.caption[1].letterSpacing');
+  }
+  .axis-label {
+    font-size: theme('fontSize.caption[0]');
+    letter-spacing: theme('fontSize.caption[1].letterSpacing');
+  }
+
+  .curve {
+    stroke-dasharray: 700;
+    stroke-dashoffset: 700;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .curve {
+      animation: pricing-curves-draw 1.5s ease-out forwards;
+    }
+    .curve-cloud {
+      animation-delay: 0.15s;
+    }
+    .curve-private {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes pricing-curves-draw {
+      to { stroke-dashoffset: 0; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .curve { stroke-dashoffset: 0; }
+  }
+</style>
