@@ -108,6 +108,136 @@
   "faq": {
     "title": "Common questions"
   },
+  "pricing": {
+    "meta": {
+      "title": "Pricing — Syncologic",
+      "description": "Pricing hypotheses for Syncologic. Help us shape the plans before launch — Free, Pro, Business, and Private Runner."
+    },
+    "hero": {
+      "eyebrow": "Pricing",
+      "headline": "Choose the transfer mode that matches your volume, schedule, and trust needs.",
+      "subheading": "We're still shaping pricing. These are working hypotheses, not commitments — join the waitlist and tell us which one fits you.",
+      "primaryCta": "Join the waitlist",
+      "secondaryCta": "See the plan hypotheses"
+    },
+    "hypotheses": {
+      "title": "Four plans we're testing",
+      "subtitle": "Each plan has a hypothesis we want to validate. Tell us which one matches what you'd actually pay for.",
+      "priceSuffix": "/mo",
+      "free": {
+        "name": "Free",
+        "price": "$0",
+        "features": [
+          "Browser Runner only — tab stays open",
+          "One source + destination at a time",
+          "Up to a few GB per transfer"
+        ],
+        "footnote": "What we're testing: whether the Browser Runner alone is useful enough to be a real entry point."
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "~$9",
+        "features": [
+          "Cloud Runner for hands-off transfers",
+          "Scheduled jobs and run reports",
+          "Personal-scale data volumes"
+        ],
+        "footnote": "What we're testing: whether individuals will pay for hosted convenience over manual browser transfers."
+      },
+      "business": {
+        "name": "Business",
+        "price": "~$29",
+        "features": [
+          "Higher data volumes and parallel jobs",
+          "Migration previews and run reports",
+          "Multiple workspace connections"
+        ],
+        "footnote": "What we're testing: whether teams migrating workspaces value the preview, reports, and Cloud Runner enough to pay this tier."
+      },
+      "privateRunner": {
+        "name": "Private Runner",
+        "price": "~$15",
+        "features": [
+          "Run transfers on your own server, NAS, or VPS",
+          "Bytes never touch Syncologic infrastructure",
+          "Pay for the control plane, not for bandwidth"
+        ],
+        "footnote": "What we're testing: whether privacy-minded users will pay a flat fee when they bring their own runner."
+      }
+    },
+    "affects": {
+      "title": "What affects cost",
+      "subtitle": "Three factors shape what your plan should look like.",
+      "volume": {
+        "title": "Data volume",
+        "body": "How much data moves per job and per month — the biggest single driver of bandwidth and storage cost."
+      },
+      "frequency": {
+        "title": "Frequency",
+        "body": "One-time migrations cost differently than recurring backups. Continuous sync sits in its own bucket."
+      },
+      "runner": {
+        "title": "Runner choice",
+        "body": "Cloud Runner uses our bandwidth. Browser and Private Runner don't — so they cost less to operate."
+      }
+    },
+    "cloudVsPrivate": {
+      "title": "Cloud Runner vs Private Runner economics",
+      "subtitle": "Same control plane, different data path. Pick what fits your trust and volume.",
+      "headers": {
+        "dimension": "What changes",
+        "cloud": "Cloud Runner",
+        "private": "Private Runner"
+      },
+      "rows": [
+        {
+          "dimension": "Where the bytes flow",
+          "cloud": "Source → Syncologic infrastructure → destination.",
+          "private": "Source → your machine → destination."
+        },
+        {
+          "dimension": "What you pay for",
+          "cloud": "Hosted bandwidth, scheduling, retries, isolation.",
+          "private": "Control plane only — flat per-month fee."
+        },
+        {
+          "dimension": "Best fit",
+          "cloud": "Convenience, scheduled jobs, migrations you don't want to babysit.",
+          "private": "Privacy, homelabs, businesses, high-volume users on their own bandwidth."
+        }
+      ]
+    },
+    "earlyAccess": {
+      "headline": "Join now and shape the plans.",
+      "body": "We're not charging anyone yet. Waitlist members get early access and a direct say in which hypotheses become real plans.",
+      "cta": "Join the waitlist"
+    },
+    "faq": {
+      "title": "Common pricing questions",
+      "items": [
+        {
+          "q": "Is there really no firm price yet?",
+          "a": "Yes — these numbers are hypotheses we're testing. The waitlist is how we learn which ones map to real demand before we commit."
+        },
+        {
+          "q": "Will the Private Runner cost more than the Cloud Runner?",
+          "a": "Probably less, because you bring the bandwidth. We expect a flat control-plane fee rather than per-GB pricing."
+        },
+        {
+          "q": "What about open-source self-hosting?",
+          "a": "We plan a path toward source-visible, self-hostable infrastructure. Pricing for that path will be set when the model itself is set — see the self-hosted page for details."
+        },
+        {
+          "q": "Will I be charged automatically when launch happens?",
+          "a": "No. Joining the waitlist never bills you. Anyone moving from waitlist to a paid plan does so explicitly."
+        },
+        {
+          "q": "What happens if my use case spans two plans?",
+          "a": "Tell us in the waitlist questions — that signal is exactly what we use to redraw plan boundaries before launch."
+        }
+      ]
+    }
+  },
   "trust": {
     "preview": {
       "title": "See what will happen first",
