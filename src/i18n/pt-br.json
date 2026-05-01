@@ -399,8 +399,7 @@
     },
     "sourceTrust": {
       "title": "Why core code stays public",
-      "body": "Runner code, transfer logic, and provider adapters are source-visible. You can audit how files move before trusting the system.",
-      "body2": "Private repos exist only for ops runbooks, security incidents, and business material — never for product code."
+      "body": "Runner code, transfer logic, and provider adapters are source-visible. You can audit how files move before trusting the system."
     }
   }
 }
