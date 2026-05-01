@@ -130,6 +130,13 @@
     },
     "scheduleClock": {
       "alt": "A monthly calendar with a Today cursor walking day by day; on each scheduled Wednesday it pauses to run the backup, the marker turns green, and the cursor moves on."
+    },
+    "pricingCurves": {
+      "alt": "Two stacked runner cards. Cloud Runner is selected first — files transfer through it while dollar signs accumulate, showing cost rising on demand. Then Private Runner is selected; the same files transfer through it, but the cost stays at zero.",
+      "cloudTitle": "Cloud Runner",
+      "cloudSubtitle": "Hosted infrastructure",
+      "privateTitle": "Private Runner",
+      "privateStatus": "Active on your machine"
     }
   },
   "guides": {

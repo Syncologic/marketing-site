@@ -11,6 +11,7 @@ import Hero from '../components/sections/Hero.astro';
 import FAQ from '../components/sections/FAQ.astro';
 import WaitlistForm from '../components/sections/WaitlistForm.astro';
 import StickyWaitlistBar from '../components/sections/StickyWaitlistBar.astro';
+import PricingCurves from '../components/visuals/PricingCurves.astro';
 import { getLocaleFromUrl } from '../i18n/utils';
 import en from '../i18n/en.json';
 import ptBr from '../i18n/pt-br.json';
@@ -51,7 +52,11 @@ const hypotheses = [
     subheading={p.hero.subheading}
     primaryCta={{ label: p.hero.primaryCta, href: '#waitlist' }}
     secondaryCta={{ label: p.hero.secondaryCta, href: '#hypotheses' }}
-  />
+  >
+    <Fragment slot="visual">
+      <PricingCurves />
+    </Fragment>
+  </Hero>
 
   <Section surface="soft" padding="lg" id="hypotheses">
     <div class="text-center mb-12">
