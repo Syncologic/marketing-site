@@ -129,11 +129,15 @@
       "destination": "Destination"
     },
     "pricingCurves": {
-      "alt": "A two-line chart showing how cost grows with transfer volume — Cloud Runner rises sharply at high volume while Private Runner stays flatter.",
-      "xAxis": "Volume",
-      "yAxis": "Cost",
-      "cloud": "Cloud Runner",
-      "private": "Private Runner"
+      "alt": "Two stacked option cards comparing runner choices. Cloud Runner sits faded above; Private Runner is highlighted as the selected option, with an active status indicator and three benefits — your hardware, your bandwidth, your data.",
+      "cloudTitle": "Cloud Runner",
+      "cloudSubtitle": "Hosted infrastructure",
+      "cloudPriceTag": "$$",
+      "privateTitle": "Private Runner",
+      "privateStatus": "Active on your machine",
+      "benefit1": "Your hardware",
+      "benefit2": "Your bandwidth",
+      "benefit3": "Your data"
     }
   },
   "guides": {
