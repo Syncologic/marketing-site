@@ -32,13 +32,6 @@ const cliSnippet = `syncologic jobs create \\
   --on-conflict skip`;
 
 const runners = [dev.runnerCloud, dev.runnerBrowser, dev.runnerPrivate];
-
-const surveyOptions = [
-  { value: 'api', label: dev.surveyOptions.api },
-  { value: 'cli', label: dev.surveyOptions.cli },
-  { value: 'webhooks', label: dev.surveyOptions.webhooks },
-  { value: 'self_hosted', label: dev.surveyOptions.selfHosted },
-];
 ---
 
 <Hero
@@ -119,14 +112,6 @@ const surveyOptions = [
   </div>
 </Section>
 
-<WaitlistForm
-  segmentHint="developer"
-  extraQuestion={{
-    storageKey: 'syncologic.dev.surface_pref',
-    label: dev.surveyTitle,
-    options: surveyOptions,
-    hint: dev.surveyHint,
-  }}
-/>
+<WaitlistForm segmentHint="developer" />
 
 <FAQ title={dev.faqTitle} items={dev.faq} surface="soft" />
