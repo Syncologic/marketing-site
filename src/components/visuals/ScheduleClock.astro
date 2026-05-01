@@ -70,6 +70,10 @@ const DOW = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
       ))}
     </g>
 
+    <g class="sc-today" aria-hidden="true">
+      <rect class="fill-dark-charcoal" x="22" y="58" width="40" height="14" rx="7" />
+      <text class="sc-today-text fill-white" x="42" y="68">TODAY</text>
+    </g>
     <rect class="sc-cursor stroke-dark-charcoal" x="13" y="70" width="58" height="58" rx="10" fill="none" stroke-width="2" />
   </svg>
 </div>
@@ -100,21 +104,23 @@ const DOW = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   .sc-green { opacity: 0; }
   .sc-dot { transform-box: fill-box; transform-origin: center; }
   .sc-cursor { opacity: 0.9; }
+  .sc-today-text { font-size: 8px; font-weight: 700; text-anchor: middle; letter-spacing: 0.08em; }
 
-  /* 11.5 s loop. Cursor walks 28 cells: 25 short hops (~0.21 s) + 3 transfer
-     stops (~1.5 s each) + 1.5 s "all-done" hold before snapping back. */
+  /* 22 s loop. Cursor walks 28 cells: 25 short hops (~0.4 s) + 3 transfer
+     stops (~3 s each) + 3 s "all-done" hold before snapping back. */
   @media (prefers-reduced-motion: no-preference) {
-    .sc-cursor { animation: sc-cursor 11.5s steps(1, end) infinite; }
+    .sc-cursor { animation: sc-cursor 22s steps(1, end) infinite; }
+    .sc-today  { animation: sc-cursor 22s steps(1, end) infinite; }
 
-    .sc-s1 .sc-blue  { animation: sc-blue-1  11.5s linear infinite; }
-    .sc-s1 .sc-green { animation: sc-green-1 11.5s linear infinite; }
-    .sc-s1 .sc-dot   { animation: sc-pulse-1 11.5s ease-in-out infinite; }
-    .sc-s2 .sc-blue  { animation: sc-blue-2  11.5s linear infinite; }
-    .sc-s2 .sc-green { animation: sc-green-2 11.5s linear infinite; }
-    .sc-s2 .sc-dot   { animation: sc-pulse-2 11.5s ease-in-out infinite; }
-    .sc-s3 .sc-blue  { animation: sc-blue-3  11.5s linear infinite; }
-    .sc-s3 .sc-green { animation: sc-green-3 11.5s linear infinite; }
-    .sc-s3 .sc-dot   { animation: sc-pulse-3 11.5s ease-in-out infinite; }
+    .sc-s1 .sc-blue  { animation: sc-blue-1  22s linear infinite; }
+    .sc-s1 .sc-green { animation: sc-green-1 22s linear infinite; }
+    .sc-s1 .sc-dot   { animation: sc-pulse-1 22s ease-in-out infinite; }
+    .sc-s2 .sc-blue  { animation: sc-blue-2  22s linear infinite; }
+    .sc-s2 .sc-green { animation: sc-green-2 22s linear infinite; }
+    .sc-s2 .sc-dot   { animation: sc-pulse-2 22s ease-in-out infinite; }
+    .sc-s3 .sc-blue  { animation: sc-blue-3  22s linear infinite; }
+    .sc-s3 .sc-green { animation: sc-green-3 22s linear infinite; }
+    .sc-s3 .sc-dot   { animation: sc-pulse-3 22s ease-in-out infinite; }
   }
 
   @keyframes sc-cursor {
@@ -148,7 +154,7 @@ const DOW = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   @keyframes sc-pulse-3 { 0%, 51.9% { transform: scale(1); } 58% { transform: scale(1.6); } 64.9%, 100% { transform: scale(1); } }
 
   @media (prefers-reduced-motion: reduce) {
-    .sc-cursor { display: none; }
+    .sc-cursor, .sc-today { display: none; }
     .sc-blue { opacity: 0; }
     .sc-green { opacity: 1; }
   }
