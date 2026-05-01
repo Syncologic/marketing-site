@@ -127,6 +127,9 @@
       "source": "Source",
       "machine": "Your machine",
       "destination": "Destination"
+    },
+    "scheduleClock": {
+      "alt": "A monthly calendar with a Today cursor walking day by day; on each scheduled Wednesday it pauses to run the backup, the marker turns green, and the cursor moves on."
     }
   },
   "guides": {
