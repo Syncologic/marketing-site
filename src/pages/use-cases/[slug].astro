@@ -10,7 +10,7 @@ import StickyWaitlistBar from '../../components/sections/StickyWaitlistBar.astro
 export async function getStaticPaths() {
   const entries = await getCollection('use-cases', (e) => e.data.locale === 'en');
   return entries.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.slug.replace(/^en\//, '') },
     props: { entry },
   }));
 }
