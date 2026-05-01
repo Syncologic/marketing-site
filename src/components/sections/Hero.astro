@@ -1,0 +1,59 @@
+---
+import Section from '../ui/Section.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  eyebrow?: string;
+  headline: string;
+  subheading?: string;
+  primaryCta: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  surface?: 'white' | 'soft' | 'dark';
+  id?: string;
+}
+
+const {
+  eyebrow,
+  headline,
+  subheading,
+  primaryCta,
+  secondaryCta,
+  surface = 'white',
+  id,
+} = Astro.props;
+
+const eyebrowClass =
+  surface === 'dark'
+    ? 'text-caption font-medium uppercase tracking-wide text-white/70'
+    : 'text-caption font-medium uppercase tracking-wide text-slate-gray';
+
+const headlineClass =
+  surface === 'dark'
+    ? 'text-display-2 lg:text-display-1 font-medium leading-[1.14] tracking-tight text-white'
+    : 'text-display-2 lg:text-display-1 font-medium leading-[1.14] tracking-tight text-dark-charcoal';
+
+const subheadingClass =
+  surface === 'dark'
+    ? 'text-body text-white/80 max-w-[640px]'
+    : 'text-body text-slate-gray max-w-[640px]';
+---
+
+<Section surface={surface} padding="lg" id={id}>
+  <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,760px)_minmax(0,1fr)] gap-12 items-center">
+    <div class="flex flex-col gap-6">
+      {eyebrow && <span class={eyebrowClass}>{eyebrow}</span>}
+      <h1 class={headlineClass}>{headline}</h1>
+      {subheading && <p class={subheadingClass}>{subheading}</p>}
+      <div class="flex flex-wrap gap-3 mt-2">
+        <Button href={primaryCta.href} variant="primary" size="lg">{primaryCta.label}</Button>
+        {secondaryCta && (
+          <Button href={secondaryCta.href} variant="secondary" size="lg">{secondaryCta.label}</Button>
+        )}
+      </div>
+      <slot name="meta" />
+    </div>
+    <div>
+      <slot name="visual" />
+    </div>
+  </div>
+</Section>
