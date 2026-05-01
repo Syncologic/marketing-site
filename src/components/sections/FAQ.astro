@@ -1,0 +1,49 @@
+---
+import Section from '../ui/Section.astro';
+
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  title: string;
+  items: FaqItem[];
+  surface?: 'white' | 'soft' | 'dark';
+  id?: string;
+}
+
+const { title, items, surface = 'soft', id } = Astro.props;
+---
+
+<Section surface={surface} padding="md" id={id}>
+  <div class="max-w-[840px] mx-auto">
+    <h2 class="text-h1 font-medium text-dark-charcoal mb-8">{title}</h2>
+    <ul class="flex flex-col gap-3 list-none p-0">
+      {items.map((item) => (
+        <li class="border border-divider rounded-card bg-white">
+          <details class="group">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer list-none px-6 py-5 text-h3 font-bold text-dark-charcoal min-h-[44px]">
+              <span>{item.q}</span>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="transition-transform group-open:rotate-180 shrink-0"
+                aria-hidden="true"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-5 -mt-1 text-body text-slate-gray">
+              {item.a}
+            </div>
+          </details>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Section>
