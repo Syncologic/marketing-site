@@ -43,4 +43,8 @@ src/
 
 ## License
 
-Not yet licensed. License terms will be added before the repository is opened to public contribution.
+[MIT](./LICENSE) © 2026 Gabriel Café.
+
+This MIT license applies ONLY to the contents of the `syncologic/marketing-site` repository (marketing pages, content, and the waitlist API). Other Syncologic repositories — including `server`, `runners`, and `clients` — are licensed separately under their own terms.
+
+The **Syncologic** name, logo, and brand assets are not covered by this license and remain reserved. They may not be used to identify or promote any product, service, or fork without prior written permission. For brand-use requests, contact [hello@syncologic.com](mailto:hello@syncologic.com).
