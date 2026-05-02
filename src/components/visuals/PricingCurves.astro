@@ -20,9 +20,9 @@ const privateStatus = t('visuals.pricingCurves.privateStatus');
   >
     <defs>
       <g id="pc-pkt">
-        <rect x="-14" y="-9" width="28" height="18" rx="4" class="fill-white stroke-divider" stroke-width="1" />
-        <line x1="-7" y1="-3" x2="6" y2="-3" stroke-width="1.5" stroke-linecap="round" class="stroke-divider" />
-        <line x1="-7" y1="3"  x2="2" y2="3"  stroke-width="1.5" stroke-linecap="round" class="stroke-divider" />
+        <rect x="-14" y="-9" width="28" height="18" rx="4" class="fill-white stroke-brand-blue" stroke-width="1" />
+        <line x1="-7" y1="-3" x2="6" y2="-3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+        <line x1="-7" y1="3"  x2="2" y2="3"  stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
       </g>
       <g id="pc-dollar">
         <circle r="12" class="fill-success-bg" />
@@ -249,8 +249,9 @@ const privateStatus = t('visuals.pricingCurves.privateStatus');
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .ring-cloud,
     .ring-private { opacity: 1; }
-    .card-cloud   { opacity: 0.5; }
+    .card-cloud,
     .card-private { opacity: 1; }
     .files-cloud,
     .files-private,
@@ -259,7 +260,7 @@ const privateStatus = t('visuals.pricingCurves.privateStatus');
     .dollar-2,
     .dollar-3,
     .dollar-4 {
-      opacity: 0;
+      opacity: 1;
     }
   }
 </style>
