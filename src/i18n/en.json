@@ -137,6 +137,19 @@
       "cloudSubtitle": "Hosted infrastructure",
       "privateTitle": "Private Runner",
       "privateStatus": "Active on your machine"
+    },
+    "controlDataPlanes": {
+      "alt": "Two stacked panels. The top panel — the Syncologic control plane — holds auth, jobs, schedules, and logs. A dashed connector marked 'metadata only' links it to the bottom panel, the data plane, which contains a single runner. A solid arrow runs from a source cloud, straight through the data-plane runner, to a destination cloud — bypassing the control plane entirely.",
+      "controlTitle": "Control plane (Syncologic cloud)",
+      "dataTitle": "Data plane (your infra)",
+      "metadataLabel": "metadata only",
+      "auth": "auth",
+      "jobs": "jobs",
+      "schedules": "schedules",
+      "logs": "logs",
+      "runner": "runner",
+      "source": "source",
+      "destination": "destination"
     }
   },
   "guides": {

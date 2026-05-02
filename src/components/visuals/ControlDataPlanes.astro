@@ -1,0 +1,163 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const altLabel = t('visuals.controlDataPlanes.alt');
+const controlTitle = t('visuals.controlDataPlanes.controlTitle');
+const dataTitle = t('visuals.controlDataPlanes.dataTitle');
+const metadataLabel = t('visuals.controlDataPlanes.metadataLabel');
+const authLabel = t('visuals.controlDataPlanes.auth');
+const jobsLabel = t('visuals.controlDataPlanes.jobs');
+const schedulesLabel = t('visuals.controlDataPlanes.schedules');
+const logsLabel = t('visuals.controlDataPlanes.logs');
+const runnerLabel = t('visuals.controlDataPlanes.runner');
+const sourceLabel = t('visuals.controlDataPlanes.source');
+const destinationLabel = t('visuals.controlDataPlanes.destination');
+---
+
+<div class="control-data-planes relative w-full max-w-[480px] mx-auto" role="presentation">
+  <svg
+    viewBox="0 0 480 480"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label={altLabel}
+    class="w-full h-auto block"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <defs>
+      <g id="cdp-cloud" class="stroke-slate-gray fill-white" stroke-width="1.5">
+        <path d="M -10 6 C -16 6, -16 -2, -10 -2 C -10 -10, 4 -12, 6 -4 C 14 -4, 14 6, 6 6 Z" />
+      </g>
+      <g id="cdp-pkt" class="stroke-brand-blue" stroke-width="1.5" fill="none">
+        <rect x="-10" y="-7" width="20" height="14" rx="4" class="fill-white" />
+        <line x1="-5" y1="-2" x2="5" y2="-2" />
+        <line x1="-5" y1="2" x2="2" y2="2" />
+      </g>
+    </defs>
+
+    <rect x="40" y="40" width="400" height="140" rx="24" class="fill-warm-gray" />
+    <rect x="80" y="256" width="320" height="140" rx="24" class="fill-warm-gray" />
+
+    <g class="stroke-slate-gray" stroke-width="1.5" fill="none">
+      <g transform="translate(120 118)">
+        <path d="M 0 -12 L 10 -8 L 10 2 C 10 9, 4 13, 0 14 C -4 13, -10 9, -10 2 L -10 -8 Z" />
+        <polyline points="-4,0 -1,3 5,-3" />
+      </g>
+      <g transform="translate(200 118)">
+        <rect x="-12" y="-6" width="24" height="16" rx="4" />
+        <path d="M -6 -6 L -6 -10 L 6 -10 L 6 -6" />
+        <line x1="-12" y1="0" x2="12" y2="0" />
+      </g>
+      <g transform="translate(280 118)">
+        <rect x="-11" y="-8" width="22" height="20" rx="4" />
+        <line x1="-11" y1="-2" x2="11" y2="-2" />
+        <line x1="-6" y1="-11" x2="-6" y2="-5" />
+        <line x1="6" y1="-11" x2="6" y2="-5" />
+      </g>
+      <g transform="translate(360 118)">
+        <rect x="-9" y="-11" width="18" height="22" rx="4" />
+        <line x1="-5" y1="-5" x2="5" y2="-5" />
+        <line x1="-5" y1="0" x2="5" y2="0" />
+        <line x1="-5" y1="5" x2="2" y2="5" />
+      </g>
+    </g>
+
+    <g class="meta-connector stroke-divider" stroke-width="1.5" fill="none">
+      <line x1="240" y1="184" x2="240" y2="252" stroke-dasharray="4 5" />
+      <polyline points="234,190 240,184 246,190" />
+      <polyline points="234,246 240,252 246,246" />
+    </g>
+
+    <g class="data-flow stroke-brand-blue" stroke-width="2" fill="none">
+      <line x1="56" y1="332" x2="422" y2="332" />
+      <polyline points="414,326 422,332 414,338" />
+    </g>
+
+    <g transform="translate(40 332)"><use href="#cdp-cloud" /></g>
+    <g transform="translate(440 332)"><use href="#cdp-cloud" /></g>
+
+    <g transform="translate(240 332)" class="stroke-dark-charcoal" stroke-width="1.5" fill="none">
+      <rect x="-28" y="-22" width="56" height="44" rx="8" class="fill-white" />
+      <line x1="-28" y1="-8" x2="28" y2="-8" />
+      <line x1="-28" y1="8" x2="28" y2="8" />
+      <circle cx="-20" cy="-15" r="1.5" class="fill-dark-charcoal" stroke="none" />
+      <circle cx="-20" cy="0" r="1.5" class="fill-dark-charcoal" stroke="none" />
+      <circle cx="-20" cy="15" r="1.5" class="fill-dark-charcoal" stroke="none" />
+    </g>
+
+    <g class="fill-slate-gray" text-anchor="middle">
+      <text x="240" y="68" class="panel-title">{controlTitle}</text>
+      <text x="240" y="284" class="panel-title">{dataTitle}</text>
+      <text x="120" y="158" class="icon-label">{authLabel}</text>
+      <text x="200" y="158" class="icon-label">{jobsLabel}</text>
+      <text x="280" y="158" class="icon-label">{schedulesLabel}</text>
+      <text x="360" y="158" class="icon-label">{logsLabel}</text>
+      <text x="40" y="376" class="icon-label">{sourceLabel}</text>
+      <text x="240" y="376" class="icon-label">{runnerLabel}</text>
+      <text x="440" y="376" class="icon-label">{destinationLabel}</text>
+      <text x="254" y="222" class="meta-label" text-anchor="start">{metadataLabel}</text>
+    </g>
+
+    <circle class="meta-pulse fill-slate-gray" cx="240" cy="184" r="2.5" aria-hidden="true" />
+    <use class="packet" href="#cdp-pkt" aria-hidden="true" />
+  </svg>
+</div>
+
+<style>
+  .control-data-planes { min-width: 320px; }
+
+  @media (max-width: 1023px) {
+    .control-data-planes { margin-block: -1rem -2rem; }
+  }
+  @media (max-width: 639px) {
+    .control-data-planes { min-width: 0; max-width: 440px; margin-block: -1rem -3rem; }
+  }
+
+  .panel-title {
+    font-size: theme('fontSize.caption[0]');
+    letter-spacing: theme('fontSize.caption[1].letterSpacing');
+    font-weight: 500;
+  }
+  .icon-label,
+  .meta-label {
+    font-size: theme('fontSize.small[0]');
+  }
+
+  .meta-pulse { opacity: 0; }
+  .packet {
+    offset-path: path('M 56 332 L 422 332');
+    offset-distance: 0%;
+    offset-rotate: 0deg;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .meta-pulse { animation: cdp-meta 6s ease-in-out infinite; }
+    .packet { animation: cdp-packet 6s ease-in-out infinite; }
+
+    @keyframes cdp-meta {
+      0%   { opacity: 0; transform: translateY(0); }
+      8%   { opacity: 1; transform: translateY(0); }
+      45%  { opacity: 1; transform: translateY(68px); }
+      55%  { opacity: 1; transform: translateY(68px); }
+      92%  { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(0); }
+    }
+
+    @keyframes cdp-packet {
+      0%   { offset-distance: 0%;   opacity: 0; }
+      6%   { offset-distance: 4%;   opacity: 1; }
+      40%  { offset-distance: 48%;  opacity: 1; }
+      60%  { offset-distance: 52%;  opacity: 1; }
+      94%  { offset-distance: 96%;  opacity: 1; }
+      100% { offset-distance: 100%; opacity: 0; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .meta-pulse,
+    .packet { display: none; }
+  }
+</style>
