@@ -4,6 +4,7 @@ import Card from '../ui/Card.astro';
 import Hero from './Hero.astro';
 import FAQ from './FAQ.astro';
 import WaitlistForm from './WaitlistForm.astro';
+import DeveloperTerminal from '../visuals/DeveloperTerminal.astro';
 import { getLocaleFromUrl } from '../../i18n/utils';
 import en from '../../i18n/en.json';
 import ptBr from '../../i18n/pt-br.json';
@@ -43,6 +44,9 @@ const runners = [dev.runnerCloud, dev.runnerBrowser, dev.runnerPrivate];
   secondaryCta={{ label: dev.heroSecondaryCta, href: '#api' }}
 >
   <p slot="meta" class="text-caption text-slate-gray max-w-[640px]">{dev.audienceLabel}</p>
+  <Fragment slot="visual">
+    <DeveloperTerminal />
+  </Fragment>
 </Hero>
 
 <Section surface="soft" padding="lg" id="api">

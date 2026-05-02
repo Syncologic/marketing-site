@@ -150,6 +150,9 @@
       "runner": "runner",
       "source": "source",
       "destination": "destination"
+    },
+    "developerTerminal": {
+      "alt": "An API client showing a POST /v1/jobs request being sent to the Syncologic API, the 201 Created response with a run id and plan, and a webhook event for the completed run."
     }
   },
   "guides": {

@@ -1,0 +1,134 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const altLabel = t('visuals.developerTerminal.alt');
+
+const LINES = [
+  { text: '{ "from": "gdrive:/clients", "to": "s3://archive" }',     tone: 'req' },
+  { text: '← 201 Created',                                            tone: 'res' },
+  { text: '  { "run_id": "r_a7b2", "files": 1247, "size_gb": 18.3 }', tone: 'res' },
+  { text: '← webhook · run.completed ✓',                              tone: 'res' },
+] as const;
+---
+
+<div class="dev-terminal w-full max-w-[480px] mx-auto" role="img" aria-label={altLabel}>
+  <div class="terminal rounded-feature bg-near-black border border-white/10 overflow-hidden">
+    <div class="header flex items-center justify-between gap-3 px-5 sm:px-6 py-3 border-b border-white/10" aria-hidden="true">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="method">POST</span>
+        <span class="path">/v1/jobs</span>
+      </div>
+      <span class="host">api.syncologic.dev</span>
+    </div>
+    <div class="lines flex flex-col gap-1 p-5 sm:p-6">
+      {LINES.map((line, i) => (
+        <div class={`line line-${i} ${line.tone === 'req' ? 'text-white' : 'text-chrome-green'}`}>
+          <span class="line-text">{line.text}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  /*
+   * Request body is typed character-by-character (30ms/char) — that's the
+   * "developer typing the call". Server responses arrive as a chunk — each
+   * green line is paced to match the natural 390ms duration of `← 201 Created`
+   * (13 chars × 30ms), so a long response body and a short status code feel
+   * equally snappy.
+   *
+   * Total cycle = 4700ms.
+   *   L0 request body (51 chars, 30ms/char)  0    → 1530ms   end 32.55%
+   *   L1 status line                          1530 → 1920    end 40.85%
+   *   L2 response body                        1920 → 2310    end 49.15%
+   *   L3 webhook                              2310 → 2700    end 57.45%
+   *   pause                                   2700 → 4700ms
+   */
+
+  .dev-terminal { min-width: 0; }
+
+  /*
+   * The default Hero grid at lg gives the headline column a 760px max, leaving
+   * the visual column too narrow for a code-style block. At 1024–1279px,
+   * widen the visual column and let the headline column flex. Scoped via
+   * `:has()` so other Hero visuals are unaffected.
+   */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    :global(.grid:has(> .hero-fade-in > .dev-terminal)) {
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+    }
+  }
+
+  .terminal { box-shadow: none; }
+
+  .method {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    background: rgb(255 255 255 / 0.10);
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .path {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 12px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .host {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 11px;
+    color: rgb(255 255 255 / 0.55);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .line {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  @media (min-width: 480px) { .line { font-size: 12px; } }
+  @media (min-width: 768px) { .line { font-size: 13px; } }
+
+  .line-text {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    vertical-align: top;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .line-0 .line-text { animation: dev-term-type-0 4700ms infinite; }
+    .line-1 .line-text { animation: dev-term-type-1 4700ms infinite; }
+    .line-2 .line-text { animation: dev-term-type-2 4700ms infinite; }
+    .line-3 .line-text { animation: dev-term-type-3 4700ms infinite; }
+
+    @keyframes dev-term-type-0 {
+      0%             { width: 0; animation-timing-function: steps(51, end); }
+      32.55%, 100%   { width: 100%; }
+    }
+    @keyframes dev-term-type-1 {
+      0%, 32.55%     { width: 0; animation-timing-function: steps(13, end); }
+      40.85%, 100%   { width: 100%; }
+    }
+    @keyframes dev-term-type-2 {
+      0%, 40.85%     { width: 0; animation-timing-function: steps(56, end); }
+      49.15%, 100%   { width: 100%; }
+    }
+    @keyframes dev-term-type-3 {
+      0%, 49.15%     { width: 0; animation-timing-function: steps(27, end); }
+      57.45%, 100%   { width: 100%; }
+    }
+  }
+</style>
