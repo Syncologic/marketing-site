@@ -150,6 +150,9 @@
       "runner": "runner",
       "source": "source",
       "destination": "destination"
+    },
+    "developerTerminal": {
+      "alt": "A terminal window typing out a Syncologic CLI command, then logging the plan, run start, transfer progress, and a webhook delivery."
     }
   },
   "guides": {
