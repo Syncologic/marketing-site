@@ -152,7 +152,7 @@
       "destination": "destination"
     },
     "developerTerminal": {
-      "alt": "A terminal window typing out a Syncologic CLI command, then logging the plan, run start, transfer progress, and a webhook delivery."
+      "alt": "An API client showing a POST /v1/jobs request being sent to the Syncologic API, the 201 Created response with a run id and plan, and a webhook event for the completed run."
     }
   },
   "guides": {

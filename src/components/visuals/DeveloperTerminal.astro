@@ -6,24 +6,25 @@ const t = getT(locale);
 const altLabel = t('visuals.developerTerminal.alt');
 
 const LINES = [
-  { text: '$ syncologic run --from gdrive:/clients --to s3://archive', tone: 'cmd' },
-  { text: '✓ Plan: 1,247 files, 18.3 GB',                              tone: 'ok'  },
-  { text: '✓ Run started (run_id: r_a7b2)',                            tone: 'ok'  },
-  { text: '✓ Progress: 100% — 18.3 GB transferred',                    tone: 'ok'  },
-  { text: '✓ Webhook posted to https://api.example.com/hook',          tone: 'ok'  },
+  { text: '{ "from": "gdrive:/clients", "to": "s3://archive" }',     tone: 'req' },
+  { text: '← 201 Created',                                            tone: 'res' },
+  { text: '  { "run_id": "r_a7b2", "files": 1247, "size_gb": 18.3 }', tone: 'res' },
+  { text: '← webhook · run.completed ✓',                              tone: 'res' },
 ] as const;
 ---
 
 <div class="dev-terminal w-full max-w-[480px] mx-auto" role="img" aria-label={altLabel}>
-  <div class="terminal rounded-feature bg-near-black border border-white/10 p-5 sm:p-6">
-    <div class="chrome flex items-center gap-2 mb-5" aria-hidden="true">
-      <span class="dot bg-chrome-red"></span>
-      <span class="dot bg-chrome-yellow"></span>
-      <span class="dot bg-chrome-green"></span>
+  <div class="terminal rounded-feature bg-near-black border border-white/10 overflow-hidden">
+    <div class="header flex items-center justify-between gap-3 px-5 sm:px-6 py-3 border-b border-white/10" aria-hidden="true">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="method">POST</span>
+        <span class="path">/v1/jobs</span>
+      </div>
+      <span class="host">api.syncologic.dev</span>
     </div>
-    <div class="lines flex flex-col gap-1">
+    <div class="lines flex flex-col gap-1 p-5 sm:p-6">
       {LINES.map((line, i) => (
-        <div class={`line line-${i} ${line.tone === 'cmd' ? 'text-white' : 'text-chrome-green'}`}>
+        <div class={`line line-${i} ${line.tone === 'req' ? 'text-white' : 'text-chrome-green'}`}>
           <span class="line-text">{line.text}</span>
         </div>
       ))}
@@ -33,24 +34,62 @@ const LINES = [
 
 <style>
   /*
-   * Total cycle = 8030ms. Per-line typing windows (chars × 30ms) end at:
-   *   L0  0 → 1710ms  (21.30%)
-   *   L1  1710 → 2550ms  (21.30% → 31.76%)
-   *   L2  2550 → 3450ms  (31.76% → 42.96%)
-   *   L3  3450 → 4590ms  (42.96% → 57.16%)
-   *   L4  4590 → 6030ms  (57.16% → 75.09%)
-   * Then 2000ms hold (75.09% → 100%) before reset.
+   * Request body is typed character-by-character (30ms/char) — that's the
+   * "developer typing the call". Server responses arrive as a chunk — each
+   * green line is paced to match the natural 390ms duration of `← 201 Created`
+   * (13 chars × 30ms), so a long response body and a short status code feel
+   * equally snappy.
+   *
+   * Total cycle = 4700ms.
+   *   L0 request body (51 chars, 30ms/char)  0    → 1530ms   end 32.55%
+   *   L1 status line                          1530 → 1920    end 40.85%
+   *   L2 response body                        1920 → 2310    end 49.15%
+   *   L3 webhook                              2310 → 2700    end 57.45%
+   *   pause                                   2700 → 4700ms
    */
 
-  .dev-terminal { min-width: 280px; }
+  .dev-terminal { min-width: 0; }
+
+  /*
+   * The default Hero grid at lg gives the headline column a 760px max, leaving
+   * the visual column too narrow for a code-style block. At 1024–1279px,
+   * widen the visual column and let the headline column flex. Scoped via
+   * `:has()` so other Hero visuals are unaffected.
+   */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    :global(.grid:has(> .hero-fade-in > .dev-terminal)) {
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+    }
+  }
 
   .terminal { box-shadow: none; }
 
-  .dot {
-    width: 10px;
-    height: 10px;
+  .method {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
     border-radius: 9999px;
-    display: inline-block;
+    background: rgb(255 255 255 / 0.10);
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .path {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 12px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .host {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 11px;
+    color: rgb(255 255 255 / 0.55);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .line {
@@ -70,31 +109,26 @@ const LINES = [
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .line-0 .line-text { animation: dev-term-type-0 8030ms infinite; }
-    .line-1 .line-text { animation: dev-term-type-1 8030ms infinite; }
-    .line-2 .line-text { animation: dev-term-type-2 8030ms infinite; }
-    .line-3 .line-text { animation: dev-term-type-3 8030ms infinite; }
-    .line-4 .line-text { animation: dev-term-type-4 8030ms infinite; }
+    .line-0 .line-text { animation: dev-term-type-0 4700ms infinite; }
+    .line-1 .line-text { animation: dev-term-type-1 4700ms infinite; }
+    .line-2 .line-text { animation: dev-term-type-2 4700ms infinite; }
+    .line-3 .line-text { animation: dev-term-type-3 4700ms infinite; }
 
     @keyframes dev-term-type-0 {
-      0%             { width: 0; animation-timing-function: steps(57, end); }
-      21.30%, 100%   { width: 100%; }
+      0%             { width: 0; animation-timing-function: steps(51, end); }
+      32.55%, 100%   { width: 100%; }
     }
     @keyframes dev-term-type-1 {
-      0%, 21.30%     { width: 0; animation-timing-function: steps(28, end); }
-      31.76%, 100%   { width: 100%; }
+      0%, 32.55%     { width: 0; animation-timing-function: steps(13, end); }
+      40.85%, 100%   { width: 100%; }
     }
     @keyframes dev-term-type-2 {
-      0%, 31.76%     { width: 0; animation-timing-function: steps(30, end); }
-      42.96%, 100%   { width: 100%; }
+      0%, 40.85%     { width: 0; animation-timing-function: steps(56, end); }
+      49.15%, 100%   { width: 100%; }
     }
     @keyframes dev-term-type-3 {
-      0%, 42.96%     { width: 0; animation-timing-function: steps(38, end); }
-      57.16%, 100%   { width: 100%; }
-    }
-    @keyframes dev-term-type-4 {
-      0%, 57.16%     { width: 0; animation-timing-function: steps(48, end); }
-      75.09%, 100%   { width: 100%; }
+      0%, 49.15%     { width: 0; animation-timing-function: steps(27, end); }
+      57.45%, 100%   { width: 100%; }
     }
   }
 </style>
