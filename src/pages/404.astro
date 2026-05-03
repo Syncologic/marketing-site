@@ -4,37 +4,51 @@ import Nav from '../components/layout/Nav.astro';
 import Footer from '../components/layout/Footer.astro';
 import Section from '../components/ui/Section.astro';
 import Button from '../components/ui/Button.astro';
-import { getT } from '../i18n/utils';
+import { getT, localizedPath } from '../i18n/utils';
 
-const t = getT('en');
-const title = `${t('notFound.title')} — ${t('site.name')}`;
-const description = t('notFound.body');
+const en = getT('en');
+const pt = getT('pt-br');
+const title = `${en('notFound.title')} — ${en('site.name')}`;
+const description = en('notFound.body');
+
+const ptDict = {
+  documentTitle: `${pt('notFound.title')} — ${pt('site.name')}`,
+  eyebrow: pt('notFound.eyebrow'),
+  title: pt('notFound.title'),
+  body: pt('notFound.body'),
+  ctaHome: pt('notFound.ctaHome'),
+  ctaPlans: pt('notFound.ctaPlans'),
+  hrefHome: localizedPath('pt-br', '/'),
+  hrefPlans: localizedPath('pt-br', '/plans'),
+};
 ---
 
 <Layout title={title} description={description}>
   <Nav slot="nav" />
 
   <Section surface="white" padding="lg">
-    <div class="max-w-2xl mx-auto text-center">
+    <div class="max-w-2xl mx-auto text-center pt-section-sm">
       <span
+        id="nf-eyebrow"
         class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-5 block"
       >
-        {t('notFound.eyebrow')}
+        {en('notFound.eyebrow')}
       </span>
       <h1
-        class="text-display-2 font-medium text-dark-charcoal mb-5 leading-[1.14] tracking-tight"
+        id="nf-title"
+        class="text-display-2 lg:text-display-1 font-medium text-dark-charcoal mb-5 leading-[1.14] tracking-tight"
       >
-        {t('notFound.title')}
+        {en('notFound.title')}
       </h1>
-      <p class="text-body text-slate-gray mb-8">
-        {t('notFound.body')}
+      <p id="nf-body" class="text-body text-slate-gray mb-8 max-w-lg mx-auto">
+        {en('notFound.body')}
       </p>
       <div class="flex gap-3 flex-wrap justify-center">
-        <Button href="/#waitlist" variant="primary" size="lg">
-          {t('notFound.joinWaitlist')}
+        <Button href={localizedPath('en', '/')} variant="primary" size="lg" class="nf-cta-home">
+          {en('notFound.ctaHome')}
         </Button>
-        <Button href="/" variant="secondary" size="lg">
-          {t('notFound.backHome')}
+        <Button href={localizedPath('en', '/plans')} variant="secondary" size="lg" class="nf-cta-plans">
+          {en('notFound.ctaPlans')}
         </Button>
       </div>
     </div>
@@ -42,3 +56,23 @@ const description = t('notFound.body');
 
   <Footer slot="footer" />
 </Layout>
+
+<script define:vars={{ pt: ptDict }}>
+  if (location.pathname.startsWith('/pt-br/') || location.pathname === '/pt-br') {
+    document.documentElement.lang = 'pt-BR';
+    document.title = pt.documentTitle;
+    document.getElementById('nf-eyebrow').textContent = pt.eyebrow;
+    document.getElementById('nf-title').textContent = pt.title;
+    document.getElementById('nf-body').textContent = pt.body;
+    const home = document.querySelector('.nf-cta-home');
+    if (home) {
+      home.textContent = pt.ctaHome;
+      home.setAttribute('href', pt.hrefHome);
+    }
+    const plans = document.querySelector('.nf-cta-plans');
+    if (plans) {
+      plans.textContent = pt.ctaPlans;
+      plans.setAttribute('href', pt.hrefPlans);
+    }
+  }
+</script>

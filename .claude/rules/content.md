@@ -79,7 +79,7 @@ Don't mix them in the same paragraph. Pick the register, stick with it.
 
 ```
 /                                       ← homepage
-/pricing                                ← bespoke
+/plans                                ← bespoke
 /self-hosted                            ← bespoke
 /developers                             ← bespoke
 
@@ -237,7 +237,7 @@ The homepage routes visitors to the right path quickly. It doesn't try to explai
 | Sections | Architecture principles (control plane vs data plane) · Private Runner first · Future self-host model · Public source trust · Waitlist form |
 | Segmentation question | "Do you want a private runner, full self-hosting, or both?" |
 
-### 10. Pricing Interest (`/pricing`)
+### 10. Plans (`/plans`)
 
 | Field | Value |
 |---|---|
@@ -375,7 +375,7 @@ The first eight pages to ship (per spec scope and the original ideas doc):
 3. `/use-cases/business-cloud-migration`
 4. `/use-cases/scheduled-cloud-backup`
 5. `/use-cases/private-runner`
-6. `/pricing`
+6. `/plans`
 7. `/guides/move-files-between-clouds-without-downloading`
 8. `/guides/transfer-google-drive-to-onedrive`
 

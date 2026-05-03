@@ -1,12 +1,12 @@
 ---
 locale: pt-br
-title: "Transfer Google Drive to OneDrive — a practical guide"
-description: "Move folders from Google Drive into OneDrive without dragging every file through your laptop. The honest options for personal accounts, Workspace tenants, and large drives."
-eyebrow: "Guide"
-headline: "Transfer Google Drive to OneDrive"
-subheading: "What still works in 2026, what doesn't, and how to handle large drives or a Workspace-to-Microsoft-365 migration without losing files along the way."
+title: "Como transferir do Google Drive para o OneDrive — um guia prático"
+description: "Mova pastas do Google Drive para o OneDrive sem arrastar cada arquivo pelo seu notebook. As opções honestas para contas pessoais, tenants de Workspace e drives grandes."
+eyebrow: "Guia"
+headline: "Como transferir do Google Drive para o OneDrive"
+subheading: "O que ainda funciona em 2026, o que não funciona e como lidar com drives grandes ou uma migração de Workspace para Microsoft 365 sem perder arquivos no caminho."
 primaryCta:
-  label: "Join the waitlist"
+  label: "Entrar na lista de espera"
   href: "#waitlist"
 waitlistSegment: one_time_transfer
 publishedAt: 2026-05-01
@@ -15,56 +15,56 @@ relatedSlugs:
   - move-files-between-clouds-without-downloading
 ---
 
-You have files in Google Drive. You want them in OneDrive. Maybe you're switching to Microsoft 365, consolidating a company onto a single workspace, or just tired of paying for two cloud subscriptions. Either way, the path between the two clouds is messier than it should be — and the official tools that used to bridge them are mostly gone.
+Você tem arquivos no Google Drive. Quer eles no OneDrive. Talvez esteja trocando para o Microsoft 365, consolidando uma empresa em um único workspace ou apenas cansando de pagar duas assinaturas de nuvem. De qualquer forma, o caminho entre as duas nuvens é mais bagunçado do que deveria ser — e boa parte das ferramentas oficiais que ligavam as duas já sumiu.
 
-This guide walks through what still works, where each option breaks, and what to reach for when nothing simple is enough.
+Este guia passa pelo que ainda funciona, onde cada opção quebra e o que buscar quando nada simples basta.
 
-## What people usually try first
+## O que as pessoas costumam tentar primeiro
 
-The default plan is to download every folder from Drive and re-upload it to OneDrive. For a small personal account it's annoying but possible. Past about 50&nbsp;GB it gets unreliable in three ways.
+O plano padrão é baixar cada pasta do Drive e subir de novo no OneDrive. Para uma conta pessoal pequena é chato, mas dá. Acima de uns 50&nbsp;GB, fica pouco confiável de três jeitos.
 
-First, **Drive's "Download" splits or stalls on large folders.** The web UI silently breaks very large folders into multiple zip archives, and a long export can fail partway through with no useful error. Native Google file types (Docs, Sheets, Slides) get exported into Office formats automatically — sometimes with subtle formatting drift you only notice weeks later.
+Primeiro, **o "Baixar" do Drive divide ou trava em pastas grandes.** A interface web quebra silenciosamente pastas muito grandes em vários arquivos zip, e uma exportação longa pode falhar no meio sem mensagem útil. Tipos de arquivo nativos do Google (Docs, Planilhas, Apresentações) saem convertidos para formatos do Office automaticamente — às vezes com diferenças sutis de formatação que você só percebe semanas depois.
 
-Second, **OneDrive's "Upload" doesn't love big batches.** Path-length limits, character restrictions (`#`, `%`, `&`, trailing dots), and the 250&nbsp;GB single-file ceiling all bite during a bulk upload. A dropped Wi-Fi connection mid-job often means restarting from scratch — and Drive's exported zips don't always re-extract cleanly on the other side.
+Segundo, **o "Upload" do OneDrive não gosta de lotes grandes.** Limites de comprimento de caminho, restrições de caracteres (`#`, `%`, `&`, pontos finais) e o teto de 250&nbsp;GB por arquivo atrapalham um upload em lote. Uma queda de Wi-Fi no meio do job geralmente significa começar do zero — e os zips exportados pelo Drive nem sempre se desempacotam direito do outro lado.
 
-Third, **you lose metadata.** "Last modified" timestamps reset to today. Comments don't translate. Share permissions on Drive have no equivalent in OneDrive's model and are silently dropped. For a personal photo dump that's annoying. For a company migration, "every file is now owned by the person who did the upload" is a real problem.
+Terceiro, **você perde metadados.** As datas de "Última modificação" voltam para hoje. Comentários se perdem. Permissões de compartilhamento do Drive não têm equivalente no modelo do OneDrive e somem silenciosamente. Para um arquivo pessoal de fotos, é chato. Para uma migração de empresa, "agora todos os arquivos são de quem fez o upload" é um problema sério.
 
-## What works better
+## O que funciona melhor
 
-A few approaches sidestep the laptop entirely. Which one fits depends on whether you're moving a personal account or a Workspace tenant.
+Algumas abordagens evitam o notebook por completo. Qual encaixa depende de ser uma conta pessoal ou um tenant de Workspace.
 
-- **Microsoft Mover.io is gone.** It used to be the obvious answer — Microsoft acquired it in 2019 and ran it as a free Drive→OneDrive bridge. **The service was retired in late 2024**, and is no longer accepting new transfers. If you find a guide telling you to "use Mover," it's out of date.
-- **Microsoft 365's Migration Manager (Workspace → Microsoft 365 only).** If you have a Microsoft 365 Business or Enterprise tenant *and* a Google Workspace tenant, the SharePoint Admin Center's Migration Manager can pull Drive content directly. It preserves more metadata than a manual download. It does not work for personal Gmail/Drive accounts, and it's an admin-only workflow — not something a single user can run for their own files.
-- **Google Takeout, then upload.** Takeout exports Drive into split zip archives. Useful as a backup, painful as a migration: the export is asynchronous (sometimes more than a day), the archive splits don't map cleanly to your folder structure, and you still have to upload everything to OneDrive afterwards. Native Google file types come out as Office files, with the same formatting risk as the manual download path.
-- **`rclone`.** The open-source command-line tool can copy directly between Google Drive and OneDrive without round-tripping through your machine. It's free, transparent, and battle-tested. The cost is configuration — you create OAuth client IDs in both Google Cloud and Azure, write a config file, learn the flag set. For a one-off transfer, that setup time is significant. For repeated migrations, it pays back quickly.
-- **Third-party server-to-server tools.** MultCloud, CloudHQ, and similar services move files between Drive and OneDrive without a local download. They vary widely in pricing, transfer-speed caps, how transparent they are about where your data flows, and whether the free tier is large enough to be useful. Read what each one does before pasting in your OAuth credentials.
+- **O Microsoft Mover.io acabou.** Era a resposta óbvia — a Microsoft comprou em 2019 e mantinha como ponte gratuita Drive→OneDrive. **O serviço foi desativado no fim de 2024** e não aceita mais novas transferências. Se você encontrar um guia mandando "use o Mover", está desatualizado.
+- **Migration Manager do Microsoft 365 (só Workspace → Microsoft 365).** Se você tem um tenant Microsoft 365 Business ou Enterprise *e* um tenant Google Workspace, o Migration Manager do SharePoint Admin Center consegue puxar conteúdo do Drive direto. Preserva mais metadados que um download manual. Não funciona para contas pessoais de Gmail/Drive e é um fluxo de administrador — não algo que um usuário comum roda para os próprios arquivos.
+- **Google Takeout, depois upload.** O Takeout exporta o Drive em arquivos zip divididos. Útil como backup, doloroso como migração: a exportação é assíncrona (às vezes leva mais de um dia), as divisões dos arquivos não correspondem direito à sua estrutura de pastas e você ainda precisa subir tudo no OneDrive depois. Os tipos nativos do Google saem como arquivos do Office, com o mesmo risco de formatação do download manual.
+- **`rclone`.** A ferramenta de linha de comando open source consegue copiar direto entre Google Drive e OneDrive sem passar pela sua máquina. É gratuita, transparente e testada em produção. O custo é a configuração — você cria client IDs de OAuth tanto no Google Cloud quanto no Azure, escreve um arquivo de configuração, aprende as flags. Para uma transferência única, esse tempo de setup pesa. Para migrações repetidas, paga rápido.
+- **Ferramentas de terceiros servidor a servidor.** MultCloud, CloudHQ e serviços parecidos movem arquivos entre Drive e OneDrive sem download local. Variam bastante em preço, limites de velocidade, transparência sobre por onde seus dados passam e tamanho do plano gratuito. Leia o que cada um faz antes de colar suas credenciais OAuth.
 
-For a moderate one-off transfer of a personal account, one of those — usually Takeout or a third-party tool — will get the job done.
+Para uma transferência pontual de tamanho moderado em uma conta pessoal, alguma dessas — em geral o Takeout ou uma ferramenta de terceiros — resolve o trabalho.
 
-## When that still isn't enough
+## Quando isso ainda não basta
 
-The simple answers cover a lot of cases. They start to break in specific situations:
+As respostas simples cobrem muito caso. Elas começam a quebrar em situações específicas:
 
-- **Workspace migrations are different from personal moves.** A company switching from Google Workspace to Microsoft 365 has shared drives, ownership chains, and permission structures that don't survive a download/re-upload round trip. You need a tool that understands "this file is owned by Alice and shared with the marketing team," not just "this file exists at this path."
-- **Large drives push past the limits.** Hundreds of thousands of small files turn into per-file API rate limits, not raw bandwidth, as the bottleneck. A multi-terabyte drive over a residential connection takes days; a flaky connection turns it into weeks of restarts.
-- **Native Google file types don't have OneDrive equivalents.** Docs, Sheets, Slides, Forms — they all need to be exported. The exported `.docx`/`.xlsx`/`.pptx` is *almost* identical, but rare formatting (custom fonts, complex pivot tables, embedded scripts) can drift in ways you won't see until someone opens the file three months later.
-- **You need a manifest.** Audits and migrations end with "show me what was copied, what was skipped, and why." Manual transfers and most consumer tools don't produce one. The migration ends with "I think it's done" — a bad place to be.
-- **Privacy or compliance constraints.** Some teams can't have files traversing a third-party vendor's hosted infrastructure, even briefly. That rules out most of the simple options.
+- **Migrações de Workspace são diferentes de movimentações pessoais.** Uma empresa trocando de Google Workspace para Microsoft 365 tem drives compartilhados, cadeias de propriedade e estruturas de permissão que não sobrevivem ao ciclo de download e novo upload. Você precisa de uma ferramenta que entenda "este arquivo pertence à Alice e é compartilhado com o time de marketing", não só "este arquivo existe neste caminho".
+- **Drives grandes passam dos limites.** Com centenas de milhares de arquivos pequenos, o gargalo são os limites de API por arquivo, não a banda bruta. Um drive de vários terabytes em uma conexão residencial leva dias; uma conexão instável vira semanas de reinícios.
+- **Tipos nativos do Google não têm equivalentes no OneDrive.** Docs, Planilhas, Apresentações, Formulários — todos precisam ser exportados. Os `.docx`/`.xlsx`/`.pptx` exportados são *quase* idênticos, mas formatações raras (fontes customizadas, tabelas dinâmicas complexas, scripts embutidos) podem mudar de um jeito que você só vê quando alguém abrir o arquivo três meses depois.
+- **Você precisa de um manifesto.** Auditorias e migrações terminam com "me mostra o que foi copiado, o que foi pulado e por quê". Transferências manuais e a maioria das ferramentas de consumidor não geram um. A migração termina em "acho que tá pronto" — não é um bom lugar.
+- **Restrições de privacidade ou conformidade.** Alguns times não podem ter arquivos passando pela infraestrutura hospedada de um terceiro, nem por um instante. Isso elimina a maioria das opções simples.
 
-If any of those describe your situation, you're either running `rclone` and writing your own scripts, hiring a migration consultant, or looking for a tool that handles this end-to-end.
+Se alguma dessas descreve a sua situação, você está rodando `rclone` e escrevendo seus próprios scripts, contratando um consultor de migração ou procurando uma ferramenta que cuide disso de ponta a ponta.
 
-## How Syncologic does this
+## Como a Syncologic faz isso
 
-Syncologic is being built for exactly this kind of move — Google Drive to OneDrive (or any other pair of supported clouds) without ever pulling the files through your laptop.
+A Syncologic está sendo construída exatamente para esse tipo de movimentação — Google Drive para OneDrive (ou qualquer outro par de nuvens suportadas) sem nunca puxar os arquivos pelo seu notebook.
 
-You connect Drive as the source and OneDrive as the destination. You scope access to the folder you actually care about, not your whole drive — relevant if you're moving "Q4 Reports" rather than every file you've ever owned. Before anything moves, you preview the transfer: how many files, total size, name conflicts, items that will be skipped, native Google types that will be exported.
+Você conecta o Drive como origem e o OneDrive como destino. Restringe o acesso à pasta que importa, não ao drive inteiro — relevante se você está movendo "Relatórios Q4" e não cada arquivo que já teve. Antes de qualquer coisa se mover, você pré-visualiza a transferência: quantos arquivos, tamanho total, conflitos de nome, itens que vão ser pulados, tipos nativos do Google que vão ser exportados.
 
-Then you choose where the transfer runs. **Cloud Runner** is the convenient default — Syncologic's infrastructure handles the bytes, with short-lived credentials and isolated job state. **Browser Runner** ("This Device") streams the bytes through your open browser tab; nothing lives on a hosted runner, but the tab has to stay open until it's done. **Private Runner** is a small binary you run yourself on your own machine, NAS, or VPS — bytes flow Drive → your hardware → OneDrive, and Syncologic only sees metadata. For a Workspace-to-Microsoft-365 migration where the data can't leave your control, that's usually the right choice.
+Depois você escolhe onde a transferência roda. O **Cloud Runner** é o padrão prático — a infraestrutura da Syncologic cuida dos bytes, com credenciais de curta duração e estado de job isolado. O **Browser Runner** ("This Device") faz os bytes passarem pela aba aberta do seu navegador; nada vive em um runner hospedado, mas a aba precisa ficar aberta até o fim. O **Private Runner** é um binário pequeno que você roda na sua própria máquina, NAS ou VPS — os bytes fluem Drive → seu hardware → OneDrive, e a Syncologic só vê metadados. Para uma migração de Workspace para Microsoft 365 em que os dados não podem sair do seu controle, costuma ser a escolha certa.
 
-Once it starts, you watch progress live. At the end you get a completion report: what copied, what was skipped, what failed and why, with enough detail to act on. The same workflow handles a one-time personal move, a recurring backup, or a full company migration.
+Quando começar, você acompanha o progresso ao vivo. No final, você recebe um relatório de conclusão: o que foi copiado, o que foi pulado, o que falhou e por quê, com detalhes suficientes para agir. O mesmo fluxo vai dar conta de uma movimentação pessoal pontual, um backup recorrente ou uma migração completa de empresa.
 
-## Caveats
+## Ressalvas
 
-A few honest notes. Syncologic is pre-launch — you can join the waitlist below, but you can't run a Drive-to-OneDrive transfer today. Provider coverage starts with seven (Google Drive, OneDrive, Dropbox, S3-compatible storage, SFTP, WebDAV, Nextcloud); Drive and OneDrive are both in. The Browser Runner trades convenience for transparency: it works, but a one-terabyte job over a residential link still takes hours, and the tab has to stay open. And no transfer tool — ours or anyone else's — preserves every piece of provider-specific metadata across vendors. Drive comments and OneDrive's particular sharing model live in the source provider and don't have a clean destination equivalent.
+Algumas observações. A Syncologic está em pré-lançamento — você pode entrar na lista de espera abaixo, mas não dá para rodar uma transferência Drive→OneDrive hoje. A cobertura de provedores começa com sete (Google Drive, OneDrive, Dropbox, armazenamento compatível com S3, SFTP, WebDAV, Nextcloud); Drive e OneDrive estão na lista. O Browser Runner troca praticidade por transparência: funciona, mas um job de um terabyte em um link residencial ainda leva horas, e a aba precisa ficar aberta. E nenhuma ferramenta de transferência — nem a nossa, nem a de ninguém — preserva todos os metadados específicos de provedor entre fornecedores. Os comentários do Drive e o modelo de compartilhamento próprio do OneDrive ficam no provedor de origem e não têm equivalente direto no destino.
 
-If you're moving a small personal Drive once and don't mind a long upload, Takeout plus a manual reupload will probably get you there. If it's larger, recurring, a Workspace migration, or you need a manifest at the end, drop your email below — we'll let you know when Syncologic is ready.
+Se você está movendo um Drive pessoal pequeno uma vez e não se importa com um upload demorado, Takeout mais um reupload manual provavelmente resolve. Se for maior, recorrente, uma migração de Workspace ou se você precisar de um manifesto no final, deixe seu e-mail abaixo — a gente avisa quando a Syncologic estiver pronta.

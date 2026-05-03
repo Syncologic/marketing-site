@@ -18,7 +18,13 @@
   },
   "nav": {
     "useCases": "Use cases",
-    "pricing": "Pricing",
+    "useCasesMenu": {
+      "cloudToCloud": "Cloud-to-cloud transfer",
+      "businessMigration": "Business migration",
+      "scheduledBackup": "Scheduled backup",
+      "privateRunner": "Private Runner"
+    },
+    "pricing": "Plans",
     "selfHosted": "Self-hosted",
     "developers": "Developers",
     "joinWaitlist": "Join the waitlist",
@@ -96,11 +102,11 @@
     }
   },
   "notFound": {
-    "eyebrow": "Under construction",
-    "title": "This page is on the way.",
-    "body": "We're shipping pages one at a time. The homepage is live; the rest follow soon. Want to know when this one lands?",
-    "backHome": "Back to home",
-    "joinWaitlist": "Join the waitlist"
+    "eyebrow": "Error 404",
+    "title": "Page not found.",
+    "body": "The link might be old, mistyped, or the page may have moved. Pick one of these to get back on track.",
+    "ctaHome": "Back to home",
+    "ctaPlans": "See plans"
   },
   "useCases": {
     "indexTitle": "Use cases",
@@ -108,6 +114,32 @@
     "furtherReading": "Further reading"
   },
   "visuals": {
+    "transferPlanner": {
+      "alt": "Demonstration: 2,341 files transferring from Google Drive to OneDrive via the Cloud Runner. Transfer complete.",
+      "windowTitle": "Transfer · /Photos 2024",
+      "viewCompact": "Compact",
+      "viewDetailed": "Detailed",
+      "sourceLabel": "Source",
+      "sourcePath": "Google Drive · /Photos 2024",
+      "destLabel": "Destination",
+      "destPath": "OneDrive · /Backup",
+      "filesCount": "2,341 files",
+      "sizeSource": "1.80 GB",
+      "sizeDest": "+1.80 GB",
+      "destEmpty": "empty",
+      "runnerLabel": "Runner",
+      "runnerCloud": "Cloud",
+      "runnerBrowser": "Browser",
+      "runnerPrivate": "Private",
+      "statusLabel": "Status",
+      "transferringStep1": "Transferring · 0 / 2,341 files · 0.00 / 1.80 GB",
+      "transferringStep2": "Transferring · 585 / 2,341 files · 0.45 / 1.80 GB",
+      "transferringStep3": "Transferring · 1,170 / 2,341 files · 0.90 / 1.80 GB",
+      "transferringStep4": "Transferring · 1,756 / 2,341 files · 1.35 / 1.80 GB",
+      "transferringStep5": "Transferring · 2,341 / 2,341 files · 1.80 / 1.80 GB",
+      "completeTitle": "Transfer complete",
+      "completeMeta": "2,341 files · 1.80 GB · 4 min 12 s"
+    },
     "providerArc": {
       "alt": "Files moving from Google Drive to OneDrive along a connecting arc."
     },
@@ -193,11 +225,11 @@
   },
   "pricing": {
     "meta": {
-      "title": "Pricing — Syncologic",
+      "title": "Plans — Syncologic",
       "description": "Plans for how you transfer — Free, Pro, Business, and Private Runner. Join the waitlist for early access."
     },
     "hero": {
-      "eyebrow": "Pricing",
+      "eyebrow": "Plans",
       "headline": "Pick the plan that matches how you transfer.",
       "subheading": "Four plans, four ways our users transfer. Pick yours and join the waitlist for early access.",
       "primaryCta": "Join the waitlist",
@@ -296,7 +328,7 @@
       "cta": "Join the waitlist"
     },
     "faq": {
-      "title": "Common pricing questions",
+      "title": "Common plan questions",
       "items": [
         {
           "q": "Are these prices final?",
@@ -394,7 +426,7 @@
       {
         "q": "Will there be a free tier for developers?",
         "a": "There's no special developer offer — everything you'd pay (or not pay) is in the current plans.",
-        "link": { "href": "/pricing", "label": "See pricing" }
+        "link": { "href": "/plans", "label": "See plans" }
       },
       {
         "q": "Do you handle OAuth on behalf of my users?",
