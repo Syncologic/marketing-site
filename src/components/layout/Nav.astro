@@ -15,10 +15,14 @@ const useCases = [
 
 const otherLocale = locale === 'en' ? 'pt-br' : 'en';
 const otherLocalePath = localizedPath(otherLocale, path);
+
+const isGuide = path === '/guides' || path.startsWith('/guides/');
+const positionClass = isGuide ? 'absolute' : 'fixed';
+const waitlistHref = isGuide ? `${localizedPath(locale, '/')}#waitlist` : '#waitlist';
 ---
 
 <header
-  class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur border-b border-[rgba(0,0,0,0.06)]"
+  class={`${positionClass} top-0 left-0 right-0 z-50 w-full bg-white/85 backdrop-blur border-b border-[rgba(0,0,0,0.06)]`}
   data-locale={locale}
 >
   <nav class="container-wide flex items-center justify-between h-16">
@@ -59,7 +63,7 @@ const otherLocalePath = localizedPath(otherLocale, path);
       >
         {otherLocale === 'pt-br' ? 'PT' : 'EN'}
       </a>
-      <Button href="#waitlist" variant="primary" size="sm">{t('nav.joinWaitlist')}</Button>
+      <Button href={waitlistHref} variant="primary" size="sm">{t('nav.joinWaitlist')}</Button>
     </div>
   </nav>
 </header>

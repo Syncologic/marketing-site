@@ -11,6 +11,7 @@
 - `bg-white` — primary canvas
 - `bg-soft-gray` (#F1F4F7) — secondary section background
 - `bg-warm-gray` (#F7F8FA) — flat card surface
+- `bg-reading-paper` (#F6F5F1) — long-form reading surface (guide articles only); near-neutral off-white
 - `bg-baby-blue` (#E8F3FF) — info highlight
 - `bg-near-black` (#1C1E21) — dark immersive sections
 - `bg-brand-blue` / `hover:bg-brand-blue-hover` / `active:bg-brand-blue-pressed` — primary CTA only
