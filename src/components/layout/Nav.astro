@@ -70,7 +70,7 @@ const waitlistHref = isGuide ? `${localizedPath(locale, '/')}#waitlist` : '#wait
       <button
         id="nav-menu-toggle"
         type="button"
-        class="lg:hidden inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-input text-dark-charcoal hover:bg-soft-gray"
+        class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-input bg-soft-gray border border-divider text-dark-charcoal hover:bg-baby-blue"
         aria-label={t('nav.menu')}
         aria-expanded="false"
         aria-controls="nav-mobile-panel"
@@ -153,6 +153,13 @@ const waitlistHref = isGuide ? `${localizedPath(locale, '/')}#waitlist` : '#wait
         setOpen(false);
         toggle.focus();
       }
+    });
+
+    document.addEventListener('pointerdown', (e) => {
+      if (toggle.getAttribute('aria-expanded') !== 'true') return;
+      const target = e.target as Node;
+      if (panel.contains(target) || toggle.contains(target)) return;
+      setOpen(false);
     });
 
     const mq = window.matchMedia('(min-width: 1024px)');
