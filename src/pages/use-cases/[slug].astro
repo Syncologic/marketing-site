@@ -10,12 +10,20 @@ import ProviderArc from '../../components/visuals/ProviderArc.astro';
 import MigrationChecklist from '../../components/visuals/MigrationChecklist.astro';
 import PrivateRunnerPath from '../../components/visuals/PrivateRunnerPath.astro';
 import ScheduleClock from '../../components/visuals/ScheduleClock.astro';
+import GuideCrossLinks from '../../components/sections/GuideCrossLinks.astro';
 
 const visualMap: Record<string, typeof ProviderArc | undefined> = {
   'cloud-to-cloud-transfer': ProviderArc,
   'business-cloud-migration': MigrationChecklist,
   'private-runner': PrivateRunnerPath,
   'scheduled-cloud-backup': ScheduleClock,
+};
+
+const crossLinkMap: Record<string, string[]> = {
+  'cloud-to-cloud-transfer': ['transfer-google-drive-to-onedrive', 'move-files-between-clouds-without-downloading'],
+  'business-cloud-migration': ['transfer-google-drive-to-onedrive'],
+  'scheduled-cloud-backup': ['move-files-between-clouds-without-downloading'],
+  'private-runner': ['move-files-between-clouds-without-downloading'],
 };
 
 export async function getStaticPaths() {
@@ -31,6 +39,7 @@ const slug = entry.slug.replace(/^en\//, '');
 const { Content } = await entry.render();
 const ogImage = entry.data.ogImage ?? '/og/default-en.png';
 const Visual = visualMap[slug];
+const crossLinks = crossLinkMap[slug] ?? [];
 ---
 
 <Layout title={entry.data.title} description={entry.data.description} ogImage={ogImage}>
@@ -51,6 +60,7 @@ const Visual = visualMap[slug];
   <article class="prose-syncologic container-wide max-w-[760px] py-section">
     <Content />
   </article>
+  {crossLinks.length > 0 && <GuideCrossLinks slugs={crossLinks} />}
   <WaitlistForm segmentHint={entry.data.waitlistSegment} />
   <Footer slot="footer" />
   <StickyWaitlistBar />

@@ -1,0 +1,81 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props as Props;
+const items = headings.filter((h) => h.depth === 2);
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+---
+
+{items.length > 1 && (
+  <nav class="guide-toc text-caption" aria-labelledby="guide-toc-title">
+    <p id="guide-toc-title" class="text-caption font-medium text-dark-charcoal mb-3">{t('guides.meta.tableOfContents')}</p>
+    <ul class="space-y-1 border-l border-divider">
+      {items.map((h) => (
+        <li>
+          <a
+            href={`#${h.slug}`}
+            data-toc-link
+            data-toc-target={h.slug}
+            class="guide-toc__link block py-1.5 pl-4 -ml-px border-l-2 border-transparent text-slate-gray hover:text-dark-charcoal transition-colors"
+          >
+            {h.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<style>
+  .guide-toc__link.is-active {
+    color: theme('colors.dark-charcoal');
+    border-color: theme('colors.brand-blue.DEFAULT');
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+  if (links.length > 0) {
+    const targets = links
+      .map((link) => {
+        const id = link.dataset.tocTarget;
+        return id ? document.getElementById(id) : null;
+      })
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    const setActive = (slug: string) => {
+      for (const link of links) {
+        link.classList.toggle('is-active', link.dataset.tocTarget === slug);
+      }
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.filter((e) => e.isIntersecting);
+          if (visible.length > 0) {
+            visible.sort((a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top);
+            const id = visible[0]!.target.id;
+            if (id) setActive(id);
+          }
+        },
+        { rootMargin: '-80px 0px -65% 0px', threshold: 0 },
+      );
+      for (const target of targets) observer.observe(target);
+    }
+
+    if (targets.length > 0 && targets[0]) setActive(targets[0].id);
+  }
+</script>

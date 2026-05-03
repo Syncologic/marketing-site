@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../components/layout/Layout.astro';
+import Nav from '../../components/layout/Nav.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { getT, localizedPath } from '../../i18n/utils';
+import { readingTimeMinutes } from '../../lib/reading-time';
+
+const t = getT('en');
+const entries = await getCollection('guides', (e) => e.data.locale === 'en');
+const guides = entries
+  .map((e) => ({
+    slug: e.slug.replace(/^en\//, ''),
+    title: e.data.title,
+    description: e.data.description,
+    eyebrow: e.data.eyebrow,
+    readingTime: readingTimeMinutes(e.body ?? ''),
+    updatedAt: e.data.updatedAt,
+    updatedIso: e.data.updatedAt.toISOString().slice(0, 10),
+    updatedLabel: new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(e.data.updatedAt),
+  }))
+  .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+
+const indexTitle = t('guides.index.title');
+const indexDescription = t('guides.index.description');
+---
+
+<Layout title={indexTitle} description={indexDescription}>
+  <Nav slot="nav" />
+
+  <article class="bg-reading-paper">
+    <div class="max-w-[960px] mx-auto px-6 py-section-lg">
+      <header class="max-w-[720px] mb-12">
+        <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{t('guides.index.eyebrow')}</span>
+        <h1 class="text-h1 font-medium text-dark-charcoal mt-3 leading-tight">{t('guides.index.headline')}</h1>
+        <p class="text-body text-slate-gray mt-5 leading-relaxed">{t('guides.index.subheading')}</p>
+      </header>
+
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {guides.map((g) => (
+          <li>
+            <a
+              href={localizedPath('en', `/guides/${g.slug}`)}
+              class="block bg-white rounded-card p-6 h-full hover:shadow-card transition-shadow"
+            >
+              <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{g.eyebrow}</span>
+              <h2 class="text-h3 font-bold text-dark-charcoal mt-2">{g.title}</h2>
+              <p class="text-body text-slate-gray mt-3 line-clamp-3">{g.description}</p>
+              <p class="text-caption text-slate-gray mt-4 flex flex-wrap gap-x-3 gap-y-1">
+                <span>{t('guides.meta.readingTime', { minutes: g.readingTime })}</span>
+                <span aria-hidden="true">·</span>
+                <span>
+                  {t('guides.meta.updated')}
+                  {' '}
+                  <time datetime={g.updatedIso}>{g.updatedLabel}</time>
+                </span>
+              </p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </article>
+
+  <Footer slot="footer" />
+</Layout>

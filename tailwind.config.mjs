@@ -14,6 +14,7 @@ export default {
         'slate-gray': '#5D6C7B',
         'soft-gray': '#F1F4F7',
         'warm-gray': '#F7F8FA',
+        'reading-paper': '#F6F5F1',
         'baby-blue': '#E8F3FF',
         'near-black': '#1C1E21',
         'divider': '#DEE3E9',

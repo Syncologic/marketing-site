@@ -1,0 +1,51 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+---
+
+<button
+  type="button"
+  data-back-to-top
+  aria-label={t('guides.meta.backToTop')}
+  class="fixed bottom-6 right-6 z-40 h-12 w-12 rounded-pill bg-dark-charcoal text-white shadow-card-elevated flex items-center justify-center opacity-0 pointer-events-none translate-y-2 transition-all duration-300 ease-out hover:bg-near-black focus-visible:outline-none"
+>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <polyline points="18 15 12 9 6 15" />
+  </svg>
+</button>
+
+<style>
+  [data-back-to-top].is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-back-to-top]');
+  if (btn) {
+    let ticking = false;
+    const update = () => {
+      btn.classList.toggle('is-visible', window.scrollY > 480);
+      ticking = false;
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+    btn.addEventListener('click', () => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+    update();
+  }
+</script>

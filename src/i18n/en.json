@@ -29,7 +29,12 @@
     "product": "Product",
     "resources": "Resources",
     "company": "Company",
-    "copyright": "© {year} Syncologic"
+    "copyright": "© {year} Syncologic",
+    "resourcesColumn": {
+      "title": "Resources",
+      "guides": "Guides",
+      "useCases": "Use cases"
+    }
   },
   "language": {
     "label": "Language",
@@ -99,7 +104,8 @@
   },
   "useCases": {
     "indexTitle": "Use cases",
-    "indexDescription": "Pick the workflow that matches what you're trying to do."
+    "indexDescription": "Pick the workflow that matches what you're trying to do.",
+    "furtherReading": "Further reading"
   },
   "visuals": {
     "providerArc": {
@@ -157,7 +163,30 @@
   },
   "guides": {
     "indexTitle": "Guides",
-    "indexDescription": "How to move files between cloud providers without downloading them first."
+    "indexDescription": "How to move files between cloud providers without downloading them first.",
+    "index": {
+      "title": "Guides — Syncologic",
+      "description": "Practical guides for moving files between cloud providers — without downloading them first.",
+      "eyebrow": "Guides",
+      "headline": "Guides for moving files between clouds.",
+      "subheading": "Honest answers first. Each guide explains the options, the trade-offs, and where Syncologic fits — only after the search query is answered."
+    },
+    "meta": {
+      "readingTime": "{minutes} min read",
+      "updated": "Updated",
+      "readNext": "Read next",
+      "tableOfContents": "On this page",
+      "backToTop": "Back to top"
+    },
+    "callout": {
+      "note": "Note"
+    },
+    "cta": {
+      "title": "Want this without writing the glue?",
+      "body": "Syncologic moves folders directly between providers — preview, run, and report. Pick the use case that matches your job and join the waitlist.",
+      "primary": "Pick your use case",
+      "secondary": "Back to home"
+    }
   },
   "faq": {
     "title": "Common questions"

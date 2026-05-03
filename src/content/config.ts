@@ -35,7 +35,8 @@ const guideSchema = z.object({
   primaryCta: ctaSchema,
   waitlistSegment: waitlistSegmentEnum.optional(),
   publishedAt: z.coerce.date(),
-  updatedAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date(),
+  relatedSlugs: z.array(z.string()).default([]),
 });
 
 export const collections = {
