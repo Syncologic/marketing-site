@@ -108,7 +108,7 @@ const hypotheses = [
       <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{p.cloudVsPrivate.title}</h2>
       <p class="text-body text-slate-gray max-w-xl mx-auto">{p.cloudVsPrivate.subtitle}</p>
     </div>
-    <div class="overflow-x-auto">
+    <div class="hidden md:block overflow-x-auto">
       <table class="w-full border-collapse text-left bg-white rounded-card overflow-hidden">
         <thead>
           <tr class="border-b border-divider">
@@ -128,6 +128,24 @@ const hypotheses = [
         </tbody>
       </table>
     </div>
+
+    <ul class="md:hidden flex flex-col gap-4">
+      {p.cloudVsPrivate.rows.map((row) => (
+        <li class="bg-white rounded-card p-5">
+          <p class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{row.dimension}</p>
+          <dl class="flex flex-col gap-3">
+            <div>
+              <dt class="text-caption font-medium text-dark-charcoal mb-1">{p.cloudVsPrivate.headers.cloud}</dt>
+              <dd class="text-body text-slate-gray">{row.cloud}</dd>
+            </div>
+            <div>
+              <dt class="text-caption font-medium text-dark-charcoal mb-1">{p.cloudVsPrivate.headers.private}</dt>
+              <dd class="text-body text-slate-gray">{row.private}</dd>
+            </div>
+          </dl>
+        </li>
+      ))}
+    </ul>
   </Section>
 
   <Section surface="dark" padding="lg">
