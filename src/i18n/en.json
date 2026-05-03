@@ -28,6 +28,7 @@
     "selfHosted": "Self-hosted",
     "developers": "Developers",
     "joinWaitlist": "Join the waitlist",
+    "joinWaitlistShort": "Waitlist",
     "menu": "Menu",
     "close": "Close"
   },
@@ -381,7 +382,7 @@
     "heroEyebrow": "For developers and platform teams",
     "heroHeadline": "Move files between clouds with one API.",
     "heroSubheading": "For agencies, SaaS teams, and internal tools that move files between cloud providers without writing the glue.",
-    "heroPrimaryCta": "Join the developer waitlist",
+    "heroPrimaryCta": "Join the waitlist",
     "heroSecondaryCta": "See the API",
     "audienceLabel": "Built for agencies, SaaS engineering teams, platform groups, and internal tooling.",
     "apiTitle": "A typed HTTP API",
@@ -452,7 +453,7 @@
       "headline": "Source-visible. Self-hostable. Yours to run.",
       "subheading": "Source-visible runner at launch. Self-hostable control plane on the roadmap.",
       "audience": "For homelab operators, privacy-conscious users, and businesses that want their file transfers running on infrastructure they control.",
-      "primaryCta": "Join the self-hosting waitlist",
+      "primaryCta": "Join the waitlist",
       "secondaryCta": "See the principles"
     },
     "principles": {

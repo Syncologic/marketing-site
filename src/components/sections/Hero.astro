@@ -50,9 +50,9 @@ const gridClass = hasVisual
       <h1 class={headlineClass}>{headline}</h1>
       {subheading && <p class={subheadingClass}>{subheading}</p>}
       <div class="flex flex-wrap gap-3 mt-2">
-        <Button href={primaryCta.href} variant="primary" size="lg">{primaryCta.label}</Button>
+        <Button href={primaryCta.href} variant="primary" size="lg" class="text-center whitespace-normal break-words max-w-full">{primaryCta.label}</Button>
         {secondaryCta && (
-          <Button href={secondaryCta.href} variant="secondary" size="lg">{secondaryCta.label}</Button>
+          <Button href={secondaryCta.href} variant="secondary" size="lg" class="text-center whitespace-normal break-words max-w-full">{secondaryCta.label}</Button>
         )}
       </div>
       <slot name="meta" />
