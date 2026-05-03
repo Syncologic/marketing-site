@@ -382,7 +382,7 @@
     "heroEyebrow": "Para desenvolvedores e equipes de plataforma",
     "heroHeadline": "Mova arquivos entre nuvens com uma única API.",
     "heroSubheading": "Para agências, times de SaaS e ferramentas internas que movem arquivos entre provedores de nuvem sem precisar escrever a integração.",
-    "heroPrimaryCta": "Entrar na lista de desenvolvedores",
+    "heroPrimaryCta": "Entrar na lista de espera",
     "heroSecondaryCta": "Ver a API",
     "audienceLabel": "Feito para agências, times de engenharia de SaaS, times de plataforma e ferramentas internas.",
     "apiTitle": "Uma API HTTP tipada",
@@ -453,7 +453,7 @@
       "headline": "Código visível. Auto-hospedável. Sob seu controle.",
       "subheading": "Runner com código visível no lançamento. Camada de controle auto-hospedável no roadmap.",
       "audience": "Para usuários de homelab, pessoas que se importam com privacidade e empresas que querem rodar transferências de arquivos em uma infraestrutura que elas controlam.",
-      "primaryCta": "Entrar na lista de auto-hospedagem",
+      "primaryCta": "Entrar na lista de espera",
       "secondaryCta": "Ver os princípios"
     },
     "principles": {
