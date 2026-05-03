@@ -272,7 +272,7 @@
       },
       "privateRunner": {
         "name": "Private Runner",
-        "price": "~R$ 30",
+        "price": "~R$ 30",
         "features": [
           "Rode transferências no seu próprio servidor, NAS ou VPS",
           "Os bytes nunca passam pela infraestrutura da Syncologic",
