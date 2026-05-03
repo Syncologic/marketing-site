@@ -1,96 +1,96 @@
 ---
 locale: pt-br
-title: "Private Runner — transfer files on your own infrastructure"
-description: "Run cloud-to-cloud transfers through your own machine, server, NAS, or VPS. Bytes and credentials stay in infrastructure you control."
-eyebrow: "For privacy, homelabs, and businesses with sensitive data"
-headline: "Run transfers on your own machine, server, NAS, or VPS."
-subheading: "Use Syncologic to coordinate the job and a Private Runner you control to move the bytes. Credentials and file contents never touch our infrastructure."
+title: "Private Runner — transferências na sua própria infraestrutura"
+description: "Rode transferências entre nuvens pela sua própria máquina, servidor, NAS ou VPS. Bytes e credenciais ficam em uma infraestrutura que você controla."
+eyebrow: "Para privacidade, homelabs e empresas com dados sensíveis"
+headline: "Rode transferências na sua própria máquina, servidor, NAS ou VPS."
+subheading: "Plano de controle hospedado, caminho de dados seu. Bytes e credenciais ficam em uma infraestrutura que você controla."
 primaryCta:
-  label: "Join the Private Runner waitlist"
+  label: "Entrar na lista de espera do Private Runner"
   href: "#waitlist"
 secondaryCta:
-  label: "See how it works"
-  href: "#how-it-works"
+  label: "Veja como vai funcionar"
+  href: "#como-vai-funcionar"
 waitlistSegment: private_runner
 publishedAt: 2026-05-01
 ---
 
-## Who this is for
+## Para quem é isso
 
-- Privacy-conscious users who want a hosted control plane but not a hosted data plane.
-- Small businesses with sensitive data — legal archives, financial records, regulated content — that shouldn't pass through anyone else's infrastructure.
-- Homelab operators with an always-on server, NAS, or VPS already built for jobs like this.
-- High-volume users who'd rather pay for software and bring their own bandwidth than rent throughput.
+- Quem se importa com privacidade e quer um plano de controle hospedado, mas não um plano de dados hospedado.
+- Pequenas empresas com dados sensíveis — arquivos jurídicos, registros financeiros, conteúdo regulado — que não devem passar pela infraestrutura de mais ninguém.
+- Operadores de homelab com um servidor, NAS ou VPS sempre ligado, já preparado para esse tipo de job.
+- Usuários de alto volume que preferem pagar pelo software e entrar com a própria banda do que alugar throughput.
 
-## The data path
+## O caminho dos dados
 
-The Cloud Runner sends bytes through Syncologic infrastructure. The Private Runner doesn't.
+O Cloud Runner envia bytes pela infraestrutura da Syncologic. O Private Runner, não.
 
-`Source provider` → `Your Private Runner` → `Destination provider`
+`Provedor de origem` → `Seu Private Runner` → `Provedor de destino`
 
-Files flow directly from the source API to the runner you operate, then on to the destination. Our control plane sees what the job is, when it ran, and a structured report at the end. It never sees the file contents and never holds the long-lived credentials.
+Os arquivos passam direto da API da origem para o runner que você opera, e em seguida para o destino. O plano de controle vê qual é o job e quando rodou — nunca o conteúdo dos arquivos, nunca credenciais de longa duração.
 
-## Outbound connection only
+## Conexão apenas de saída
 
-You don't open a port. The runner makes an outbound connection to the control plane and waits for work. When a job is dispatched, it pulls a short-lived run lease, runs the transfer, and posts progress events back.
+Você não abre porta nenhuma. O runner faz uma conexão de saída para o plano de controle e fica esperando trabalho. Quando um job é despachado, ele puxa um lease de execução de curta duração, roda a transferência e devolve eventos de progresso.
 
-That means:
+Isso significa:
 
-- No inbound firewall rules.
-- No public IP requirement.
-- No reverse proxy or tunnel.
-- Works behind home NAT, behind a corporate proxy, behind anything that allows outbound HTTPS.
+- Sem regras de firewall de entrada.
+- Sem necessidade de IP público.
+- Sem proxy reverso ou túnel.
+- Funciona atrás de NAT residencial, atrás de proxy corporativo, atrás de qualquer coisa que permita HTTPS de saída.
 
-## How it works
+## Como vai funcionar
 
-1. Install the runner on a machine you control — a NAS, a VPS, a Linux box, a workstation, a Raspberry Pi that stays on.
-2. Pair it with your Syncologic account using a one-time enrolment code.
-3. Connect your source and destination providers from the control plane like normal.
-4. When you dispatch a job, pick the Private Runner instead of the Cloud Runner.
-5. The runner pulls the work, transfers the files between provider APIs, and reports back when it's done.
+1. Instale o runner em uma máquina que você controla — um NAS, uma VPS, um Linux qualquer, uma estação de trabalho, um Raspberry Pi que fica ligado.
+2. Pareie com sua conta Syncologic usando um código de inscrição de uso único.
+3. Conecte os provedores de origem e destino pelo plano de controle, normalmente.
+4. Quando despachar um job, escolha o Private Runner em vez do Cloud Runner.
+5. O runner puxa o trabalho, transfere os arquivos entre as APIs dos provedores e devolve um relatório quando terminar.
 
-## Where you'd run it
+## Onde você rodaria
 
-The runner is small enough to live next to other lightweight services on hardware you already own.
+O runner é pequeno o bastante para conviver com outros serviços leves em hardware que você já tem.
 
-- A Synology, QNAP, or TrueNAS box that's already on 24/7.
-- A homelab Linux server or mini-PC running other long-lived jobs.
-- A small VPS — Hetzner, Fly, DigitalOcean, OVH — for users who want it off-prem but still under their account.
-- A workstation that's reliably online during business hours, for one-time migrations.
-- A Raspberry Pi class device for slower, low-throughput backups.
+- Um Synology, QNAP ou TrueNAS que já fica ligado 24/7.
+- Um servidor Linux de homelab ou mini-PC rodando outros jobs de longa duração.
+- Uma VPS pequena — Hetzner, Fly, DigitalOcean, OVH — para quem quer fora das instalações mas ainda na própria conta.
+- Uma estação de trabalho que fica online de forma confiável no horário comercial, para migrações pontuais.
+- Um dispositivo da classe Raspberry Pi para backups mais lentos e de baixo throughput.
 
-The runner cares about reliable network and enough disk for staging buffers; it doesn't care which distro or hardware you picked.
+O runner se importa com uma rede confiável e disco suficiente para buffers de staging; não se importa com a distro ou o hardware que você escolheu.
 
-## Credential handling
+## Como as credenciais são tratadas
 
-OAuth tokens for your providers are bound to the runner. They're encrypted at rest using a key derived from your enrolment, and they don't leave the machine. Our control plane sees provider identifiers, scopes, and run metadata — never refresh tokens, never file contents.
+Os tokens OAuth dos provedores ficam vinculados ao runner — criptografados em repouso com uma chave derivada da sua inscrição, sem nunca sair da máquina. O plano de controle vê identificadores de provedor, escopos e metadados de execução; nunca refresh tokens, nunca conteúdo de arquivos.
 
-If you decommission the runner, revoke the enrolment from the control plane and the tokens it held become useless.
+Desativou o runner e revogou a inscrição no plano de controle — os tokens que ele guardava ficam inúteis.
 
 ## Cloud Runner vs Private Runner
 
 ### Cloud Runner
 
-- **Where bytes flow:** source → Syncologic infrastructure → destination.
-- **Where credentials live:** encrypted in our infrastructure, short-lived.
-- **Setup effort:** none — pick it from the dropdown.
-- **Best for:** convenience, very large jobs you don't want to host yourself.
-- **Pricing model:** usage-based on our infrastructure.
-- **Network requirements:** none.
+- **Por onde os bytes passam:** origem → infraestrutura da Syncologic → destino.
+- **Onde ficam as credenciais:** criptografadas na nossa infraestrutura, de curta duração.
+- **Esforço de setup:** nenhum — escolha no dropdown.
+- **Quando faz mais sentido:** praticidade, jobs muito grandes que você não quer hospedar.
+- **Modelo de preço:** baseado em uso na nossa infraestrutura.
+- **Requisitos de rede:** nenhum.
 
 ### Private Runner
 
-- **Where bytes flow:** source → your machine → destination.
-- **Where credentials live:** on your runner, never leaves.
-- **Setup effort:** install and pair once.
-- **Best for:** privacy, sensitive data, homelabs, high-volume users.
-- **Pricing model:** pay for software; you bring bandwidth.
-- **Network requirements:** outbound HTTPS from the runner.
+- **Por onde os bytes passam:** origem → sua máquina → destino.
+- **Onde ficam as credenciais:** no seu runner, sem nunca sair de lá.
+- **Esforço de setup:** instalar e parear uma vez.
+- **Quando faz mais sentido:** privacidade, dados sensíveis, homelabs, usuários de alto volume.
+- **Modelo de preço:** você paga pelo software e entra com a banda.
+- **Requisitos de rede:** HTTPS de saída a partir do runner.
 
-Both runners use the same control plane, the same job definitions, the same preview, and the same completion reports. The only difference is where the bytes flow.
+Os dois runners usam o mesmo plano de controle, as mesmas definições de job, a mesma prévia e os mesmos relatórios de conclusão. A única diferença é por onde os bytes passam.
 
-## Public source and a future self-host path
+## Código visível e um caminho futuro de auto-hospedagem
 
-The runner is being built so it can run today against our hosted control plane and later against a self-hosted one. The core code is source-visible — you can read what it does before you install it. Self-hosting the control plane is a separate, longer track; the Private Runner is the first step on that path.
+O runner vai funcionar com o nosso plano de controle hospedado no lançamento e, mais tarde, com um plano de controle auto-hospedado. O código principal vai ser lançado com código visível — você pode auditar antes de instalar. A auto-hospedagem do plano de controle é uma trilha separada e mais longa; o Private Runner é o primeiro passo.
 
-Where would you run your Private Runner — NAS, homelab server, VPS, or workstation? Tell us on the waitlist below — it's the first question we'll ask after your email.
+Onde você rodaria seu Private Runner — NAS, servidor de homelab, VPS ou estação de trabalho? Conte para a gente na lista de espera abaixo — é a primeira pergunta que vamos fazer depois do seu e-mail.
