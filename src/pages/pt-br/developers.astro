@@ -2,7 +2,6 @@
 import Layout from '../../components/layout/Layout.astro';
 import Nav from '../../components/layout/Nav.astro';
 import Footer from '../../components/layout/Footer.astro';
-import StickyWaitlistBar from '../../components/sections/StickyWaitlistBar.astro';
 import DevelopersPage from '../../components/sections/DevelopersPage.astro';
 import { getLocaleFromUrl, getT } from '../../i18n/utils';
 
@@ -14,5 +13,4 @@ const t = getT(locale);
   <Nav slot="nav" />
   <DevelopersPage />
   <Footer slot="footer" />
-  <StickyWaitlistBar />
 </Layout>

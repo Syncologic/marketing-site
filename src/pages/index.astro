@@ -11,7 +11,6 @@ import RunnerCards from '../components/sections/RunnerCards.astro';
 import UseCaseRouter from '../components/sections/UseCaseRouter.astro';
 import TrustStory from '../components/sections/TrustStory.astro';
 import WaitlistForm from '../components/sections/WaitlistForm.astro';
-import StickyWaitlistBar from '../components/sections/StickyWaitlistBar.astro';
 import { getLocaleFromUrl, getT } from '../i18n/utils';
 
 const locale = getLocaleFromUrl(Astro.url);
@@ -113,5 +112,4 @@ const siteSchema = {
   <WaitlistForm />
 
   <Footer slot="footer" />
-  <StickyWaitlistBar />
 </Layout>

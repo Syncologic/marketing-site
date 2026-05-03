@@ -10,7 +10,6 @@ import Button from '../../components/ui/Button.astro';
 import Hero from '../../components/sections/Hero.astro';
 import FAQ from '../../components/sections/FAQ.astro';
 import WaitlistForm from '../../components/sections/WaitlistForm.astro';
-import StickyWaitlistBar from '../../components/sections/StickyWaitlistBar.astro';
 import PricingCurves from '../../components/visuals/PricingCurves.astro';
 import { getLocaleFromUrl } from '../../i18n/utils';
 import en from '../../i18n/en.json';
@@ -144,5 +143,4 @@ const hypotheses = [
   <FAQ surface="soft" title={p.faq.title} items={p.faq.items} />
 
   <Footer slot="footer" />
-  <StickyWaitlistBar />
 </Layout>
