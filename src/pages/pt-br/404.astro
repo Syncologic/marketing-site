@@ -1,0 +1,45 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import Nav from '../../components/layout/Nav.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Section from '../../components/ui/Section.astro';
+import Button from '../../components/ui/Button.astro';
+import { getLocaleFromUrl, getT, localizedPath } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const title = `${t('notFound.title')} — ${t('site.name')}`;
+const description = t('notFound.body');
+---
+
+<Layout title={title} description={description}>
+  <Nav slot="nav" />
+
+  <Section surface="white" padding="lg">
+    <div class="max-w-2xl mx-auto text-center pt-section-sm">
+      <span
+        class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-5 block"
+      >
+        {t('notFound.eyebrow')}
+      </span>
+      <h1
+        class="text-display-2 lg:text-display-1 font-medium text-dark-charcoal mb-5 leading-[1.14] tracking-tight"
+      >
+        {t('notFound.title')}
+      </h1>
+      <p class="text-body text-slate-gray mb-8 max-w-lg mx-auto">
+        {t('notFound.body')}
+      </p>
+      <div class="flex gap-3 flex-wrap justify-center">
+        <Button href={localizedPath(locale, '/')} variant="primary" size="lg">
+          {t('notFound.ctaHome')}
+        </Button>
+        <Button href={localizedPath(locale, '/plans')} variant="secondary" size="lg">
+          {t('notFound.ctaPlans')}
+        </Button>
+      </div>
+    </div>
+  </Section>
+
+  <Footer slot="footer" />
+</Layout>

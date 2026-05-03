@@ -1,24 +1,30 @@
 {
   "site": {
     "name": "Syncologic",
-    "tagline": "Mova arquivos entre nuvens sem baixá-los antes.",
-    "description": "Conecte uma origem e um destino, veja o que vai mudar e execute a transferência na nuvem ou na sua própria máquina."
+    "tagline": "Mova arquivos entre nuvens sem ter que baixar antes.",
+    "description": "Conecte origem e destino, veja a prévia das mudanças e execute a transferência na nuvem ou na sua máquina."
   },
   "homepage": {
     "heroEyebrow": "Transferência entre nuvens",
-    "heroBody": "Conecte uma origem e um destino, veja o que vai mudar e execute a transferência na nuvem ou na sua própria máquina.",
+    "heroBody": "Conecte origem e destino, veja a prévia das mudanças e execute a transferência na nuvem ou na sua máquina.",
     "heroSecondaryCta": "Veja como funciona",
-    "providersLabel": "Conecta com",
-    "runnersTitle": "Três formas de rodar uma transferência",
-    "runnersSubtitle": "Escolha o runner que combina com o que você precisa em confiança e praticidade.",
+    "providersLabel": "Funciona com",
+    "runnersTitle": "Três formas de executar uma transferência",
+    "runnersSubtitle": "Escolha o runner que melhor equilibra confiança e praticidade para você.",
     "useCasesTitle": "Encontre seu caso de uso",
-    "useCasesSubtitle": "Estamos construindo para públicos diferentes — comece pelo que se encaixa em você.",
-    "trustTitle": "Construído em torno da sua confiança",
+    "useCasesSubtitle": "Estamos construindo para vários tipos de públicos — comece pelo que faz mais sentido para você.",
+    "trustTitle": "Sua confiança em primeiro lugar",
     "trustSubtitle": "Sem surpresas. Sem mudanças silenciosas. Você vê o que roda, onde roda e o que mudou."
   },
   "nav": {
     "useCases": "Casos de uso",
-    "pricing": "Preços",
+    "useCasesMenu": {
+      "cloudToCloud": "Transferência entre nuvens",
+      "businessMigration": "Migração empresarial",
+      "scheduledBackup": "Backup agendado",
+      "privateRunner": "Private Runner"
+    },
+    "pricing": "Planos",
     "selfHosted": "Auto-hospedado",
     "developers": "Desenvolvedores",
     "joinWaitlist": "Entrar na lista de espera",
@@ -47,14 +53,14 @@
     "submit": "Entrar na lista de espera",
     "submitting": "Entrando…",
     "success": "✓ Você está na lista",
-    "errorNetwork": "Não conseguimos falar com o servidor. Tentar de novo?",
+    "errorNetwork": "Não conseguimos nos conectar ao servidor. Tentar de novo?",
     "errorRate": "Calma — tente de novo em um minuto.",
     "step1Subtitle": "Ajude a construir a ferramenta certa. Deixe seu e-mail e conte o que você precisa — leva cerca de um minuto.",
     "step2Title": "Ajude a construir isso para você",
     "step2Intro": "7 perguntas rápidas.",
     "step2Skip": "Pular — terminar depois",
     "step2Done": "Pronto",
-    "questionUseCase": "O que você está tentando mover?",
+    "questionUseCase": "O que você pretende fazer?",
     "questionSourceProvider": "Onde os arquivos estão hoje?",
     "questionDestProvider": "Para onde eles precisam ir?",
     "questionSize": "Quanto de dados?",
@@ -73,7 +79,7 @@
     "other": "Outro"
   },
   "runners": {
-    "cloud": { "name": "Cloud Runner", "tagline": "Praticidade hospedada" },
+    "cloud": { "name": "Cloud Runner", "tagline": "Praticidade na nuvem" },
     "browser": { "name": "Browser Runner", "tagline": "Rode em uma aba" },
     "private": { "name": "Private Runner", "tagline": "Sua máquina, sua banda" }
   },
@@ -84,11 +90,11 @@
     },
     "businessMigration": {
       "title": "Migrar uma equipe",
-      "desc": "Mova um Workspace ou tenant do Microsoft 365 com relatórios e prévias."
+      "desc": "Mova um Workspace ou tenant do Microsoft 365 — com prévia e relatórios."
     },
     "scheduledBackup": {
       "title": "Agendar backups recorrentes",
-      "desc": "Entre nuvens ou para S3, em uma programação."
+      "desc": "Entre nuvens ou para o S3, em um agendamento que você define."
     },
     "privateRunner": {
       "title": "Rodar na sua própria máquina",
@@ -96,11 +102,11 @@
     }
   },
   "notFound": {
-    "eyebrow": "Em construção",
-    "title": "Esta página está a caminho.",
-    "body": "Estamos publicando uma página por vez. A inicial já está no ar; o resto vem em seguida. Quer saber quando esta entrar?",
-    "backHome": "Voltar ao início",
-    "joinWaitlist": "Entrar na lista de espera"
+    "eyebrow": "Erro 404",
+    "title": "Página não encontrada.",
+    "body": "O link pode estar desatualizado, com erro de digitação, ou a página pode ter sido movida. Escolha uma das opções abaixo.",
+    "ctaHome": "Voltar ao início",
+    "ctaPlans": "Ver planos"
   },
   "useCases": {
     "indexTitle": "Casos de uso",
@@ -108,6 +114,32 @@
     "furtherReading": "Leitura complementar"
   },
   "visuals": {
+    "transferPlanner": {
+      "alt": "Demonstração: 2.341 arquivos sendo transferidos do Google Drive para o OneDrive via Cloud Runner. Transferência concluída.",
+      "windowTitle": "Transferência · /Fotos 2024",
+      "viewCompact": "Compacto",
+      "viewDetailed": "Detalhado",
+      "sourceLabel": "Origem",
+      "sourcePath": "Google Drive · /Fotos 2024",
+      "destLabel": "Destino",
+      "destPath": "OneDrive · /Backup",
+      "filesCount": "2.341 arquivos",
+      "sizeSource": "1,80 GB",
+      "sizeDest": "+1,80 GB",
+      "destEmpty": "vazio",
+      "runnerLabel": "Runner",
+      "runnerCloud": "Cloud",
+      "runnerBrowser": "Browser",
+      "runnerPrivate": "Private",
+      "statusLabel": "Status",
+      "transferringStep1": "Transferindo · 0 / 2.341 arquivos · 0,00 / 1,80 GB",
+      "transferringStep2": "Transferindo · 585 / 2.341 arquivos · 0,45 / 1,80 GB",
+      "transferringStep3": "Transferindo · 1.170 / 2.341 arquivos · 0,90 / 1,80 GB",
+      "transferringStep4": "Transferindo · 1.756 / 2.341 arquivos · 1,35 / 1,80 GB",
+      "transferringStep5": "Transferindo · 2.341 / 2.341 arquivos · 1,80 / 1,80 GB",
+      "completeTitle": "Transferência concluída",
+      "completeMeta": "2.341 arquivos · 1,80 GB · 4 min 12 s"
+    },
     "providerArc": {
       "alt": "Arquivos passando do Google Drive para o OneDrive ao longo de um arco que os conecta."
     },
@@ -145,9 +177,9 @@
       "privateStatus": "Ativo na sua máquina"
     },
     "controlDataPlanes": {
-      "alt": "Dois painéis empilhados. O painel de cima — o plano de controle da Syncologic — guarda autenticação, jobs, agendamentos e logs. Um conector pontilhado marcado como 'apenas metadados' liga ele ao painel de baixo, o plano de dados, que contém um único runner. Uma seta sólida sai de uma nuvem de origem, atravessa direto o runner do plano de dados e chega em uma nuvem de destino — sem passar pelo plano de controle.",
-      "controlTitle": "Plano de controle (nuvem da Syncologic)",
-      "dataTitle": "Plano de dados (sua infra)",
+      "alt": "Dois painéis empilhados. O painel de cima — a camada de controle da Syncologic — guarda autenticação, jobs, agendamentos e logs. Um conector pontilhado marcado como 'apenas metadados' liga ele ao painel de baixo, a camada de dados, que contém um único runner. Uma seta sólida sai de uma nuvem de origem, atravessa direto o runner da camada de dados e chega em uma nuvem de destino — sem passar pela camada de controle.",
+      "controlTitle": "Camada de controle (nuvem da Syncologic)",
+      "dataTitle": "Camada de dados (sua infra)",
       "metadataLabel": "apenas metadados",
       "auth": "auth",
       "jobs": "jobs",
@@ -193,13 +225,13 @@
   },
   "pricing": {
     "meta": {
-      "title": "Preços — Syncologic",
-      "description": "Planos para o jeito que você transfere — Free, Pro, Business e Private Runner. Entre na lista de espera para acesso antecipado."
+      "title": "Planos — Syncologic",
+      "description": "Planos para cada jeito de transferir — Free, Pro, Business e Private Runner. Entre na lista de espera para acesso antecipado."
     },
     "hero": {
-      "eyebrow": "Preços",
-      "headline": "Escolha o plano que combina com a forma como você transfere.",
-      "subheading": "Quatro planos, quatro formas que nossos usuários transferem. Escolha o seu e entre na lista de espera para acesso antecipado.",
+      "eyebrow": "Planos",
+      "headline": "Escolha o plano que combina com o seu jeito de transferir.",
+      "subheading": "Quatro planos para quatro jeitos de transferir. Escolha o seu e entre na lista de espera para acesso antecipado.",
       "primaryCta": "Entrar na lista de espera",
       "secondaryCta": "Ver os planos"
     },
@@ -209,7 +241,7 @@
       "priceSuffix": "/mês",
       "free": {
         "name": "Free",
-        "price": "$0",
+        "price": "R$ 0",
         "features": [
           "Apenas Browser Runner — a aba precisa ficar aberta",
           "Uma origem + um destino por vez",
@@ -219,17 +251,17 @@
       },
       "pro": {
         "name": "Pro",
-        "price": "~$9",
+        "price": "~R$ 45",
         "features": [
           "Cloud Runner para transferências sem precisar acompanhar",
           "Jobs agendados e relatórios de execução",
-          "Volumes de dados em escala pessoal"
+          "Volumes de dados de uso pessoal"
         ],
         "footnote": "Para quem quer transferências hospedadas e agendadas sem manter uma aba aberta."
       },
       "business": {
         "name": "Business",
-        "price": "~$29",
+        "price": "~R$ 145",
         "features": [
           "Volumes de dados maiores e jobs em paralelo",
           "Prévias de migração e relatórios de execução",
@@ -239,21 +271,21 @@
       },
       "privateRunner": {
         "name": "Private Runner",
-        "price": "~$6",
+        "price": "~R$ 30",
         "features": [
           "Rode transferências no seu próprio servidor, NAS ou VPS",
           "Os bytes nunca passam pela infraestrutura da Syncologic",
-          "Pague pelo plano de controle, não pela banda"
+          "Pague pela camada de controle, não pela banda"
         ],
         "footnote": "Para quem traz a própria infraestrutura. Bytes e credenciais ficam com você."
       }
     },
     "affects": {
       "title": "O que afeta o custo",
-      "subtitle": "Três fatores definem como o seu plano deve ser.",
+      "subtitle": "Três fatores definem o plano certo para você.",
       "volume": {
         "title": "Volume de dados",
-        "body": "O maior fator isolado — quanto de dado se move por job e por mês."
+        "body": "O fator que mais pesa — quantos dados se movem por job e por mês."
       },
       "frequency": {
         "title": "Frequência",
@@ -265,8 +297,8 @@
       }
     },
     "cloudVsPrivate": {
-      "title": "Economia: Cloud Runner vs Private Runner",
-      "subtitle": "Mesmo plano de controle, caminhos de dados diferentes. Escolha o que combina com sua confiança e seu volume.",
+      "title": "Custos: Cloud Runner vs Private Runner",
+      "subtitle": "Mesma camada de controle, caminhos de dados diferentes. Escolha o que faz mais sentido para o seu nível de confiança e volume.",
       "headers": {
         "dimension": "O que muda",
         "cloud": "Cloud Runner",
@@ -281,7 +313,7 @@
         {
           "dimension": "O que você paga",
           "cloud": "Banda hospedada, agendamento, retries e isolamento.",
-          "private": "Apenas o plano de controle — taxa fixa mensal."
+          "private": "Apenas a camada de controle — taxa fixa mensal."
         },
         {
           "dimension": "Quando faz mais sentido",
@@ -296,39 +328,39 @@
       "cta": "Entrar na lista de espera"
     },
     "faq": {
-      "title": "Dúvidas frequentes sobre preços",
+      "title": "Dúvidas frequentes sobre planos",
       "items": [
         {
           "q": "Esses preços são definitivos?",
-          "a": "A estrutura de quatro planos está definida. Os valores exatos podem variar na margem antes do lançamento — por isso cada plano mostra `~` em vez de um número fechado."
+          "a": "A estrutura de quatro planos está definida. Os valores exatos podem ter pequenos ajustes antes do lançamento — por isso cada plano mostra `~` em vez de um número fechado."
         },
         {
           "q": "O Private Runner vai custar mais que o Cloud Runner?",
-          "a": "Menos. Como você entra com a banda, o Private Runner é uma taxa fixa do plano de controle, em vez de uso medido."
+          "a": "Menos. Como você entra com a banda, o Private Runner é uma taxa fixa da camada de controle, em vez de uso medido."
         },
         {
-          "q": "E quanto à auto-hospedagem open source?",
-          "a": "Planejamos um caminho para uma infraestrutura com código visível e auto-hospedável. O preço desse caminho será definido quando o modelo estiver — veja a página auto-hospedado para detalhes."
+          "q": "E sobre a auto-hospedagem open source?",
+          "a": "Planejamos um caminho para uma infraestrutura com código visível e auto-hospedável. O preço desse caminho será definido quando o modelo estiver pronto — veja a página auto-hospedado para detalhes."
         },
         {
-          "q": "Vou ser cobrado automaticamente quando lançar?",
+          "q": "Vou ser cobrado automaticamente no lançamento?",
           "a": "Não. Entrar na lista de espera nunca gera cobrança. Quem migrar da lista para um plano pago faz isso de forma explícita."
         },
         {
           "q": "E se meu caso de uso ficar entre dois planos?",
-          "a": "Escolha o mais próximo e nos diga nas perguntas da lista de espera. A gente entra em contato antes do lançamento se outro plano fizer mais sentido."
+          "a": "Escolha o mais próximo e responda às perguntas da lista de espera. A gente entra em contato antes do lançamento se outro plano fizer mais sentido."
         }
       ]
     }
   },
   "trust": {
     "preview": {
-      "title": "Veja antes o que vai acontecer",
-      "desc": "Antes de qualquer arquivo se mover, mostramos quais serão copiados, substituídos ou mantidos como estão — sem surpresas."
+      "title": "Veja a prévia antes de transferir",
+      "desc": "Antes da transferência começar, mostramos quais arquivos serão copiados, substituídos ou mantidos — sem surpresas."
     },
     "scoped": {
       "title": "Pedimos só o que é preciso",
-      "desc": "Quando você conecta o Google Drive ou outra nuvem, pedimos a menor permissão capaz de fazer o trabalho — nada além disso."
+      "desc": "Quando você conecta o Google Drive ou outra nuvem, pedimos só a permissão mínima necessária — nada além disso."
     },
     "progress": {
       "title": "Acompanhe em tempo real",
@@ -351,13 +383,13 @@
     "heroSubheading": "Para agências, times de SaaS e ferramentas internas que movem arquivos entre provedores de nuvem sem precisar escrever a integração.",
     "heroPrimaryCta": "Entrar na lista de desenvolvedores",
     "heroSecondaryCta": "Ver a API",
-    "audienceLabel": "Feito para agências, times de engenharia de SaaS, grupos de plataforma e ferramentas internas.",
+    "audienceLabel": "Feito para agências, times de engenharia de SaaS, times de plataforma e ferramentas internas.",
     "apiTitle": "Uma API HTTP tipada",
-    "apiBody": "Crie um job com origem, destino, runner e um agendamento opcional. O plano de controle valida, despacha e emite eventos de progresso.",
+    "apiBody": "Crie um job com origem, destino, runner e um agendamento opcional. A camada de controle valida, despacha e emite eventos de progresso.",
     "apiCaption": "Esboço — o formato final vem com a API v1.",
     "cliTitle": "Uma CLI para scripts e CI",
-    "cliBody": "Os mesmos jobs, executados de um terminal ou de um runner de CI. Útil para migrações pontuais e para backups que ficam em um script que você consegue revisar em um code review.",
-    "cliCaption": "Planejado. O comportamento espelha a API ponto a ponto.",
+    "cliBody": "Os mesmos jobs, executados de um terminal ou de um runner de CI. Útil para migrações pontuais e para backups definidos por um script que você consegue revisar em um code review.",
+    "cliCaption": "Planejado. O comportamento espelha a API um-para-um.",
     "runnersTitle": "Escolha o runner que combina com o job",
     "runnersBody": "A mesma API. Três caminhos de dados diferentes. Escolha por job, não por conta.",
     "runnerCloud": {
@@ -370,13 +402,13 @@
     },
     "runnerPrivate": {
       "title": "Private Runner",
-      "desc": "Hospede o binário do runner na sua VPC, on-prem ou em um NAS. Conexão apenas de saída com o plano de controle."
+      "desc": "Hospede o binário do runner na sua VPC, on-prem ou em um NAS. Conexão apenas de saída com a camada de controle."
     },
     "webhooksTitle": "Webhooks para os eventos que importam",
     "webhooksBody": "Assine os eventos do ciclo de vida dos jobs e direcione para sua fila, seu dashboard ou seu log de auditoria. Os payloads serão assinados com HMAC.",
     "webhookEventsLabel": "Eventos planejados",
     "noSdkTitle": "Nada de promessas de SDK ainda",
-    "noSdkBody": "Não vamos lançar um SDK oficial antes de a API estabilizar. A especificação OpenAPI será pública, então você pode gerar um cliente tipado em qualquer linguagem que já usa.",
+    "noSdkBody": "Não vamos lançar um SDK oficial antes da API estabilizar. A especificação OpenAPI será pública, então você pode gerar um cliente tipado em qualquer linguagem que você já usa.",
     "faqTitle": "FAQ de desenvolvedores",
     "webhookEvents": [
       "job.created",
@@ -389,20 +421,20 @@
     "faq": [
       {
         "q": "Quando a API vai sair?",
-        "a": "Não estamos comprometendo uma data. A API sai com o primeiro plano pago do Cloud Runner — entre na lista de espera para acesso antecipado."
+        "a": "Não temos uma data definida. A API sai com o primeiro plano pago do Cloud Runner — entre na lista de espera para acesso antecipado."
       },
       {
         "q": "Vai ter um plano grátis para desenvolvedores?",
         "a": "Não há uma oferta específica para desenvolvedores — tudo o que você pagaria (ou não pagaria) está nos planos atuais.",
-        "link": { "href": "/pt-br/pricing", "label": "Ver preços" }
+        "link": { "href": "/pt-br/plans", "label": "Ver planos" }
       },
       {
-        "q": "Vocês cuidam do OAuth pelos meus usuários?",
-        "a": "Sim. Os usuários conectam as contas de nuvem deles à Syncologic — não ao seu app. Você não guarda credenciais de provedor; o plano de controle cuida do ciclo de vida do OAuth."
+        "q": "Vocês cuidam do OAuth em nome dos meus usuários?",
+        "a": "Sim. Os usuários conectam as contas de nuvem deles à Syncologic — não ao seu app. Você não guarda credenciais de provedor; a camada de controle cuida do ciclo de vida do OAuth."
       },
       {
         "q": "Posso rodar os jobs inteiramente na minha infraestrutura?",
-        "a": "Sim, no caminho dos dados — o Private Runner roda na sua VPC, num NAS ou em qualquer máquina que você controla, e os bytes dos arquivos nunca chegam à Syncologic. O plano de controle (contas, jobs, agendamentos) é hospedado por nós no lançamento; auto-hospedagem completa está no roadmap."
+        "a": "Sim, no caminho dos dados — o Private Runner roda na sua VPC, num NAS ou em qualquer máquina que você controla, e os bytes dos arquivos nunca chegam à Syncologic. A camada de controle (contas, jobs, agendamentos) é hospedada por nós no lançamento; auto-hospedagem completa está no roadmap."
       },
       {
         "q": "Os payloads dos webhooks são assinados?",
@@ -412,36 +444,36 @@
   },
   "selfHosted": {
     "meta": {
-      "title": "Futuro auto-hospedado — Syncologic",
+      "title": "O futuro da auto-hospedagem — Syncologic",
       "description": "Transferência de arquivos entre nuvens com código visível e auto-hospedável. Private Runner primeiro, depois auto-hospedagem completa, depois air-gapped — no seu tempo."
     },
     "hero": {
-      "eyebrow": "Futuro auto-hospedado",
-      "headline": "Código visível. Auto-hospedável. Para você rodar.",
-      "subheading": "Runner com código visível no lançamento. Plano de controle auto-hospedável no roadmap.",
-      "audience": "Para usuários de homelab, pessoas que se importam com privacidade e empresas que querem rodar transferências de arquivos em uma infraestrutura que elas mesmas controlam.",
+      "eyebrow": "O futuro da auto-hospedagem",
+      "headline": "Código visível. Auto-hospedável. Sob seu controle.",
+      "subheading": "Runner com código visível no lançamento. Camada de controle auto-hospedável no roadmap.",
+      "audience": "Para usuários de homelab, pessoas que se importam com privacidade e empresas que querem rodar transferências de arquivos em uma infraestrutura que elas controlam.",
       "primaryCta": "Entrar na lista de auto-hospedagem",
       "secondaryCta": "Ver os princípios"
     },
     "principles": {
       "title": "Princípios de arquitetura",
-      "intro": "Separamos a camada de metadados do lugar onde os arquivos de fato se movem. Essa divisão é o que torna a auto-hospedagem viável.",
+      "intro": "Separamos a camada de metadados de onde os arquivos realmente trafegam. Essa divisão é o que torna a auto-hospedagem viável.",
       "controlPlane": {
-        "title": "Plano de controle",
+        "title": "Camada de controle",
         "desc": "Contas, jobs, agendamentos, relatórios. A camada de metadados — hospedada por nós no lançamento, auto-hospedável no roadmap."
       },
       "dataPlane": {
-        "title": "Plano de dados",
-        "desc": "Onde os bytes fluem. Origem → runner → destino. O runner é auto-hospedável desde o lançamento; os bytes nunca chegam ao plano de controle."
+        "title": "Camada de dados",
+        "desc": "Onde os bytes fluem. Origem → runner → destino. O runner é auto-hospedável desde o lançamento; os bytes nunca chegam à camada de controle."
       },
       "note": "Os arquivos não passam pelo nosso servidor. O servidor guarda metadados; o runner é quem move os bytes."
     },
     "privateRunner": {
-      "title": "Private Runner: disponível primeiro",
-      "body": "Rode transferências na sua própria máquina, NAS ou VPS desde o lançamento. Suas credenciais de provedor e os bytes dos arquivos ficam com você; o plano de controle guarda apenas metadados dos jobs.",
+      "title": "Private Runner: vem primeiro",
+      "body": "Rode transferências na sua própria máquina, NAS ou VPS desde o lançamento. Suas credenciais de provedor e os bytes dos arquivos ficam com você; a camada de controle guarda apenas metadados dos jobs.",
       "outbound": {
         "title": "Apenas saída",
-        "desc": "Seu runner é quem fala com a gente. Sem portas de entrada, sem serviços expostos."
+        "desc": "Seu runner é quem se conecta com a gente. Sem portas de entrada, sem serviços expostos."
       },
       "credentials": {
         "title": "As credenciais ficam com você",
@@ -458,13 +490,13 @@
       "intro": "Três níveis de auto-hospedagem, em ordem crescente de independência da nossa infraestrutura.",
       "level1": {
         "name": "Private Runner",
-        "status": "Disponível primeiro",
-        "desc": "Plano de controle hospedado, caminho de dados seu. Para quem quer a nossa praticidade e a sua banda."
+        "status": "Vem primeiro",
+        "desc": "Camada de controle hospedada, caminho de dados seu. Para quem quer a nossa praticidade e a sua banda."
       },
       "level2": {
         "name": "Auto-hospedagem completa",
         "status": "Planejado",
-        "desc": "Traga o seu próprio plano de controle. Sua autenticação, seu banco de dados, seus runners. Mesmo produto, sua infraestrutura."
+        "desc": "Traga a sua própria camada de controle. Sua autenticação, seu banco de dados, seus runners. Mesmo produto, sua infraestrutura."
       },
       "level3": {
         "name": "Air-gapped",
@@ -474,7 +506,7 @@
     },
     "sourceTrust": {
       "title": "Por que o código principal fica público",
-      "body": "O código do runner, a lógica de transferência e os adaptadores de provedor serão lançados com código visível. Você vai poder auditar como os arquivos se movem antes de confiar no sistema."
+      "body": "O código do runner, a lógica de transferência e os adaptadores de provedor serão lançados com código visível. Você vai poder auditar como os arquivos trafegam antes de confiar no sistema."
     }
   }
 }

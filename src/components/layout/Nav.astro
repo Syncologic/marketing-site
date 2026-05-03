@@ -7,10 +7,10 @@ const t = getT(locale);
 const path = pathWithoutLocale(Astro.url.pathname);
 
 const useCases = [
-  { slug: 'cloud-to-cloud-transfer', label: 'Cloud-to-cloud transfer' },
-  { slug: 'business-cloud-migration', label: 'Business migration' },
-  { slug: 'scheduled-cloud-backup', label: 'Scheduled backup' },
-  { slug: 'private-runner', label: 'Private Runner' },
+  { slug: 'cloud-to-cloud-transfer', key: 'cloudToCloud' },
+  { slug: 'business-cloud-migration', key: 'businessMigration' },
+  { slug: 'scheduled-cloud-backup', key: 'scheduledBackup' },
+  { slug: 'private-runner', key: 'privateRunner' },
 ];
 
 const otherLocale = locale === 'en' ? 'pt-br' : 'en';
@@ -45,12 +45,12 @@ const waitlistHref = isGuide ? `${localizedPath(locale, '/')}#waitlist` : '#wait
               <a
                 href={localizedPath(locale, `/use-cases/${u.slug}`)}
                 class="block px-3 py-2 text-caption rounded-input hover:bg-soft-gray"
-              >{u.label}</a>
+              >{t(`nav.useCasesMenu.${u.key}`)}</a>
             </li>
           ))}
         </ul>
       </li>
-      <li><a href={localizedPath(locale, '/pricing')} class="hover:underline">{t('nav.pricing')}</a></li>
+      <li><a href={localizedPath(locale, '/plans')} class="hover:underline">{t('nav.pricing')}</a></li>
       <li><a href={localizedPath(locale, '/self-hosted')} class="hover:underline">{t('nav.selfHosted')}</a></li>
       <li><a href={localizedPath(locale, '/developers')} class="hover:underline">{t('nav.developers')}</a></li>
     </ul>

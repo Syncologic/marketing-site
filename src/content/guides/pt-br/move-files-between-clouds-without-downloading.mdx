@@ -1,9 +1,9 @@
 ---
 locale: pt-br
-title: "Como mover arquivos entre nuvens sem baixá-los antes"
+title: "Como mover arquivos entre nuvens sem ter que baixar antes"
 description: "Um guia prático para mover arquivos entre provedores de nuvem — Drive, OneDrive, Dropbox, S3 — sem arrastar cada byte pelo seu notebook."
 eyebrow: "Guia"
-headline: "Mova arquivos entre nuvens sem baixá-los antes"
+headline: "Mova arquivos entre nuvens sem ter que baixar antes"
 subheading: "Por que baixar e subir de novo falha em pastas grandes, o que de fato funciona e em que momento uma ferramenta de transferência dedicada vale o investimento."
 primaryCta:
   label: "Entrar na lista de espera"
@@ -30,16 +30,16 @@ Terceiro, você perde metadados. Comentários, permissões de compartilhamento, 
 
 Algumas abordagens evitam o notebook por completo. Vale conhecê-las pelos seus próprios méritos — nem todo job precisa de um produto pago.
 
-- **Ferramentas de migração nativas dos provedores.** Google Workspace, Microsoft 365 e Dropbox oferecem ferramentas de migração no nível administrativo para a própria plataforma. São a resposta certa quando você fica dentro do mesmo fornecedor (por exemplo, consolidando dois tenants de Google Workspace). Fora dessa pista, não ajudam.
-- **`rclone`.** Ferramenta de linha de comando open source que monta e copia entre a maioria dos provedores de nuvem, servidor a servidor, sem passar pela sua máquina. É poderosa, gratuita e testada na batalha. O trade-off é que é uma CLI: você escreve um arquivo de configuração, entende escopos de OAuth, lê a documentação. Para usuários técnicos, costuma ser a escolha certa. Para a maioria das pessoas, não é.
+- **Ferramentas de migração nativas dos provedores.** Google Workspace, Microsoft 365 e Dropbox oferecem ferramentas de migração no nível administrativo para a própria plataforma. São a resposta certa quando você fica dentro do mesmo fornecedor (por exemplo, consolidando dois tenants de Google Workspace). Fora desse cenário, não ajudam.
+- **`rclone`.** Ferramenta de linha de comando open source que monta e copia entre a maioria dos provedores de nuvem, servidor a servidor, sem passar pela sua máquina. É poderosa, gratuita e testada em produção. O trade-off é que é uma CLI: você escreve um arquivo de configuração, entende escopos de OAuth, lê a documentação. Para usuários técnicos, costuma ser a escolha certa. Para a maioria das pessoas, não é.
 - **Google Takeout e equivalentes.** Útil para uma exportação pessoal pontual, especialmente antes de sair de um serviço. A exportação é assíncrona (às vezes leva um dia ou mais), os arquivos saem divididos por tamanho e você ainda precisa subir tudo em algum lugar. Bom para backup; doloroso para migração.
-- **Ferramentas hospedadas de servidor a servidor.** O Mover.io era o exemplo canônico antes de a Microsoft comprar e fechar o serviço para destinos não-Microsoft. MultCloud, CloudHQ e serviços parecidos ainda existem; variam bastante em preço, cobertura de provedores e em quão transparentes são sobre por onde seus dados passam.
+- **Ferramentas hospedadas de servidor a servidor.** O Mover.io era o exemplo canônico antes da Microsoft comprar e fechar o serviço para destinos não-Microsoft. MultCloud, CloudHQ e serviços parecidos ainda existem; variam bastante em preço, cobertura de provedores e transparência sobre por onde seus dados passam.
 
 Para uma transferência pontual de tamanho moderado, alguma delas provavelmente resolve.
 
 ## Quando isso ainda não basta
 
-A resposta honesta para "qual é a melhor" é "depende do job". Algumas situações passam do que as respostas simples cobrem:
+A resposta honesta para "qual é a melhor" é "depende do job". Algumas situações vão além do que as respostas simples cobrem:
 
 - **Pastas grandes com tipos de arquivo variados** — centenas de milhares de arquivos pequenos, em que o overhead de API por arquivo conta mais do que a banda bruta.
 - **Transferências recorrentes, não uma migração única** — você quer um backup que roda todo domingo, não uma ferramenta que você clica uma vez.
@@ -47,7 +47,7 @@ A resposta honesta para "qual é a melhor" é "depende do job". Algumas situaç�
 - **Movimentações entre organizações** — uma empresa trocando do Google Workspace para o Microsoft 365, com permissões e drives compartilhados para preservar.
 - **Necessidade de verificação** — você precisa de um manifesto do que foi copiado, do que foi pulado e por quê, para a migração não terminar em "acho que tá pronto".
 
-Se alguma dessas descreve a sua situação, uma CLI mais um cron job ainda funcionam — mas agora você está mantendo infraestrutura de transferência como projeto paralelo. Esse é o vão que ferramentas dedicadas tentam preencher.
+Se alguma dessas descreve a sua situação, uma CLI mais um cron job ainda funcionam — mas agora você está mantendo infraestrutura de transferência como projeto paralelo. Essa é a lacuna que ferramentas dedicadas tentam preencher.
 
 ## Como a Syncologic faz isso
 
@@ -61,6 +61,6 @@ Quando estiver rodando, você vai acompanhar o progresso ao vivo e receber um re
 
 ## Ressalvas
 
-Algumas coisas para deixar claras. A Syncologic está pré-lançamento — você pode entrar na lista de espera, mas não dá para rodar uma transferência hoje. A cobertura de provedores começa com os sete listados acima; não estamos prometendo toda nuvem da internet. O Browser Runner troca praticidade por transparência: funciona, mas um job de um terabyte em um link residencial ainda leva horas, e você vai precisar manter a aba aberta. E nenhuma ferramenta de transferência — nem a nossa, nem a de ninguém — preserva todos os metadados específicos de provedor entre fornecedores. Algumas coisas (comentários do Google Drive, detalhes de compartilhamento do OneDrive) ficam no provedor de origem e não têm equivalente no destino.
+Algumas coisas para deixar claras. A Syncologic está em pré-lançamento — você pode entrar na lista de espera, mas não dá para rodar uma transferência hoje. A cobertura de provedores começa com os sete listados acima; não estamos prometendo toda nuvem da internet. O Browser Runner troca praticidade por transparência: funciona, mas um job de um terabyte em um link residencial ainda leva horas, e você vai precisar manter a aba aberta. E nenhuma ferramenta de transferência — nem a nossa, nem a de ninguém — preserva todos os metadados específicos de provedor entre fornecedores. Algumas coisas (comentários do Google Drive, detalhes de compartilhamento do OneDrive) ficam no provedor de origem e não têm equivalente no destino.
 
 Se o seu job é pequeno, pontual e dentro de um único fornecedor, talvez você não precise de nada disso. Se for qualquer coisa além — grande, recorrente, sensível ou entre fornecedores — esse é o caso para o qual a Syncologic está sendo construída. Deixe seu e-mail abaixo e a gente avisa quando estiver pronto.

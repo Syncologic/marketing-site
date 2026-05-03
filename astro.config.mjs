@@ -14,9 +14,7 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: false,
       redirectToDefaultLocale: false,
-      fallbackType: 'redirect',
     },
-    fallback: { 'pt-br': 'en' },
   },
   integrations: [
     tailwind({ applyBaseStyles: false }),

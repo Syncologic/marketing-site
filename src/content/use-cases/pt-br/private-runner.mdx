@@ -4,7 +4,7 @@ title: "Private Runner — transferências na sua própria infraestrutura"
 description: "Rode transferências entre nuvens pela sua própria máquina, servidor, NAS ou VPS. Bytes e credenciais ficam em uma infraestrutura que você controla."
 eyebrow: "Para privacidade, homelabs e empresas com dados sensíveis"
 headline: "Rode transferências na sua própria máquina, servidor, NAS ou VPS."
-subheading: "Plano de controle hospedado, caminho de dados seu. Bytes e credenciais ficam em uma infraestrutura que você controla."
+subheading: "Camada de controle hospedada, seu caminho de dados. Bytes e credenciais ficam em uma infraestrutura que você controla."
 primaryCta:
   label: "Entrar na lista de espera do Private Runner"
   href: "#waitlist"
@@ -17,7 +17,7 @@ publishedAt: 2026-05-01
 
 ## Para quem é isso
 
-- Quem se importa com privacidade e quer um plano de controle hospedado, mas não um plano de dados hospedado.
+- Quem se importa com privacidade e quer uma camada de controle hospedada, mas não uma camada de dados hospedada.
 - Pequenas empresas com dados sensíveis — arquivos jurídicos, registros financeiros, conteúdo regulado — que não devem passar pela infraestrutura de mais ninguém.
 - Operadores de homelab com um servidor, NAS ou VPS sempre ligado, já preparado para esse tipo de job.
 - Usuários de alto volume que preferem pagar pelo software e entrar com a própria banda do que alugar throughput.
@@ -28,11 +28,11 @@ O Cloud Runner envia bytes pela infraestrutura da Syncologic. O Private Runner, 
 
 `Provedor de origem` → `Seu Private Runner` → `Provedor de destino`
 
-Os arquivos passam direto da API da origem para o runner que você opera, e em seguida para o destino. O plano de controle vê qual é o job e quando rodou — nunca o conteúdo dos arquivos, nunca credenciais de longa duração.
+Os arquivos passam direto da API da origem para o runner que você opera, e em seguida para o destino. A camada de controle vê qual é o job e quando rodou — nunca o conteúdo dos arquivos, nunca credenciais de longa duração.
 
 ## Conexão apenas de saída
 
-Você não abre porta nenhuma. O runner faz uma conexão de saída para o plano de controle e fica esperando trabalho. Quando um job é despachado, ele puxa um lease de execução de curta duração, roda a transferência e devolve eventos de progresso.
+Você não abre porta nenhuma. O runner faz uma conexão de saída para a camada de controle e fica esperando trabalho. Quando um job é despachado, ele puxa um lease de execução de curta duração, roda a transferência e devolve eventos de progresso.
 
 Isso significa:
 
@@ -43,9 +43,9 @@ Isso significa:
 
 ## Como vai funcionar
 
-1. Instale o runner em uma máquina que você controla — um NAS, uma VPS, um Linux qualquer, uma estação de trabalho, um Raspberry Pi que fica ligado.
+1. Instale o runner em uma máquina que você controla — um NAS, uma VPS, um Linux qualquer, uma workstation, um Raspberry Pi que fica ligado.
 2. Pareie com sua conta Syncologic usando um código de inscrição de uso único.
-3. Conecte os provedores de origem e destino pelo plano de controle, normalmente.
+3. Conecte os provedores de origem e destino pela camada de controle, normalmente.
 4. Quando despachar um job, escolha o Private Runner em vez do Cloud Runner.
 5. O runner puxa o trabalho, transfere os arquivos entre as APIs dos provedores e devolve um relatório quando terminar.
 
@@ -56,16 +56,16 @@ O runner é pequeno o bastante para conviver com outros serviços leves em hardw
 - Um Synology, QNAP ou TrueNAS que já fica ligado 24/7.
 - Um servidor Linux de homelab ou mini-PC rodando outros jobs de longa duração.
 - Uma VPS pequena — Hetzner, Fly, DigitalOcean, OVH — para quem quer fora das instalações mas ainda na própria conta.
-- Uma estação de trabalho que fica online de forma confiável no horário comercial, para migrações pontuais.
+- Uma workstation que fica online de forma confiável no horário comercial, para migrações pontuais.
 - Um dispositivo da classe Raspberry Pi para backups mais lentos e de baixo throughput.
 
 O runner se importa com uma rede confiável e disco suficiente para buffers de staging; não se importa com a distro ou o hardware que você escolheu.
 
 ## Como as credenciais são tratadas
 
-Os tokens OAuth dos provedores ficam vinculados ao runner — criptografados em repouso com uma chave derivada da sua inscrição, sem nunca sair da máquina. O plano de controle vê identificadores de provedor, escopos e metadados de execução; nunca refresh tokens, nunca conteúdo de arquivos.
+Os tokens OAuth dos provedores ficam vinculados ao runner — criptografados em repouso com uma chave derivada da sua inscrição, sem nunca sair da máquina. A camada de controle vê identificadores de provedor, escopos e metadados de execução; nunca refresh tokens, nunca conteúdo de arquivos.
 
-Desativou o runner e revogou a inscrição no plano de controle — os tokens que ele guardava ficam inúteis.
+Desative o runner e revogue a inscrição na camada de controle — os tokens que ele guardava ficam inúteis.
 
 ## Cloud Runner vs Private Runner
 
@@ -87,10 +87,10 @@ Desativou o runner e revogou a inscrição no plano de controle — os tokens qu
 - **Modelo de preço:** você paga pelo software e entra com a banda.
 - **Requisitos de rede:** HTTPS de saída a partir do runner.
 
-Os dois runners usam o mesmo plano de controle, as mesmas definições de job, a mesma prévia e os mesmos relatórios de conclusão. A única diferença é por onde os bytes passam.
+Os dois runners usam a mesma camada de controle, as mesmas definições de job, a mesma prévia e os mesmos relatórios de conclusão. A única diferença é por onde os bytes passam.
 
 ## Código visível e um caminho futuro de auto-hospedagem
 
-O runner vai funcionar com o nosso plano de controle hospedado no lançamento e, mais tarde, com um plano de controle auto-hospedado. O código principal vai ser lançado com código visível — você pode auditar antes de instalar. A auto-hospedagem do plano de controle é uma trilha separada e mais longa; o Private Runner é o primeiro passo.
+O runner vai funcionar com a nossa camada de controle hospedada no lançamento e, mais tarde, com uma camada de controle auto-hospedada. O código principal vai ser lançado com código visível — você pode auditar antes de instalar. A auto-hospedagem da camada de controle é uma trilha separada e mais longa; o Private Runner é o primeiro passo.
 
-Onde você rodaria seu Private Runner — NAS, servidor de homelab, VPS ou estação de trabalho? Conte para a gente na lista de espera abaixo — é a primeira pergunta que vamos fazer depois do seu e-mail.
+Onde você rodaria seu Private Runner — NAS, servidor de homelab, VPS ou workstation? Conte para a gente na lista de espera abaixo — é a primeira pergunta que vamos fazer depois do seu e-mail.
