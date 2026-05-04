@@ -1,0 +1,131 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+type Variant = 'cloud' | 'browser' | 'private';
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props as Props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const altLabel = t(`visuals.runnerIllustrations.${variant}.alt`);
+---
+
+<div class="runner-illustration mb-6" role="presentation">
+  {variant === 'cloud' && (
+    <svg
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label={altLabel}
+      class="w-24 h-24 block"
+    >
+      <path
+        d="M 32 56 a 14 14 0 0 1 14 -14 a 18 18 0 0 1 34 6 a 12 12 0 0 1 0 24 H 38 a 12 12 0 0 1 -6 -16 z"
+        class="fill-warm-gray stroke-divider"
+        stroke-width="1.5"
+      />
+      <line
+        x1="60" y1="74" x2="60" y2="80"
+        class="stroke-brand-blue"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+      <rect
+        x="32" y="80" width="56" height="14" rx="3"
+        class="fill-white stroke-divider"
+        stroke-width="1.5"
+      />
+      <circle cx="38" cy="87" r="1.5" class="fill-brand-blue" />
+      <line x1="44" y1="87" x2="80" y2="87" class="stroke-divider" stroke-width="1" />
+      <rect
+        x="32" y="98" width="56" height="14" rx="3"
+        class="fill-white stroke-divider"
+        stroke-width="1.5"
+      />
+      <circle cx="38" cy="105" r="1.5" class="fill-divider" />
+      <line x1="44" y1="105" x2="80" y2="105" class="stroke-divider" stroke-width="1" />
+    </svg>
+  )}
+
+  {variant === 'browser' && (
+    <svg
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label={altLabel}
+      class="w-24 h-24 block"
+    >
+      <rect
+        x="14" y="22" width="92" height="76" rx="6"
+        class="fill-white stroke-divider"
+        stroke-width="1.5"
+      />
+      <line
+        x1="14" y1="36" x2="106" y2="36"
+        class="stroke-divider"
+        stroke-width="1.5"
+      />
+      <circle cx="22" cy="29" r="2" class="fill-divider" />
+      <circle cx="30" cy="29" r="2" class="fill-divider" />
+      <circle cx="38" cy="29" r="2" class="fill-divider" />
+      <rect
+        x="26" y="56" width="22" height="22" rx="4"
+        class="fill-warm-gray stroke-divider"
+        stroke-width="1"
+      />
+      <rect
+        x="72" y="56" width="22" height="22" rx="4"
+        class="fill-warm-gray stroke-divider"
+        stroke-width="1"
+      />
+      <line
+        x1="52" y1="67" x2="68" y2="67"
+        class="stroke-brand-blue"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+      <polyline
+        points="64,63 68,67 64,71"
+        class="stroke-brand-blue"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"
+      />
+    </svg>
+  )}
+
+  {variant === 'private' && (
+    <svg
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label={altLabel}
+      class="w-24 h-24 block"
+    >
+      <path
+        d="M 18 56 L 60 22 L 102 56"
+        class="stroke-divider"
+        stroke-width="1.5"
+        fill="none"
+        stroke-linejoin="round"
+        stroke-dasharray="4 4"
+      />
+      <rect
+        x="30" y="50" width="60" height="42" rx="4"
+        class="fill-white stroke-divider"
+        stroke-width="1.5"
+      />
+      <rect x="50" y="92" width="20" height="4" class="fill-divider" />
+      <rect x="42" y="96" width="36" height="3" rx="1.5" class="fill-divider" />
+      <path
+        d="M 46 64 H 54 L 56 67 H 74 V 80 H 46 Z"
+        class="fill-warm-gray stroke-brand-blue"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+      />
+    </svg>
+  )}
+</div>

@@ -1,5 +1,6 @@
 ---
 import Card from '../ui/Card.astro';
+import RunnerCardIllustrations from '../visuals/RunnerCardIllustrations.astro';
 import { getLocaleFromUrl, getT } from '../../i18n/utils';
 
 const locale = getLocaleFromUrl(Astro.url);
@@ -10,9 +11,17 @@ const runners = ['cloud', 'browser', 'private'] as const;
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
   {runners.map((r) => (
-    <Card class="p-8">
-      <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{t(`runners.${r}.name`)}</h3>
-      <p class="text-caption text-slate-gray">{t(`runners.${r}.tagline`)}</p>
+    <Card class="p-8 h-full flex flex-col">
+      <RunnerCardIllustrations variant={r} />
+      <h3 class="text-h3 font-bold text-dark-charcoal mb-1">
+        {t(`runners.${r}.plainTitle`)}
+      </h3>
+      <p class="text-caption text-slate-gray mb-3">
+        ({t(`runners.${r}.name`)})
+      </p>
+      <p class="text-body text-slate-gray leading-relaxed">
+        {t(`runners.${r}.description`)}
+      </p>
     </Card>
   ))}
 </div>
