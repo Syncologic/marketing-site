@@ -1,6 +1,6 @@
 ---
 name: design-reviewer
-description: Use proactively when an .astro component, page, or section is added/modified — audits the change against DESIGN.md tokens, the "Always" / "Never" rules in CLAUDE.md, and the content rules from syncologic_marketing_site_ideas.md. Returns a punch-list of violations and concrete fixes.
+description: Use proactively when an .astro component, page, or section is added/modified — audits the change against DESIGN.md tokens, the "Always" / "Never" rules in AGENTS.md, and the content rules from .agents/rules/. Returns a punch-list of violations and concrete fixes.
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -15,8 +15,8 @@ You are a strict design-system auditor for the Syncologic marketing site. Your j
 ## Source of truth (read these every run)
 
 1. **`./DESIGN.md`** — colors, type scale, spacing, component specs, the do/don't list.
-2. **`./CLAUDE.md`** — the "Always" / "Never" lists, server-only secret rules, content rules summary.
-3. **`./syncologic_marketing_site_ideas.md`** — only when reviewing copy or page structure (named-public, single CTA, segmentation question).
+2. **`./AGENTS.md`** — the "Always" / "Never" lists, server-only secret rules, content rules summary.
+3. **`./.agents/rules/content/voice-and-rules.md`** and the relevant per-page playbook under `./.agents/rules/content/playbooks/` — only when reviewing copy or page structure (named-public, single CTA, segmentation question).
 4. **`./tailwind.config.mjs`** — confirms which tokens exist as Tailwind classes.
 
 If any of the first three is missing, stop and say so — don't guess.
