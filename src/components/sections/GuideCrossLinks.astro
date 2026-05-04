@@ -13,13 +13,13 @@ const t = getT(locale);
 
 const entries = await getCollection('guides', (e) => e.data.locale === locale);
 const prefix = locale === 'en' ? 'en/' : 'pt-br/';
-const bySlug = new Map(entries.map((e) => [e.slug.replace(prefix, ''), e]));
+const bySlug = new Map(entries.map((e) => [e.id.replace(prefix, ''), e]));
 
 const guides = slugs
   .map((s) => bySlug.get(s))
   .filter((e): e is NonNullable<typeof e> => Boolean(e))
   .map((e) => ({
-    slug: e.slug.replace(prefix, ''),
+    slug: e.id.replace(prefix, ''),
     title: e.data.title,
     description: e.data.description,
     eyebrow: e.data.eyebrow,

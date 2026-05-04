@@ -10,7 +10,7 @@ const t = getT('en');
 const entries = await getCollection('guides', (e) => e.data.locale === 'en');
 const guides = entries
   .map((e) => ({
-    slug: e.slug.replace(/^en\//, ''),
+    slug: e.id.replace(/^en\//, ''),
     title: e.data.title,
     description: e.data.description,
     eyebrow: e.data.eyebrow,

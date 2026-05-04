@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '../../../components/layout/Layout.astro';
 import Nav from '../../../components/layout/Nav.astro';
 import Footer from '../../../components/layout/Footer.astro';
@@ -18,14 +18,14 @@ import { readingTimeMinutes } from '../../../lib/reading-time';
 
 export async function getStaticPaths() {
   const entries = await getCollection('guides', (e) => e.data.locale === 'pt-br');
-  const bySlug = new Map(entries.map((e) => [e.slug.replace(/^pt-br\//, ''), e]));
+  const bySlug = new Map(entries.map((e) => [e.id.replace(/^pt-br\//, ''), e]));
   return entries.map((entry) => {
-    const slug = entry.slug.replace(/^pt-br\//, '');
+    const slug = entry.id.replace(/^pt-br\//, '');
     const related = (entry.data.relatedSlugs ?? [])
       .map((s) => bySlug.get(s))
       .filter((e): e is NonNullable<typeof e> => Boolean(e))
       .map((e) => ({
-        slug: e.slug.replace(/^pt-br\//, ''),
+        slug: e.id.replace(/^pt-br\//, ''),
         title: e.data.title,
         description: e.data.description,
         eyebrow: e.data.eyebrow,
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
 }
 
 const { entry, related } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 const ogImage = entry.data.ogImage ?? '/og/default-pt-br.png';
 const t = getT('pt-br');
 const minutes = readingTimeMinutes(entry.body ?? '');
