@@ -241,9 +241,18 @@
       "alt": "Two stacked panels. The top panel shows the manual approach: files travel from one cloud, through a laptop in the middle, on to the second cloud — and every so often break at the laptop, turning red. The bottom panel shows the direct approach: a single brand-blue arc carries files from the first cloud straight to the second, bypassing the laptop entirely."
     },
     "hostedVsPrivatePath": {
-      "alt": "Two stacked architecture diagrams, one above the other. Each one shows files moving between two clouds through a middle box. On the top diagram, the middle box is labelled 'Our servers'. On the bottom diagram, the middle box is labelled 'Your server'. The two paths are otherwise identical — same arc, same file pills — to make the only difference the location of the middle box.",
-      "hostedLabel": "Our servers",
+      "alt": "Two stacked architecture diagrams, one above the other. Each one shows files moving between two clouds through a middle box. On the top diagram, the middle box is labelled 'Our server'. On the bottom diagram, the middle box is labelled 'Your server'. The two paths are otherwise identical — same arc, same file pills — to make the only difference the location of the middle box.",
+      "hostedLabel": "Our server",
       "privateLabel": "Your server"
+    },
+    "oauthIntermediary": {
+      "alt": "Three boxes left to right — your app, Syncologic, and the cloud provider. A bidirectional arrow labelled 'API' connects your app to Syncologic. A second bidirectional arrow labelled 'OAuth' connects Syncologic to the provider. There is no direct line from your app to the provider; a struck-out dashed line below the boxes makes the absence explicit, with the caption 'no provider token reaches your app.'",
+      "appLabel": "Your app",
+      "syncologicLabel": "Syncologic",
+      "providerLabel": "Provider",
+      "apiArrowLabel": "API",
+      "oauthArrowLabel": "OAuth",
+      "noTokenLabel": "no provider token reaches your app"
     }
   },
   "guides": {
@@ -446,11 +455,16 @@
     "apiTitle": "A typed HTTP API",
     "apiBody": "Create a job with a source, destination, runner, and optional schedule. The control plane validates, dispatches, and emits progress events.",
     "apiCaption": "Sketch — final shape will land with the v1 API.",
+    "oauthTitle": "OAuth lives on our side",
+    "oauthBody": "Your users connect their cloud accounts to Syncologic, not to your app. You never store provider credentials. The control plane manages the OAuth lifecycle and hands out scoped, short-lived tokens to runners — your app authenticates with Syncologic via your API key and never sees a provider token.",
+    "oauthCaption": "Your app integrates the API; the OAuth boundary stays on our side.",
     "cliTitle": "A CLI for scripts and CI",
     "cliBody": "Same jobs, driven from a terminal or a CI runner. Useful for one-shot migrations and for backups owned by a script you can read in a code review.",
     "cliCaption": "Planned. Behavior mirrors the API one-to-one.",
     "runnersTitle": "Pick the runner that fits the job",
     "runnersBody": "Same API. Three different data paths. Choose per job, not per account.",
+    "runnersFooterText": "Want the full Private Runner walkthrough?",
+    "runnersFooterLink": "See /self-hosted",
     "runnerCloud": {
       "title": "Cloud Runner",
       "desc": "Hosted runners for scheduled jobs and large migrations. No infrastructure on your side."
@@ -489,11 +503,13 @@
       },
       {
         "q": "Do you handle OAuth on behalf of my users?",
-        "a": "Yes. Users connect their cloud accounts to Syncologic — not to your app. You don't store provider credentials; the control plane manages the OAuth lifecycle."
+        "a": "Yes — your app never holds a provider token.",
+        "link": { "href": "#oauth", "label": "How OAuth works" }
       },
       {
         "q": "Can I run jobs entirely on my own infrastructure?",
-        "a": "Yes for the data path — Private Runner runs in your VPC, NAS, or any server you control, and file bytes never reach Syncologic. The control plane (accounts, jobs, schedules) is hosted by us at launch; full self-host is on the roadmap."
+        "a": "Yes for the data path — Private Runner runs in your VPC, NAS, or any server you control, and file bytes never reach Syncologic.",
+        "link": { "href": "/self-hosted", "label": "Architecture and roadmap" }
       },
       {
         "q": "Are webhook payloads signed?",
