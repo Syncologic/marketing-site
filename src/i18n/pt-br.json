@@ -323,7 +323,7 @@
         "description": "Para quando os bytes e as credenciais precisam ficar na sua máquina.",
         "features": [
           "A transferência roda no seu servidor, NAS ou VPS — os arquivos nunca passam pela gente",
-          "Mensalidade fixa pela camada de controle, sem cobrar por banda",
+          "Mensalidade fixa — a gente orquestra o job, você entra com a banda",
           "Ideal pra empresas, homelabs e cargas de alto volume"
         ],
         "footnote": "Você entra com a banda. A gente cuida da orquestração."
@@ -341,8 +341,8 @@
         "body": "Migrações pontuais, backups recorrentes e sincronização contínua têm preços diferentes."
       },
       "runner": {
-        "title": "Escolha de runner",
-        "body": "O Cloud Runner usa a nossa banda. Browser Runner e Private Runner, não."
+        "title": "Onde a transferência roda",
+        "body": "Se a gente hospeda, você paga pela banda que usamos. Se roda na sua aba ou na sua própria máquina, não paga."
       }
     },
     "cloudVsPrivate": {

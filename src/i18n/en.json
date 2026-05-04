@@ -323,7 +323,7 @@
         "description": "For when bytes and credentials should stay on your own machine.",
         "features": [
           "Transfers run on your server, NAS, or VPS — files never touch us",
-          "Flat monthly fee for the control plane, not metered bandwidth",
+          "Flat monthly fee — we orchestrate the job, you bring the bandwidth",
           "Best fit for businesses, homelabs, and high-volume workloads"
         ],
         "footnote": "You bring the bandwidth. We handle the orchestration."
@@ -341,8 +341,8 @@
         "body": "One-time migrations, recurring backups, and continuous sync each price differently."
       },
       "runner": {
-        "title": "Runner choice",
-        "body": "Cloud Runner uses our bandwidth. Browser and Private Runner don't."
+        "title": "Where the transfer runs",
+        "body": "If we host it, you pay for the bandwidth we use. If it runs in your tab or on your own machine, you don't."
       }
     },
     "cloudVsPrivate": {
