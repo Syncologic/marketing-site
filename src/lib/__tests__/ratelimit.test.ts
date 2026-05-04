@@ -1,12 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
-const kvState = {
-  counters: new Map<string, number>(),
-  expirations: new Map<string, number>(),
-  sets: new Map<string, Set<string>>(),
-};
-
-vi.mock('@vercel/kv', () => {
+const { kvState, kvMock } = vi.hoisted(() => {
+  const kvState = {
+    counters: new Map<string, number>(),
+    expirations: new Map<string, number>(),
+    sets: new Map<string, Set<string>>(),
+  };
   const kvMock = {
     incr: vi.fn(async (key: string) => {
       const next = (kvState.counters.get(key) ?? 0) + 1;
@@ -26,8 +25,12 @@ vi.mock('@vercel/kv', () => {
     }),
     scard: vi.fn(async (key: string) => kvState.sets.get(key)?.size ?? 0),
   };
-  return { kv: kvMock, createClient: () => kvMock };
+  return { kvState, kvMock };
 });
+
+vi.mock('@upstash/redis', () => ({
+  Redis: vi.fn(() => kvMock),
+}));
 
 import {
   hashIp,
@@ -76,15 +79,13 @@ describe('getClientIp', () => {
 
 describe('incrementCounter', () => {
   it('returns the running count and sets TTL on first increment only', async () => {
-    const { kv } = await import('@vercel/kv');
-    const expire = vi.mocked(kv.expire);
-    expire.mockClear();
+    kvMock.expire.mockClear();
 
     expect(await incrementCounter('k', 60)).toBe(1);
-    expect(expire).toHaveBeenCalledWith('k', 60);
+    expect(kvMock.expire).toHaveBeenCalledWith('k', 60);
 
     expect(await incrementCounter('k', 60)).toBe(2);
-    expect(expire).toHaveBeenCalledTimes(1);
+    expect(kvMock.expire).toHaveBeenCalledTimes(1);
   });
 });
 

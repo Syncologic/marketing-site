@@ -1,7 +1,7 @@
-import { createClient } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 import { createHash } from 'node:crypto';
 
-const kv = createClient({
+const kv = new Redis({
   url: import.meta.env.KV_REST_API_URL,
   token: import.meta.env.KV_REST_API_TOKEN,
 });
