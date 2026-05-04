@@ -104,6 +104,9 @@ Always ask before:
 
 ## Dev server etiquette
 
+- On Windows: use WSL (Ubuntu / Debian). Native Windows is not supported
+  (bash hooks, npm scripts, git hooks, symlinks under .claude/ all assume
+  Linux/macOS/WSL).
 - Start with `npm run dev` (Astro on `:4321`).
 - Don't leave background dev servers running across sessions — they hold ports and confuse later runs.
 - For curl tests against the dev server, hit `http://localhost:4321/api/waitlist` directly — no need for ngrok or tunnels in Plan 1.
@@ -113,3 +116,34 @@ Always ask before:
 - **Diagnose root cause.** Don't sprinkle `try/catch` to make errors disappear.
 - **Don't bypass checks.** A failing pre-commit hook means the commit is broken; fix the cause, then re-stage and create a NEW commit (never `--amend` to silence a hook).
 - **Don't retry in a sleep loop.** If a command fails, read the error.
+
+## Dependency changes — extra discipline
+
+The stack is intentionally small. Adding or upgrading a package needs
+more than a green build.
+
+Before proposing `npm install <pkg>` or any package.json version change:
+
+1. **API + version verification.**
+   - If Context7 MCP is available, consult it for current API and
+     version compatibility with our stack.
+   - If not, run a web search / WebFetch on the package's npm page or
+     repo README and verify: latest stable version, Node requirement,
+     compatibility with Astro 5 + TS strict + any peer deps in the tree.
+   - Note the source you consulted in the proposal.
+
+2. **Stop and ask.** Even with verification done, dependency additions
+   and upgrades require explicit dev approval before `npm install` runs.
+
+3. **Security audit delta.** When `package.json` or `package-lock.json`
+   changes:
+   - Pre-change: capture from the merge-base with `development` (or
+     stash + audit + unstash if not yet committed).
+   - Post-change: `npm audit --json` on the modified working tree.
+   - Report ONLY advisories introduced by THIS change. Pre-existing
+     issues are out of scope unless the dev explicitly asks for cleanup.
+   - If a new high/critical advisory is introduced, propose alternatives
+     (different package, pinned older version, no upgrade) before
+     continuing.
+   - Never run `npm audit fix` automatically — it rewrites the lockfile
+     in ways that can break peer-dep resolution.
