@@ -76,9 +76,9 @@ const privatePlan = p.hypotheses.privateRunner;
             elevation={plan.recommended ? 'elevated' : 'flat'}
             class={`p-8 flex flex-col gap-5 h-full ${plan.recommended ? 'ring-2 ring-brand-blue' : ''}`}
           >
-            <div class="flex items-baseline justify-between gap-3">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
               <h3 class="text-h3 font-bold text-dark-charcoal">{plan.name}</h3>
-              <div class="flex items-baseline gap-1">
+              <div class="flex items-baseline gap-1 whitespace-nowrap">
                 <span class="text-h1 font-medium text-dark-charcoal">{plan.price}</span>
                 <span class="text-caption text-slate-gray">{p.hypotheses.priceSuffix}</span>
               </div>
