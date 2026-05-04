@@ -1,6 +1,6 @@
 # Rules — the project knowledge base
 
-These four files are the consolidated source of truth for everything cross-cutting in this repo. The root `CLAUDE.md` is the standing brief that points here.
+These rules files are the consolidated source of truth for everything cross-cutting in this repo. The root `CLAUDE.md` is the standing brief that points here.
 
 | File | Read when |
 |---|---|
@@ -14,7 +14,7 @@ These four files are the consolidated source of truth for everything cross-cutti
 When rules conflict:
 
 1. **Explicit user instructions** — always win.
-2. **`./DESIGN.md`** (root) — authoritative for visual choices.
+2. **`../../DESIGN.md`** (root) — authoritative for visual choices.
 3. **The active plan** under `./docs/superpowers/plans/` — authoritative for current task sequencing and scope.
 4. **These rules files** — authoritative for everything else (architecture, content, engineering, design-token usage).
 5. **Default Claude Code behavior** — lowest priority.
