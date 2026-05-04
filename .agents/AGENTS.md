@@ -14,11 +14,17 @@ positioning and captures segmented waitlist signups. NOT the product.
 
 If `.agents/.welcomed` is missing or its `welcome-version` is below the
 one declared on line 1 of `.agents/WELCOME.md`:
-- Print WELCOME.md to the dev as your first message before answering
-  their request. Translate the presentation if the dev is communicating
-  in any language other than English; don't modify the file.
-- Write `welcome-version: <N>` and a UTC timestamp to
-  `.agents/.welcomed`.
+
+1. Your FIRST assistant MESSAGE in the conversation MUST contain the FULL
+     contents of `.agents/WELCOME.md`.
+2. DO NOT summarize, shorten, omit sections, or replace it with a checklist.
+3. IF the dev IS communicating in a language OTHER than ENGLISH, YOU MUST TRANSLATE (MANDATORY!!!)
+     the full file while preserving all headings, lists, code blocks, URLs, and
+     checkbox items.
+4. DO NOT answer the dev's actual request UNTIL after the full welcome message
+     HAS BEEN SENT (MANDATORY!!!).
+5. AFTER sending the full welcome message, write `welcome-version: <N>` and a
+     UTC timestamp to `.agents/.welcomed`.
 
 Claude Code does this via a SessionStart hook automatically. Other
 platforms must do it manually.
