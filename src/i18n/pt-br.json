@@ -281,41 +281,43 @@
       "secondaryCta": "Ver os planos"
     },
     "hypotheses": {
-      "title": "Quatro planos",
-      "subtitle": "Cada plano corresponde a um caso de uso claro. Escolha o que combina com você.",
+      "title": "Planos hospedados",
+      "subtitle": "Escolha o nível que combina com quanto dado você move na nossa infraestrutura por mês.",
       "priceSuffix": "/mês",
+      "recommendedLabel": "Recomendado",
+      "privateEyebrow": "Ou rode na sua própria máquina",
       "free": {
         "name": "Free",
         "price": "R$ 0",
         "description": "Para transferências pontuais. Abre uma aba, roda, fecha.",
         "features": [
-          "A transferência roda numa aba do navegador — ela precisa ficar aberta até terminar",
-          "Uma origem e um destino por transferência",
-          "Até alguns GB por vez"
+          "5 GB nos nossos servidores por mês inclusos (Cloud Runner) — sem precisar manter aba aberta",
+          "Transferências ilimitadas na aba do navegador (Browser Runner) — a aba precisa ficar aberta até terminar",
+          "Sem opção de comprar GB extra — quando passar dos 5 GB, o Browser Runner é a única opção hospedada no mês"
         ],
-        "footnote": "Grátis pra sempre. Inclui só o Browser Runner."
+        "footnote": "Grátis pra sempre. Faça upgrade pro Pro para ter mais volume hospedado."
       },
       "pro": {
         "name": "Pro",
         "price": "~R$ 45",
         "description": "Para quem não quer ficar acompanhando transferência.",
         "features": [
-          "A gente hospeda a transferência — você fecha o navegador e ela continua rodando",
-          "Agende jobs recorrentes e veja o relatório no fim de cada execução",
-          "Volumes de dados de uso pessoal"
+          "100 GB nos nossos servidores por mês inclusos (Cloud Runner)",
+          "Cargas extras de 1 TB por ~R$ 12,50 cada quando passar — você paga só pelo que transferir",
+          "Agende jobs recorrentes e veja o relatório no fim de cada execução"
         ],
-        "footnote": "Execução hospedada (Cloud Runner). Você paga só pelo que transferir."
+        "footnote": "Execução hospedada (Cloud Runner). 100 GB inclusos por mês; depois disso, paga por uso."
       },
       "business": {
         "name": "Business",
         "price": "~R$ 145",
         "description": "Para equipes migrando um workspace ou rodando vários jobs.",
         "features": [
-          "Volumes maiores com vários jobs rodando em paralelo",
-          "Prévia da migração e relatório final no fim de cada execução",
-          "Várias conexões de workspace numa mesma conta"
+          "1,5 TB nos nossos servidores por mês inclusos (Cloud Runner)",
+          "Cargas extras de 1 TB por ~R$ 12,50 cada quando passar",
+          "Prévia da migração, relatório final e várias conexões de workspace"
         ],
-        "footnote": "Execução hospedada (Cloud Runner). Dimensionado pra migrações de empresa."
+        "footnote": "Execução hospedada (Cloud Runner). 1,5 TB inclusos por mês; depois disso, paga por uso."
       },
       "privateRunner": {
         "name": "Private Runner",
@@ -323,8 +325,8 @@
         "description": "Para quando os bytes e as credenciais precisam ficar na sua máquina.",
         "features": [
           "A transferência roda no seu servidor, NAS ou VPS — os arquivos nunca passam pela gente",
-          "Mensalidade fixa — a gente orquestra o job, você entra com a banda",
-          "Ideal pra empresas, homelabs e cargas de alto volume"
+          "Mensalidade fixa — sem cota de GB, você entra com a banda",
+          "Ideal pra empresas, homelabs e usuários de alto volume"
         ],
         "footnote": "Você entra com a banda. A gente cuida da orquestração."
       }
@@ -376,8 +378,16 @@
           "a": "A estrutura de quatro planos está definida. Os valores exatos podem ter pequenos ajustes antes do lançamento — por isso cada plano mostra `~` em vez de um número fechado."
         },
         {
-          "q": "O Private Runner vai custar mais que o Cloud Runner?",
-          "a": "Menos. Como você entra com a banda, o Private Runner é uma taxa fixa da camada de controle, em vez de uso medido."
+          "q": "Vai ter plano anual com desconto?",
+          "a": "Sim — pretendemos oferecer um plano anual com desconto, mas o valor exato ainda não está definido. Provavelmente só vai sair junto com o lançamento dos planos pagos."
+        },
+        {
+          "q": "E se eu mover mais dados do que o meu plano inclui?",
+          "a": "O Free inclui 5 GB por mês nos nossos servidores sem opção de pagar mais — quando esgota, a aba do navegador é a única opção hospedada no mês. Pro e Business adicionam 1 TB por ~R$ 12,50 cada vez que passar. O Private Runner não tem cota de GB; você paga uma mensalidade fixa e usa a sua própria banda."
+        },
+        {
+          "q": "O Browser Runner e o Private Runner consomem a minha cota de GB?",
+          "a": "Não. Só o Cloud Runner usa a nossa banda hospedada, então só ele conta na cota mensal de GB. O Browser Runner roda na aba do seu navegador e o Private Runner roda na sua máquina — os arquivos nunca passam pela nossa infraestrutura, então nenhum dos dois consome a sua cota."
         },
         {
           "q": "E sobre a auto-hospedagem open source?",

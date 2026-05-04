@@ -281,41 +281,43 @@
       "secondaryCta": "See the plans"
     },
     "hypotheses": {
-      "title": "Four plans",
-      "subtitle": "Each plan maps to a clear use case. Pick the one that fits you.",
+      "title": "Hosted plans",
+      "subtitle": "Pick the tier that matches how much you move on our infrastructure each month.",
       "priceSuffix": "/mo",
+      "recommendedLabel": "Recommended",
+      "privateEyebrow": "Or run it yourself",
       "free": {
         "name": "Free",
         "price": "$0",
         "description": "For one-off transfers. Open a tab, run it, close it.",
         "features": [
-          "The transfer runs in a browser tab — it must stay open until done",
-          "One source and one destination per transfer",
-          "Up to a few GB at a time"
+          "5 GB on our servers per month included (Cloud Runner) — no tab needed",
+          "Unlimited transfers in your browser tab (Browser Runner) — tab must stay open until done",
+          "No paid overage — go over and Browser Runner is your only hosted option that month"
         ],
-        "footnote": "Free forever. Includes the Browser Runner only."
+        "footnote": "Free forever. Upgrade to Pro to add hosted volume."
       },
       "pro": {
         "name": "Pro",
         "price": "~$9",
         "description": "For people who don't want to babysit transfers.",
         "features": [
-          "We host the transfer — close your browser, it keeps running",
-          "Schedule recurring jobs and review the report after each run",
-          "Personal-scale data volumes"
+          "100 GB on our servers per month included (Cloud Runner)",
+          "Add 1 TB for $2.50 each time you go over — pay only for what you transfer",
+          "Schedule recurring jobs and review the report after each run"
         ],
-        "footnote": "Hosted runs (Cloud Runner). Pay only for what you transfer."
+        "footnote": "Hosted runs (Cloud Runner). 100 GB included monthly, then pay-as-you-go."
       },
       "business": {
         "name": "Business",
         "price": "~$29",
         "description": "For teams migrating a workspace or running many jobs.",
         "features": [
-          "Higher data volumes with several jobs running in parallel",
-          "Migration previews and a final report after each run",
-          "Multiple workspace connections in one account"
+          "1.5 TB on our servers per month included (Cloud Runner)",
+          "Add 1 TB for $2.50 each time you go over",
+          "Migration previews, final reports, and multiple workspace connections"
         ],
-        "footnote": "Hosted runs (Cloud Runner). Sized for company migrations."
+        "footnote": "Hosted runs (Cloud Runner). 1.5 TB included monthly, then pay-as-you-go."
       },
       "privateRunner": {
         "name": "Private Runner",
@@ -323,7 +325,7 @@
         "description": "For when bytes and credentials should stay on your own machine.",
         "features": [
           "Transfers run on your server, NAS, or VPS — files never touch us",
-          "Flat monthly fee — we orchestrate the job, you bring the bandwidth",
+          "Flat monthly fee — no GB cap, you bring the bandwidth",
           "Best fit for businesses, homelabs, and high-volume workloads"
         ],
         "footnote": "You bring the bandwidth. We handle the orchestration."
@@ -376,8 +378,16 @@
           "a": "The four-plan structure is set. Exact prices may shift at the margins before launch — that's why each tier shows a `~` instead of an exact number."
         },
         {
-          "q": "Will the Private Runner cost more than the Cloud Runner?",
-          "a": "Less. You bring the bandwidth, so Private Runner is a flat control-plane fee instead of metered usage."
+          "q": "Will there be an annual plan with a discount?",
+          "a": "Yes — we plan to offer an annual option at a discount, but the exact pricing isn't set. It will most likely launch alongside the paid plans, not before."
+        },
+        {
+          "q": "What if I move more data than my plan includes?",
+          "a": "Free includes 5 GB/month on our servers with no paid overage — once you hit the cap, your browser tab is the only hosted option that month. Pro and Business add 1 TB for $2.50 each time you go over. Private Runner has no GB cap; you pay a flat fee and bring your own bandwidth."
+        },
+        {
+          "q": "Do Browser Runner and Private Runner count against my GB allowance?",
+          "a": "No. Only the Cloud Runner uses our hosted bandwidth, so only the Cloud Runner counts against your monthly GB. Browser Runner runs in your browser tab and Private Runner runs on your machine — files never touch our infrastructure, so neither consumes your allowance."
         },
         {
           "q": "What about open-source self-hosting?",

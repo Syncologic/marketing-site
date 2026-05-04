@@ -33,12 +33,12 @@ const faqSchema = {
   })),
 };
 
-const hypotheses = [
-  p.hypotheses.free,
-  p.hypotheses.pro,
-  p.hypotheses.business,
-  p.hypotheses.privateRunner,
+const mainPlans = [
+  { ...p.hypotheses.free, recommended: false },
+  { ...p.hypotheses.pro, recommended: true },
+  { ...p.hypotheses.business, recommended: false },
 ];
+const privatePlan = p.hypotheses.privateRunner;
 ---
 
 <Layout title={title} description={description}>
@@ -63,31 +63,69 @@ const hypotheses = [
       <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{p.hypotheses.title}</h2>
       <p class="text-body text-slate-gray max-w-xl mx-auto">{p.hypotheses.subtitle}</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {hypotheses.map((plan) => (
-        <Card radius="card" elevation="flat" class="p-8 flex flex-col gap-5 h-full">
-          <div class="flex items-baseline justify-between gap-3">
-            <h3 class="text-h3 font-bold text-dark-charcoal">{plan.name}</h3>
-            <div class="flex items-baseline gap-1">
-              <span class="text-h1 font-medium text-dark-charcoal">{plan.price}</span>
-              <span class="text-caption text-slate-gray">{p.hypotheses.priceSuffix}</span>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+      {mainPlans.map((plan) => (
+        <div class="relative h-full">
+          {plan.recommended && (
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 z-10 bg-brand-blue text-white text-caption font-medium px-3 py-1 rounded-pill whitespace-nowrap">
+              {p.hypotheses.recommendedLabel}
+            </span>
+          )}
+          <Card
+            radius="card"
+            elevation={plan.recommended ? 'elevated' : 'flat'}
+            class={`p-8 flex flex-col gap-5 h-full ${plan.recommended ? 'ring-2 ring-brand-blue' : ''}`}
+          >
+            <div class="flex items-baseline justify-between gap-3">
+              <h3 class="text-h3 font-bold text-dark-charcoal">{plan.name}</h3>
+              <div class="flex items-baseline gap-1">
+                <span class="text-h1 font-medium text-dark-charcoal">{plan.price}</span>
+                <span class="text-caption text-slate-gray">{p.hypotheses.priceSuffix}</span>
+              </div>
             </div>
-          </div>
-          <p class="text-body text-dark-charcoal leading-snug">{plan.description}</p>
-          <ul class="flex flex-col gap-2 text-body text-slate-gray list-none p-0">
-            {plan.features.map((feature) => (
-              <li class="flex gap-2 items-start">
-                <Check size={20} stroke-width={1.5} class="text-slate-gray shrink-0 mt-0.5" aria-hidden="true" />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-          <p class="text-caption text-slate-gray border-t border-divider pt-4 mt-auto">
-            {plan.footnote}
-          </p>
-        </Card>
+            <p class="text-body text-dark-charcoal leading-snug">{plan.description}</p>
+            <ul class="flex flex-col gap-2 text-body text-slate-gray list-none p-0">
+              {plan.features.map((feature) => (
+                <li class="flex gap-2 items-start">
+                  <Check size={20} stroke-width={1.5} class="text-slate-gray shrink-0 mt-0.5" aria-hidden="true" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="text-caption text-slate-gray border-t border-divider pt-4 mt-auto">
+              {plan.footnote}
+            </p>
+          </Card>
+        </div>
       ))}
     </div>
+
+    <div class="text-center mt-16 mb-6">
+      <p class="text-caption text-slate-gray uppercase tracking-wide">{p.hypotheses.privateEyebrow}</p>
+    </div>
+    <Card radius="card" elevation="flat" class="p-8 md:p-10">
+      <div class="flex flex-wrap items-baseline justify-between gap-3 mb-6">
+        <h3 class="text-h3 font-bold text-dark-charcoal">{privatePlan.name}</h3>
+        <div class="flex items-baseline gap-1">
+          <span class="text-h1 font-medium text-dark-charcoal">{privatePlan.price}</span>
+          <span class="text-caption text-slate-gray">{p.hypotheses.priceSuffix}</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+        <p class="text-body text-dark-charcoal leading-snug">{privatePlan.description}</p>
+        <ul class="flex flex-col gap-2 text-body text-slate-gray list-none p-0">
+          {privatePlan.features.map((feature) => (
+            <li class="flex gap-2 items-start">
+              <Check size={20} stroke-width={1.5} class="text-slate-gray shrink-0 mt-0.5" aria-hidden="true" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <p class="text-caption text-slate-gray border-t border-divider pt-4 mt-6">
+        {privatePlan.footnote}
+      </p>
+    </Card>
   </Section>
 
   <Section surface="white" padding="lg">
