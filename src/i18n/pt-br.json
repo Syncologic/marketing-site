@@ -498,69 +498,58 @@
   },
   "selfHosted": {
     "meta": {
-      "title": "O futuro da auto-hospedagem — Syncologic",
-      "description": "Transferência de arquivos entre nuvens com código visível e auto-hospedável. Private Runner primeiro, depois auto-hospedagem completa, depois air-gapped — no seu tempo."
+      "title": "Rode transferências no seu próprio servidor — Syncologic",
+      "description": "Mova arquivos entre nuvens com o caminho de dados rodando inteiramente no seu próprio servidor, NAS ou VPS. Os arquivos nunca passam pela nossa infraestrutura."
     },
     "hero": {
-      "eyebrow": "O futuro da auto-hospedagem",
-      "headline": "Código visível. Auto-hospedável. Sob seu controle.",
-      "subheading": "Runner com código visível no lançamento. Camada de controle auto-hospedável no roadmap.",
+      "eyebrow": "No seu próprio servidor",
+      "headline": "Rode tudo no seu próprio servidor.",
+      "subheading": "Os arquivos nunca passam pela nossa infraestrutura. Você instala um pequeno programa, conecta as suas nuvens nele, e a transferência roda dentro da sua rede.",
       "audience": "Para usuários de homelab, pessoas que se importam com privacidade e empresas que querem rodar transferências de arquivos em uma infraestrutura que elas controlam.",
       "primaryCta": "Entrar na lista de espera",
-      "secondaryCta": "Ver os princípios"
+      "secondaryCta": "Como funciona"
     },
-    "principles": {
-      "title": "Princípios de arquitetura",
-      "intro": "Separamos a camada de metadados de onde os arquivos realmente trafegam. Essa divisão é o que torna a auto-hospedagem viável.",
-      "controlPlane": {
-        "title": "Camada de controle",
-        "desc": "Contas, jobs, agendamentos, relatórios. A camada de metadados — hospedada por nós no lançamento, auto-hospedável no roadmap."
-      },
-      "dataPlane": {
-        "title": "Camada de dados",
-        "desc": "Onde os bytes fluem. Origem → runner → destino. O runner é auto-hospedável desde o lançamento; os bytes nunca chegam à camada de controle."
-      },
-      "note": "Os arquivos não passam pelo nosso servidor. O servidor guarda metadados; o runner é quem move os bytes."
-    },
-    "privateRunner": {
-      "title": "Private Runner: vem primeiro",
-      "body": "Rode transferências no seu próprio servidor, NAS ou VPS desde o lançamento. Suas credenciais de provedor e os bytes dos arquivos ficam com você; a camada de controle guarda apenas metadados dos jobs.",
-      "outbound": {
-        "title": "Apenas saída",
-        "desc": "Seu runner é quem se conecta com a gente. Sem portas de entrada, sem serviços expostos."
+    "howItWorks": {
+      "title": "Como funciona para você",
+      "intro": "Você roda a transferência no seu próprio servidor. A gente coordena o job; os bytes nunca chegam até a gente. A gente chama essa configuração de Private Runner.",
+      "filesStay": {
+        "title": "Os arquivos nunca passam pelos nossos servidores",
+        "desc": "Os bytes saem da nuvem de origem, passam pelo seu servidor e chegam à nuvem de destino. A nossa infraestrutura nunca vê os arquivos."
       },
       "credentials": {
-        "title": "As credenciais ficam com você",
-        "desc": "Os tokens de provedor ficam onde o seu runner roda. A gente nunca vê."
+        "title": "As suas credenciais ficam com você",
+        "desc": "Os tokens de provedor ficam onde o seu runner roda. A gente nunca recebe."
       },
-      "dataPath": {
-        "title": "Caminho de dados direto",
-        "desc": "Os arquivos fluem da origem → seu runner → destino. Nada no meio."
+      "noInbound": {
+        "title": "Sem conexões de entrada para abrir",
+        "desc": "O seu servidor é quem se conecta com a gente. Sem buracos no firewall, sem serviços expostos, sem encaminhamento de porta."
       }
     },
-    "futureModel": {
-      "title": "Níveis futuros de auto-hospedagem",
-      "label": "No roadmap",
-      "intro": "Três níveis de auto-hospedagem, em ordem crescente de independência da nossa infraestrutura.",
-      "level1": {
-        "name": "Private Runner",
-        "status": "Vem primeiro",
-        "desc": "Camada de controle hospedada, caminho de dados seu. Para quem quer a nossa praticidade e a sua banda."
+    "underTheHood": {
+      "summary": "Como funciona por baixo dos panos",
+      "intro": "Arquitetura, o roadmap de auto-hospedagem e por que o código principal fica público — para o comprador técnico.",
+      "controlData": {
+        "title": "Camada de controle e camada de dados",
+        "body": "Duas camadas. A camada de controle (autenticação, jobs, agendamentos, relatórios) guarda metadados sobre as suas transferências. A camada de dados (o runner) é por onde os bytes trafegam de origem → destino. A gente hospeda a camada de controle no lançamento; você hospeda a camada de dados desde o primeiro dia."
       },
-      "level2": {
-        "name": "Auto-hospedagem completa",
-        "status": "Planejado",
-        "desc": "Traga a sua própria camada de controle. Sua autenticação, seu banco de dados, seus runners. Mesmo produto, sua infraestrutura."
+      "roadmap": {
+        "title": "Níveis de auto-hospedagem",
+        "level1": {
+          "name": "Private Runner",
+          "status": "Vem primeiro",
+          "desc": "Camada de controle hospedada, caminho de dados seu. Para quem quer a nossa praticidade com a sua banda."
+        },
+        "level2": {
+          "name": "Auto-hospedagem completa",
+          "status": "Planejado",
+          "desc": "Traga a sua própria camada de controle. Sua autenticação, seu banco de dados, seus runners. Mesmo produto, sua infraestrutura."
+        },
+        "footnote": "Mais uma variante air-gapped para ambientes de alta conformidade que não acessam a internet pública."
       },
-      "level3": {
-        "name": "Air-gapped",
-        "status": "Planejado",
-        "desc": "Sem dependência de saída de syncologic.com. Para ambientes de alta conformidade que não acessam a internet pública."
+      "sourceVisible": {
+        "title": "Por que o código principal fica público",
+        "body": "O código do runner, a lógica de transferência e os adaptadores de provedor são lançados com código visível. Você pode auditar como os arquivos trafegam antes de confiar no sistema."
       }
-    },
-    "sourceTrust": {
-      "title": "Por que o código principal fica público",
-      "body": "O código do runner, a lógica de transferência e os adaptadores de provedor serão lançados com código visível. Você vai poder auditar como os arquivos trafegam antes de confiar no sistema."
     }
   }
 }

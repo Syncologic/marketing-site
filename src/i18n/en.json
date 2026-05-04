@@ -498,69 +498,58 @@
   },
   "selfHosted": {
     "meta": {
-      "title": "Self-hosted future — Syncologic",
-      "description": "Source-visible, self-hostable cloud file transfer. Private Runner first, then full self-host, then air-gapped — on your timeline."
+      "title": "Run transfers on your own server — Syncologic",
+      "description": "Move files between clouds with the data path running entirely on your own server, NAS, or VPS. Files never pass through our infrastructure."
     },
     "hero": {
-      "eyebrow": "Self-hosted future",
-      "headline": "Source-visible. Self-hostable. Yours to run.",
-      "subheading": "Source-visible runner at launch. Self-hostable control plane on the roadmap.",
+      "eyebrow": "On your own server",
+      "headline": "Run everything on your own server.",
+      "subheading": "Files never pass through our infrastructure. You install a small program, connect your clouds to it, and the transfer runs inside your network.",
       "audience": "For homelab operators, privacy-conscious users, and businesses that want their file transfers running on infrastructure they control.",
       "primaryCta": "Join the waitlist",
-      "secondaryCta": "See the principles"
+      "secondaryCta": "How it works"
     },
-    "principles": {
-      "title": "Architecture principles",
-      "intro": "We separate the metadata layer from where files actually move. That split is what makes self-hosting tractable.",
-      "controlPlane": {
-        "title": "Control plane",
-        "desc": "Accounts, jobs, schedules, reports. The metadata layer — hosted by us at launch, self-hostable on the roadmap."
-      },
-      "dataPlane": {
-        "title": "Data plane",
-        "desc": "Where bytes flow. Source → runner → destination. Self-host the runner from launch; bytes never reach the control plane."
-      },
-      "note": "Files do not flow through our server. The server holds metadata; the runner moves the bytes."
-    },
-    "privateRunner": {
-      "title": "Private Runner: available first",
-      "body": "Run transfers on your own server, NAS, or VPS at launch. Your provider credentials and file bytes stay with you; the control plane only holds job metadata.",
-      "outbound": {
-        "title": "Outbound only",
-        "desc": "Your runner reaches out to us. No inbound ports, no exposed services."
+    "howItWorks": {
+      "title": "How it works for you",
+      "intro": "You run the transfer on your own server. We coordinate the job; the bytes never reach us. We call this setup a Private Runner.",
+      "filesStay": {
+        "title": "Files never park on our servers",
+        "desc": "Bytes travel from the source cloud, through your server, to the destination cloud. Our infrastructure never sees the files."
       },
       "credentials": {
-        "title": "Credentials stay with you",
-        "desc": "Provider tokens live where your runner runs. We never see them."
+        "title": "Your credentials stay with you",
+        "desc": "Provider tokens live where your runner runs. We never receive them."
       },
-      "dataPath": {
-        "title": "Direct data path",
-        "desc": "Files flow source → your runner → destination. Nothing in between."
+      "noInbound": {
+        "title": "No incoming connections to open",
+        "desc": "Your server reaches out to us. No firewall holes, no exposed services, no port-forwarding."
       }
     },
-    "futureModel": {
-      "title": "Future self-host levels",
-      "label": "On the roadmap",
-      "intro": "Three levels of self-hosting, in increasing independence from our infrastructure.",
-      "level1": {
-        "name": "Private Runner",
-        "status": "Available first",
-        "desc": "Hosted control plane, your data path. For users who want our convenience and your bandwidth."
+    "underTheHood": {
+      "summary": "How it works under the hood",
+      "intro": "Architecture, the self-host roadmap, and why core code stays public — for the technical buyer.",
+      "controlData": {
+        "title": "Control plane vs data plane",
+        "body": "Two layers. The control plane (auth, jobs, schedules, reports) holds metadata about your transfers. The data plane (the runner) is where bytes flow source → destination. We host the control plane at launch; you host the data plane from day one."
       },
-      "level2": {
-        "name": "Full self-host",
-        "status": "Planned",
-        "desc": "Bring your own control plane. Your auth, your database, your runners. Same product, your infrastructure."
+      "roadmap": {
+        "title": "Self-host levels",
+        "level1": {
+          "name": "Private Runner",
+          "status": "Available first",
+          "desc": "Hosted control plane, your data path. For users who want our convenience and your bandwidth."
+        },
+        "level2": {
+          "name": "Full self-host",
+          "status": "Planned",
+          "desc": "Bring your own control plane. Your auth, your database, your runners. Same product, your infrastructure."
+        },
+        "footnote": "Plus an air-gapped variant for high-compliance environments that can't reach the public internet."
       },
-      "level3": {
-        "name": "Air-gapped",
-        "status": "Planned",
-        "desc": "No outbound dependency on syncologic.com. For high-compliance environments that can't reach the public internet."
+      "sourceVisible": {
+        "title": "Why core code stays public",
+        "body": "Runner code, transfer logic, and provider adapters ship source-visible. You can audit how files move before trusting the system."
       }
-    },
-    "sourceTrust": {
-      "title": "Why core code stays public",
-      "body": "Runner code, transfer logic, and provider adapters will ship source-visible. You'll be able to audit how files move before trusting the system."
     }
   }
 }
