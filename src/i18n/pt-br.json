@@ -239,6 +239,11 @@
     },
     "beforeAfterTransfer": {
       "alt": "Dois painéis empilhados. No painel de cima, o caminho manual: os arquivos saem de uma nuvem, passam por um notebook no meio e seguem para a segunda nuvem — e de vez em quando quebram no notebook, ficando vermelhos. No painel de baixo, o caminho direto: um único arco azul leva os arquivos da primeira nuvem direto para a segunda, sem passar pelo notebook."
+    },
+    "hostedVsPrivatePath": {
+      "alt": "Dois diagramas de arquitetura empilhados, um acima do outro. Cada um mostra arquivos passando entre duas nuvens por uma caixa do meio. No diagrama de cima, a caixa do meio está rotulada 'Nossos servidores'. No de baixo, a caixa do meio está rotulada 'Seu servidor'. Os dois caminhos são idênticos no resto — mesmo arco, mesmas fichas de arquivo — para que a única diferença seja a localização da caixa do meio.",
+      "hostedLabel": "Nossos servidores",
+      "privateLabel": "Seu servidor"
     }
   },
   "guides": {
