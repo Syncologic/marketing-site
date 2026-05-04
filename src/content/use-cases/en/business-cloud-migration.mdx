@@ -17,39 +17,38 @@ publishedAt: 2026-05-01
 
 ## Who this is for
 
-- Founders and ops leads switching the company from Google Workspace to Microsoft 365 or back the other way.
-- IT generalists at small businesses replacing Dropbox Business with a workspace plan.
-- Anyone who has been told "just download everything and re-upload it" and knows that won't survive contact with reality.
+- You're a founder or ops lead switching the company between Google Workspace and Microsoft 365.
+- You're the IT generalist at a small business replacing Dropbox Business with a workspace plan.
+- Someone told you "just download everything and re-upload it" and you already know that won't survive contact with reality.
 
 ## Why business migrations are different
 
-A personal move can tolerate a missed file. A business move can't. Stakeholders ask three questions: what's about to change, did it finish, and what didn't make it. The answer to all three needs to be a document, not a guess.
+A personal move can lose a file and shrug. A business move can't. Three questions show up in every meeting: what's about to change, did it finish, and what didn't make it. The answer to all three needs to be a document, not a guess.
 
-Manual workspace migrations turn into missing files, duplicated folders, and quiet permission drift. The fix isn't more spreadsheets — it's visibility built into the transfer.
+Manual workspace migrations turn into missing files, duplicated folders, and quiet permission drift. Spreadsheets don't fix that — visibility built into the transfer does.
 
 ## How it'll work
 
 1. Connect the source workspace — Google Drive, OneDrive, Dropbox, S3, SFTP, WebDAV, or Nextcloud.
 2. Connect the destination workspace.
 3. Run a preview to see exactly what will copy, what already matches, and how much data will move.
-4. Pick a runner — Cloud Runner for convenience, Private Runner if the data has to stay in your own infrastructure.
-5. Run the transfer, watch progress, and download the completion report.
+4. Run the transfer, watch progress in the dashboard, and download the completion report.
 
 ## Preview before you commit
 
-Every job will start with a dry-run — file count, total size, folders involved, conflicts. Stakeholders can sign off on the preview instead of trusting a verbal estimate.
+Every job starts with a dry-run — file count, total size, folders involved, conflicts. Stakeholders sign off on a preview instead of trusting a verbal estimate. If something looks wrong, you adjust before a single byte moves.
 
 ## A report at the end
 
-When a run finishes, you'll get a structured report — what copied, what was skipped, what failed and why. Keep it for the audit trail. Re-run only the failed items if anything needs a second pass.
+When a run finishes, you get a structured report — what copied, what was skipped, what failed and why. Keep it for the audit trail. Re-run only the failed items if anything needs a second pass.
 
 ## Schedule the cutover
 
 Plan migrations in stages instead of one weekend marathon. Schedule a job for off-hours. Run a delta the morning of the cutover so the destination is current. Pause and resume between phases.
 
-## Private Runner for sensitive moves
+## Keep sensitive data on your own server
 
-Some data shouldn't pass through anyone else's infrastructure — legal archives, financial records, regulated content. Run those through a Private Runner on your own server, NAS, or VPS. Bytes stay on your network; the control plane only coordinates.
+Some data shouldn't pass through anyone else's infrastructure — legal archives, financial records, regulated content. Run those transfers on a server you control (we call it a Private Runner). The bytes stay on your network; we only coordinate the job from the outside.
 
 ## Common workspace pairs
 

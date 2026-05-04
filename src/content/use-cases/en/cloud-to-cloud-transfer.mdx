@@ -17,29 +17,25 @@ publishedAt: 2026-04-30
 
 ## Who this is for
 
-- People switching from one cloud drive to another and tired of dragging gigabytes through a browser tab.
-- Small teams consolidating files across Google Drive, OneDrive, Dropbox, and S3-compatible storage.
-- Anyone who has watched a manual download stall on a folder larger than their laptop's free disk space.
+- You're switching from one cloud drive to another and you're tired of dragging gigabytes through a browser tab.
+- You're consolidating files across Google Drive, OneDrive, Dropbox, and S3 and want one transfer instead of ten.
+- You've watched a manual download stall on a folder bigger than your laptop's free disk space.
 
 ## How it'll work
 
-1. Connect the source provider — Google Drive, OneDrive, Dropbox, S3, SFTP, WebDAV, or Nextcloud.
-2. Connect the destination provider.
-3. Preview the diff: which files will copy, which already match, and how much will move.
-4. Pick a runner — Cloud Runner for convenience, Browser Runner for a transparent path through your tab, or Private Runner on your own server.
-5. Run the transfer and download a report when it finishes.
+1. Connect the source — Google Drive, OneDrive, Dropbox, S3, SFTP, WebDAV, or Nextcloud.
+2. Connect the destination.
+3. Run a preview: which files will copy, which already match, and how much will move.
+4. Confirm and run the transfer.
+5. Download a report when it's done.
 
 ## Why this beats download-and-reupload
 
-Manual transfers pull every file through your laptop, then push the same bytes back up. Large folders fail halfway. Browser downloads time out. Drives fill up.
+A manual move takes the long way around. Every file leaves the source cloud, lands on your laptop, then travels back up to the destination cloud. Two trips, two chances to fail, and your disk has to be big enough to hold the middle of the trip.
 
-A direct cloud-to-cloud transfer moves the bytes between providers without parking them on your machine. You'll see what's about to change before it runs, and get a report when it's done.
+A direct transfer skips the middle. The bytes move between providers without ever parking on your laptop. You see what's about to change before it runs, and a report when it's done.
 
-## Three ways to run a transfer at launch
-
-- **Cloud Runner.** Source provider to Syncologic infrastructure to destination provider. Best for convenience and large jobs you don't want to babysit.
-- **Browser Runner.** Source provider to your browser tab to destination provider. The tab will need to stay open while it runs. Best when you want a transparent path with nothing hosted on your behalf.
-- **Private Runner.** Source provider to your own server, NAS, or VPS to destination provider. Best when bytes and credentials must stay in infrastructure you control.
+<BeforeAfterTransfer />
 
 ## Common provider pairs
 

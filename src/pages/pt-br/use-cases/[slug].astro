@@ -9,6 +9,7 @@ import ProviderArc from '../../../components/visuals/ProviderArc.astro';
 import MigrationChecklist from '../../../components/visuals/MigrationChecklist.astro';
 import PrivateRunnerPath from '../../../components/visuals/PrivateRunnerPath.astro';
 import ScheduleClock from '../../../components/visuals/ScheduleClock.astro';
+import BeforeAfterTransfer from '../../../components/visuals/BeforeAfterTransfer.astro';
 import GuideCrossLinks from '../../../components/sections/GuideCrossLinks.astro';
 
 const visualMap: Record<string, typeof ProviderArc | undefined> = {
@@ -57,7 +58,7 @@ const crossLinks = crossLinkMap[slug] ?? [];
     )}
   </Hero>
   <article class="prose-syncologic container-wide max-w-[760px] py-section">
-    <Content />
+    <Content components={{ BeforeAfterTransfer }} />
   </article>
   {crossLinks.length > 0 && <GuideCrossLinks slugs={crossLinks} />}
   <WaitlistForm segmentHint={entry.data.waitlistSegment} />
