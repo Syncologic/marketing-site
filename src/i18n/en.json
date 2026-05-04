@@ -7,10 +7,20 @@
   "homepage": {
     "heroEyebrow": "Cloud-to-cloud transfer",
     "heroBody": "Connect a source and destination, preview what changes, then run the transfer in the cloud or on your own machine.",
-    "heroSecondaryCta": "See how it works",
+    "pathChooser": {
+      "eyebrow": "Where to start",
+      "user": {
+        "title": "I want to move my files",
+        "desc": "See how a transfer works end to end, then pick the path that fits your case."
+      },
+      "dev": {
+        "title": "I'm building with this",
+        "desc": "Use the API, CLI, webhooks, or self-host the runner. We handle OAuth — your users connect to Syncologic, not to your app."
+      }
+    },
     "providersLabel": "Connects to",
-    "runnersTitle": "Three ways to run a transfer",
-    "runnersSubtitle": "Pick the runner that matches your trust and convenience needs.",
+    "runnersTitle": "Where does the transfer happen?",
+    "runnersSubtitle": "Three options with very different trade-offs in cost, convenience, and privacy.",
     "useCasesTitle": "Find your use case",
     "useCasesSubtitle": "We're building for several different audiences — start with the one that fits.",
     "trustTitle": "Built around your trust",
@@ -80,9 +90,21 @@
     "other": "Other"
   },
   "runners": {
-    "cloud": { "name": "Cloud Runner", "tagline": "Hosted convenience" },
-    "browser": { "name": "Browser Runner", "tagline": "Run it in a tab" },
-    "private": { "name": "Private Runner", "tagline": "Your machine, your bandwidth" }
+    "cloud": {
+      "name": "Cloud Runner",
+      "plainTitle": "On our servers",
+      "description": "We handle the work. Close your browser, go to sleep — the transfer keeps running. Pay for what you use."
+    },
+    "browser": {
+      "name": "Browser Runner",
+      "plainTitle": "In your browser tab",
+      "description": "The tab has to stay open. Free. Best for a one-time transfer."
+    },
+    "private": {
+      "name": "Private Runner",
+      "plainTitle": "On your own machine",
+      "description": "Install a small program. Files never touch our servers. Perfect for businesses, homelabs, and sensitive data."
+    }
   },
   "useCaseRouter": {
     "cloudToCloud": {
@@ -192,6 +214,17 @@
     },
     "developerTerminal": {
       "alt": "An API client showing a POST /v1/jobs request being sent to the Syncologic API, the 201 Created response with a run id and plan, and a webhook event for the completed run."
+    },
+    "runnerIllustrations": {
+      "cloud": {
+        "alt": "Cloud icon above two stacked server units, representing transfers running on Syncologic's hosted infrastructure."
+      },
+      "browser": {
+        "alt": "Browser window with two file boxes connected by an arrow, representing a transfer that runs inside the user's browser tab."
+      },
+      "private": {
+        "alt": "Desktop computer holding a folder, framed by a dashed roof outline that stands for the user's local network — the transfer runs on their own machine."
+      }
     }
   },
   "guides": {

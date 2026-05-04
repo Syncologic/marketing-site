@@ -7,10 +7,20 @@
   "homepage": {
     "heroEyebrow": "Transferência entre nuvens",
     "heroBody": "Conecte origem e destino, veja a prévia das mudanças e execute a transferência na nuvem ou na sua máquina.",
-    "heroSecondaryCta": "Veja como funciona",
+    "pathChooser": {
+      "eyebrow": "Por onde começar",
+      "user": {
+        "title": "Quero mover meus arquivos",
+        "desc": "Veja como uma transferência funciona de ponta a ponta e escolha o caminho que combina com o seu caso."
+      },
+      "dev": {
+        "title": "Estou construindo algo com isso",
+        "desc": "Use a API, a CLI, webhooks ou hospede o runner por conta própria. A gente cuida do OAuth — seus usuários conectam à Syncologic, não ao seu app."
+      }
+    },
     "providersLabel": "Funciona com",
-    "runnersTitle": "Três formas de executar uma transferência",
-    "runnersSubtitle": "Escolha o runner que melhor equilibra confiança e praticidade para você.",
+    "runnersTitle": "Onde a transferência acontece?",
+    "runnersSubtitle": "Três opções com perfis bem diferentes de praticidade, custo e privacidade.",
     "useCasesTitle": "Encontre seu caso de uso",
     "useCasesSubtitle": "Estamos construindo para vários tipos de públicos — comece pelo que faz mais sentido para você.",
     "trustTitle": "Sua confiança em primeiro lugar",
@@ -80,9 +90,21 @@
     "other": "Outro"
   },
   "runners": {
-    "cloud": { "name": "Cloud Runner", "tagline": "Praticidade na nuvem" },
-    "browser": { "name": "Browser Runner", "tagline": "Rode em uma aba" },
-    "private": { "name": "Private Runner", "tagline": "Sua máquina, sua banda" }
+    "cloud": {
+      "name": "Cloud Runner",
+      "plainTitle": "Pelos nossos servidores",
+      "description": "Hospedamos a transferência. Você fecha o navegador e ela continua rodando. Cobramos pelo uso."
+    },
+    "browser": {
+      "name": "Browser Runner",
+      "plainTitle": "Na aba do seu navegador",
+      "description": "A aba precisa ficar aberta enquanto roda. Sem custo. Boa pra uma transferência única."
+    },
+    "private": {
+      "name": "Private Runner",
+      "plainTitle": "Na sua própria máquina",
+      "description": "Você instala um programinha. Os arquivos nunca passam pelos nossos servidores. Perfeito para empresas, homelabs e dados sensíveis."
+    }
   },
   "useCaseRouter": {
     "cloudToCloud": {
@@ -192,6 +214,17 @@
     },
     "developerTerminal": {
       "alt": "Um cliente de API mostrando uma requisição POST /v1/jobs sendo enviada para a API da Syncologic, a resposta 201 Created com um id de run e um plano, e um evento de webhook para o run concluído."
+    },
+    "runnerIllustrations": {
+      "cloud": {
+        "alt": "Ícone de nuvem acima de duas unidades de servidor empilhadas, representando transferências rodando na infraestrutura hospedada da Syncologic."
+      },
+      "browser": {
+        "alt": "Janela de navegador com duas caixas de arquivo conectadas por uma seta, representando uma transferência que roda na aba do usuário."
+      },
+      "private": {
+        "alt": "Computador desktop guardando uma pasta, com um contorno tracejado em forma de telhado representando a rede local do usuário — a transferência roda na máquina dele."
+      }
     }
   },
   "guides": {
