@@ -29,7 +29,9 @@ const { kvState, kvMock } = vi.hoisted(() => {
 });
 
 vi.mock('@upstash/redis', () => ({
-  Redis: vi.fn(() => kvMock),
+  Redis: vi.fn(function Redis(this: unknown) {
+    return kvMock;
+  }),
 }));
 
 import {
