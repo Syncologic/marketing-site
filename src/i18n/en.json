@@ -103,7 +103,7 @@
     "private": {
       "name": "Private Runner",
       "plainTitle": "On your own machine",
-      "description": "Install a small program. Files never touch our servers. For businesses, homelabs, and sensitive data."
+      "description": "Install a small program. Files never touch our servers. Perfect for businesses, homelabs, and sensitive data."
     }
   },
   "useCaseRouter": {

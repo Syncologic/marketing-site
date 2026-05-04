@@ -93,17 +93,17 @@
     "cloud": {
       "name": "Cloud Runner",
       "plainTitle": "Pelos nossos servidores",
-      "description": "A gente cuida do trabalho. Fecha o navegador, vai dormir — a transferência continua rodando. Você paga pelo uso."
+      "description": "Hospedamos a transferência. Você fecha o navegador e ela continua rodando. Cobramos pelo uso."
     },
     "browser": {
       "name": "Browser Runner",
       "plainTitle": "Na aba do seu navegador",
-      "description": "A aba precisa ficar aberta. De graça. Boa pra uma transferência única."
+      "description": "A aba precisa ficar aberta enquanto roda. Sem custo. Boa pra uma transferência única."
     },
     "private": {
       "name": "Private Runner",
       "plainTitle": "Na sua própria máquina",
-      "description": "Você instala um programinha. Os arquivos nunca passam pelos nossos servidores. Para empresas, homelabs e dados sensíveis."
+      "description": "Você instala um programinha. Os arquivos nunca passam pelos nossos servidores. Perfeito para empresas, homelabs e dados sensíveis."
     }
   },
   "useCaseRouter": {
