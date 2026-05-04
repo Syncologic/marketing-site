@@ -1,0 +1,142 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+type Variant = 'volume' | 'frequency' | 'runner';
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props as Props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const altLabel = t(`visuals.costDrivers.${variant}.alt`);
+---
+
+<div class="cost-driver mb-6" role="presentation">
+  {variant === 'volume' && (
+    <svg
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label={altLabel}
+      class="w-24 h-24 block"
+    >
+      <line
+        x1="20" y1="98" x2="100" y2="98"
+        class="stroke-divider"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+      <rect
+        x="28" y="78" width="20" height="14" rx="3"
+        class="fill-white stroke-divider"
+        stroke-width="1.5"
+      />
+      <rect
+        x="28" y="58" width="20" height="14" rx="3"
+        class="fill-white stroke-divider"
+        stroke-width="1.5"
+      />
+      <rect
+        x="56" y="68" width="22" height="24" rx="3"
+        class="fill-warm-gray stroke-divider"
+        stroke-width="1.5"
+      />
+      <rect
+        x="56" y="44" width="22" height="18" rx="3"
+        class="fill-warm-gray stroke-divider"
+        stroke-width="1.5"
+      />
+      <rect
+        x="86" y="56" width="22" height="36" rx="3"
+        class="fill-warm-gray stroke-brand-blue"
+        stroke-width="1.5"
+      />
+      <rect
+        x="86" y="32" width="22" height="18" rx="3"
+        class="fill-warm-gray stroke-brand-blue"
+        stroke-width="1.5"
+      />
+    </svg>
+  )}
+
+  {variant === 'frequency' && (
+    <svg
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label={altLabel}
+      class="w-24 h-24 block"
+    >
+      <rect
+        x="18" y="26" width="84" height="74" rx="6"
+        class="fill-white stroke-divider"
+        stroke-width="1.5"
+      />
+      <line
+        x1="18" y1="42" x2="102" y2="42"
+        class="stroke-divider"
+        stroke-width="1.5"
+      />
+      <line x1="30" y1="22" x2="30" y2="32" class="stroke-divider" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="60" y1="22" x2="60" y2="32" class="stroke-divider" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="90" y1="22" x2="90" y2="32" class="stroke-divider" stroke-width="1.5" stroke-linecap="round" />
+      <circle cx="30" cy="55" r="2" class="fill-divider" />
+      <circle cx="46" cy="55" r="2" class="fill-divider" />
+      <circle cx="62" cy="55" r="3.5" class="fill-brand-blue" />
+      <circle cx="78" cy="55" r="2" class="fill-divider" />
+      <circle cx="94" cy="55" r="2" class="fill-divider" />
+      <circle cx="30" cy="71" r="2" class="fill-divider" />
+      <circle cx="46" cy="71" r="2" class="fill-divider" />
+      <circle cx="62" cy="71" r="3.5" class="fill-brand-blue" />
+      <circle cx="78" cy="71" r="2" class="fill-divider" />
+      <circle cx="94" cy="71" r="2" class="fill-divider" />
+      <circle cx="30" cy="87" r="2" class="fill-divider" />
+      <circle cx="46" cy="87" r="2" class="fill-divider" />
+      <circle cx="62" cy="87" r="3.5" class="fill-brand-blue" />
+      <circle cx="78" cy="87" r="2" class="fill-divider" />
+      <circle cx="94" cy="87" r="2" class="fill-divider" />
+    </svg>
+  )}
+
+  {variant === 'runner' && (
+    <svg
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label={altLabel}
+      class="w-24 h-24 block"
+    >
+      <circle cx="22" cy="60" r="6" class="fill-white stroke-divider" stroke-width="1.5" />
+      <path
+        d="M 28 58 C 50 36, 60 36, 78 36"
+        class="stroke-divider"
+        stroke-width="1.5"
+        fill="none"
+        stroke-linecap="round"
+      />
+      <path
+        d="M 28 62 C 50 84, 60 84, 78 84"
+        class="stroke-brand-blue"
+        stroke-width="1.5"
+        fill="none"
+        stroke-linecap="round"
+      />
+      <rect
+        x="80" y="22" width="28" height="28" rx="4"
+        class="fill-warm-gray stroke-divider"
+        stroke-width="1.5"
+      />
+      <line x1="86" y1="32" x2="102" y2="32" class="stroke-divider" stroke-width="1" />
+      <line x1="86" y1="40" x2="102" y2="40" class="stroke-divider" stroke-width="1" />
+      <rect
+        x="80" y="70" width="28" height="22" rx="3"
+        class="fill-warm-gray stroke-brand-blue"
+        stroke-width="1.5"
+      />
+      <line x1="86" y1="92" x2="102" y2="92" class="stroke-brand-blue" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="92" y1="92" x2="92" y2="98" class="stroke-brand-blue" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="96" y1="92" x2="96" y2="98" class="stroke-brand-blue" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+  )}
+</div>

@@ -2,11 +2,11 @@
   "site": {
     "name": "Syncologic",
     "tagline": "Mova arquivos entre nuvens sem ter que baixar antes.",
-    "description": "Conecte origem e destino, veja a prévia das mudanças e execute a transferência na nuvem ou na sua máquina."
+    "description": "Conecte origem e destino, veja a prévia das mudanças e execute a transferência na nossa nuvem, no seu navegador ou no seu próprio servidor."
   },
   "homepage": {
     "heroEyebrow": "Transferência entre nuvens",
-    "heroBody": "Conecte origem e destino, veja a prévia das mudanças e execute a transferência na nuvem ou na sua máquina.",
+    "heroBody": "Conecte origem e destino, veja a prévia das mudanças e execute a transferência na nossa nuvem, no seu navegador ou no seu próprio servidor.",
     "pathChooser": {
       "eyebrow": "Por onde começar",
       "user": {
@@ -102,7 +102,7 @@
     },
     "private": {
       "name": "Private Runner",
-      "plainTitle": "Na sua própria máquina",
+      "plainTitle": "No seu próprio servidor",
       "description": "Você instala um programinha. Os arquivos nunca passam pelos nossos servidores. Perfeito para empresas, homelabs e dados sensíveis."
     }
   },
@@ -120,7 +120,7 @@
       "desc": "Entre nuvens ou para o S3, em um agendamento que você define."
     },
     "privateRunner": {
-      "title": "Rodar na sua própria máquina",
+      "title": "Rodar no seu próprio servidor",
       "desc": "Mantenha credenciais e bytes na sua infraestrutura."
     }
   },
@@ -183,10 +183,10 @@
       "viewFinalReport": "Ver relatório final"
     },
     "privateRunnerPath": {
-      "alt": "Um pacote de arquivos sai de uma origem na nuvem, passa pela sua máquina dentro da sua rede e segue até um destino — sem nunca tocar na infraestrutura da Syncologic.",
+      "alt": "Um pacote de arquivos sai de uma origem na nuvem, passa por um servidor dentro da sua rede e segue até um destino — sem nunca tocar na infraestrutura da Syncologic.",
       "boundary": "sua rede",
       "source": "Origem",
-      "machine": "Sua máquina",
+      "machine": "Seu servidor",
       "destination": "Destino"
     },
     "scheduleClock": {
@@ -197,7 +197,7 @@
       "cloudTitle": "Cloud Runner",
       "cloudSubtitle": "Infraestrutura hospedada",
       "privateTitle": "Private Runner",
-      "privateStatus": "Ativo na sua máquina"
+      "privateStatus": "Ativo no seu servidor"
     },
     "controlDataPlanes": {
       "alt": "Dois painéis empilhados. O painel de cima — a camada de controle da Syncologic — guarda autenticação, jobs, agendamentos e logs. Um conector pontilhado marcado como 'apenas metadados' liga ele ao painel de baixo, a camada de dados, que contém um único runner. Uma seta sólida sai de uma nuvem de origem, atravessa direto o runner da camada de dados e chega em uma nuvem de destino — sem passar pela camada de controle.",
@@ -223,7 +223,18 @@
         "alt": "Janela de navegador com duas caixas de arquivo conectadas por uma seta, representando uma transferência que roda na aba do usuário."
       },
       "private": {
-        "alt": "Computador desktop guardando uma pasta, com um contorno tracejado em forma de telhado representando a rede local do usuário — a transferência roda na máquina dele."
+        "alt": "Ícone em forma de computador guardando uma pasta, com um contorno tracejado em forma de telhado representando a rede do usuário — a transferência roda em um servidor que ele controla."
+      }
+    },
+    "costDrivers": {
+      "volume": {
+        "alt": "Uma pilha de blocos de arquivo crescendo da esquerda para a direita, representando como o custo escala com a quantidade de dados transferidos."
+      },
+      "frequency": {
+        "alt": "Um pequeno calendário com três dias destacados em intervalos semanais regulares, representando como transferências recorrentes vão se acumulando ao longo do tempo."
+      },
+      "runner": {
+        "alt": "Uma única origem se dividindo em dois caminhos — um subindo até um ícone de servidor hospedado, outro descendo até um ícone de servidor próprio — representando a escolha entre transferir na nossa infraestrutura ou no seu próprio servidor."
       }
     }
   },
@@ -270,48 +281,54 @@
       "secondaryCta": "Ver os planos"
     },
     "hypotheses": {
-      "title": "Quatro planos",
-      "subtitle": "Cada plano corresponde a um caso de uso claro. Escolha o que combina com você.",
+      "title": "Planos hospedados",
+      "subtitle": "Escolha o nível que combina com quanto dado você move na nossa infraestrutura por mês.",
       "priceSuffix": "/mês",
+      "recommendedLabel": "Recomendado",
+      "privateEyebrow": "Ou rode no seu próprio servidor",
       "free": {
         "name": "Free",
         "price": "R$ 0",
+        "description": "Para transferências pontuais. Abre uma aba, roda, fecha.",
         "features": [
-          "Apenas Browser Runner — a aba precisa ficar aberta",
-          "Uma origem + um destino por vez",
-          "Até alguns GB por transferência"
+          "5 GB nos nossos servidores por mês inclusos (Cloud Runner) — sem precisar manter aba aberta",
+          "Transferências ilimitadas na aba do navegador (Browser Runner) — a aba precisa ficar aberta até terminar",
+          "Sem opção de comprar GB extra — quando passar dos 5 GB, o Browser Runner é a única opção hospedada no mês"
         ],
-        "footnote": "Para transferências pontuais e para experimentar a Syncologic antes de pagar."
+        "footnote": "Grátis pra sempre. Faça upgrade pro Pro para ter mais volume hospedado."
       },
       "pro": {
         "name": "Pro",
         "price": "~R$ 45",
+        "description": "Para quem não quer ficar acompanhando transferência.",
         "features": [
-          "Cloud Runner para transferências sem precisar acompanhar",
-          "Jobs agendados e relatórios de execução",
-          "Volumes de dados de uso pessoal"
+          "100 GB nos nossos servidores por mês inclusos (Cloud Runner)",
+          "Cargas extras de 1 TB por ~R$ 12,50 cada quando passar — você paga só pelo que transferir",
+          "Agende jobs recorrentes e veja o relatório no fim de cada execução"
         ],
-        "footnote": "Para quem quer transferências hospedadas e agendadas sem manter uma aba aberta."
+        "footnote": "Execução hospedada (Cloud Runner). 100 GB inclusos por mês; depois disso, paga por uso."
       },
       "business": {
         "name": "Business",
         "price": "~R$ 145",
+        "description": "Para equipes migrando um workspace ou rodando vários jobs.",
         "features": [
-          "Volumes de dados maiores e jobs em paralelo",
-          "Prévias de migração e relatórios de execução",
-          "Várias conexões de workspace"
+          "1,5 TB nos nossos servidores por mês inclusos (Cloud Runner)",
+          "Cargas extras de 1 TB por ~R$ 12,50 cada quando passar",
+          "Prévia da migração, relatório final e várias conexões de workspace"
         ],
-        "footnote": "Para equipes migrando um workspace ou rodando vários jobs em paralelo."
+        "footnote": "Execução hospedada (Cloud Runner). 1,5 TB inclusos por mês; depois disso, paga por uso."
       },
       "privateRunner": {
         "name": "Private Runner",
         "price": "~R$ 30",
+        "description": "Para quando os bytes e as credenciais precisam ficar no seu próprio servidor.",
         "features": [
-          "Rode transferências no seu próprio servidor, NAS ou VPS",
-          "Os bytes nunca passam pela infraestrutura da Syncologic",
-          "Pague pela camada de controle, não pela banda"
+          "A transferência roda no seu servidor, NAS ou VPS — os arquivos nunca passam pela gente",
+          "Mensalidade fixa — sem cota de GB, você entra com a banda",
+          "Ideal pra empresas, homelabs e usuários de alto volume"
         ],
-        "footnote": "Para quem traz a própria infraestrutura. Bytes e credenciais ficam com você."
+        "footnote": "Você entra com a banda. A gente cuida da orquestração."
       }
     },
     "affects": {
@@ -326,35 +343,27 @@
         "body": "Migrações pontuais, backups recorrentes e sincronização contínua têm preços diferentes."
       },
       "runner": {
-        "title": "Escolha de runner",
-        "body": "O Cloud Runner usa a nossa banda. Browser Runner e Private Runner, não."
+        "title": "Onde a transferência roda",
+        "body": "Se a gente hospeda, você paga pela banda que usamos. Se roda na sua aba do navegador ou no seu próprio servidor, não paga."
       }
     },
     "cloudVsPrivate": {
-      "title": "Custos: Cloud Runner vs Private Runner",
-      "subtitle": "Mesma camada de controle, caminhos de dados diferentes. Escolha o que faz mais sentido para o seu nível de confiança e volume.",
-      "headers": {
-        "dimension": "O que muda",
-        "cloud": "Cloud Runner",
-        "private": "Private Runner"
+      "title": "Por onde os bytes passam muda o custo.",
+      "subtitle": "Mesma orquestração, caminhos de dados diferentes. Escolha o que combina com o seu nível de confiança e volume.",
+      "cloud": {
+        "title": "Nos nossos servidores",
+        "alias": "Cloud Runner",
+        "scenario": "Os arquivos passam pela nossa infraestrutura. A gente cuida da banda, dos retries e do isolamento. Você paga por transferência — o custo sobe conforme você move mais dados.",
+        "bestForLabel": "Faz mais sentido quando",
+        "bestFor": "você quer praticidade, jobs agendados e migrações que você não quer ficar acompanhando."
       },
-      "rows": [
-        {
-          "dimension": "Por onde os bytes passam",
-          "cloud": "Origem → infraestrutura da Syncologic → destino.",
-          "private": "Origem → sua máquina → destino."
-        },
-        {
-          "dimension": "O que você paga",
-          "cloud": "Banda hospedada, agendamento, retries e isolamento.",
-          "private": "Apenas a camada de controle — taxa fixa mensal."
-        },
-        {
-          "dimension": "Quando faz mais sentido",
-          "cloud": "Praticidade, jobs agendados, migrações que você não quer ficar acompanhando.",
-          "private": "Privacidade, homelabs, empresas e usuários de alto volume com banda própria."
-        }
-      ]
+      "private": {
+        "title": "No seu próprio servidor",
+        "alias": "Private Runner",
+        "scenario": "Os arquivos passam pelo seu servidor, NAS ou VPS. A gente só orquestra o job — você entra com a banda. Paga uma mensalidade fixa, independente do volume.",
+        "bestForLabel": "Faz mais sentido quando",
+        "bestFor": "você se importa com privacidade, mantém um homelab ou move volumes altos com a sua própria banda."
+      }
     },
     "earlyAccess": {
       "headline": "Entre agora e garanta acesso antecipado.",
@@ -369,8 +378,16 @@
           "a": "A estrutura de quatro planos está definida. Os valores exatos podem ter pequenos ajustes antes do lançamento — por isso cada plano mostra `~` em vez de um número fechado."
         },
         {
-          "q": "O Private Runner vai custar mais que o Cloud Runner?",
-          "a": "Menos. Como você entra com a banda, o Private Runner é uma taxa fixa da camada de controle, em vez de uso medido."
+          "q": "Vai ter plano anual com desconto?",
+          "a": "Sim — pretendemos oferecer um plano anual com desconto, mas o valor exato ainda não está definido. Provavelmente só vai sair junto com o lançamento dos planos pagos."
+        },
+        {
+          "q": "E se eu mover mais dados do que o meu plano inclui?",
+          "a": "O Free inclui 5 GB por mês nos nossos servidores sem opção de pagar mais — quando esgota, a aba do navegador é a única opção hospedada no mês. Pro e Business adicionam 1 TB por ~R$ 12,50 cada vez que passar. O Private Runner não tem cota de GB; você paga uma mensalidade fixa e usa a sua própria banda."
+        },
+        {
+          "q": "O Browser Runner e o Private Runner consomem a minha cota de GB?",
+          "a": "Não. Só o Cloud Runner usa a nossa banda hospedada, então só ele conta na cota mensal de GB. O Browser Runner roda na aba do seu navegador e o Private Runner roda no seu próprio servidor — os arquivos nunca passam pela nossa infraestrutura, então nenhum dos dois consome a sua cota."
         },
         {
           "q": "E sobre a auto-hospedagem open source?",
@@ -468,7 +485,7 @@
       },
       {
         "q": "Posso rodar os jobs inteiramente na minha infraestrutura?",
-        "a": "Sim, no caminho dos dados — o Private Runner roda na sua VPC, num NAS ou em qualquer máquina que você controla, e os bytes dos arquivos nunca chegam à Syncologic. A camada de controle (contas, jobs, agendamentos) é hospedada por nós no lançamento; auto-hospedagem completa está no roadmap."
+        "a": "Sim, no caminho dos dados — o Private Runner roda na sua VPC, num NAS ou em qualquer servidor que você controla, e os bytes dos arquivos nunca chegam à Syncologic. A camada de controle (contas, jobs, agendamentos) é hospedada por nós no lançamento; auto-hospedagem completa está no roadmap."
       },
       {
         "q": "Os payloads dos webhooks são assinados?",
@@ -504,7 +521,7 @@
     },
     "privateRunner": {
       "title": "Private Runner: vem primeiro",
-      "body": "Rode transferências na sua própria máquina, NAS ou VPS desde o lançamento. Suas credenciais de provedor e os bytes dos arquivos ficam com você; a camada de controle guarda apenas metadados dos jobs.",
+      "body": "Rode transferências no seu próprio servidor, NAS ou VPS desde o lançamento. Suas credenciais de provedor e os bytes dos arquivos ficam com você; a camada de controle guarda apenas metadados dos jobs.",
       "outbound": {
         "title": "Apenas saída",
         "desc": "Seu runner é quem se conecta com a gente. Sem portas de entrada, sem serviços expostos."

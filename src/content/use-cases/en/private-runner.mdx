@@ -1,9 +1,9 @@
 ---
 locale: en
 title: "Private Runner — transfer files on your own infrastructure"
-description: "Run cloud-to-cloud transfers through your own machine, server, NAS, or VPS. Bytes and credentials stay in infrastructure you control."
+description: "Run cloud-to-cloud transfers through your own server, NAS, or VPS. Bytes and credentials stay in infrastructure you control."
 eyebrow: "For privacy, homelabs, and businesses with sensitive data"
-headline: "Run transfers on your own machine, server, NAS, or VPS."
+headline: "Run transfers on your own server, NAS, or VPS."
 subheading: "Hosted control plane, your data path. Bytes and credentials stay on infrastructure you control."
 primaryCta:
   label: "Join the waitlist"
@@ -43,7 +43,7 @@ That means:
 
 ## How it'll work
 
-1. Install the runner on a machine you control — a NAS, a VPS, a Linux box, a workstation, a Raspberry Pi that stays on.
+1. Install the runner on hardware you control — a NAS, a VPS, an always-on Linux box, or a Raspberry Pi that stays on.
 2. Pair it with your Syncologic account using a one-time enrolment code.
 3. Connect your source and destination providers from the control plane like normal.
 4. When you dispatch a job, pick the Private Runner instead of the Cloud Runner.
@@ -56,14 +56,14 @@ The runner is small enough to live next to other lightweight services on hardwar
 - A Synology, QNAP, or TrueNAS box that's already on 24/7.
 - A homelab Linux server or mini-PC running other long-lived jobs.
 - A small VPS — Hetzner, Fly, DigitalOcean, OVH — for users who want it off-prem but still under their account.
-- A workstation that's reliably online during business hours, for one-time migrations.
+- An always-on workstation acting as a small home server, for one-time migrations.
 - A Raspberry Pi class device for slower, low-throughput backups.
 
 The runner cares about reliable network and enough disk for staging buffers; it doesn't care which distro or hardware you picked.
 
 ## Credential handling
 
-Provider OAuth tokens will be bound to the runner — encrypted at rest with a key derived from your enrolment, never leaving the machine. The control plane sees provider identifiers, scopes, and run metadata; never refresh tokens, never file contents.
+Provider OAuth tokens will be bound to the runner — encrypted at rest with a key derived from your enrolment, never leaving the runner. The control plane sees provider identifiers, scopes, and run metadata; never refresh tokens, never file contents.
 
 Decommission the runner and revoke its enrolment from the control plane — the tokens it held will become useless.
 
@@ -80,7 +80,7 @@ Decommission the runner and revoke its enrolment from the control plane — the 
 
 ### Private Runner
 
-- **Where bytes flow:** source → your machine → destination.
+- **Where bytes flow:** source → your server → destination.
 - **Where credentials live:** on your runner, never leaves.
 - **Setup effort:** install and pair once.
 - **Best for:** privacy, sensitive data, homelabs, high-volume users.
