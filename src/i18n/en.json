@@ -276,42 +276,46 @@
       "free": {
         "name": "Free",
         "price": "$0",
+        "description": "For one-off transfers. Open a tab, run it, close it.",
         "features": [
-          "Browser Runner only — tab stays open",
-          "One source + destination at a time",
-          "Up to a few GB per transfer"
+          "The transfer runs in a browser tab — it must stay open until done",
+          "One source and one destination per transfer",
+          "Up to a few GB at a time"
         ],
-        "footnote": "For one-off transfers and trying Syncologic before paying."
+        "footnote": "Free forever. Includes the Browser Runner only."
       },
       "pro": {
         "name": "Pro",
         "price": "~$9",
+        "description": "For people who don't want to babysit transfers.",
         "features": [
-          "Cloud Runner for hands-off transfers",
-          "Scheduled jobs and run reports",
+          "We host the transfer — close your browser, it keeps running",
+          "Schedule recurring jobs and review the report after each run",
           "Personal-scale data volumes"
         ],
-        "footnote": "For individuals who want hosted, scheduled transfers without keeping a tab open."
+        "footnote": "Hosted runs (Cloud Runner). Pay only for what you transfer."
       },
       "business": {
         "name": "Business",
         "price": "~$29",
+        "description": "For teams migrating a workspace or running many jobs.",
         "features": [
-          "Higher data volumes and parallel jobs",
-          "Migration previews and run reports",
-          "Multiple workspace connections"
+          "Higher data volumes with several jobs running in parallel",
+          "Migration previews and a final report after each run",
+          "Multiple workspace connections in one account"
         ],
-        "footnote": "For teams migrating a workspace or running multiple jobs in parallel."
+        "footnote": "Hosted runs (Cloud Runner). Sized for company migrations."
       },
       "privateRunner": {
         "name": "Private Runner",
         "price": "~$6",
+        "description": "For when bytes and credentials should stay on your own machine.",
         "features": [
-          "Run transfers on your own server, NAS, or VPS",
-          "Bytes never touch Syncologic infrastructure",
-          "Pay for the control plane, not for bandwidth"
+          "Transfers run on your server, NAS, or VPS — files never touch us",
+          "Flat monthly fee for the control plane, not metered bandwidth",
+          "Best fit for businesses, homelabs, and high-volume workloads"
         ],
-        "footnote": "For users who bring their own infrastructure. Bytes and credentials stay with you."
+        "footnote": "You bring the bandwidth. We handle the orchestration."
       }
     },
     "affects": {

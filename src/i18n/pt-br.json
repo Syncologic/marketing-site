@@ -276,42 +276,46 @@
       "free": {
         "name": "Free",
         "price": "R$ 0",
+        "description": "Para transferências pontuais. Abre uma aba, roda, fecha.",
         "features": [
-          "Apenas Browser Runner — a aba precisa ficar aberta",
-          "Uma origem + um destino por vez",
-          "Até alguns GB por transferência"
+          "A transferência roda numa aba do navegador — ela precisa ficar aberta até terminar",
+          "Uma origem e um destino por transferência",
+          "Até alguns GB por vez"
         ],
-        "footnote": "Para transferências pontuais e para experimentar a Syncologic antes de pagar."
+        "footnote": "Grátis pra sempre. Inclui só o Browser Runner."
       },
       "pro": {
         "name": "Pro",
         "price": "~R$ 45",
+        "description": "Para quem não quer ficar acompanhando transferência.",
         "features": [
-          "Cloud Runner para transferências sem precisar acompanhar",
-          "Jobs agendados e relatórios de execução",
+          "A gente hospeda a transferência — você fecha o navegador e ela continua rodando",
+          "Agende jobs recorrentes e veja o relatório no fim de cada execução",
           "Volumes de dados de uso pessoal"
         ],
-        "footnote": "Para quem quer transferências hospedadas e agendadas sem manter uma aba aberta."
+        "footnote": "Execução hospedada (Cloud Runner). Você paga só pelo que transferir."
       },
       "business": {
         "name": "Business",
         "price": "~R$ 145",
+        "description": "Para equipes migrando um workspace ou rodando vários jobs.",
         "features": [
-          "Volumes de dados maiores e jobs em paralelo",
-          "Prévias de migração e relatórios de execução",
-          "Várias conexões de workspace"
+          "Volumes maiores com vários jobs rodando em paralelo",
+          "Prévia da migração e relatório final no fim de cada execução",
+          "Várias conexões de workspace numa mesma conta"
         ],
-        "footnote": "Para equipes migrando um workspace ou rodando vários jobs em paralelo."
+        "footnote": "Execução hospedada (Cloud Runner). Dimensionado pra migrações de empresa."
       },
       "privateRunner": {
         "name": "Private Runner",
         "price": "~R$ 30",
+        "description": "Para quando os bytes e as credenciais precisam ficar na sua máquina.",
         "features": [
-          "Rode transferências no seu próprio servidor, NAS ou VPS",
-          "Os bytes nunca passam pela infraestrutura da Syncologic",
-          "Pague pela camada de controle, não pela banda"
+          "A transferência roda no seu servidor, NAS ou VPS — os arquivos nunca passam pela gente",
+          "Mensalidade fixa pela camada de controle, sem cobrar por banda",
+          "Ideal pra empresas, homelabs e cargas de alto volume"
         ],
-        "footnote": "Para quem traz a própria infraestrutura. Bytes e credenciais ficam com você."
+        "footnote": "Você entra com a banda. A gente cuida da orquestração."
       }
     },
     "affects": {
