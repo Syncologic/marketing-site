@@ -225,6 +225,17 @@
       "private": {
         "alt": "Desktop computer holding a folder, framed by a dashed roof outline that stands for the user's local network — the transfer runs on their own machine."
       }
+    },
+    "costDrivers": {
+      "volume": {
+        "alt": "A stack of file blocks growing taller from left to right, representing how cost scales with the amount of data transferred."
+      },
+      "frequency": {
+        "alt": "A small calendar with three highlighted days at regular weekly intervals, representing how recurring transfers add up over time."
+      },
+      "runner": {
+        "alt": "A single source splitting into two paths — one curving up to a server icon, one curving down to a desktop icon — representing the choice between hosted and your-own-machine transfer paths."
+      }
     }
   },
   "guides": {
@@ -335,30 +346,22 @@
       }
     },
     "cloudVsPrivate": {
-      "title": "Cloud Runner vs Private Runner economics",
-      "subtitle": "Same control plane, different data path. Pick what fits your trust and volume.",
-      "headers": {
-        "dimension": "What changes",
-        "cloud": "Cloud Runner",
-        "private": "Private Runner"
+      "title": "Where the bytes flow changes the cost.",
+      "subtitle": "Same orchestration, different data path. Pick what fits your trust and volume.",
+      "cloud": {
+        "title": "On our servers",
+        "alias": "Cloud Runner",
+        "scenario": "Files travel through our infrastructure. We handle the bandwidth, retries, and isolation. You pay per transfer — cost rises as you move more data.",
+        "bestForLabel": "Best when",
+        "bestFor": "you want convenience, scheduled jobs, and migrations you don't have to babysit."
       },
-      "rows": [
-        {
-          "dimension": "Where the bytes flow",
-          "cloud": "Source → Syncologic infrastructure → destination.",
-          "private": "Source → your machine → destination."
-        },
-        {
-          "dimension": "What you pay for",
-          "cloud": "Hosted bandwidth, scheduling, retries, isolation.",
-          "private": "Control plane only — flat per-month fee."
-        },
-        {
-          "dimension": "Best fit",
-          "cloud": "Convenience, scheduled jobs, migrations you don't want to babysit.",
-          "private": "Privacy, homelabs, businesses, high-volume users on their own bandwidth."
-        }
-      ]
+      "private": {
+        "title": "On your own machine",
+        "alias": "Private Runner",
+        "scenario": "Files travel through your server, NAS, or VPS. We only orchestrate the job — you bring the bandwidth. Pay a flat monthly fee, regardless of volume.",
+        "bestForLabel": "Best when",
+        "bestFor": "you care about privacy, run a homelab, or move high volumes on your own bandwidth."
+      }
     },
     "earlyAccess": {
       "headline": "Join now, lock in early access.",

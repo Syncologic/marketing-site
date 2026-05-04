@@ -11,6 +11,7 @@ import Hero from '../components/sections/Hero.astro';
 import FAQ from '../components/sections/FAQ.astro';
 import WaitlistForm from '../components/sections/WaitlistForm.astro';
 import PricingCurves from '../components/visuals/PricingCurves.astro';
+import CostDrivers from '../components/visuals/CostDrivers.astro';
 import { getLocaleFromUrl } from '../i18n/utils';
 import en from '../i18n/en.json';
 import ptBr from '../i18n/pt-br.json';
@@ -64,7 +65,7 @@ const hypotheses = [
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {hypotheses.map((plan) => (
-        <Card radius="card" elevation="flat" class="p-8 flex flex-col gap-5">
+        <Card radius="card" elevation="flat" class="p-8 flex flex-col gap-5 h-full">
           <div class="flex items-baseline justify-between gap-3">
             <h3 class="text-h3 font-bold text-dark-charcoal">{plan.name}</h3>
             <div class="flex items-baseline gap-1">
@@ -72,7 +73,8 @@ const hypotheses = [
               <span class="text-caption text-slate-gray">{p.hypotheses.priceSuffix}</span>
             </div>
           </div>
-          <ul class="flex flex-col gap-2 text-body text-dark-charcoal list-none p-0">
+          <p class="text-body text-dark-charcoal leading-snug">{plan.description}</p>
+          <ul class="flex flex-col gap-2 text-body text-slate-gray list-none p-0">
             {plan.features.map((feature) => (
               <li class="flex gap-2 items-start">
                 <Check size={20} stroke-width={1.5} class="text-slate-gray shrink-0 mt-0.5" aria-hidden="true" />
@@ -93,11 +95,12 @@ const hypotheses = [
       <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{p.affects.title}</h2>
       <p class="text-body text-slate-gray max-w-xl mx-auto">{p.affects.subtitle}</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {[p.affects.volume, p.affects.frequency, p.affects.runner].map((item) => (
-        <div class="flex flex-col gap-2">
-          <h3 class="text-h3 font-bold text-dark-charcoal">{item.title}</h3>
-          <p class="text-body text-slate-gray">{item.body}</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+      {(['volume', 'frequency', 'runner'] as const).map((key) => (
+        <div class="flex flex-col">
+          <CostDrivers variant={key} />
+          <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{p.affects[key].title}</h3>
+          <p class="text-body text-slate-gray leading-relaxed">{p.affects[key].body}</p>
         </div>
       ))}
     </div>
@@ -108,44 +111,21 @@ const hypotheses = [
       <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{p.cloudVsPrivate.title}</h2>
       <p class="text-body text-slate-gray max-w-xl mx-auto">{p.cloudVsPrivate.subtitle}</p>
     </div>
-    <div class="hidden md:block overflow-x-auto">
-      <table class="w-full border-collapse text-left bg-white rounded-card overflow-hidden">
-        <thead>
-          <tr class="border-b border-divider">
-            <th class="text-caption font-medium uppercase text-slate-gray px-5 py-4">{p.cloudVsPrivate.headers.dimension}</th>
-            <th class="text-caption font-medium uppercase text-slate-gray px-5 py-4">{p.cloudVsPrivate.headers.cloud}</th>
-            <th class="text-caption font-medium uppercase text-slate-gray px-5 py-4">{p.cloudVsPrivate.headers.private}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {p.cloudVsPrivate.rows.map((row, i) => (
-            <tr class={i < p.cloudVsPrivate.rows.length - 1 ? 'border-b border-divider' : ''}>
-              <td class="text-body text-dark-charcoal font-medium px-5 py-4 align-top">{row.dimension}</td>
-              <td class="text-body text-slate-gray px-5 py-4 align-top">{row.cloud}</td>
-              <td class="text-body text-slate-gray px-5 py-4 align-top">{row.private}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    <ul class="md:hidden flex flex-col gap-4">
-      {p.cloudVsPrivate.rows.map((row) => (
-        <li class="bg-white rounded-card p-5">
-          <p class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{row.dimension}</p>
-          <dl class="flex flex-col gap-3">
-            <div>
-              <dt class="text-caption font-medium text-dark-charcoal mb-1">{p.cloudVsPrivate.headers.cloud}</dt>
-              <dd class="text-body text-slate-gray">{row.cloud}</dd>
-            </div>
-            <div>
-              <dt class="text-caption font-medium text-dark-charcoal mb-1">{p.cloudVsPrivate.headers.private}</dt>
-              <dd class="text-body text-slate-gray">{row.private}</dd>
-            </div>
-          </dl>
-        </li>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {(['cloud', 'private'] as const).map((key) => (
+        <Card radius="card" elevation="flat" class="p-8 flex flex-col gap-4 h-full">
+          <div>
+            <h3 class="text-h3 font-bold text-dark-charcoal">{p.cloudVsPrivate[key].title}</h3>
+            <p class="text-caption text-slate-gray">({p.cloudVsPrivate[key].alias})</p>
+          </div>
+          <p class="text-body text-slate-gray leading-relaxed">{p.cloudVsPrivate[key].scenario}</p>
+          <p class="text-body text-dark-charcoal border-t border-divider pt-4 mt-auto">
+            <span class="text-caption font-medium uppercase tracking-wide text-slate-gray block mb-1">{p.cloudVsPrivate[key].bestForLabel}</span>
+            {p.cloudVsPrivate[key].bestFor}
+          </p>
+        </Card>
       ))}
-    </ul>
+    </div>
   </Section>
 
   <Section surface="dark" padding="lg">

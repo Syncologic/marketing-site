@@ -225,6 +225,17 @@
       "private": {
         "alt": "Computador desktop guardando uma pasta, com um contorno tracejado em forma de telhado representando a rede local do usuário — a transferência roda na máquina dele."
       }
+    },
+    "costDrivers": {
+      "volume": {
+        "alt": "Uma pilha de blocos de arquivo crescendo da esquerda para a direita, representando como o custo escala com a quantidade de dados transferidos."
+      },
+      "frequency": {
+        "alt": "Um pequeno calendário com três dias destacados em intervalos semanais regulares, representando como transferências recorrentes vão se acumulando ao longo do tempo."
+      },
+      "runner": {
+        "alt": "Uma única origem se dividindo em dois caminhos — um subindo até um ícone de servidor, outro descendo até um ícone de computador — representando a escolha entre transferir nos nossos servidores ou na sua própria máquina."
+      }
     }
   },
   "guides": {
@@ -335,30 +346,22 @@
       }
     },
     "cloudVsPrivate": {
-      "title": "Custos: Cloud Runner vs Private Runner",
-      "subtitle": "Mesma camada de controle, caminhos de dados diferentes. Escolha o que faz mais sentido para o seu nível de confiança e volume.",
-      "headers": {
-        "dimension": "O que muda",
-        "cloud": "Cloud Runner",
-        "private": "Private Runner"
+      "title": "Por onde os bytes passam muda o custo.",
+      "subtitle": "Mesma orquestração, caminhos de dados diferentes. Escolha o que combina com o seu nível de confiança e volume.",
+      "cloud": {
+        "title": "Nos nossos servidores",
+        "alias": "Cloud Runner",
+        "scenario": "Os arquivos passam pela nossa infraestrutura. A gente cuida da banda, dos retries e do isolamento. Você paga por transferência — o custo sobe conforme você move mais dados.",
+        "bestForLabel": "Faz mais sentido quando",
+        "bestFor": "você quer praticidade, jobs agendados e migrações que você não quer ficar acompanhando."
       },
-      "rows": [
-        {
-          "dimension": "Por onde os bytes passam",
-          "cloud": "Origem → infraestrutura da Syncologic → destino.",
-          "private": "Origem → sua máquina → destino."
-        },
-        {
-          "dimension": "O que você paga",
-          "cloud": "Banda hospedada, agendamento, retries e isolamento.",
-          "private": "Apenas a camada de controle — taxa fixa mensal."
-        },
-        {
-          "dimension": "Quando faz mais sentido",
-          "cloud": "Praticidade, jobs agendados, migrações que você não quer ficar acompanhando.",
-          "private": "Privacidade, homelabs, empresas e usuários de alto volume com banda própria."
-        }
-      ]
+      "private": {
+        "title": "Na sua própria máquina",
+        "alias": "Private Runner",
+        "scenario": "Os arquivos passam pelo seu servidor, NAS ou VPS. A gente só orquestra o job — você entra com a banda. Paga uma mensalidade fixa, independente do volume.",
+        "bestForLabel": "Faz mais sentido quando",
+        "bestFor": "você se importa com privacidade, mantém um homelab ou move volumes altos com a sua própria banda."
+      }
     },
     "earlyAccess": {
       "headline": "Entre agora e garanta acesso antecipado.",
