@@ -5,7 +5,7 @@ description: Use when running, validating, testing, building, previewing, or dep
 
 # Astro Workflow
 
-Authoritative command list for this repo. All commands assume you run from the project root (`C:\Users\Coffee\Documents\GitHub\syncologic\marketing-site`).
+Authoritative command list for this repo. All commands assume you run from the project root (the directory containing `package.json`).
 
 The package manager is **npm** (a `package-lock.json` is committed). Don't substitute `pnpm` or `yarn` — the lockfile would diverge.
 
