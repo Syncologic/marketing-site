@@ -1,5 +1,7 @@
-import { defineCollection, z } from 'astro:content';
-import { USE_CASES, LOCALES } from '../lib/validation';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
+import { USE_CASES, LOCALES } from './lib/validation';
 
 const waitlistSegmentEnum = z.enum(USE_CASES);
 const localeEnum = z.enum(LOCALES);
@@ -40,6 +42,12 @@ const guideSchema = z.object({
 });
 
 export const collections = {
-  'use-cases': defineCollection({ type: 'content', schema: useCaseSchema }),
-  guides: defineCollection({ type: 'content', schema: guideSchema }),
+  'use-cases': defineCollection({
+    loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/use-cases' }),
+    schema: useCaseSchema,
+  }),
+  guides: defineCollection({
+    loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/guides' }),
+    schema: guideSchema,
+  }),
 };

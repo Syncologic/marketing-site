@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '../../components/layout/Layout.astro';
 import Nav from '../../components/layout/Nav.astro';
 import Footer from '../../components/layout/Footer.astro';
@@ -28,14 +28,14 @@ const crossLinkMap: Record<string, string[]> = {
 export async function getStaticPaths() {
   const entries = await getCollection('use-cases', (e) => e.data.locale === 'en');
   return entries.map((entry) => ({
-    params: { slug: entry.slug.replace(/^en\//, '') },
+    params: { slug: entry.id.replace(/^en\//, '') },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const slug = entry.slug.replace(/^en\//, '');
-const { Content } = await entry.render();
+const slug = entry.id.replace(/^en\//, '');
+const { Content } = await render(entry);
 const ogImage = entry.data.ogImage ?? '/og/default-en.png';
 const Visual = visualMap[slug];
 const crossLinks = crossLinkMap[slug] ?? [];
