@@ -83,11 +83,11 @@ const destinationLabel = t('visuals.privateRunnerPath.destination');
   }
 
   .boundary-label {
-    font-size: theme('fontSize.caption[0]');
-    letter-spacing: theme('fontSize.caption[1].letterSpacing');
+    font-size: var(--text-caption);
+    letter-spacing: var(--text-caption--letter-spacing);
   }
   .node-label {
-    font-size: theme('fontSize.small[0]');
+    font-size: var(--text-small);
   }
 
   .boundary-box {
@@ -126,7 +126,7 @@ const destinationLabel = t('visuals.privateRunnerPath.destination');
 
     @keyframes prp-boundary {
       0%, 28%   { fill: transparent; }
-      34%, 60%  { fill: theme('colors.baby-blue'); }
+      34%, 60%  { fill: var(--color-baby-blue); }
       66%, 100% { fill: transparent; }
     }
   }
