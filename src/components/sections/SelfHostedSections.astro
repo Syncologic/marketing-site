@@ -1,67 +1,35 @@
 ---
+import { ChevronDown } from '@lucide/astro';
 import Section from '../ui/Section.astro';
 import Card from '../ui/Card.astro';
+import ControlDataPlanes from '../visuals/ControlDataPlanes.astro';
 import { getLocaleFromUrl, getT } from '../../i18n/utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 
-const principles = [
-  { key: 'controlPlane' },
-  { key: 'dataPlane' },
-] as const;
-
-const privateRunnerPoints = ['outbound', 'credentials', 'dataPath'] as const;
-
-const futureLevels = ['level1', 'level2', 'level3'] as const;
+const howItWorksCards = ['filesStay', 'credentials', 'noInbound'] as const;
+const roadmapLevels = ['level1', 'level2'] as const;
 ---
 
-<Section surface="soft" padding="lg" id="principles">
+<Section surface="white" padding="lg" id="how-it-works">
   <div class="max-w-[760px] mb-12">
     <h2 class="text-h1 font-medium text-dark-charcoal mb-4">
-      {t('selfHosted.principles.title')}
+      {t('selfHosted.howItWorks.title')}
     </h2>
     <p class="text-body text-slate-gray">
-      {t('selfHosted.principles.intro')}
-    </p>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-    {principles.map((p) => (
-      <Card radius="card" elevation="flat" class="p-8">
-        <h3 class="text-h3 font-bold text-dark-charcoal mb-3">
-          {t(`selfHosted.principles.${p.key}.title`)}
-        </h3>
-        <p class="text-body text-slate-gray">
-          {t(`selfHosted.principles.${p.key}.desc`)}
-        </p>
-      </Card>
-    ))}
-  </div>
-
-  <p class="text-caption text-slate-gray max-w-[760px]">
-    {t('selfHosted.principles.note')}
-  </p>
-</Section>
-
-<Section surface="white" padding="lg">
-  <div class="max-w-[760px] mb-12">
-    <h2 class="text-h1 font-medium text-dark-charcoal mb-4">
-      {t('selfHosted.privateRunner.title')}
-    </h2>
-    <p class="text-body text-slate-gray">
-      {t('selfHosted.privateRunner.body')}
+      {t('selfHosted.howItWorks.intro')}
     </p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    {privateRunnerPoints.map((p) => (
-      <Card radius="card" elevation="flat" class="p-6">
-        <h3 class="text-h3 font-bold text-dark-charcoal mb-2">
-          {t(`selfHosted.privateRunner.${p}.title`)}
+    {howItWorksCards.map((key) => (
+      <Card radius="card" elevation="flat" class="p-8">
+        <h3 class="text-h3 font-bold text-dark-charcoal mb-3">
+          {t(`selfHosted.howItWorks.${key}.title`)}
         </h3>
         <p class="text-body text-slate-gray">
-          {t(`selfHosted.privateRunner.${p}.desc`)}
+          {t(`selfHosted.howItWorks.${key}.desc`)}
         </p>
       </Card>
     ))}
@@ -69,49 +37,75 @@ const futureLevels = ['level1', 'level2', 'level3'] as const;
 </Section>
 
 <Section surface="soft" padding="lg">
-  <div class="max-w-[760px] mb-12">
-    <div class="flex flex-wrap items-center gap-3 mb-4">
-      <h2 class="text-h1 font-medium text-dark-charcoal">
-        {t('selfHosted.futureModel.title')}
-      </h2>
-      <span class="inline-flex items-center rounded-pill bg-baby-blue text-dark-charcoal text-caption font-medium px-3 py-1">
-        {t('selfHosted.futureModel.label')}
-      </span>
-    </div>
-    <p class="text-body text-slate-gray">
-      {t('selfHosted.futureModel.intro')}
-    </p>
-  </div>
+  <details class="group max-w-[1040px] mx-auto self-hosted-details">
+    <summary class="flex items-center justify-between gap-4 cursor-pointer rounded-card bg-white border border-divider px-6 py-5 text-h3 font-bold text-dark-charcoal hover:border-slate-gray transition-colors">
+      <span>{t('selfHosted.underTheHood.summary')}</span>
+      <ChevronDown size={20} class="shrink-0 transition-transform duration-200 group-open:rotate-180 text-slate-gray" />
+    </summary>
 
-  <ol class="grid grid-cols-1 md:grid-cols-3 gap-6 list-none">
-    {futureLevels.map((lvl, i) => (
-      <li>
-        <Card radius="card" elevation="flat" class="p-6 h-full flex flex-col gap-3">
-          <span class="text-caption font-medium text-slate-gray uppercase tracking-wide">
-            {String(i + 1).padStart(2, '0')}
-          </span>
+    <div class="mt-8 flex flex-col gap-12">
+      <p class="text-body text-slate-gray max-w-[760px]">
+        {t('selfHosted.underTheHood.intro')}
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] gap-10 items-center">
+        <div class="flex flex-col gap-4">
           <h3 class="text-h3 font-bold text-dark-charcoal">
-            {t(`selfHosted.futureModel.${lvl}.name`)}
+            {t('selfHosted.underTheHood.controlData.title')}
           </h3>
-          <span class="inline-flex self-start items-center rounded-pill border border-divider text-caption text-slate-gray px-3 py-1">
-            {t(`selfHosted.futureModel.${lvl}.status`)}
-          </span>
           <p class="text-body text-slate-gray">
-            {t(`selfHosted.futureModel.${lvl}.desc`)}
+            {t('selfHosted.underTheHood.controlData.body')}
           </p>
-        </Card>
-      </li>
-    ))}
-  </ol>
+        </div>
+        <ControlDataPlanes />
+      </div>
+
+      <div>
+        <h3 class="text-h3 font-bold text-dark-charcoal mb-6">
+          {t('selfHosted.underTheHood.roadmap.title')}
+        </h3>
+        <ol class="grid grid-cols-1 md:grid-cols-2 gap-6 list-none">
+          {roadmapLevels.map((lvl, i) => (
+            <li>
+              <Card radius="card" elevation="flat" class="p-6 h-full flex flex-col gap-3 bg-white">
+                <span class="text-caption font-medium text-slate-gray uppercase tracking-wide">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h4 class="text-h3 font-bold text-dark-charcoal">
+                  {t(`selfHosted.underTheHood.roadmap.${lvl}.name`)}
+                </h4>
+                <span class="inline-flex self-start items-center rounded-pill border border-divider text-caption text-slate-gray px-3 py-1">
+                  {t(`selfHosted.underTheHood.roadmap.${lvl}.status`)}
+                </span>
+                <p class="text-body text-slate-gray">
+                  {t(`selfHosted.underTheHood.roadmap.${lvl}.desc`)}
+                </p>
+              </Card>
+            </li>
+          ))}
+        </ol>
+        <p class="text-caption text-slate-gray mt-4 max-w-[760px]">
+          {t('selfHosted.underTheHood.roadmap.footnote')}
+        </p>
+      </div>
+
+      <div class="max-w-[760px]">
+        <h3 class="text-h3 font-bold text-dark-charcoal mb-3">
+          {t('selfHosted.underTheHood.sourceVisible.title')}
+        </h3>
+        <p class="text-body text-slate-gray">
+          {t('selfHosted.underTheHood.sourceVisible.body')}
+        </p>
+      </div>
+    </div>
+  </details>
 </Section>
 
-<Section surface="dark" padding="lg">
-  <div class="max-w-[760px] flex flex-col gap-5">
-    <h2 class="text-h1 font-medium text-white">
-      {t('selfHosted.sourceTrust.title')}
-    </h2>
-    <p class="text-body text-white/80">
-      {t('selfHosted.sourceTrust.body')}
-    </p>
-  </div>
-</Section>
+<style>
+  .self-hosted-details summary {
+    list-style: none;
+  }
+  .self-hosted-details summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
