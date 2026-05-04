@@ -238,7 +238,7 @@
       }
     },
     "beforeAfterTransfer": {
-      "alt": "Two stacked panels. The top panel shows the manual approach: files travel from one cloud, down through a laptop, then back up to the second cloud, with broken dashed arrows on each leg. The bottom panel shows the direct approach: a single brand-blue arc carries files from the first cloud straight to the second, bypassing the laptop entirely."
+      "alt": "Two stacked panels. The top panel shows the manual approach: files travel from one cloud, through a laptop in the middle, on to the second cloud — and every so often break at the laptop, turning red. The bottom panel shows the direct approach: a single brand-blue arc carries files from the first cloud straight to the second, bypassing the laptop entirely."
     }
   },
   "guides": {

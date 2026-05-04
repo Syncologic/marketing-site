@@ -238,7 +238,7 @@
       }
     },
     "beforeAfterTransfer": {
-      "alt": "Dois painéis empilhados. No painel de cima, o caminho manual: os arquivos saem de uma nuvem, passam por um notebook e sobem para a segunda nuvem, com setas tracejadas e quebradas em cada perna. No painel de baixo, o caminho direto: um único arco azul leva os arquivos da primeira nuvem direto para a segunda, sem passar pelo notebook."
+      "alt": "Dois painéis empilhados. No painel de cima, o caminho manual: os arquivos saem de uma nuvem, passam por um notebook no meio e seguem para a segunda nuvem — e de vez em quando quebram no notebook, ficando vermelhos. No painel de baixo, o caminho direto: um único arco azul leva os arquivos da primeira nuvem direto para a segunda, sem passar pelo notebook."
     }
   },
   "guides": {
