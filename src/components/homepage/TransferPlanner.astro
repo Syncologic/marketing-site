@@ -106,49 +106,49 @@ const k = (key: string) => t(`visuals.transferPlanner.${key}`);
 <style>
   .visual {
     background: #FFFFFF;
-    border: 1px solid theme('colors.divider');
-    border-radius: theme('borderRadius.card');
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-card);
     overflow: hidden;
-    box-shadow: theme('boxShadow.card-elevated');
+    box-shadow: var(--shadow-card-elevated);
     position: relative;
   }
   .window-chrome {
     display: flex; align-items: center; padding: 10px 14px;
-    background: theme('colors.warm-gray');
-    border-bottom: 1px solid theme('colors.divider');
+    background: var(--color-warm-gray);
+    border-bottom: 1px solid var(--color-divider);
     gap: 10px;
   }
   .window-dots { display: flex; gap: 6px; }
   .window-dots span { width: 10px; height: 10px; border-radius: 100px; }
-  .window-dots span:nth-child(1) { background: theme('colors.chrome-red'); }
-  .window-dots span:nth-child(2) { background: theme('colors.chrome-yellow'); }
-  .window-dots span:nth-child(3) { background: theme('colors.chrome-green'); }
-  .window-title { flex: 1; text-align: center; font-size: 11px; color: theme('colors.slate-gray'); font-weight: 500; }
-  .view-toggle { display: flex; background: #FFFFFF; border: 1px solid theme('colors.divider'); border-radius: 100px; padding: 2px; font-size: 10px; font-weight: 500; }
-  .view-toggle span { padding: 3px 9px; border-radius: 100px; color: theme('colors.slate-gray'); }
-  .view-toggle span.on { background: theme('colors.brand-blue.DEFAULT'); color: white; }
+  .window-dots span:nth-child(1) { background: var(--color-chrome-red); }
+  .window-dots span:nth-child(2) { background: var(--color-chrome-yellow); }
+  .window-dots span:nth-child(3) { background: var(--color-chrome-green); }
+  .window-title { flex: 1; text-align: center; font-size: 11px; color: var(--color-slate-gray); font-weight: 500; }
+  .view-toggle { display: flex; background: #FFFFFF; border: 1px solid var(--color-divider); border-radius: 100px; padding: 2px; font-size: 10px; font-weight: 500; }
+  .view-toggle span { padding: 3px 9px; border-radius: 100px; color: var(--color-slate-gray); }
+  .view-toggle span.on { background: var(--color-brand-blue); color: white; }
   .card-body { padding: 24px; display: flex; flex-direction: column; gap: 18px; }
   .field-row { display: flex; flex-direction: column; gap: 6px; }
-  .field-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: theme('colors.slate-gray'); }
+  .field-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-slate-gray); }
   .field-value {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 11px 14px; background: theme('colors.warm-gray');
-    border: 1px solid theme('colors.divider'); border-radius: theme('borderRadius.input');
+    padding: 11px 14px; background: var(--color-warm-gray);
+    border: 1px solid var(--color-divider); border-radius: var(--radius-input);
     font-size: 13px; font-weight: 500; gap: 12px;
   }
   .pchip { display: inline-flex; align-items: center; gap: 8px; }
   .meta-group { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 400; }
-  .files { color: theme('colors.slate-gray'); }
-  .delta-source { color: theme('colors.slate-gray'); font-weight: 500; }
-  .delta-dest   { color: theme('colors.success'); font-weight: 600; }
-  .meta-divider { width: 3px; height: 3px; border-radius: 100px; background: theme('colors.divider'); }
+  .files { color: var(--color-slate-gray); }
+  .delta-source { color: var(--color-slate-gray); font-weight: 500; }
+  .delta-dest   { color: var(--color-success); font-weight: 600; }
+  .meta-divider { width: 3px; height: 3px; border-radius: 100px; background: var(--color-divider); }
   .runner-row { display: flex; gap: 6px; }
   .runner {
     flex: 1; padding: 9px 6px; text-align: center;
-    border: 1px solid theme('colors.divider'); background: theme('colors.warm-gray');
-    border-radius: theme('borderRadius.input'); font-size: 12px; font-weight: 500; color: theme('colors.slate-gray');
+    border: 1px solid var(--color-divider); background: var(--color-warm-gray);
+    border-radius: var(--radius-input); font-size: 12px; font-weight: 500; color: var(--color-slate-gray);
   }
-  .runner.active { border-color: theme('colors.brand-blue.DEFAULT'); background: theme('colors.baby-blue'); color: theme('colors.brand-blue.DEFAULT'); }
+  .runner.active { border-color: var(--color-brand-blue); background: var(--color-baby-blue); color: var(--color-brand-blue); }
 
   .status-block { position: relative; min-height: 64px; }
   .status { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 10px; opacity: 0; }
@@ -174,8 +174,8 @@ const k = (key: string) => t(`visuals.transferPlanner.${key}`);
     font-variant-numeric: tabular-nums;
     opacity: 0;
   }
-  .progress-line .count { color: theme('colors.dark-charcoal'); }
-  .progress-line .pct   { color: theme('colors.brand-blue.DEFAULT'); font-weight: 600; flex-shrink: 0; }
+  .progress-line .count { color: var(--color-dark-charcoal); }
+  .progress-line .pct   { color: var(--color-brand-blue); font-weight: 600; flex-shrink: 0; }
 
   .step-1 { animation: step1 14s infinite; }
   .step-2 { animation: step2 14s infinite; }
@@ -189,9 +189,9 @@ const k = (key: string) => t(`visuals.transferPlanner.${key}`);
   @keyframes step4 { 0%, 30.5% { opacity: 0; } 31%, 38% { opacity: 1; } 38.5%, 100% { opacity: 0; } }
   @keyframes step5 { 0%, 38% { opacity: 0; } 38.5%, 42.5% { opacity: 1; } 43%, 100% { opacity: 0; } }
 
-  .progress-track { width: 100%; height: 6px; background: theme('colors.divider'); border-radius: 100px; overflow: hidden; }
+  .progress-track { width: 100%; height: 6px; background: var(--color-divider); border-radius: 100px; overflow: hidden; }
   .progress-fill {
-    height: 100%; background: theme('colors.brand-blue.DEFAULT'); border-radius: 100px;
+    height: 100%; background: var(--color-brand-blue); border-radius: 100px;
     width: 0%; animation: forwardOnly 14s infinite linear;
   }
   @keyframes forwardOnly {
@@ -204,17 +204,17 @@ const k = (key: string) => t(`visuals.transferPlanner.${key}`);
 
   .done-card {
     display: flex; align-items: center; gap: 10px; padding: 12px 14px;
-    background: theme('colors.success-bg');
-    border: 1px solid theme('colors.success-border'); border-radius: theme('borderRadius.input');
+    background: var(--color-success-bg);
+    border: 1px solid var(--color-success-border); border-radius: var(--radius-input);
   }
   .done-icon {
     width: 26px; height: 26px; border-radius: 100px;
-    background: theme('colors.success'); color: white;
+    background: var(--color-success); color: white;
     display: grid; place-items: center; font-size: 14px; font-weight: 700; flex-shrink: 0;
   }
   .done-text { font-size: 13px; line-height: 1.4; }
-  .done-text strong { color: theme('colors.success'); font-weight: 600; }
-  .done-text .meta { color: theme('colors.slate-gray'); font-size: 11px; display: block; margin-top: 2px; }
+  .done-text strong { color: var(--color-success); font-weight: 600; }
+  .done-text .meta { color: var(--color-slate-gray); font-size: 11px; display: block; margin-top: 2px; }
 
   /* Reduced motion: show success state statically, skip cycling */
   @media (prefers-reduced-motion: reduce) {
