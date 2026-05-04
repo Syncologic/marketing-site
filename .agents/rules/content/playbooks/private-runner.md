@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Public | Privacy-conscious users, businesses, homelab users, technical operators who want bytes and credentials in their own infrastructure |
-| Primary promise | Run transfers through your own machine, server, NAS, or VPS |
+| Primary promise | Run transfers through your own server, NAS, or VPS |
 | Best fit | Privacy users, sensitive data, homelab always-on servers, high-volume users on their own bandwidth |
 | Pain | Like the convenience of a hosted control plane, don't want the data path through someone else's infra |
 | Primary CTA | Join the Private Runner waitlist |

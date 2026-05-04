@@ -26,7 +26,7 @@ publishedAt: 2026-04-30
 1. Connect the source provider — Google Drive, OneDrive, Dropbox, S3, SFTP, WebDAV, or Nextcloud.
 2. Connect the destination provider.
 3. Preview the diff: which files will copy, which already match, and how much will move.
-4. Pick a runner — Cloud Runner for convenience, Browser Runner for a transparent path through your tab, or Private Runner on your own machine.
+4. Pick a runner — Cloud Runner for convenience, Browser Runner for a transparent path through your tab, or Private Runner on your own server.
 5. Run the transfer and download a report when it finishes.
 
 ## Why this beats download-and-reupload
@@ -39,7 +39,7 @@ A direct cloud-to-cloud transfer moves the bytes between providers without parki
 
 - **Cloud Runner.** Source provider to Syncologic infrastructure to destination provider. Best for convenience and large jobs you don't want to babysit.
 - **Browser Runner.** Source provider to your browser tab to destination provider. The tab will need to stay open while it runs. Best when you want a transparent path with nothing hosted on your behalf.
-- **Private Runner.** Source provider to your own machine, NAS, or VPS to destination provider. Best when bytes and credentials must stay in infrastructure you control.
+- **Private Runner.** Source provider to your own server, NAS, or VPS to destination provider. Best when bytes and credentials must stay in infrastructure you control.
 
 ## Common provider pairs
 
