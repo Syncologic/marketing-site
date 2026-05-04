@@ -7,7 +7,17 @@
   "homepage": {
     "heroEyebrow": "Transferência entre nuvens",
     "heroBody": "Conecte origem e destino, veja a prévia das mudanças e execute a transferência na nuvem ou na sua máquina.",
-    "heroSecondaryCta": "Veja como funciona",
+    "pathChooser": {
+      "eyebrow": "Por onde começar",
+      "user": {
+        "title": "Quero mover meus arquivos",
+        "desc": "Veja como uma transferência funciona de ponta a ponta e escolha o caminho que combina com o seu caso."
+      },
+      "dev": {
+        "title": "Estou construindo algo com isso",
+        "desc": "Use a API, a CLI, webhooks ou hospede o runner por conta própria. A gente cuida do OAuth — seus usuários conectam à Syncologic, não ao seu app."
+      }
+    },
     "providersLabel": "Funciona com",
     "runnersTitle": "Três formas de executar uma transferência",
     "runnersSubtitle": "Escolha o runner que melhor equilibra confiança e praticidade para você.",

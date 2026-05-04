@@ -7,7 +7,17 @@
   "homepage": {
     "heroEyebrow": "Cloud-to-cloud transfer",
     "heroBody": "Connect a source and destination, preview what changes, then run the transfer in the cloud or on your own machine.",
-    "heroSecondaryCta": "See how it works",
+    "pathChooser": {
+      "eyebrow": "Where to start",
+      "user": {
+        "title": "I want to move my files",
+        "desc": "See how a transfer works end to end, then pick the path that fits your case."
+      },
+      "dev": {
+        "title": "I'm building with this",
+        "desc": "Use the API, CLI, webhooks, or self-host the runner. We handle OAuth — your users connect to Syncologic, not to your app."
+      }
+    },
     "providersLabel": "Connects to",
     "runnersTitle": "Three ways to run a transfer",
     "runnersSubtitle": "Pick the runner that matches your trust and convenience needs.",

@@ -10,6 +10,7 @@ import ProviderRow from '../components/sections/ProviderRow.astro';
 import RunnerCards from '../components/sections/RunnerCards.astro';
 import UseCaseRouter from '../components/sections/UseCaseRouter.astro';
 import TrustStory from '../components/sections/TrustStory.astro';
+import PathChooser from '../components/sections/PathChooser.astro';
 import WaitlistForm from '../components/sections/WaitlistForm.astro';
 import { getLocaleFromUrl, getT } from '../i18n/utils';
 
@@ -59,15 +60,21 @@ const siteSchema = {
           <Button href="#waitlist" variant="primary" size="lg">
             {t('nav.joinWaitlist')}
           </Button>
-          <Button href="#how-it-works" variant="secondary" size="lg">
-            {t('homepage.heroSecondaryCta')}
-          </Button>
         </div>
       </div>
       <div>
         <TransferPlanner />
       </div>
     </div>
+  </Section>
+
+  <Section surface="white" padding="md">
+    <p
+      class="text-caption text-center text-slate-gray uppercase tracking-wide mb-6"
+    >
+      {t('homepage.pathChooser.eyebrow')}
+    </p>
+    <PathChooser />
   </Section>
 
   <Section surface="soft" padding="md">
