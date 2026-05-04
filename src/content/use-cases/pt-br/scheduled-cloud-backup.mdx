@@ -4,7 +4,7 @@ title: "Backup agendado para a nuvem — Syncologic"
 description: "Faça backup de pastas importantes da nuvem para S3 ou outro destino em um agendamento, com detecção de alterações e um relatório no final de cada run."
 eyebrow: "Para usuários e times pequenos que querem backups recorrentes"
 headline: "Faça backup de pastas da nuvem em um agendamento."
-subheading: "Backups agendados na nuvem com detecção de alterações e um relatório depois de cada run."
+subheading: "Defina um agendamento uma vez. Cada run só move o que mudou desde a última, e você recebe um relatório quando termina."
 primaryCta:
   label: "Entrar na lista de espera"
   href: "#waitlist"
@@ -17,9 +17,9 @@ publishedAt: 2026-05-01
 
 ## Para quem é isso
 
-- Quem trata o Google Drive, o OneDrive ou o Dropbox como cópia de trabalho e quer um backup separado em algum lugar durável.
-- Times pequenos cujas pastas importantes ficam em um provedor de workspace mas cujo plano de recuperação de desastre é "torcer para continuar lá".
-- Qualquer pessoa que já tentou lembrar de exportar uma pasta no primeiro dia do mês e desistiu no terceiro mês.
+- Você trata o Google Drive, o OneDrive ou o Dropbox como cópia de trabalho e quer um backup separado em algum lugar durável.
+- Suas pastas importantes ficam em um provedor de workspace, mas o seu plano de recuperação de desastre é "torcer para continuar lá".
+- Você já tentou lembrar de exportar uma pasta no primeiro dia do mês e desistiu no terceiro mês.
 
 ## Armazenamento na nuvem não é plano de backup
 
@@ -30,37 +30,32 @@ Exportações manuais funcionam uma vez. Não sobrevivem a um trimestre cheio. A
 ## Como vai funcionar
 
 1. Conecte a origem — Google Drive, OneDrive, Dropbox, Nextcloud ou outro provedor.
-2. Conecte o destino — armazenamento compatível com S3 é a escolha mais comum, mas Drive, Dropbox e outros também são suportados.
+2. Conecte o destino — armazenamento compatível com S3 é a escolha mais comum; Drive, Dropbox e outros também funcionam.
 3. Escolha um agendamento — diário, semanal ou contínuo.
-4. Escolha um runner — Cloud Runner para praticidade, Private Runner se os dados precisam ficar na sua própria infraestrutura.
-5. Deixe a programação rodar. Cada run só move o que mudou desde a última.
+4. Deixe a programação rodar. Cada run só move o que mudou desde a última.
 
-## Jobs agendados que de fato rodam
+Onde a transferência de fato roda — nos nossos servidores, na sua aba de navegador ou em um servidor que você possui — é uma escolha que você faz uma vez. A [home explica as três opções](/pt-br/#how-it-works).
 
-Defina um agendamento uma vez e o job vai rodar sozinho — snapshots diários, cópias semanais de workspace, um mirror contínuo de um projeto crítico. O agendamento mantém o backup em dia; você deixa de ser o cron job.
+## Um agendamento que de fato roda
 
-## Detecção de alterações entre runs
+Defina uma vez e o job vai rodar sozinho — snapshots diários, cópias semanais de workspace, um mirror contínuo de um projeto crítico. O agendamento mantém o backup em dia. Você deixa de ser o cron job.
 
-Cada run vai comparar a origem com o último backup bem-sucedido e copiar só o que é novo ou mudou. O primeiro run move tudo. Cada run seguinte move uma fração — rápido, previsível e barato de guardar.
+## Só o que mudou
+
+Cada run compara a origem com o último backup bem-sucedido e copia só o que é novo ou mudou. O primeiro run move tudo. Cada run seguinte move uma fração — rápido, previsível e barato de guardar.
 
 ## Um relatório depois de cada run
 
 Quando um run terminar, você recebe um relatório estruturado: o que foi copiado, o que foi ignorado, o que falhou. Guarde como trilha de auditoria. Se algo falhar, rode de novo só os itens que falharam em vez de refazer o job inteiro.
 
-## Opções de destino
+## Pares comuns
 
 Armazenamento compatível com S3 é o destino de backup mais comum — durável, barato em repouso e desacoplado do seu provedor de trabalho. O mesmo job também pode escrever em um segundo drive na nuvem ou em um destino Nextcloud / WebDAV que você controla.
-
-Pares comuns que esperamos ver:
 
 - Google Drive → armazenamento compatível com S3
 - OneDrive → armazenamento compatível com S3
 - Dropbox → armazenamento compatível com S3
 - Nextcloud → armazenamento compatível com S3
 - Google Drive → Dropbox
-
-## Sinal de preço
-
-Backups são sobre volume, frequência e retenção — não sobre licenças por usuário. Veja preços para a estrutura de planos.
 
 Com que frequência você gostaria que os backups rodassem? Conte para a gente na lista de espera abaixo — é a primeira pergunta que vamos fazer depois do seu e-mail.

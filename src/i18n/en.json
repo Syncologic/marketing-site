@@ -239,6 +239,11 @@
     },
     "beforeAfterTransfer": {
       "alt": "Two stacked panels. The top panel shows the manual approach: files travel from one cloud, through a laptop in the middle, on to the second cloud — and every so often break at the laptop, turning red. The bottom panel shows the direct approach: a single brand-blue arc carries files from the first cloud straight to the second, bypassing the laptop entirely."
+    },
+    "hostedVsPrivatePath": {
+      "alt": "Two stacked architecture diagrams, one above the other. Each one shows files moving between two clouds through a middle box. On the top diagram, the middle box is labelled 'Our servers'. On the bottom diagram, the middle box is labelled 'Your server'. The two paths are otherwise identical — same arc, same file pills — to make the only difference the location of the middle box.",
+      "hostedLabel": "Our servers",
+      "privateLabel": "Your server"
     }
   },
   "guides": {
