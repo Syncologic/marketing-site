@@ -17,39 +17,38 @@ publishedAt: 2026-05-01
 
 ## Para quem é isso
 
-- Fundadores e líderes de operações trocando a empresa do Google Workspace para o Microsoft 365 ou no sentido contrário.
-- Generalistas de TI em pequenas empresas trocando o Dropbox Business por um plano de workspace.
-- Quem já ouviu "é só baixar tudo e subir de novo" e sabe que isso não sobrevive ao contato com a realidade.
+- Você é fundador ou líder de operações trocando a empresa entre Google Workspace e Microsoft 365.
+- Você é o generalista de TI de uma pequena empresa trocando o Dropbox Business por um plano de workspace.
+- Alguém te disse "é só baixar tudo e subir de novo" e você já sabe que isso não sobrevive ao contato com a realidade.
 
 ## Por que migrações empresariais são diferentes
 
-Uma migração pessoal aguenta um arquivo perdido. Uma empresarial, não. Stakeholders fazem três perguntas: o que vai mudar, terminou, e o que não chegou. A resposta para as três precisa ser um documento, não um chute.
+Uma migração pessoal pode perder um arquivo e dar de ombros. Uma empresarial, não. Três perguntas aparecem em toda reunião: o que vai mudar, terminou, e o que não chegou. A resposta para as três precisa ser um documento, não um chute.
 
-Migrações manuais de workspace viram arquivos perdidos, pastas duplicadas e desvios silenciosos de permissão. A solução não é mais planilhas — é visibilidade embutida na transferência.
+Migrações manuais de workspace viram arquivos perdidos, pastas duplicadas e desvios silenciosos de permissão. Planilha não resolve — o que resolve é visibilidade embutida na transferência.
 
 ## Como vai funcionar
 
 1. Conecte o workspace de origem — Google Drive, OneDrive, Dropbox, S3, SFTP, WebDAV ou Nextcloud.
 2. Conecte o workspace de destino.
 3. Rode uma prévia para ver exatamente o que vai ser copiado, o que já coincide e quantos dados vão se mover.
-4. Escolha um runner — Cloud Runner para praticidade, Private Runner se os dados precisam ficar na sua própria infraestrutura.
-5. Rode a transferência, acompanhe o progresso e baixe o relatório de conclusão.
+4. Rode a transferência, acompanhe o progresso no painel e baixe o relatório de conclusão.
 
 ## Pré-visualize antes de confirmar
 
-Todo job vai começar com um dry-run — contagem de arquivos, tamanho total, pastas envolvidas, conflitos. Os stakeholders aprovam a prévia em vez de confiar em uma estimativa verbal.
+Todo job começa com um dry-run — contagem de arquivos, tamanho total, pastas envolvidas, conflitos. Os stakeholders aprovam uma prévia em vez de confiar em uma estimativa verbal. Se algo parecer errado, dá para ajustar antes de um único byte se mover.
 
 ## Um relatório no final
 
-Quando um run terminar, você recebe um relatório estruturado — o que foi copiado, o que foi ignorado, o que falhou e por quê. Guarde para a trilha de auditoria. Rode de novo só os itens que falharam se algo precisar de uma segunda passada.
+Quando um run termina, você recebe um relatório estruturado — o que foi copiado, o que foi ignorado, o que falhou e por quê. Guarde para a trilha de auditoria. Rode de novo só os itens que falharam se algo precisar de uma segunda passada.
 
 ## Agende o cutover
 
 Planeje migrações em etapas em vez de uma maratona de fim de semana. Agende um job para fora do horário comercial. Rode um delta na manhã do cutover para o destino ficar em dia. Pause e retome entre as fases.
 
-## Private Runner para movimentações sensíveis
+## Mantenha dados sensíveis no seu próprio servidor
 
-Alguns dados não devem passar pela infraestrutura de mais ninguém — arquivos jurídicos, registros financeiros, conteúdo regulado. Rode esses por um Private Runner no seu próprio servidor, NAS ou VPS. Os bytes ficam na sua rede; a camada de controle só coordena.
+Alguns dados não devem passar pela infraestrutura de mais ninguém — arquivos jurídicos, registros financeiros, conteúdo regulado. Rode essas transferências em um servidor que você controla (a gente chama de Private Runner). Os bytes ficam na sua rede; a gente só coordena o job de fora.
 
 ## Pares de workspaces comuns
 

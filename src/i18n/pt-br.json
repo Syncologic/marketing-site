@@ -236,6 +236,9 @@
       "runner": {
         "alt": "Uma única origem se dividindo em dois caminhos — um subindo até um ícone de servidor hospedado, outro descendo até um ícone de servidor próprio — representando a escolha entre transferir na nossa infraestrutura ou no seu próprio servidor."
       }
+    },
+    "beforeAfterTransfer": {
+      "alt": "Dois painéis empilhados. No painel de cima, o caminho manual: os arquivos saem de uma nuvem, passam por um notebook no meio e seguem para a segunda nuvem — e de vez em quando quebram no notebook, ficando vermelhos. No painel de baixo, o caminho direto: um único arco azul leva os arquivos da primeira nuvem direto para a segunda, sem passar pelo notebook."
     }
   },
   "guides": {

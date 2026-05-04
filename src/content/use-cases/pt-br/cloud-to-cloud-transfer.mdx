@@ -17,29 +17,25 @@ publishedAt: 2026-04-30
 
 ## Para quem é isso
 
-- Quem está trocando de uma nuvem para outra e cansou de arrastar gigabytes por uma aba de navegador.
-- Times pequenos consolidando arquivos entre Google Drive, OneDrive, Dropbox e armazenamento compatível com S3.
-- Qualquer pessoa que já viu um download manual travar em uma pasta maior que o espaço livre do disco do notebook.
+- Você está trocando de uma nuvem para outra e cansou de arrastar gigabytes por uma aba de navegador.
+- Você está consolidando arquivos entre Google Drive, OneDrive, Dropbox e S3 e quer fazer uma transferência só, não dez.
+- Você já viu um download manual travar em uma pasta maior que o espaço livre do seu notebook.
 
 ## Como vai funcionar
 
-1. Conecte o provedor de origem — Google Drive, OneDrive, Dropbox, S3, SFTP, WebDAV ou Nextcloud.
-2. Conecte o provedor de destino.
-3. Pré-visualize o diff: quais arquivos serão copiados, quais já coincidem e quanto vai se mover.
-4. Escolha um runner — Cloud Runner para praticidade, Browser Runner para um caminho transparente pela sua aba, ou Private Runner no seu próprio servidor.
-5. Rode a transferência e baixe um relatório quando terminar.
+1. Conecte a origem — Google Drive, OneDrive, Dropbox, S3, SFTP, WebDAV ou Nextcloud.
+2. Conecte o destino.
+3. Rode uma prévia: quais arquivos vão ser copiados, quais já coincidem e quanto vai se mover.
+4. Confirme e rode a transferência.
+5. Baixe um relatório quando terminar.
 
 ## Por que isso é melhor do que baixar e subir de novo
 
-Transferências manuais puxam cada arquivo pelo seu notebook e empurram os mesmos bytes de volta para a nuvem. Pastas grandes falham no meio do caminho. Downloads de navegador dão timeout. Discos enchem.
+Uma transferência manual faz o caminho longo. Cada arquivo sai da nuvem de origem, aterrissa no seu notebook e sobe de volta para a nuvem de destino. Duas viagens, duas chances de falhar — e o seu disco ainda precisa ter espaço para guardar tudo no meio do caminho.
 
-Uma transferência direta entre nuvens move os bytes entre os provedores sem deixá-los na sua máquina. Você vai ver o que vai mudar antes de rodar e ter um relatório quando terminar.
+Uma transferência direta corta o meio. Os bytes vão de um provedor para o outro sem nunca passar pelo seu notebook. Você vê o que vai mudar antes de rodar e recebe um relatório quando termina.
 
-## Três formas de executar uma transferência no lançamento
-
-- **Cloud Runner.** Provedor de origem para a infraestrutura da Syncologic para o provedor de destino. Indicado para praticidade e jobs grandes que você não quer ficar acompanhando.
-- **Browser Runner.** Provedor de origem para a sua aba de navegador para o provedor de destino. A aba vai precisar ficar aberta enquanto roda. Indicado para quem quer um caminho transparente, sem nada hospedado em seu nome.
-- **Private Runner.** Provedor de origem para o seu próprio servidor, NAS ou VPS para o provedor de destino. Indicado quando bytes e credenciais precisam ficar em uma infraestrutura que você controla.
+<BeforeAfterTransfer />
 
 ## Pares de provedores comuns
 

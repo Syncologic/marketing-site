@@ -1,0 +1,228 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const altLabel = t('visuals.beforeAfterTransfer.alt');
+---
+
+<div class="before-after w-full max-w-[480px] mx-auto" role="presentation">
+  <svg
+    viewBox="0 0 480 380"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label={altLabel}
+    class="w-full h-auto block"
+  >
+    <g aria-hidden="true">
+      <rect x="20" y="40" width="100" height="80" rx="14" class="fill-soft-gray" />
+      <path
+        d="M 50 88 a 10 10 0 0 1 10 -10 a 14 14 0 0 1 26 4 a 8 8 0 0 1 0 16 H 56 a 8 8 0 0 1 -6 -10 z"
+        class="fill-white stroke-slate-gray"
+        stroke-width="1.2"
+      />
+    </g>
+
+    <g aria-hidden="true">
+      <rect x="200" y="50" width="80" height="50" rx="6" class="fill-white stroke-slate-gray" stroke-width="1.5" />
+      <rect x="208" y="58" width="64" height="34" rx="2" class="fill-soft-gray" />
+      <rect x="190" y="100" width="100" height="6" rx="3" class="fill-slate-gray" />
+    </g>
+
+    <g aria-hidden="true">
+      <rect x="360" y="40" width="100" height="80" rx="14" class="fill-soft-gray" />
+      <path
+        d="M 390 88 a 10 10 0 0 1 10 -10 a 14 14 0 0 1 26 4 a 8 8 0 0 1 0 16 H 396 a 8 8 0 0 1 -6 -10 z"
+        class="fill-white stroke-slate-gray"
+        stroke-width="1.2"
+      />
+    </g>
+
+    <path
+      d="M 120 80 Q 160 70 200 80"
+      fill="none"
+      stroke-width="1.5"
+      stroke-dasharray="2 6"
+      stroke-linecap="round"
+      class="stroke-slate-gray"
+      aria-hidden="true"
+    />
+    <path
+      d="M 280 80 Q 320 90 360 80"
+      fill="none"
+      stroke-width="1.5"
+      stroke-dasharray="2 6"
+      stroke-linecap="round"
+      class="stroke-slate-gray"
+      aria-hidden="true"
+    />
+
+    <g class="manual-pills" aria-hidden="true">
+      <g class="manual-pill manual-pill-a">
+        <rect class="pill-body" x="-22" y="-10" width="44" height="20" rx="10" stroke-width="1" />
+        <line class="pill-line" x1="-12" y1="-3" x2="10" y2="-3" stroke-width="1.5" stroke-linecap="round" />
+        <line class="pill-line" x1="-12" y1="3" x2="4" y2="3" stroke-width="1.5" stroke-linecap="round" />
+      </g>
+      <g class="manual-pill manual-pill-b">
+        <rect class="pill-body" x="-22" y="-10" width="44" height="20" rx="10" stroke-width="1" />
+        <line class="pill-line" x1="-12" y1="-3" x2="10" y2="-3" stroke-width="1.5" stroke-linecap="round" />
+        <line class="pill-line" x1="-12" y1="3" x2="4" y2="3" stroke-width="1.5" stroke-linecap="round" />
+      </g>
+    </g>
+
+    <line
+      x1="40" y1="195" x2="440" y2="195"
+      class="stroke-divider"
+      stroke-width="1"
+      stroke-dasharray="4 6"
+      aria-hidden="true"
+    />
+
+    <g aria-hidden="true">
+      <rect x="20" y="240" width="100" height="80" rx="14" class="fill-soft-gray" />
+      <path
+        d="M 50 288 a 10 10 0 0 1 10 -10 a 14 14 0 0 1 26 4 a 8 8 0 0 1 0 16 H 56 a 8 8 0 0 1 -6 -10 z"
+        class="fill-white stroke-slate-gray"
+        stroke-width="1.2"
+      />
+    </g>
+
+    <g aria-hidden="true">
+      <rect x="360" y="240" width="100" height="80" rx="14" class="fill-soft-gray" />
+      <path
+        d="M 390 288 a 10 10 0 0 1 10 -10 a 14 14 0 0 1 26 4 a 8 8 0 0 1 0 16 H 396 a 8 8 0 0 1 -6 -10 z"
+        class="fill-white stroke-slate-gray"
+        stroke-width="1.2"
+      />
+    </g>
+
+    <path
+      d="M 120 280 Q 240 180 360 280"
+      fill="none"
+      stroke-width="1.5"
+      stroke-dasharray="2 6"
+      stroke-linecap="round"
+      class="arc-flow stroke-divider"
+    />
+    <path
+      d="M 120 280 Q 240 180 360 280"
+      fill="none"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      class="stroke-brand-blue"
+    />
+
+    <g class="file-pills" aria-hidden="true">
+      <g class="file-pill" style="--pill-delay: 0s;">
+        <rect x="-22" y="-10" width="44" height="20" rx="10" class="fill-white stroke-brand-blue" stroke-width="1" />
+        <line x1="-12" y1="-3" x2="10" y2="-3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+        <line x1="-12" y1="3" x2="4" y2="3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+      </g>
+      <g class="file-pill" style="--pill-delay: 0.6s;">
+        <rect x="-22" y="-10" width="44" height="20" rx="10" class="fill-white stroke-brand-blue" stroke-width="1" />
+        <line x1="-12" y1="-3" x2="10" y2="-3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+        <line x1="-12" y1="3" x2="4" y2="3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+      </g>
+    </g>
+  </svg>
+</div>
+
+<style>
+  .before-after { min-width: 280px; }
+
+  .manual-pill {
+    offset-path: path('M 120 80 Q 180 75 240 75 Q 300 85 360 80');
+    offset-distance: 0%;
+    offset-rotate: 0deg;
+    opacity: 0;
+  }
+  .manual-pill .pill-body {
+    fill: white;
+    stroke: var(--color-brand-blue);
+  }
+  .manual-pill .pill-line {
+    stroke: var(--color-brand-blue);
+  }
+
+  .file-pill {
+    offset-path: path('M 120 280 Q 240 180 360 280');
+    offset-distance: 0%;
+    offset-rotate: 0deg;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .manual-pill-a {
+      animation: manual-pill-trip 12s ease-in-out infinite;
+    }
+    .manual-pill-b {
+      animation: manual-pill-trip 15s ease-in-out infinite 7s;
+    }
+    .manual-pill-a .pill-body { animation: manual-pill-body 12s linear infinite; }
+    .manual-pill-a .pill-line { animation: manual-pill-line 12s linear infinite; }
+    .manual-pill-b .pill-body { animation: manual-pill-body 15s linear infinite 7s; }
+    .manual-pill-b .pill-line { animation: manual-pill-line 15s linear infinite 7s; }
+
+    .file-pill {
+      animation: before-after-pill 2.5s ease-in-out infinite;
+      animation-delay: var(--pill-delay, 0s);
+    }
+    .arc-flow {
+      animation: before-after-flow 1.2s linear infinite;
+    }
+
+    @keyframes manual-pill-trip {
+      0%   { offset-distance: 0%;   opacity: 0; }
+      3%   { offset-distance: 4%;   opacity: 1; }
+      11%  { offset-distance: 30%;  opacity: 1; }
+      22%  { offset-distance: 50%;  opacity: 1; }
+      30%  { offset-distance: 100%; opacity: 1; }
+      33%  { offset-distance: 100%; opacity: 0; }
+      35%  { offset-distance: 0%;   opacity: 0; }
+      37%  { offset-distance: 4%;   opacity: 1; }
+      45%  { offset-distance: 30%;  opacity: 1; }
+      56%  { offset-distance: 50%;  opacity: 1; }
+      64%  { offset-distance: 100%; opacity: 1; }
+      67%  { offset-distance: 100%; opacity: 0; }
+      69%  { offset-distance: 0%;   opacity: 0; }
+      71%  { offset-distance: 4%;   opacity: 1; }
+      79%  { offset-distance: 30%;  opacity: 1; }
+      88%  { offset-distance: 50%;  opacity: 1; }
+      94%  { offset-distance: 50%;  opacity: 1; }
+      99%  { offset-distance: 50%;  opacity: 0; }
+      100% { offset-distance: 50%;  opacity: 0; }
+    }
+
+    @keyframes manual-pill-body {
+      0%, 88%    { fill: white; stroke: var(--color-brand-blue); }
+      88.01%     { fill: var(--color-error); stroke: var(--color-error); }
+      99%        { fill: var(--color-error); stroke: var(--color-error); }
+      100%       { fill: white; stroke: var(--color-brand-blue); }
+    }
+    @keyframes manual-pill-line {
+      0%, 88%    { stroke: var(--color-brand-blue); }
+      88.01%     { stroke: white; }
+      99%        { stroke: white; }
+      100%       { stroke: var(--color-brand-blue); }
+    }
+
+    @keyframes before-after-pill {
+      0%   { offset-distance: 0%;   opacity: 0; }
+      8%   { offset-distance: 4%;   opacity: 1; }
+      72%  { offset-distance: 100%; opacity: 1; }
+      80%  { offset-distance: 100%; opacity: 0; }
+      100% { offset-distance: 100%; opacity: 0; }
+    }
+    @keyframes before-after-flow {
+      to { stroke-dashoffset: -16; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .manual-pill-a { offset-distance: 25%; opacity: 1; }
+    .manual-pill-b { offset-distance: 75%; opacity: 1; }
+    .file-pill { opacity: 1; }
+    .file-pill:nth-child(1) { offset-distance: 35%; }
+    .file-pill:nth-child(2) { offset-distance: 65%; }
+  }
+</style>
