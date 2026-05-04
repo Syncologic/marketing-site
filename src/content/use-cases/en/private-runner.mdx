@@ -4,7 +4,7 @@ title: "Private Runner — transfer files on your own infrastructure"
 description: "Run cloud-to-cloud transfers through your own server, NAS, or VPS. Bytes and credentials stay in infrastructure you control."
 eyebrow: "For privacy, homelabs, and businesses with sensitive data"
 headline: "Run transfers on your own server, NAS, or VPS."
-subheading: "Hosted control plane, your data path. Bytes and credentials stay on infrastructure you control."
+subheading: "Files never pass through our infrastructure. The transfer runs on a server you own, between the source and destination clouds."
 primaryCta:
   label: "Join the waitlist"
   href: "#waitlist"
@@ -17,68 +17,55 @@ publishedAt: 2026-05-01
 
 ## Who this is for
 
-- Privacy-conscious users who want a hosted control plane but not a hosted data plane.
-- Small businesses with sensitive data — legal archives, financial records, regulated content — that shouldn't pass through anyone else's infrastructure.
-- Homelab operators with an always-on server, NAS, or VPS already built for jobs like this.
-- High-volume users who'd rather pay for software and bring their own bandwidth than rent throughput.
-
-## The data path
-
-The Cloud Runner sends bytes through Syncologic infrastructure. The Private Runner doesn't.
-
-`Source provider` → `Your Private Runner` → `Destination provider`
-
-Files flow directly from the source API to the runner you operate, then to the destination. The control plane sees what the job is and when it ran — never the file contents, never long-lived credentials.
-
-## Outbound connection only
-
-You don't open a port. The runner makes an outbound connection to the control plane and waits for work. When a job is dispatched, it pulls a short-lived run lease, runs the transfer, and posts progress events back.
-
-That means:
-
-- No inbound firewall rules.
-- No public IP requirement.
-- No reverse proxy or tunnel.
-- Works behind home NAT, behind a corporate proxy, behind anything that allows outbound HTTPS.
+- You don't want anyone else's infrastructure in the path your files take.
+- You handle sensitive material — legal archives, financial records, regulated content — that shouldn't pass through someone else's servers.
+- You already keep an always-on server, NAS, or VPS running for jobs like this.
+- You move enough volume that bringing your own bandwidth costs less than renting throughput.
 
 ## How it'll work
 
 1. Install the runner on hardware you control — a NAS, a VPS, an always-on Linux box, or a Raspberry Pi that stays on.
 2. Pair it with your Syncologic account using a one-time enrolment code.
-3. Connect your source and destination providers from the control plane like normal.
-4. When you dispatch a job, pick the Private Runner instead of the Cloud Runner.
+3. Connect your source and destination providers from the dashboard.
+4. When you start a job, pick the runner you just paired instead of the hosted option.
 5. The runner pulls the work, transfers the files between provider APIs, and reports back when it's done.
+
+The hero diagram up top shows the path. Files flow direct from the source API to your runner, then to the destination. We see what the job is and when it ran — never the file contents.
+
+## No firewall changes on your side
+
+Works behind home NAT, behind a corporate proxy, behind anything that allows outbound HTTPS. You don't open a port. The runner makes an outbound connection to us and waits for work; when a job is dispatched, it pulls a short-lived run lease, runs the transfer, and posts progress back.
+
+No inbound firewall rules. No public IP. No reverse proxy. No tunnel.
 
 ## Where you'd run it
 
-The runner is small enough to live next to other lightweight services on hardware you already own.
+The runner is small enough to live next to other lightweight services on hardware you already own — a Synology, QNAP, or TrueNAS box that's already on 24/7, a homelab Linux server or mini-PC, a small VPS (Hetzner, Fly, DigitalOcean, OVH), an always-on workstation acting as a small home server, or a Raspberry Pi class device for slower, low-throughput backups.
 
-- A Synology, QNAP, or TrueNAS box that's already on 24/7.
-- A homelab Linux server or mini-PC running other long-lived jobs.
-- A small VPS — Hetzner, Fly, DigitalOcean, OVH — for users who want it off-prem but still under their account.
-- An always-on workstation acting as a small home server, for one-time migrations.
-- A Raspberry Pi class device for slower, low-throughput backups.
+It cares about reliable network and enough disk for staging buffers; it doesn't care which distro or hardware you picked.
 
-The runner cares about reliable network and enough disk for staging buffers; it doesn't care which distro or hardware you picked.
+## Your credentials stay with you
 
-## Credential handling
+Provider OAuth tokens will be bound to the runner — encrypted at rest with a key derived from your enrolment, never leaving the runner. We see provider identifiers, scopes, and run metadata; never refresh tokens, never file contents.
 
-Provider OAuth tokens will be bound to the runner — encrypted at rest with a key derived from your enrolment, never leaving the runner. The control plane sees provider identifiers, scopes, and run metadata; never refresh tokens, never file contents.
+Decommission the runner and revoke its enrolment from the dashboard — the tokens it held become useless.
 
-Decommission the runner and revoke its enrolment from the control plane — the tokens it held will become useless.
+## Hosted versus your own server
 
-## Cloud Runner vs Private Runner
+<PricingCurves />
 
-### Cloud Runner
+Both modes use the same dashboard, the same job definitions, the same preview, and the same completion reports. The only difference is where the bytes flow — and what that means for cost and trust.
 
-- **Where bytes flow:** source → Syncologic infrastructure → destination.
+### On our servers (Cloud Runner)
+
+- **Where bytes flow:** source → our infrastructure → destination.
 - **Where credentials live:** encrypted in our infrastructure, short-lived.
 - **Setup effort:** none — pick it from the dropdown.
 - **Best for:** convenience, very large jobs you don't want to host yourself.
 - **Pricing model:** usage-based on our infrastructure.
 - **Network requirements:** none.
 
-### Private Runner
+### On your own server (Private Runner)
 
 - **Where bytes flow:** source → your server → destination.
 - **Where credentials live:** on your runner, never leaves.
@@ -87,10 +74,8 @@ Decommission the runner and revoke its enrolment from the control plane — the 
 - **Pricing model:** pay for software; you bring bandwidth.
 - **Network requirements:** outbound HTTPS from the runner.
 
-Both runners use the same control plane, the same job definitions, the same preview, and the same completion reports. The only difference is where the bytes flow.
+## Public source code
 
-## Public source and a future self-host path
-
-The runner will work against our hosted control plane at launch, and against a self-hosted control plane later. The core code will ship source-visible — you can audit it before installing. Self-host of the control plane is a separate, longer track; Private Runner is the first step.
+You can audit how the runner moves files before installing it — the code is public. We plan to keep that property as we grow.
 
 Where would you run your Private Runner — NAS, homelab server, VPS, or workstation? Tell us on the waitlist below — it's the first question we'll ask after your email.
