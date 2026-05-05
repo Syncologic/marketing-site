@@ -241,9 +241,18 @@
       "alt": "Dois painéis empilhados. No painel de cima, o caminho manual: os arquivos saem de uma nuvem, passam por um notebook no meio e seguem para a segunda nuvem — e de vez em quando quebram no notebook, ficando vermelhos. No painel de baixo, o caminho direto: um único arco azul leva os arquivos da primeira nuvem direto para a segunda, sem passar pelo notebook."
     },
     "hostedVsPrivatePath": {
-      "alt": "Dois diagramas de arquitetura empilhados, um acima do outro. Cada um mostra arquivos passando entre duas nuvens por uma caixa do meio. No diagrama de cima, a caixa do meio está rotulada 'Nossos servidores'. No de baixo, a caixa do meio está rotulada 'Seu servidor'. Os dois caminhos são idênticos no resto — mesmo arco, mesmas fichas de arquivo — para que a única diferença seja a localização da caixa do meio.",
-      "hostedLabel": "Nossos servidores",
+      "alt": "Dois diagramas de arquitetura empilhados, um acima do outro. Cada um mostra arquivos passando entre duas nuvens por uma caixa do meio. No diagrama de cima, a caixa do meio está rotulada 'Nosso servidor'. No de baixo, a caixa do meio está rotulada 'Seu servidor'. Os dois caminhos são idênticos no resto — mesmo arco, mesmas fichas de arquivo — para que a única diferença seja a localização da caixa do meio.",
+      "hostedLabel": "Nosso servidor",
       "privateLabel": "Seu servidor"
+    },
+    "oauthIntermediary": {
+      "alt": "Três caixas da esquerda para a direita — seu app, Syncologic e o provedor de nuvem. Uma seta bidirecional rotulada 'API' liga seu app à Syncologic. Uma segunda seta bidirecional rotulada 'OAuth' liga a Syncologic ao provedor. Não existe nenhuma linha direta entre seu app e o provedor; uma linha pontilhada riscada abaixo das caixas torna a ausência explícita, com a legenda 'nenhum token do provedor chega ao seu app.'",
+      "appLabel": "Seu app",
+      "syncologicLabel": "Syncologic",
+      "providerLabel": "Provedor",
+      "apiArrowLabel": "API",
+      "oauthArrowLabel": "OAuth",
+      "noTokenLabel": "nenhum token do provedor chega ao seu app"
     }
   },
   "guides": {
@@ -446,11 +455,16 @@
     "apiTitle": "Uma API HTTP tipada",
     "apiBody": "Crie um job com origem, destino, runner e um agendamento opcional. A camada de controle valida, despacha e emite eventos de progresso.",
     "apiCaption": "Esboço — o formato final vem com a API v1.",
+    "oauthTitle": "OAuth fica do nosso lado",
+    "oauthBody": "Seus usuários conectam as contas de nuvem deles à Syncologic, não ao seu app. Você nunca guarda credenciais de provedor. A camada de controle cuida do ciclo de vida do OAuth e entrega tokens com escopo e curta duração para os runners — seu app se autentica na Syncologic com a sua chave de API e nunca vê um token de provedor.",
+    "oauthCaption": "Seu app integra a API; a fronteira do OAuth fica do nosso lado.",
     "cliTitle": "Uma CLI para scripts e CI",
     "cliBody": "Os mesmos jobs, executados de um terminal ou de um runner de CI. Útil para migrações pontuais e para backups definidos por um script que você consegue revisar em um code review.",
     "cliCaption": "Planejado. O comportamento espelha a API um-para-um.",
     "runnersTitle": "Escolha o runner que combina com o job",
     "runnersBody": "A mesma API. Três caminhos de dados diferentes. Escolha por job, não por conta.",
+    "runnersFooterText": "Quer o passo a passo completo do Private Runner?",
+    "runnersFooterLink": "Veja /self-hosted",
     "runnerCloud": {
       "title": "Cloud Runner",
       "desc": "Runners hospedados para jobs agendados e grandes migrações. Sem infraestrutura do seu lado."
@@ -461,7 +475,7 @@
     },
     "runnerPrivate": {
       "title": "Private Runner",
-      "desc": "Hospede o binário do runner na sua VPC, on-prem ou em um NAS. Conexão apenas de saída com a camada de controle."
+      "desc": "Hospede o binário do runner em uma VPS, servidor on-prem ou NAS. Conexão apenas de saída com a camada de controle."
     },
     "webhooksTitle": "Webhooks para os eventos que importam",
     "webhooksBody": "Assine os eventos do ciclo de vida dos jobs e direcione para sua fila, seu dashboard ou seu log de auditoria. Os payloads serão assinados com HMAC.",
@@ -489,11 +503,13 @@
       },
       {
         "q": "Vocês cuidam do OAuth em nome dos meus usuários?",
-        "a": "Sim. Os usuários conectam as contas de nuvem deles à Syncologic — não ao seu app. Você não guarda credenciais de provedor; a camada de controle cuida do ciclo de vida do OAuth."
+        "a": "Sim — seu app nunca guarda um token de provedor.",
+        "link": { "href": "#oauth", "label": "Como o OAuth funciona" }
       },
       {
         "q": "Posso rodar os jobs inteiramente na minha infraestrutura?",
-        "a": "Sim, no caminho dos dados — o Private Runner roda na sua VPC, num NAS ou em qualquer servidor que você controla, e os bytes dos arquivos nunca chegam à Syncologic. A camada de controle (contas, jobs, agendamentos) é hospedada por nós no lançamento; auto-hospedagem completa está no roadmap."
+        "a": "Sim, no caminho dos dados — o Private Runner roda em qualquer servidor que você controla, e os bytes dos arquivos nunca chegam à Syncologic.",
+        "link": { "href": "/pt-br/self-hosted", "label": "Arquitetura e roadmap" }
       },
       {
         "q": "Os payloads dos webhooks são assinados?",
