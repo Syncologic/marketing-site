@@ -475,7 +475,7 @@
     },
     "runnerPrivate": {
       "title": "Private Runner",
-      "desc": "Self-host the runner binary in your VPC, on-prem, or on a NAS. Outbound-only connection to the control plane."
+      "desc": "Self-host the runner binary on a VPS, on-prem server, or NAS. Outbound-only connection to the control plane."
     },
     "webhooksTitle": "Webhooks for the events you care about",
     "webhooksBody": "Subscribe to job lifecycle events and stream them into your queue, your dashboard, or your audit log. Payloads will be HMAC-signed.",
@@ -508,7 +508,7 @@
       },
       {
         "q": "Can I run jobs entirely on my own infrastructure?",
-        "a": "Yes for the data path — Private Runner runs in your VPC, NAS, or any server you control, and file bytes never reach Syncologic.",
+        "a": "Yes for the data path — Private Runner runs on any server you control, and file bytes never reach Syncologic.",
         "link": { "href": "/self-hosted", "label": "Architecture and roadmap" }
       },
       {

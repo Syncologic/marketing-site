@@ -475,7 +475,7 @@
     },
     "runnerPrivate": {
       "title": "Private Runner",
-      "desc": "Hospede o binário do runner na sua VPC, on-prem ou em um NAS. Conexão apenas de saída com a camada de controle."
+      "desc": "Hospede o binário do runner em uma VPS, servidor on-prem ou NAS. Conexão apenas de saída com a camada de controle."
     },
     "webhooksTitle": "Webhooks para os eventos que importam",
     "webhooksBody": "Assine os eventos do ciclo de vida dos jobs e direcione para sua fila, seu dashboard ou seu log de auditoria. Os payloads serão assinados com HMAC.",
@@ -508,7 +508,7 @@
       },
       {
         "q": "Posso rodar os jobs inteiramente na minha infraestrutura?",
-        "a": "Sim, no caminho dos dados — o Private Runner roda na sua VPC, num NAS ou em qualquer servidor que você controla, e os bytes dos arquivos nunca chegam à Syncologic.",
+        "a": "Sim, no caminho dos dados — o Private Runner roda em qualquer servidor que você controla, e os bytes dos arquivos nunca chegam à Syncologic.",
         "link": { "href": "/pt-br/self-hosted", "label": "Arquitetura e roadmap" }
       },
       {
