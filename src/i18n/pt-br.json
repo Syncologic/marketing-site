@@ -371,17 +371,17 @@
     "selfHost": {
       "subtitle": "Rode o Private Runner no seu próprio servidor, NAS ou VPS. Bytes e credenciais nunca saem da sua rede.",
       "free": {
-        "name": "Auto-hospedagem em early access",
+        "name": "Auto-hospedagem em acesso antecipado",
         "price": "R$ 0",
-        "description": "Rode o Private Runner no seu próprio hardware. Nós hospedamos o control plane enquanto durar o early access.",
+        "description": "Rode o Private Runner no seu próprio hardware. Nós hospedamos a camada de controle enquanto durar o acesso antecipado.",
         "features": [
           "Bytes e credenciais ficam no seu servidor, NAS ou VPS",
           "Use o seu runner como um provedor conectável",
           "Todos os provedores — sem cotas, com a sua banda",
           "Transferências manuais e recorrentes simples · prévia (dry-run)",
-          "Use o nosso control plane grátis durante a transição; depois, migre tudo para o seu próprio servidor"
+          "Use a nossa camada de controle grátis durante a transição; depois, migre tudo para o seu próprio servidor"
         ],
-        "footnote": "Histórico de execuções de 30 dias. Runners ilimitados. Usuário único durante o early access."
+        "footnote": "Histórico de execuções de 30 dias. Runners ilimitados. Usuário único durante o acesso antecipado."
       },
       "title": "Auto-hospede o caminho dos dados"
     },
@@ -426,19 +426,19 @@
         },
         {
           "q": "Por que a auto-hospedagem é grátis?",
-          "a": "Depois que o binário está pronto, rodar o Private Runner no seu próprio hardware não custa nada para a gente. Durante o early access, toda a auto-hospedagem é grátis — e o essencial, \"mover arquivos entre nuvens no meu próprio servidor\", sempre vai continuar grátis."
+          "a": "Depois que o binário está pronto, rodar o Private Runner no seu próprio hardware não custa nada para a gente. Durante o acesso antecipado, toda a auto-hospedagem é grátis — e o essencial, \"mover arquivos entre nuvens no meu próprio servidor\", sempre vai continuar grátis."
         },
         {
           "q": "E quanto à auto-hospedagem com código visível?",
-          "a": "Depois que o binário está pronto, rodar o Private Runner no seu próprio hardware não tem custo para nós. Durante o early access, toda a auto-hospedagem é grátis."
+          "a": "Depois que o binário está pronto, rodar o Private Runner no seu próprio hardware não tem custo para nós. Durante o acesso antecipado, toda a auto-hospedagem é grátis."
         },
         {
-          "q": "Eu mantenho meus dados se migrar para um control plane auto-hospedado?",
-          "a": "Sim. Quando o control plane auto-hospedado lançar, você poderá exportar jobs, agendamentos, histórico de execuções, conexões e logs de auditoria da Syncologic e importá-los no seu próprio. Não há cobrança em nenhuma direção — os dados do control plane são seus para mover."
+          "q": "Eu mantenho meus dados se migrar para uma camada de controle auto-hospedada?",
+          "a": "Sim. Quando a camada de controle auto-hospedada lançar, você poderá exportar jobs, agendamentos, histórico de execuções, conexões e logs de auditoria da Syncologic e importá-los no seu próprio. Não há cobrança em nenhuma direção — os dados da camada de controle são seus para mover."
         },
         {
           "q": "O que é o Local Helper, e por que ele não é só o Private Runner?",
-          "a": "O Local Helper é um daemon leve em segundo plano para uma máquina — sem UI, sem painel de administração, sem suporte a múltiplos usuários. Ele existe para que as transferências do Browser Runner continuem depois que você fecha a aba e para que uma pasta local possa funcionar como qualquer provedor conectado. O Private Runner é o runtime completo do data plane para NAS, VPS e servidores — vários jobs, vários usuários, plug-ins. Eles não compartilham código."
+          "a": "O Local Helper é um daemon leve em segundo plano para uma máquina — sem UI, sem painel de administração, sem suporte a múltiplos usuários. Ele existe para que as transferências do Browser Runner continuem depois que você fecha a aba e para que uma pasta local possa funcionar como qualquer provedor conectado. O Private Runner é o runtime completo da camada de dados para NAS, VPS e servidores — vários jobs, vários usuários, plug-ins. Eles não compartilham código."
         }
       ]
     }
@@ -503,7 +503,7 @@
     "faq": [
       {
         "q": "Quando posso começar a usar a API?",
-        "a": "Com o early access. A Syncologic é API-first — o nosso frontend web usa a mesma API que você usaria. Todos os planos (Free, Pro e Business) incluem acesso à API desde o primeiro dia."
+        "a": "Com o acesso antecipado. A Syncologic é API-first — o nosso frontend web usa a mesma API que você usaria. Todos os planos (Free, Pro e Business) incluem acesso à API desde o primeiro dia."
       },
       {
         "q": "Vai ter um plano grátis para desenvolvedores?",
@@ -543,7 +543,7 @@
     "hero": {
       "eyebrow": "No seu próprio servidor",
       "headline": "Rode tudo no seu próprio servidor.",
-      "subheading": "Os arquivos nunca passam pela nossa infraestrutura. Instale um pequeno programa, conecte as suas nuvens nele, e a transferência roda dentro da sua rede. Grátis durante o early access.",
+      "subheading": "Os arquivos nunca passam pela nossa infraestrutura. Instale um pequeno programa, conecte as suas nuvens nele, e a transferência roda dentro da sua rede. Grátis durante o acesso antecipado.",
       "audience": "Para usuários de homelab, pessoas que se importam com privacidade e empresas que querem rodar transferências de arquivos em uma infraestrutura que elas controlam.",
       "primaryCta": "Entrar na lista de espera"
     },
@@ -593,8 +593,8 @@
       }
     },
     "migration": {
-      "title": "Mova o control plane para o seu servidor quando estiver pronto",
-      "body": "Hoje, auto-hospedar significa rodar o Private Runner no seu hardware enquanto a Syncologic hospeda o control plane (grátis durante o early access). Quando o control plane auto-hospedado lançar, você poderá exportar seus jobs, agendamentos, histórico de execuções e conexões do nosso control plane e importá-los no seu próprio. Os dados do control plane são seus para mover."
+      "title": "Mova a camada de controle para o seu servidor quando estiver pronto",
+      "body": "Hoje, auto-hospedar significa rodar o Private Runner no seu hardware enquanto a Syncologic hospeda a camada de controle (grátis durante o acesso antecipado). Quando a camada de controle auto-hospedada lançar, você poderá exportar seus jobs, agendamentos, histórico de execuções e conexões da nossa camada de controle e importá-los no seu próprio. Os dados da camada de controle são seus para mover."
     }
   },
   "privacy": {
