@@ -40,6 +40,7 @@ import {
   incrementCounter,
   checkPostBudget,
   checkPatchBudget,
+  checkUnsubBudget,
 } from '../ratelimit';
 
 beforeEach(() => {
@@ -142,5 +143,49 @@ describe('checkPatchBudget', () => {
     }
     const blocked = await checkPatchBudget(ip, row);
     expect(blocked.ok).toBe(false);
+  });
+});
+
+describe('checkUnsubBudget', () => {
+  it('allows up to 5 requests per hour, then blocks', async () => {
+    const ip = hashIp('6.6.6.6');
+    for (let i = 0; i < 5; i++) {
+      const r = await checkUnsubBudget(ip);
+      expect(r.ok).toBe(true);
+    }
+    const blocked = await checkUnsubBudget(ip);
+    expect(blocked.ok).toBe(false);
+    expect(blocked.remaining).toBe(0);
+  });
+
+  it('returns decreasing remaining as quota is consumed', async () => {
+    const ip = hashIp('7.7.7.7');
+    const first = await checkUnsubBudget(ip);
+    const second = await checkUnsubBudget(ip);
+    expect(first.ok).toBe(true);
+    expect(second.ok).toBe(true);
+    expect(second.remaining).toBeLessThan(first.remaining);
+  });
+
+  it('keeps separate IP buckets independent', async () => {
+    const ipA = hashIp('8.8.8.8');
+    const ipB = hashIp('9.9.9.9');
+    for (let i = 0; i < 5; i++) {
+      expect((await checkUnsubBudget(ipA)).ok).toBe(true);
+    }
+    expect((await checkUnsubBudget(ipA)).ok).toBe(false);
+    expect((await checkUnsubBudget(ipB)).ok).toBe(true);
+  });
+
+  it('uses one INCR + one EXPIRE on first hit, INCR-only thereafter', async () => {
+    kvMock.incr.mockClear();
+    kvMock.expire.mockClear();
+    const ip = hashIp('10.10.10.10');
+    await checkUnsubBudget(ip);
+    expect(kvMock.incr).toHaveBeenCalledTimes(1);
+    expect(kvMock.expire).toHaveBeenCalledTimes(1);
+    await checkUnsubBudget(ip);
+    expect(kvMock.incr).toHaveBeenCalledTimes(2);
+    expect(kvMock.expire).toHaveBeenCalledTimes(1);
   });
 });

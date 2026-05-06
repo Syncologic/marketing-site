@@ -79,3 +79,11 @@ export async function checkPatchBudget(ipHash: string, rowId: string): Promise<B
 
   return { ok: true, remaining: Math.min(60 - perMin, 200 - perHour, 500 - perDay) };
 }
+
+export async function checkUnsubBudget(ipHash: string): Promise<BudgetCheck> {
+  const hour = new Date().toISOString().slice(0, 13);
+  const perHour = await incrementCounter(`rl:unsub:h:${ipHash}:${hour}`, 3700);
+
+  if (perHour > 5) return { ok: false, remaining: 0 };
+  return { ok: true, remaining: 5 - perHour };
+}
