@@ -94,7 +94,7 @@ Runners (data plane)
   └─ Cloud Runner, Private Runner, Browser Runner, Local Helper
 
 Storage Providers
-  └─ Google Drive, OneDrive, Dropbox, S3-compatible, SFTP, WebDAV, Nextcloud
+  └─ Google Drive, OneDrive, Dropbox, S3-compatible, SFTP, your server, Nextcloud
 ```
 
 ### Runtime flow (for context when writing copy or visuals)

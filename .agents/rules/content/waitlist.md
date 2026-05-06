@@ -40,7 +40,7 @@ Form is short on the page; uses progressive steps after the email is captured.
 
 Current enums:
 - **use_case:** `one_time_transfer`, `business_migration`, `scheduled_backup`, `local_backup`, `developer`, `self_hosted`
-- **provider:** `google_drive`, `onedrive`, `dropbox`, `s3`, `sftp`, `webdav`, `nextcloud`, `other`
+- **provider:** `google_drive`, `onedrive`, `dropbox`, `s3`, `sftp`, `your_server`, `nextcloud`, `other`
 - **est_size:** `lt_10gb`, `10_to_100gb`, `100gb_to_1tb`, `gt_1tb`
 - **frequency:** `one_time`, `weekly`, `daily`, `continuous`
 - **preferred_runner:** `cloud`, `browser`, `private`, `not_sure`
@@ -57,7 +57,7 @@ Always in this order when shown together:
 3. Dropbox
 4. S3-compatible storage
 5. SFTP
-6. WebDAV
+6. Your server
 7. Nextcloud
 
 `other` exists in the schema for waitlist signal but is not shown in marketing visuals.

@@ -15,13 +15,13 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 const sourcePage = Astro.url.pathname;
 
-const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive' | 'dropbox' | 's3' | 'sftp' | 'webdav' | 'nextcloud' }> = [
+const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive' | 'dropbox' | 's3' | 'sftp' | 'your_server' | 'nextcloud' }> = [
   { value: 'google_drive', logoId: 'google-drive' },
   { value: 'onedrive', logoId: 'onedrive' },
   { value: 'dropbox', logoId: 'dropbox' },
   { value: 's3', logoId: 's3' },
   { value: 'sftp', logoId: 'sftp' },
-  { value: 'webdav', logoId: 'webdav' },
+  { value: 'your_server', logoId: 'your_server' },
   { value: 'nextcloud', logoId: 'nextcloud' },
 ];
 ---
@@ -145,7 +145,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         { value: 'dropbox', label: { en: 'Dropbox', 'pt-br': 'Dropbox' } },
         { value: 's3', label: { en: 'S3 / S3-compatible', 'pt-br': 'S3 / compatível com S3' } },
         { value: 'sftp', label: { en: 'SFTP', 'pt-br': 'SFTP' } },
-        { value: 'webdav', label: { en: 'WebDAV', 'pt-br': 'WebDAV' } },
+        { value: 'your_server', label: { en: 'Your server', 'pt-br': 'Seu servidor' } },
         { value: 'nextcloud', label: { en: 'Nextcloud', 'pt-br': 'Nextcloud' } },
         { value: 'other', label: { en: 'Other', 'pt-br': 'Outro' } },
       ],
@@ -158,7 +158,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         { value: 'dropbox', label: { en: 'Dropbox', 'pt-br': 'Dropbox' } },
         { value: 's3', label: { en: 'S3 / S3-compatible', 'pt-br': 'S3 / compatível com S3' } },
         { value: 'sftp', label: { en: 'SFTP', 'pt-br': 'SFTP' } },
-        { value: 'webdav', label: { en: 'WebDAV', 'pt-br': 'WebDAV' } },
+        { value: 'your_server', label: { en: 'Your server', 'pt-br': 'Seu servidor' } },
         { value: 'nextcloud', label: { en: 'Nextcloud', 'pt-br': 'Nextcloud' } },
         { value: 'other', label: { en: 'Other', 'pt-br': 'Outro' } },
       ],

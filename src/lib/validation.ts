@@ -15,7 +15,7 @@ export const PROVIDERS = [
   'dropbox',
   's3',
   'sftp',
-  'webdav',
+  'your_server',
   'nextcloud',
   'other',
 ] as const;

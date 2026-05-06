@@ -110,7 +110,7 @@
     "dropbox": "Dropbox",
     "s3": "Armazenamento compatível com S3",
     "sftp": "SFTP",
-    "webdav": "WebDAV",
+    "your_server": "Seu servidor",
     "nextcloud": "Nextcloud",
     "other": "Outro"
   },

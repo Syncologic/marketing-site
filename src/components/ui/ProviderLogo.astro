@@ -1,5 +1,5 @@
 ---
-type ProviderId = 'google-drive' | 'onedrive' | 'dropbox' | 's3' | 'sftp' | 'webdav' | 'nextcloud';
+type ProviderId = 'google-drive' | 'onedrive' | 'dropbox' | 's3' | 'sftp' | 'your_server' | 'nextcloud';
 
 interface Props {
   provider: ProviderId;
@@ -117,11 +117,13 @@ const dim = `${size}px`;
   </svg>
 )}
 
-{provider === 'webdav' && (
-  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="WebDAV" xmlns="http://www.w3.org/2000/svg">
+{provider === 'your_server' && (
+  <svg width={dim} height={dim} viewBox="0 0 24 24" class={extra} role="img" aria-label="Your server" xmlns="http://www.w3.org/2000/svg">
     <rect x="0.5" y="0.5" width="23" height="23" rx="5.5" fill="#FFFFFF" stroke="#DEE3E9" />
-    <text x="12" y="10.5" text-anchor="middle" fill="#1C2B33" font-family="Montserrat, sans-serif" font-weight="700" font-size="5.5">Web</text>
-    <text x="12" y="17" text-anchor="middle" fill="#1C2B33" font-family="Montserrat, sans-serif" font-weight="700" font-size="5.5">DAV</text>
+    <rect x="6" y="6" width="12" height="12" rx="1.5" fill="none" stroke="#1C2B33" stroke-width="1.2" />
+    <line x1="8.5" y1="10" x2="14" y2="10" stroke="#1C2B33" stroke-width="1.2" stroke-linecap="round" />
+    <line x1="8.5" y1="14" x2="14" y2="14" stroke="#1C2B33" stroke-width="1.2" stroke-linecap="round" />
+    <circle cx="15.5" cy="10" r="0.6" fill="#1C2B33" />
   </svg>
 )}
 

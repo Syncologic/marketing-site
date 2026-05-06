@@ -56,4 +56,11 @@ describe('waitlistPatchSchema', () => {
   it('accepts empty patch (heartbeat)', () => {
     expect(waitlistPatchSchema.safeParse({}).success).toBe(true);
   });
+  it('accepts your_server provider', () => {
+    expect(waitlistPatchSchema.safeParse({ source_provider: 'your_server', dest_provider: 'your_server' }).success).toBe(true);
+  });
+  it('rejects dropped provider webdav', () => {
+    expect(waitlistPatchSchema.safeParse({ source_provider: 'webdav' }).success).toBe(false);
+    expect(waitlistPatchSchema.safeParse({ dest_provider: 'webdav' }).success).toBe(false);
+  });
 });
