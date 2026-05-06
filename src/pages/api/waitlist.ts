@@ -8,6 +8,11 @@ import { isAllowedOrigin } from '../../lib/origin';
 
 export const prerender = false;
 
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL;
+if (!SITE_URL) {
+  throw new Error('PUBLIC_SITE_URL is required');
+}
+
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
     status,
@@ -29,7 +34,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const parsed = waitlistPostSchema.safeParse(payload);
   if (!parsed.success) {
-    return json({ error: 'invalid_input', issues: parsed.error.flatten() }, 400);
+    return json({ error: 'invalid_input' }, 400);
   }
 
   if (parsed.data.website && parsed.data.website.length > 0) {
@@ -56,36 +61,38 @@ export const POST: APIRoute = async ({ request }) => {
 
   let id: string;
   let unsubscribeToken: string;
-  let shouldSendWelcome = false;
 
   if (existing.data) {
-    id = existing.data.id as string;
-    unsubscribeToken = existing.data.unsubscribe_token as string;
     const removedAt = existing.data.removed_at as string | null;
     const rejoinCount = (existing.data.rejoin_count as number | null) ?? 0;
 
-    if (removedAt) {
-      if (rejoinCount >= 1) {
-        return json({ error: 'already_removed' }, 409);
-      }
-      const rejoin = await supabase
-        .from('waitlist')
-        .update({
-          removed_at: null,
-          rejoin_count: rejoinCount + 1,
-          locale,
-          source_page: source_page ?? null,
-          segment_hint: segment_hint ?? null,
-          user_agent: userAgent,
-          referrer,
-          ip_hash: ipHash,
-        })
-        .eq('id', id);
-      if (rejoin.error) {
-        console.error('waitlist rejoin failed', rejoin.error);
-        return json({ error: 'server_error' }, 500);
-      }
-      shouldSendWelcome = true;
+    if (!removedAt) {
+      return json({ status: 'ok' }, 200);
+    }
+
+    if (rejoinCount >= 1) {
+      return json({ error: 'already_removed' }, 409);
+    }
+
+    id = existing.data.id as string;
+    unsubscribeToken = existing.data.unsubscribe_token as string;
+
+    const rejoin = await supabase
+      .from('waitlist')
+      .update({
+        removed_at: null,
+        rejoin_count: rejoinCount + 1,
+        locale,
+        source_page: source_page ?? null,
+        segment_hint: segment_hint ?? null,
+        user_agent: userAgent,
+        referrer,
+        ip_hash: ipHash,
+      })
+      .eq('id', id);
+    if (rejoin.error) {
+      console.error('waitlist rejoin failed', rejoin.error);
+      return json({ error: 'server_error' }, 500);
     }
   } else {
     const inserted = await supabase
@@ -108,23 +115,19 @@ export const POST: APIRoute = async ({ request }) => {
     }
     id = inserted.data.id as string;
     unsubscribeToken = inserted.data.unsubscribe_token as string;
-    shouldSendWelcome = true;
   }
 
   const token = signToken(id);
-  const siteUrl = import.meta.env.PUBLIC_SITE_URL || new URL(request.url).origin;
-  const segmentationLink = `${siteUrl}${source_page ?? '/'}?wl_id=${id}&wl_t=${token}#waitlist`;
-  const unsubscribeLink = `${siteUrl}/api/waitlist/unsubscribe?token=${unsubscribeToken}`;
+  const segmentationLink = `${SITE_URL}${source_page ?? '/'}?wl_id=${id}&wl_t=${token}#waitlist`;
+  const unsubscribeLink = `${SITE_URL}/api/waitlist/unsubscribe?token=${unsubscribeToken}`;
 
-  if (shouldSendWelcome) {
-    sendWaitlistConfirmation({
-      to: email,
-      locale,
-      siteUrl,
-      segmentationLink,
-      unsubscribeLink,
-    }).catch((err) => console.error('confirmation email failed', err));
-  }
+  sendWaitlistConfirmation({
+    to: email,
+    locale,
+    siteUrl: SITE_URL,
+    segmentationLink,
+    unsubscribeLink,
+  }).catch((err) => console.error('confirmation email failed', err));
 
   return json({ id, token }, 200);
 };
