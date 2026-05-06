@@ -1,10 +1,12 @@
 ---
+import GithubIcon from '../ui/GithubIcon.astro';
 import { getLocaleFromUrl, getT, localizedPath } from '../../i18n/utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 const year = new Date().getFullYear();
 const pathname = Astro.url.pathname;
+const GITHUB_URL = 'https://github.com/syncologic';
 ---
 
 <footer class="bg-soft-gray border-t border-divider">
@@ -16,6 +18,16 @@ const pathname = Astro.url.pathname;
           <span class="text-h3 font-bold tracking-tight leading-none text-logo-blue">{t('site.name')}</span>
         </a>
         <p class="text-caption text-slate-gray max-w-xs">{t('site.tagline')}</p>
+        <a
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 mt-4 text-caption text-slate-gray hover:text-dark-charcoal transition-colors"
+          aria-label="GitHub — github.com/syncologic"
+        >
+          <GithubIcon size={18} />
+          <span>github.com/syncologic</span>
+        </a>
       </div>
 
       <div>

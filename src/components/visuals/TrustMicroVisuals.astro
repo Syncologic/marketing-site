@@ -1,7 +1,7 @@
 ---
-import { Eye, KeyRound, Activity, ClipboardList, Compass } from '@lucide/astro';
+import { Eye, KeyRound, Activity, ClipboardList, Compass, FileCode } from '@lucide/astro';
 
-type Variant = 'preview' | 'scoped' | 'progress' | 'reports' | 'transparency';
+type Variant = 'preview' | 'scoped' | 'progress' | 'reports' | 'transparency' | 'sourceVisible';
 interface Props {
   variant: Variant;
 }
@@ -14,6 +14,7 @@ const icons = {
   progress: Activity,
   reports: ClipboardList,
   transparency: Compass,
+  sourceVisible: FileCode,
 } as const;
 
 const Icon = icons[variant];

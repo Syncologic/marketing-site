@@ -20,7 +20,6 @@ const useCaseSchema = z.object({
   headline: z.string(),
   subheading: z.string(),
   primaryCta: ctaSchema,
-  secondaryCta: z.object({ label: z.string(), href: z.string() }).optional(),
   waitlistSegment: waitlistSegmentEnum,
   publishedAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),

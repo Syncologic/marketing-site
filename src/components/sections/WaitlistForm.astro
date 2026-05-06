@@ -54,21 +54,29 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       data-msg-error-rate={t('waitlist.errorRate')}
     ></p>
 
-    <div class="waitlist-step2 hidden mt-10 max-w-xl mx-auto bg-soft-gray rounded-card p-6 sm:p-8 text-left flex flex-col" data-row-id="" data-token="" data-segment-hint={segmentHint ?? ''}>
-      <div class="step2-progress flex justify-center items-center gap-1.5 mb-3" role="tablist" aria-label="Question steps"></div>
-      <p class="step2-progress-label text-caption text-slate-gray text-center mb-6" role="status" aria-live="polite"></p>
+    <div class="waitlist-step2 hidden bg-soft-gray text-left flex flex-col fixed inset-0 z-[60] mt-0 mx-0 max-w-none rounded-none px-6 pt-4 pb-6 overflow-hidden sm:relative sm:inset-auto sm:z-auto sm:mt-10 sm:mx-auto sm:max-w-xl sm:rounded-card sm:p-8 sm:overflow-visible" data-row-id="" data-token="" data-segment-hint={segmentHint ?? ''}>
+      <div class="flex justify-end mb-1 shrink-0 sm:hidden">
+        <button type="button" class="step2-close w-11 h-11 shrink-0 -mr-2 inline-flex items-center justify-center text-slate-gray hover:text-dark-charcoal" aria-label={t('nav.close')}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <line x1="6" y1="6" x2="18" y2="18" />
+            <line x1="18" y1="6" x2="6" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div class="step2-progress flex justify-center items-center gap-1.5 mb-3 shrink-0" role="tablist" aria-label="Question steps"></div>
+      <p class="step2-progress-label hidden sm:block text-caption text-slate-gray text-center mb-6" role="status" aria-live="polite"></p>
 
-      <div class="step2-stage relative overflow-hidden flex-grow flex flex-col justify-start">
-        <div class="step2-card transition-all duration-300 ease-out">
-          <p class="step2-eyebrow text-compact font-medium text-dark-charcoal text-center mb-3 min-h-[1.5rem]"></p>
-          <h3 class="step2-title text-h3 font-bold text-dark-charcoal text-center mb-6"></h3>
-          <div class="step2-options grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+      <div class="step2-stage relative overflow-hidden grow shrink min-h-0 flex flex-col">
+        <div class="step2-card transition-all duration-300 ease-out flex flex-col h-full min-h-0">
+          <p class="step2-eyebrow text-compact font-medium text-dark-charcoal text-center mb-3 min-h-[1.5rem] shrink-0"></p>
+          <h3 class="step2-title text-h3 font-bold text-dark-charcoal text-center mb-4 sm:mb-6 shrink-0"></h3>
+          <div class="step2-options grid grid-cols-1 sm:grid-cols-2 gap-2 grow min-h-0 overflow-y-auto sm:grow-0 sm:overflow-visible"></div>
         </div>
       </div>
 
-      <p class="step2-hint text-small text-slate-gray text-center mt-5 min-h-[1.25rem]"></p>
+      <p class="step2-hint hidden sm:block text-small text-slate-gray text-center mt-5 min-h-[1.25rem]"></p>
 
-      <div class="step2-controls flex items-center justify-between gap-3 mt-6">
+      <div class="step2-controls hidden sm:flex items-center justify-between gap-3 mt-6 shrink-0">
         <button type="button" class="step2-back text-caption text-slate-gray hover:text-dark-charcoal underline disabled:opacity-30 disabled:no-underline disabled:hover:text-slate-gray transition-colors" disabled>← Back</button>
         <button type="button" class="step2-skip text-caption text-slate-gray hover:text-dark-charcoal underline transition-colors">{t('waitlist.step2Skip')}</button>
         <Button type="button" variant="primary" size="sm" class="step2-next">Next →</Button>
@@ -94,7 +102,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       success: "✓ You're on the list",
       errorNetwork: "Couldn't reach the server. Try again?",
       errorRate: "Slow down — try again in a minute.",
-      questionUseCase: 'What are you trying to move?',
+      questionUseCase: 'What would you like to do?',
       questionSourceProvider: 'Where do the files live now?',
       questionDestProvider: 'Where do they need to go?',
       questionSize: 'How much data?',
@@ -106,11 +114,12 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       encourageFirst: "Welcome aboard! We'd love to know a bit about you.",
       encourageMid: 'Awesome. Tell us a bit more.',
       encourageLast: "Last one! You're almost there.",
-      done: '✓ Thanks — that helps a lot.',
+      done: 'Thanks — that helps a lot.',
       doneSub: "We'll be in touch.",
       doneCta: 'Done',
       next: 'Next →',
       back: '← Back',
+      close: 'Close',
     },
     'pt-br': {
       success: '✓ Você está na lista',
@@ -128,11 +137,12 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       encourageFirst: 'Bem-vindo! A gente quer te conhecer um pouco.',
       encourageMid: 'Boa. Conta um pouco mais.',
       encourageLast: 'Última! Quase lá.',
-      done: '✓ Valeu — isso ajuda muito.',
+      done: 'Valeu — isso ajuda muito.',
       doneSub: 'A gente entra em contato.',
       doneCta: 'Concluir',
       next: 'Próxima →',
       back: '← Voltar',
+      close: 'Fechar',
     },
   } as const;
 
@@ -143,8 +153,6 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         { value: 'one_time_transfer', label: { en: 'One-time transfer', 'pt-br': 'Transferência única' } },
         { value: 'business_migration', label: { en: 'Business migration', 'pt-br': 'Migração de empresa' } },
         { value: 'scheduled_backup', label: { en: 'Scheduled backup', 'pt-br': 'Backup agendado' } },
-        { value: 'private_runner', label: { en: 'Private Runner', 'pt-br': 'Private Runner' } },
-        { value: 'browser_runner', label: { en: 'Browser transfer', 'pt-br': 'Transferência no navegador' } },
         { value: 'local_backup', label: { en: 'Local / NAS backup', 'pt-br': 'Backup local / NAS' } },
         { value: 'developer', label: { en: 'API / automation', 'pt-br': 'API / automação' } },
         { value: 'self_hosted', label: { en: 'Self-hosting', 'pt-br': 'Auto-hospedagem' } },
@@ -215,6 +223,42 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
     },
   ];
 
+  const FULLSCREEN_MQ = '(max-width: 639px)';
+  const isMobile = () => window.matchMedia(FULLSCREEN_MQ).matches;
+  let bodyScrollLocked = false;
+  function lockBodyScroll() {
+    if (bodyScrollLocked) return;
+    document.documentElement.style.overflow = 'hidden';
+    bodyScrollLocked = true;
+  }
+  function unlockBodyScroll() {
+    if (!bodyScrollLocked) return;
+    document.documentElement.style.overflow = '';
+    bodyScrollLocked = false;
+  }
+  function openFullscreen(step2: HTMLElement) {
+    if (isMobile()) lockBodyScroll();
+    const closeBtn = step2.querySelector<HTMLButtonElement>('.step2-close');
+    closeBtn?.addEventListener('click', () => closeFullscreen(step2), { once: true });
+  }
+  function closeFullscreen(step2: HTMLElement) {
+    const wasMobile = isMobile();
+    step2.classList.add('hidden');
+    unlockBodyScroll();
+    if (wasMobile) {
+      const msg = step2.parentElement?.querySelector<HTMLElement>('.waitlist-msg');
+      if (msg) {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        requestAnimationFrame(() => {
+          msg.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+        });
+      }
+    }
+  }
+  window.addEventListener('resize', () => {
+    if (!isMobile()) unlockBodyScroll();
+  });
+
   document.querySelectorAll<HTMLFormElement>('.waitlist-form-step1').forEach((form) => {
     const root = form.parentElement!;
     const msg = root.querySelector<HTMLElement>('.waitlist-msg')!;
@@ -264,10 +308,13 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
           localStorage.setItem(`waitlist:${data.id}`, JSON.stringify({ token: data.token, email }));
         } catch {}
         renderStep2(step2, locale);
+        openFullscreen(step2);
 
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         requestAnimationFrame(() => {
-          step2.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+          if (!isMobile()) {
+            step2.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+          }
         });
       } catch {
         msg.textContent = I18N[locale].errorNetwork;
@@ -462,8 +509,15 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         b.dataset.selected = b.dataset.value === value ? 'true' : 'false';
       });
       patch({ [field]: value });
-      if (isLast) return;
       if (pendingAdvance !== null) clearTimeout(pendingAdvance);
+      if (isLast) {
+        if (!isMobile()) return;
+        pendingAdvance = window.setTimeout(() => {
+          pendingAdvance = null;
+          complete();
+        }, 380);
+        return;
+      }
       pendingAdvance = window.setTimeout(() => {
         pendingAdvance = null;
         if (cursor < QUESTIONS.length - 1) goTo(cursor + 1);
@@ -498,9 +552,73 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       await patch({ ...answers, _complete: true });
       step2.style.minHeight = '';
       stageEl.style.minHeight = '';
-      step2.innerHTML = `<div class="text-center py-8"><p class="text-h3 font-bold text-success mb-2">${I18N[locale].done}</p><p class="text-caption text-slate-gray">${I18N[locale].doneSub}</p></div>`;
+      step2.innerHTML = `
+        <div class="step2-thanks flex flex-col items-center justify-center text-center gap-4 py-8 h-full">
+          <svg class="step2-checkmark text-success" width="72" height="72" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <circle class="step2-check-circle" cx="32" cy="32" r="29" stroke="currentColor" stroke-width="3" fill="none"></circle>
+            <polyline class="step2-check-tick" points="20,33 28,42 46,22" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
+          </svg>
+          <p class="step2-thanks-msg text-h2 font-medium text-dark-charcoal">${I18N[locale].done}</p>
+          <p class="step2-thanks-sub text-body text-slate-gray">${I18N[locale].doneSub}</p>
+          <button type="button" class="step2-thanks-close mt-4 inline-flex items-center justify-center rounded-pill border-2 border-[rgba(10,19,23,0.12)] bg-transparent text-dark-charcoal hover:bg-[rgba(70,90,105,0.08)] px-6 py-2 text-caption font-medium transition-colors">${I18N[locale].close}</button>
+        </div>
+      `;
+      step2.querySelector<HTMLButtonElement>('.step2-thanks-close')
+        ?.addEventListener('click', () => closeFullscreen(step2));
     }
 
     lockMaxHeight();
   }
 </script>
+
+<style is:global>
+  .step2-checkmark {
+    transform-origin: center;
+    animation: step2-checkmark-pop 360ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .step2-check-circle {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: step2-draw 420ms ease-out 80ms forwards;
+  }
+  .step2-check-tick {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: step2-draw 240ms ease-out 380ms forwards;
+  }
+  .step2-thanks-msg,
+  .step2-thanks-sub,
+  .step2-thanks-close {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: step2-fade-up 360ms ease-out forwards;
+  }
+  .step2-thanks-msg { animation-delay: 600ms; }
+  .step2-thanks-sub { animation-delay: 780ms; }
+  .step2-thanks-close { animation-delay: 1000ms; }
+
+  @keyframes step2-checkmark-pop {
+    from { transform: scale(0.4); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+  @keyframes step2-draw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes step2-fade-up {
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .step2-checkmark,
+    .step2-check-circle,
+    .step2-check-tick,
+    .step2-thanks-msg,
+    .step2-thanks-sub,
+    .step2-thanks-close {
+      animation: none !important;
+      opacity: 1;
+      transform: none;
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

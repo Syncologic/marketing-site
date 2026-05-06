@@ -20,8 +20,8 @@ const surfaces: Record<Surface, string> = {
 
 const paddings: Record<Padding, string> = {
   sm: 'py-section-sm',
-  md: 'py-section',
-  lg: 'py-section-lg',
+  md: 'py-section-sm md:py-section',
+  lg: 'py-section-sm md:py-section-lg',
 };
 
 const classes = [surfaces[surface], paddings[padding], extra].filter(Boolean).join(' ');

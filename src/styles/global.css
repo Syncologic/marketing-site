@@ -86,10 +86,12 @@
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    overscroll-behavior-y: contain;
   }
 
   body {
     margin: 0;
+    overscroll-behavior-y: contain;
   }
 
   *:focus-visible {

@@ -5,7 +5,7 @@ import { getLocaleFromUrl, getT } from '../../i18n/utils';
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 
-const points = ['preview', 'scoped', 'progress', 'reports', 'transparency'] as const;
+const points = ['preview', 'scoped', 'progress', 'reports', 'transparency', 'sourceVisible'] as const;
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
