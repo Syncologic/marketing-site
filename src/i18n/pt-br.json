@@ -2,7 +2,7 @@
   "site": {
     "name": "Syncologic",
     "tagline": "Mova arquivos entre nuvens sem ter que baixar antes.",
-    "description": "Conecte origem e destino, veja a prévia das mudanças e execute a transferência na nossa nuvem, no seu navegador ou no seu próprio servidor."
+    "description": "Mova arquivos entre nuvens sem baixá-los primeiro. Conecte uma origem e um destino, pré-visualize o que vai mudar, execute a transferência e receba um relatório claro."
   },
   "homepage": {
     "heroEyebrow": "Transferência entre nuvens",
@@ -24,8 +24,7 @@
     "useCasesTitle": "Encontre seu caso de uso",
     "useCasesSubtitle": "Estamos construindo para públicos diferentes — comece pelo que combina com você.",
     "trustTitle": "Sua confiança em primeiro lugar",
-    "trustSubtitle": "Sem surpresas. Sem mudanças silenciosas. Você vê o que roda, onde roda e o que mudou.",
-    "providersFootnote": "Mais provedores após o lançamento do early access."
+    "trustSubtitle": "Sem surpresas. Sem mudanças silenciosas. Você vê o que roda, onde roda e o que mudou."
   },
   "nav": {
     "useCases": "Casos de uso",
