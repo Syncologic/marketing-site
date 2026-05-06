@@ -4,8 +4,6 @@ export const USE_CASES = [
   'one_time_transfer',
   'business_migration',
   'scheduled_backup',
-  'private_runner',
-  'browser_runner',
   'local_backup',
   'developer',
   'self_hosted',

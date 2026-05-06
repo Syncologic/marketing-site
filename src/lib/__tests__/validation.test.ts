@@ -16,6 +16,14 @@ describe('waitlistPostSchema', () => {
     const r = waitlistPostSchema.safeParse({ email: 'a@b.test', locale: 'en', evil: 'x' });
     expect(r.success).toBe(false);
   });
+  it('rejects dropped segment_hint private_runner', () => {
+    const r = waitlistPostSchema.safeParse({ email: 'a@b.test', locale: 'en', segment_hint: 'private_runner' });
+    expect(r.success).toBe(false);
+  });
+  it('rejects dropped segment_hint browser_runner', () => {
+    const r = waitlistPostSchema.safeParse({ email: 'a@b.test', locale: 'en', segment_hint: 'browser_runner' });
+    expect(r.success).toBe(false);
+  });
   it('accepts a filled honeypot so the handler can silently 200', () => {
     const r = waitlistPostSchema.safeParse({
       email: 'a@b.test',
@@ -32,6 +40,12 @@ describe('waitlistPatchSchema', () => {
   });
   it('rejects invalid use_case', () => {
     expect(waitlistPatchSchema.safeParse({ use_case: 'bogus' }).success).toBe(false);
+  });
+  it('rejects dropped use_case private_runner', () => {
+    expect(waitlistPatchSchema.safeParse({ use_case: 'private_runner' }).success).toBe(false);
+  });
+  it('rejects dropped use_case browser_runner', () => {
+    expect(waitlistPatchSchema.safeParse({ use_case: 'browser_runner' }).success).toBe(false);
   });
   it('accepts _complete flag', () => {
     expect(waitlistPatchSchema.safeParse({ _complete: true }).success).toBe(true);
