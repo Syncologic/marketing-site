@@ -14,10 +14,13 @@
   --color-slate-gray: #5D6C7B;
   --color-soft-gray: #F1F4F7;
   --color-warm-gray: #F7F8FA;
-  --color-reading-paper: #EBEDF0;
+  --color-reading-paper: #F6F5F1;
   --color-baby-blue: #E8F3FF;
   --color-near-black: #1C1E21;
   --color-divider: #DEE3E9;
+  --color-btn-secondary: rgba(10, 19, 23, 0.12);
+  --color-btn-secondary-hover: rgba(70, 90, 105, 0.08);
+  --color-nav: rgba(0, 0, 0, 0.06);
   --color-cta-disabled: #DEE3E9;
   --color-cta-disabled-text: #8595A4;
   --color-success: #007D1E;
