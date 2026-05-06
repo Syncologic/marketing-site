@@ -1,7 +1,7 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 
 function getSecret(): string {
-  const s = import.meta.env.WAITLIST_TOKEN_SECRET ?? process.env.WAITLIST_TOKEN_SECRET;
+  const s = import.meta.env.WAITLIST_TOKEN_SECRET;
   if (!s) throw new Error('WAITLIST_TOKEN_SECRET is required');
   return s;
 }

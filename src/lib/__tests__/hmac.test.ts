@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { describe, it, expect, beforeAll, vi } from 'vitest';
 import { signToken, verifyToken } from '../hmac';
 
 beforeAll(() => {
   if (!import.meta.env.WAITLIST_TOKEN_SECRET) {
-    process.env.WAITLIST_TOKEN_SECRET = 'a'.repeat(64);
+    vi.stubEnv('WAITLIST_TOKEN_SECRET', 'a'.repeat(64));
   }
 });
 
