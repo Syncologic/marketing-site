@@ -7,7 +7,6 @@ interface Props {
   headline: string;
   subheading?: string;
   primaryCta: { label: string; href: string };
-  secondaryCta?: { label: string; href: string };
   surface?: 'white' | 'soft' | 'dark';
   id?: string;
 }
@@ -17,7 +16,6 @@ const {
   headline,
   subheading,
   primaryCta,
-  secondaryCta,
   surface = 'white',
   id,
 } = Astro.props;
@@ -29,8 +27,8 @@ const eyebrowClass =
 
 const headlineClass =
   surface === 'dark'
-    ? 'text-display-2 lg:text-display-1 font-medium leading-[1.14] tracking-tight text-white'
-    : 'text-display-2 lg:text-display-1 font-medium leading-[1.14] tracking-tight text-dark-charcoal';
+    ? 'text-h1 md:text-display-2 lg:text-display-1 font-medium leading-[1.14] tracking-tight text-white'
+    : 'text-h1 md:text-display-2 lg:text-display-1 font-medium leading-[1.14] tracking-tight text-dark-charcoal';
 
 const subheadingClass =
   surface === 'dark'
@@ -49,11 +47,8 @@ const gridClass = hasVisual
       {eyebrow && <span class={eyebrowClass}>{eyebrow}</span>}
       <h1 class={headlineClass}>{headline}</h1>
       {subheading && <p class={subheadingClass}>{subheading}</p>}
-      <div class="flex flex-wrap gap-3 mt-2">
+      <div class="flex flex-wrap gap-3 mt-2 justify-center lg:justify-start">
         <Button href={primaryCta.href} variant="primary" size="lg" class="text-center whitespace-normal break-words max-w-full">{primaryCta.label}</Button>
-        {secondaryCta && (
-          <Button href={secondaryCta.href} variant="secondary" size="lg" class="text-center whitespace-normal break-words max-w-full">{secondaryCta.label}</Button>
-        )}
       </div>
       <slot name="meta" />
     </div>

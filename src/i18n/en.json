@@ -15,16 +15,17 @@
       },
       "dev": {
         "title": "I'm building with this",
-        "desc": "Use the API, CLI, webhooks, or self-host the runner. We handle OAuth — your users connect to Syncologic, not to your app."
+        "desc": "Use the API, CLI, or webhooks."
       }
     },
-    "providersLabel": "Connects to",
+    "providersLabel": "Will work with",
     "runnersTitle": "Where does the transfer happen?",
     "runnersSubtitle": "Three options with very different trade-offs in cost, convenience, and privacy.",
     "useCasesTitle": "Find your use case",
     "useCasesSubtitle": "We're building for several different audiences — start with the one that fits.",
     "trustTitle": "Built around your trust",
-    "trustSubtitle": "No surprises. No silent changes. You see what runs, where, and what changed."
+    "trustSubtitle": "No surprises. No silent changes. You see what runs, where, and what changed.",
+    "providersFootnote": "More providers after early access launch."
   },
   "nav": {
     "useCases": "Use cases",
@@ -77,7 +78,8 @@
     "questionSize": "How much data?",
     "questionFrequency": "How often?",
     "questionRunner": "Where should the transfer run?",
-    "questionRole": "Which best describes you?"
+    "questionRole": "Which best describes you?",
+    "errorInvalidEmail": "Please enter a valid email address."
   },
   "providers": {
     "googleDrive": "Google Drive",
@@ -238,7 +240,7 @@
       }
     },
     "beforeAfterTransfer": {
-      "alt": "Two stacked panels. The top panel shows the manual approach: files travel from one cloud, through a laptop in the middle, on to the second cloud — and every so often break at the laptop, turning red. The bottom panel shows the direct approach: a single brand-blue arc carries files from the first cloud straight to the second, bypassing the laptop entirely."
+      "alt": "Two stacked panels. The top panel shows the manual approach: files travel from one cloud, through a computer in the middle, on to the second cloud — and every so often break at the computer, turning red. The bottom panel shows the direct approach: a single brand-blue arc carries files from the first cloud straight to the second, bypassing the computer entirely."
     },
     "hostedVsPrivatePath": {
       "alt": "Two stacked architecture diagrams, one above the other. Each one shows files moving between two clouds through a middle box. On the top diagram, the middle box is labelled 'Our server'. On the bottom diagram, the middle box is labelled 'Your server'. The two paths are otherwise identical — same arc, same file pills — to make the only difference the location of the middle box.",
@@ -276,7 +278,7 @@
       "note": "Note"
     },
     "cta": {
-      "title": "Want this without writing the glue?",
+      "title": "Want a tool that does this for you?",
       "body": "Syncologic moves folders directly between providers — preview, run, and report. Pick the use case that matches your job and join the waitlist.",
       "primary": "Pick your use case",
       "secondary": "Back to home"
@@ -288,65 +290,78 @@
   "pricing": {
     "meta": {
       "title": "Plans — Syncologic",
-      "description": "Plans for how you transfer — Free, Pro, Business, and Private Runner. Join the waitlist for early access."
+      "description": "Plans for how you transfer — Free, Pro, Business, and free self-hosting. Join the waitlist for early access."
     },
     "hero": {
       "eyebrow": "Plans",
       "headline": "Pick the plan that matches how you transfer.",
-      "subheading": "Four plans, four ways our users transfer. Pick yours and join the waitlist for early access.",
-      "primaryCta": "Join the waitlist",
-      "secondaryCta": "See the plans"
+      "subheading": "Three hosted plans plus free self-hosting. Pick yours and join the waitlist for early access.",
+      "primaryCta": "Join the waitlist"
     },
     "hypotheses": {
       "title": "Hosted plans",
       "subtitle": "Pick the tier that matches how much you move on our infrastructure each month.",
       "priceSuffix": "/mo",
       "recommendedLabel": "Recommended",
-      "privateEyebrow": "Or run it on your own server",
       "free": {
         "name": "Free",
         "price": "$0",
         "description": "For one-off transfers. Open a tab, run it, close it.",
         "features": [
-          "5 GB on our servers per month included (Cloud Runner) — no tab needed",
-          "Unlimited transfers in your browser tab (Browser Runner) — tab must stay open until done",
-          "No paid overage — go over and Browser Runner is your only hosted option that month"
+          "All providers — no gating, ever",
+          "5 GB on our servers per month",
+          "1 transfer at a time",
+          "Unlimited transfers in a browser tab — tab must stay open",
+          "A small background daemon (Local Helper) for tabless transfers and local-folder source/destination"
         ],
-        "footnote": "Free forever. Upgrade to Pro to add hosted volume."
+        "footnote": "Free forever. 30-day run history. Upgrade to Pro for hosted volume and watch folders."
       },
       "pro": {
         "name": "Pro",
-        "price": "~$9",
+        "price": "$9",
         "description": "For people who don't want to babysit transfers.",
         "features": [
-          "100 GB on our servers per month included (Cloud Runner)",
-          "Add 1 TB for $2.50 each time you go over — pay only for what you transfer",
-          "Schedule recurring jobs and review the report after each run"
+          "Everything included in Free",
+          "500 GB on our servers per month",
+          "4 transfers at a time",
+          "Watch folders — set a folder to back up automatically",
+          "Cron-style scheduling and bandwidth windows",
+          "1-year run history"
         ],
-        "footnote": "Hosted runs (Cloud Runner). 100 GB included monthly, then pay-as-you-go."
+        "footnote": "$2.50 per extra 1 TB. All providers, no gating."
       },
       "business": {
         "name": "Business",
-        "price": "~$29",
+        "price": "$29",
         "description": "For teams migrating a workspace or running many jobs.",
         "features": [
-          "1.5 TB on our servers per month included (Cloud Runner)",
-          "Add 1 TB for $2.50 each time you go over",
-          "Migration previews, final reports, and multiple workspace connections"
+          "Everything included in Pro",
+          "5 TB on our servers per month",
+          "Unlimited simultaneous transfers",
+          "Per-job queue priority (high / normal / low)",
+          "Ultimate Scheduling — cron, bandwidth windows, auto-retry, conditional jobs",
+          "CSV/PDF export of run history"
         ],
-        "footnote": "Hosted runs (Cloud Runner). 1.5 TB included monthly, then pay-as-you-go."
+        "footnote": "$2.50 per extra 1 TB. All providers, no gating."
       },
-      "privateRunner": {
-        "name": "Private Runner",
-        "price": "~$6",
-        "description": "For when bytes and credentials should stay on your own server.",
+      "priceCaption": "Approximate prices — may shift slightly before launch."
+    },
+    "selfHost": {
+      "subtitle": "Run the Private Runner on your own server, NAS, or VPS. Bytes and credentials never leave your network.",
+      "free": {
+        "name": "Early access self-hosting",
+        "price": "$0",
+        "description": "Run the Private Runner on your own hardware. We host the control plane while early access lasts.",
         "features": [
-          "Transfers run on your server, NAS, or VPS — files never touch us",
-          "Flat monthly fee — no GB cap, you bring the bandwidth",
-          "Best fit for businesses, homelabs, and high-volume workloads"
+          "Bytes and credentials stay on your server, NAS, or VPS",
+          "Use your runner as a connectable provider",
+          "All providers — no caps, your bandwidth",
+          "Manual + simple recurring transfers · dry-run preview",
+          "Free use of our control plane during the transition; later, migrate it to your own server"
         ],
-        "footnote": "You bring the bandwidth. We handle the orchestration."
-      }
+        "footnote": "30-day run history. Unlimited runners. Single-user during early access."
+      },
+      "title": "Self-host the data path"
     },
     "affects": {
       "title": "What affects cost",
@@ -361,62 +376,47 @@
       },
       "runner": {
         "title": "Where the transfer runs",
-        "body": "If we host it, you pay for the bandwidth we use. If it runs in your browser tab or on your own server, you don't."
+        "body": "Only hosted transfers use our bandwidth and count against your monthly GB. Anything that runs in your browser, on your machine, or on your own server stays uncapped."
       }
-    },
-    "cloudVsPrivate": {
-      "title": "Where the bytes flow changes the cost.",
-      "subtitle": "Same orchestration, different data path. Pick what fits your trust and volume.",
-      "cloud": {
-        "title": "On our servers",
-        "alias": "Cloud Runner",
-        "scenario": "Files travel through our infrastructure. We handle the bandwidth, retries, and isolation. You pay per transfer — cost rises as you move more data.",
-        "bestForLabel": "Best when",
-        "bestFor": "you want convenience, scheduled jobs, and migrations you don't have to babysit."
-      },
-      "private": {
-        "title": "On your own server",
-        "alias": "Private Runner",
-        "scenario": "Files travel through your server, NAS, or VPS. We only orchestrate the job — you bring the bandwidth. Pay a flat monthly fee, regardless of volume.",
-        "bestForLabel": "Best when",
-        "bestFor": "you care about privacy, run a homelab, or move high volumes on your own bandwidth."
-      }
-    },
-    "earlyAccess": {
-      "headline": "Join now, lock in early access.",
-      "body": "Nobody pays yet. Waitlist members get the first invitations at launch.",
-      "cta": "Join the waitlist"
     },
     "faq": {
       "title": "Common plan questions",
       "items": [
         {
           "q": "Are these prices final?",
-          "a": "The four-plan structure is set. Exact prices may shift at the margins before launch — that's why each tier shows a `~` instead of an exact number."
+          "a": "The plan structure is set. Exact prices may shift slightly before launch."
         },
         {
           "q": "Will there be an annual plan with a discount?",
-          "a": "Yes — we plan to offer an annual option at a discount, but the exact pricing isn't set. It will most likely launch alongside the paid plans, not before."
-        },
-        {
-          "q": "What if I move more data than my plan includes?",
-          "a": "Free includes 5 GB/month on our servers with no paid overage — once you hit the cap, your browser tab is the only hosted option that month. Pro and Business add 1 TB for $2.50 each time you go over. Private Runner has no GB cap; you pay a flat fee and bring your own bandwidth."
-        },
-        {
-          "q": "Do Browser Runner and Private Runner count against my GB allowance?",
-          "a": "No. Only the Cloud Runner uses our hosted bandwidth, so only the Cloud Runner counts against your monthly GB. Browser Runner runs in your browser tab and Private Runner runs on your own server — files never touch our infrastructure, so neither consumes your allowance."
-        },
-        {
-          "q": "What about open-source self-hosting?",
-          "a": "We plan a path toward source-visible, self-hostable infrastructure. Pricing for that path will be set when the model itself is set — see the self-hosted page for details."
+          "a": "Yes. We're planning an annual option at a discount; the exact pricing isn't set, and it'll launch alongside the paid plans — not before."
         },
         {
           "q": "Will I be charged automatically when launch happens?",
-          "a": "No. Joining the waitlist never bills you. Anyone moving from waitlist to a paid plan does so explicitly."
+          "a": "No. Joining the waitlist never bills you. Moving from waitlist to a paid plan is always an explicit step."
         },
         {
-          "q": "What happens if my use case spans two plans?",
-          "a": "Pick the closer one and tell us in the waitlist questions. We'll reach out before launch if a different plan fits better."
+          "q": "What if I move more data than my plan includes?",
+          "a": "On Free, once you hit the 5 GB monthly cap, hosted transfers stop until the next month — the browser tab and the Local Helper keep working. Pro and Business add 1 TB for $2.50 each time you go over. Self-hosting has no GB cap at all; bytes flow through your own server, on your bandwidth."
+        },
+        {
+          "q": "Do Browser Runner, Local Helper, and Private Runner count against my GB allowance?",
+          "a": "No. Only the Cloud Runner uses our hosted bandwidth, so only the Cloud Runner counts. Browser Runner runs in your tab, the Local Helper runs as a small daemon on your machine, and the Private Runner runs on your own server — files never touch our infrastructure."
+        },
+        {
+          "q": "Why is self-hosting free?",
+          "a": "Once the binary is built, running the Private Runner on your own hardware costs us nothing. During early access, all of self-hosting is free — and the core 'move files between clouds on my own server' will always stay free."
+        },
+        {
+          "q": "What about source-visible self-hosting?",
+          "a": "Once the binary is built, running the Private Runner on your own hardware costs us nothing. During early access, all of self-hosting is free."
+        },
+        {
+          "q": "Will I keep my data if I migrate to a self-hosted control plane?",
+          "a": "Yes. When the self-host control plane ships, you'll be able to export your jobs, schedules, run history, connections, and audit logs from Syncologic and import them into your own. There's no charge in either direction — your control-plane data is yours to move."
+        },
+        {
+          "q": "What's the Local Helper, and why isn't it just the Private Runner?",
+          "a": "The Local Helper is a thin background daemon for one machine — no UI, no admin surface, no multi-user model. It exists so Browser Runner transfers can continue after you close the tab and so a local folder can act like any connected provider. The Private Runner is the full data-plane runtime for NAS, VPS, and servers — multiple jobs, multiple users, plug-ins. They share no code."
         }
       ]
     }
@@ -441,6 +441,10 @@
     "transparency": {
       "title": "You choose where your files go",
       "desc": "Run the transfer through us, in your browser, or on your own computer. Your call, every time."
+    },
+    "sourceVisible": {
+      "title": "Read the code that runs",
+      "desc": "Every part that touches a transfer is published for anyone to read. No black box, no hidden behaviour."
     }
   },
   "developers": {
@@ -450,7 +454,6 @@
     "heroHeadline": "Move files between clouds with one API.",
     "heroSubheading": "For agencies, SaaS teams, and internal tools that move files between cloud providers without writing the glue.",
     "heroPrimaryCta": "Join the waitlist",
-    "heroSecondaryCta": "See the API",
     "audienceLabel": "Built for agencies, SaaS engineering teams, platform groups, and internal tooling.",
     "apiTitle": "A typed HTTP API",
     "apiBody": "Create a job with a source, destination, runner, and optional schedule. The control plane validates, dispatches, and emits progress events.",
@@ -461,22 +464,6 @@
     "cliTitle": "A CLI for scripts and CI",
     "cliBody": "Same jobs, driven from a terminal or a CI runner. Useful for one-shot migrations and for backups owned by a script you can read in a code review.",
     "cliCaption": "Planned. Behavior mirrors the API one-to-one.",
-    "runnersTitle": "Pick the runner that fits the job",
-    "runnersBody": "Same API. Three different data paths. Choose per job, not per account.",
-    "runnersFooterText": "Want the full Private Runner walkthrough?",
-    "runnersFooterLink": "See /self-hosted",
-    "runnerCloud": {
-      "title": "Cloud Runner",
-      "desc": "Hosted runners for scheduled jobs and large migrations. No infrastructure on your side."
-    },
-    "runnerBrowser": {
-      "title": "Browser Runner",
-      "desc": "For ad-hoc transfers from a tab. The data path stays in the user's browser; no long-lived tokens."
-    },
-    "runnerPrivate": {
-      "title": "Private Runner",
-      "desc": "Self-host the runner binary on a VPS, on-prem server, or NAS. Outbound-only connection to the control plane."
-    },
     "webhooksTitle": "Webhooks for the events you care about",
     "webhooksBody": "Subscribe to job lifecycle events and stream them into your queue, your dashboard, or your audit log. Payloads will be HMAC-signed.",
     "webhookEventsLabel": "Planned events",
@@ -493,23 +480,32 @@
     ],
     "faq": [
       {
-        "q": "When will the API ship?",
-        "a": "We're not committing to a date. The API ships with the first paid Cloud Runner tier — join the waitlist for early access."
+        "q": "When can I start using the API?",
+        "a": "With early access. Syncologic is API-first — our browser frontend uses the same API you would. Every plan (Free, Pro, Business) includes API access from day one."
       },
       {
         "q": "Will there be a free tier for developers?",
         "a": "There's no special developer offer — everything you'd pay (or not pay) is in the current plans.",
-        "link": { "href": "/plans", "label": "See plans" }
+        "link": {
+          "href": "/plans",
+          "label": "See plans"
+        }
       },
       {
         "q": "Do you handle OAuth on behalf of my users?",
         "a": "Yes — your app never holds a provider token.",
-        "link": { "href": "#oauth", "label": "How OAuth works" }
+        "link": {
+          "href": "#oauth",
+          "label": "How OAuth works"
+        }
       },
       {
         "q": "Can I run jobs entirely on my own infrastructure?",
         "a": "Yes for the data path — Private Runner runs on any server you control, and file bytes never reach Syncologic.",
-        "link": { "href": "/self-hosted", "label": "Architecture and roadmap" }
+        "link": {
+          "href": "/self-hosted",
+          "label": "Architecture and roadmap"
+        }
       },
       {
         "q": "Are webhook payloads signed?",
@@ -525,10 +521,9 @@
     "hero": {
       "eyebrow": "On your own server",
       "headline": "Run everything on your own server.",
-      "subheading": "Files never pass through our infrastructure. You install a small program, connect your clouds to it, and the transfer runs inside your network.",
+      "subheading": "Files never pass through our infrastructure. Install a small program, connect your clouds to it, and the transfer runs inside your network. Free during early access.",
       "audience": "For homelab operators, privacy-conscious users, and businesses that want their file transfers running on infrastructure they control.",
-      "primaryCta": "Join the waitlist",
-      "secondaryCta": "How it works"
+      "primaryCta": "Join the waitlist"
     },
     "howItWorks": {
       "title": "How it works for you",
@@ -548,16 +543,19 @@
     },
     "underTheHood": {
       "summary": "How it works under the hood",
-      "intro": "Architecture, the self-host roadmap, and why core code stays public — for the technical buyer.",
+      "intro": "Architecture, the self-host levels, and why core code stays public — for the technical user.",
       "controlData": {
         "title": "Control plane vs data plane",
-        "body": "Two layers. The control plane (auth, jobs, schedules, reports) holds metadata about your transfers. The data plane (the runner) is where bytes flow source → destination. We host the control plane at launch; you host the data plane from day one."
+        "body": [
+          "Two layers. The control plane (auth, jobs, schedules, reports) stores metadata about your transfers. The data plane (the runner) is where bytes flow from source → destination.",
+          "We host the control plane at launch; you host the data plane on day one. The Private Runner is the full data-plane runtime."
+        ]
       },
       "roadmap": {
         "title": "Self-host levels",
         "level1": {
           "name": "Private Runner",
-          "status": "Available first",
+          "status": "First to land",
           "desc": "Hosted control plane, your data path. For users who want our convenience and your bandwidth."
         },
         "level2": {
@@ -569,8 +567,12 @@
       },
       "sourceVisible": {
         "title": "Why core code stays public",
-        "body": "Runner code, transfer logic, and provider adapters ship source-visible. You can audit how files move before trusting the system."
+        "body": "Every runner — Cloud Runner, Browser Runner, Local Helper, Private Runner — ships source-visible, alongside the transfer logic and provider adapters. You can audit how files move before trusting the system."
       }
+    },
+    "migration": {
+      "title": "Move the control plane to your server when you're ready",
+      "body": "Today, self-hosting means running the Private Runner on your hardware while Syncologic hosts the control plane (free during early access). When the self-host control plane ships, you'll be able to export your jobs, schedules, run history, and connections from our control plane and import them into your own. Control-plane data is yours to move."
     }
   }
 }

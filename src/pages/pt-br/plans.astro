@@ -6,7 +6,6 @@ import Nav from '../../components/layout/Nav.astro';
 import Footer from '../../components/layout/Footer.astro';
 import Section from '../../components/ui/Section.astro';
 import Card from '../../components/ui/Card.astro';
-import Button from '../../components/ui/Button.astro';
 import Hero from '../../components/sections/Hero.astro';
 import FAQ from '../../components/sections/FAQ.astro';
 import WaitlistForm from '../../components/sections/WaitlistForm.astro';
@@ -38,7 +37,7 @@ const mainPlans = [
   { ...p.hypotheses.pro, recommended: true },
   { ...p.hypotheses.business, recommended: false },
 ];
-const privatePlan = p.hypotheses.privateRunner;
+const selfHostFree = p.selfHost.free;
 ---
 
 <Layout title={title} description={description}>
@@ -51,7 +50,6 @@ const privatePlan = p.hypotheses.privateRunner;
     headline={p.hero.headline}
     subheading={p.hero.subheading}
     primaryCta={{ label: p.hero.primaryCta, href: '#waitlist' }}
-    secondaryCta={{ label: p.hero.secondaryCta, href: '#hypotheses' }}
   >
     <Fragment slot="visual">
       <PricingCurves />
@@ -84,10 +82,10 @@ const privatePlan = p.hypotheses.privateRunner;
               </div>
             </div>
             <p class="text-body text-dark-charcoal leading-snug">{plan.description}</p>
-            <ul class="flex flex-col gap-2 text-body text-slate-gray list-none p-0">
+            <ul class="flex flex-col gap-2 text-body text-dark-charcoal list-none p-0">
               {plan.features.map((feature) => (
                 <li class="flex gap-2 items-start">
-                  <Check size={20} stroke-width={1.5} class="text-slate-gray shrink-0 mt-0.5" aria-hidden="true" />
+                  <Check size={20} stroke-width={1.5} class="text-brand-blue shrink-0 mt-0.5" aria-hidden="true" />
                   <span>{feature}</span>
                 </li>
               ))}
@@ -100,35 +98,43 @@ const privatePlan = p.hypotheses.privateRunner;
       ))}
     </div>
 
-    <div class="text-center mt-16 mb-6">
-      <p class="text-caption text-slate-gray uppercase tracking-wide">{p.hypotheses.privateEyebrow}</p>
+    <p class="text-caption text-slate-gray text-center mt-6">
+      {p.hypotheses.priceCaption}
+    </p>
+  </Section>
+
+  <Section surface="white" padding="lg" id="self-host">
+    <div class="text-center mb-12">
+      <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{p.selfHost.title}</h2>
+      <p class="text-body text-slate-gray max-w-2xl mx-auto">{p.selfHost.subtitle}</p>
     </div>
-    <Card radius="card" elevation="flat" class="p-8 md:p-10">
+    <Card radius="card" elevation="flat" class="p-8 md:p-10 max-w-4xl mx-auto">
       <div class="flex flex-wrap items-baseline justify-between gap-3 mb-6">
-        <h3 class="text-h3 font-bold text-dark-charcoal">{privatePlan.name}</h3>
+        <h3 class="text-h3 font-bold text-dark-charcoal">{selfHostFree.name}</h3>
         <div class="flex items-baseline gap-1">
-          <span class="text-h1 font-medium text-dark-charcoal">{privatePlan.price}</span>
+          <span class="text-h1 font-medium text-dark-charcoal">{selfHostFree.price}</span>
           <span class="text-caption text-slate-gray">{p.hypotheses.priceSuffix}</span>
         </div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-        <p class="text-body text-dark-charcoal leading-snug">{privatePlan.description}</p>
-        <ul class="flex flex-col gap-2 text-body text-slate-gray list-none p-0">
-          {privatePlan.features.map((feature) => (
+        <p class="text-body text-dark-charcoal leading-snug">{selfHostFree.description}</p>
+        <ul class="flex flex-col gap-2 text-body text-dark-charcoal list-none p-0">
+          {selfHostFree.features.map((feature) => (
             <li class="flex gap-2 items-start">
-              <Check size={20} stroke-width={1.5} class="text-slate-gray shrink-0 mt-0.5" aria-hidden="true" />
+              <Check size={20} stroke-width={1.5} class="text-brand-blue shrink-0 mt-0.5" aria-hidden="true" />
               <span>{feature}</span>
             </li>
           ))}
         </ul>
       </div>
+
       <p class="text-caption text-slate-gray border-t border-divider pt-4 mt-6">
-        {privatePlan.footnote}
+        {selfHostFree.footnote}
       </p>
     </Card>
   </Section>
 
-  <Section surface="white" padding="lg">
+  <Section surface="soft" padding="lg">
     <div class="text-center mb-12">
       <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{p.affects.title}</h2>
       <p class="text-body text-slate-gray max-w-xl mx-auto">{p.affects.subtitle}</p>
@@ -141,36 +147,6 @@ const privatePlan = p.hypotheses.privateRunner;
           <p class="text-body text-slate-gray leading-relaxed">{p.affects[key].body}</p>
         </div>
       ))}
-    </div>
-  </Section>
-
-  <Section surface="soft" padding="lg">
-    <div class="text-center mb-10">
-      <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{p.cloudVsPrivate.title}</h2>
-      <p class="text-body text-slate-gray max-w-xl mx-auto">{p.cloudVsPrivate.subtitle}</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {(['cloud', 'private'] as const).map((key) => (
-        <Card radius="card" elevation="flat" class="p-8 flex flex-col gap-4 h-full">
-          <div>
-            <h3 class="text-h3 font-bold text-dark-charcoal">{p.cloudVsPrivate[key].title}</h3>
-            <p class="text-caption text-slate-gray">({p.cloudVsPrivate[key].alias})</p>
-          </div>
-          <p class="text-body text-slate-gray leading-relaxed">{p.cloudVsPrivate[key].scenario}</p>
-          <p class="text-body text-dark-charcoal border-t border-divider pt-4 mt-auto">
-            <span class="text-caption font-medium uppercase tracking-wide text-slate-gray block mb-1">{p.cloudVsPrivate[key].bestForLabel}</span>
-            {p.cloudVsPrivate[key].bestFor}
-          </p>
-        </Card>
-      ))}
-    </div>
-  </Section>
-
-  <Section surface="dark" padding="lg">
-    <div class="max-w-2xl mx-auto text-center flex flex-col items-center gap-5">
-      <h2 class="text-h1 font-medium text-white">{p.earlyAccess.headline}</h2>
-      <p class="text-body text-white/80">{p.earlyAccess.body}</p>
-      <Button href="#waitlist" variant="primary" size="lg">{p.earlyAccess.cta}</Button>
     </div>
   </Section>
 

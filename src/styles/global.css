@@ -14,7 +14,7 @@
   --color-slate-gray: #5D6C7B;
   --color-soft-gray: #F1F4F7;
   --color-warm-gray: #F7F8FA;
-  --color-reading-paper: #F6F5F1;
+  --color-reading-paper: #EBEDF0;
   --color-baby-blue: #E8F3FF;
   --color-near-black: #1C1E21;
   --color-divider: #DEE3E9;
@@ -86,10 +86,12 @@
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    overscroll-behavior-y: contain;
   }
 
   body {
     margin: 0;
+    overscroll-behavior-y: contain;
   }
 
   *:focus-visible {
@@ -155,6 +157,7 @@
 @layer components {
   .prose-syncologic {
     @apply text-slate-gray;
+    line-height: 1.7;
   }
   .prose-syncologic h2 {
     @apply text-h1 font-medium text-dark-charcoal mt-12 mb-4;

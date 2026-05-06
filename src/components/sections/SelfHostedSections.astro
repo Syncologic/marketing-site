@@ -53,9 +53,9 @@ const roadmapLevels = ['level1', 'level2'] as const;
           <h3 class="text-h3 font-bold text-dark-charcoal">
             {t('selfHosted.underTheHood.controlData.title')}
           </h3>
-          <p class="text-body text-slate-gray">
-            {t('selfHosted.underTheHood.controlData.body')}
-          </p>
+          {(t('selfHosted.underTheHood.controlData.body') as unknown as string[]).map((para) => (
+            <p class="text-body text-slate-gray">{para}</p>
+          ))}
         </div>
         <ControlDataPlanes />
       </div>
@@ -99,6 +99,17 @@ const roadmapLevels = ['level1', 'level2'] as const;
       </div>
     </div>
   </details>
+</Section>
+
+<Section surface="white" padding="lg">
+  <div class="max-w-[760px]">
+    <h2 class="text-h1 font-medium text-dark-charcoal mb-4">
+      {t('selfHosted.migration.title')}
+    </h2>
+    <p class="text-body text-slate-gray">
+      {t('selfHosted.migration.body')}
+    </p>
+  </div>
 </Section>
 
 <style>

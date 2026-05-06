@@ -1,6 +1,9 @@
 ---
 import Button from '../ui/Button.astro';
+import GithubIcon from '../ui/GithubIcon.astro';
 import { getLocaleFromUrl, getT, localizedPath, pathWithoutLocale } from '../../i18n/utils';
+
+const GITHUB_URL = 'https://github.com/syncologic';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
@@ -25,13 +28,13 @@ const waitlistHref = isGuide ? `${localizedPath(locale, '/')}#waitlist` : '#wait
   class={`${positionClass} top-0 left-0 right-0 z-50 w-full bg-white/85 backdrop-blur border-b border-[rgba(0,0,0,0.06)]`}
   data-locale={locale}
 >
-  <nav class="container-wide flex items-center justify-between h-16">
+  <nav class="container-wide flex items-center justify-between h-12 lg:h-14">
     <a href={localizedPath(locale, '/')} class="flex items-center gap-2">
-      <img src="/assets/brand/icon-white.svg" alt="" width="48" height="48" class="rounded-input" />
-      <span class="text-h3 font-bold tracking-tight leading-none text-logo-blue">{t('site.name')}</span>
+      <img src="/assets/brand/icon-white.svg" alt="" width="48" height="48" class="rounded-input w-9 h-9" />
+      <span class="text-compact font-bold tracking-tight leading-none text-logo-blue">{t('site.name')}</span>
     </a>
 
-    <ul class="hidden lg:flex items-center gap-7 text-compact text-dark-charcoal">
+    <ul class="hidden lg:flex items-center gap-5 text-caption text-dark-charcoal">
       <li class="relative group">
         <button class="flex items-center gap-1 hover:underline" type="button" aria-haspopup="true" aria-expanded="false">
           {t('nav.useCases')}
@@ -63,6 +66,15 @@ const waitlistHref = isGuide ? `${localizedPath(locale, '/')}#waitlist` : '#wait
       >
         {otherLocale === 'pt-br' ? 'PT' : 'EN'}
       </a>
+      <a
+        href={GITHUB_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden lg:inline-flex items-center justify-center w-8 h-8 rounded-input text-slate-gray hover:text-dark-charcoal hover:bg-soft-gray transition-colors"
+        aria-label="GitHub"
+      >
+        <GithubIcon size={16} />
+      </a>
       <Button href={waitlistHref} variant="primary" size="sm">
         <span class="sm:hidden">{t('nav.joinWaitlistShort')}</span>
         <span class="hidden sm:inline">{t('nav.joinWaitlist')}</span>
@@ -91,7 +103,7 @@ const waitlistHref = isGuide ? `${localizedPath(locale, '/')}#waitlist` : '#wait
 
   <div
     id="nav-mobile-panel"
-    class="lg:hidden hidden border-t border-divider bg-soft-gray shadow-card-elevated max-h-[calc(100vh-4rem)] overflow-y-auto"
+    class="lg:hidden hidden border-t border-divider bg-soft-gray shadow-card-elevated max-h-[calc(100vh-3rem)] overflow-y-auto"
   >
     <ul class="container-wide py-4 text-compact text-dark-charcoal">
       <li class="py-2">
@@ -110,6 +122,17 @@ const waitlistHref = isGuide ? `${localizedPath(locale, '/')}#waitlist` : '#wait
       <li><a href={localizedPath(locale, '/plans')} class="block py-3 hover:underline">{t('nav.pricing')}</a></li>
       <li><a href={localizedPath(locale, '/self-hosted')} class="block py-3 hover:underline">{t('nav.selfHosted')}</a></li>
       <li><a href={localizedPath(locale, '/developers')} class="block py-3 hover:underline">{t('nav.developers')}</a></li>
+      <li>
+        <a
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 py-3 hover:underline"
+        >
+          <GithubIcon size={18} />
+          GitHub
+        </a>
+      </li>
       <li class="border-t border-divider mt-2 pt-3">
         <p class="text-caption uppercase tracking-wide text-slate-gray mb-2">{t('language.label')}</p>
         <ul class="pl-2 space-y-1">
