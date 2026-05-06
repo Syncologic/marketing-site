@@ -44,7 +44,7 @@ export const PATCH: APIRoute = async ({ request, params }) => {
   }
   const parsed = waitlistPatchSchema.safeParse(payload);
   if (!parsed.success) {
-    return json({ error: 'invalid_input', issues: parsed.error.flatten() }, 400);
+    return json({ error: 'invalid_input' }, 400);
   }
 
   const row = await supabase

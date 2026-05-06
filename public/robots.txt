@@ -1,49 +1,37 @@
 User-agent: *
 Allow: /
-Disallow: /dev/
 
 User-agent: GPTBot
 Allow: /
-Disallow: /dev/
 
 User-agent: OAI-SearchBot
 Allow: /
-Disallow: /dev/
 
 User-agent: ChatGPT-User
 Allow: /
-Disallow: /dev/
 
 User-agent: ClaudeBot
 Allow: /
-Disallow: /dev/
 
 User-agent: Claude-Web
 Allow: /
-Disallow: /dev/
 
 User-agent: anthropic-ai
 Allow: /
-Disallow: /dev/
 
 User-agent: PerplexityBot
 Allow: /
-Disallow: /dev/
 
 User-agent: Perplexity-User
 Allow: /
-Disallow: /dev/
 
 User-agent: Google-Extended
 Allow: /
-Disallow: /dev/
 
 User-agent: CCBot
 Allow: /
-Disallow: /dev/
 
 User-agent: Applebot-Extended
 Allow: /
-Disallow: /dev/
 
 Sitemap: https://syncologic.com/sitemap-index.xml

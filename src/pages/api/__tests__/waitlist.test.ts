@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+vi.hoisted(() => {
+  process.env.PUBLIC_SITE_URL = 'http://localhost:4321';
+});
+
 const {
   isAllowedOriginMock,
   checkPostBudgetMock,
@@ -115,13 +119,23 @@ describe('POST /api/waitlist', () => {
     expect(insertSingleMock).not.toHaveBeenCalled();
   });
 
-  it('silently 200s when the honeypot is filled and never touches the DB', async () => {
+  it('silently 200s when the honeypot is filled (single char) and never touches the DB', async () => {
     const { status, body } = await callPost(
-      makeRequest({ email: 'a@b.test', locale: 'en', website: 'http://spam.example' }),
+      makeRequest({ email: 'a@b.test', locale: 'en', website: 'x' }),
     );
     expect(status).toBe(200);
     expect(body).toEqual({ status: 'ok' });
     expect(checkPostBudgetMock).not.toHaveBeenCalled();
+    expect(insertSingleMock).not.toHaveBeenCalled();
+    expect(sendWaitlistConfirmationMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects a multi-char honeypot value at the schema layer (length cap)', async () => {
+    const { status, body } = await callPost(
+      makeRequest({ email: 'a@b.test', locale: 'en', website: 'http://spam.example' }),
+    );
+    expect(status).toBe(400);
+    expect(body.error).toBe('invalid_input');
     expect(insertSingleMock).not.toHaveBeenCalled();
     expect(sendWaitlistConfirmationMock).not.toHaveBeenCalled();
   });
@@ -183,7 +197,7 @@ describe('POST /api/waitlist', () => {
     expect(sendWaitlistConfirmationMock).not.toHaveBeenCalled();
   });
 
-  it('does not re-send the welcome to an active existing signup', async () => {
+  it('returns a generic ok with no id/token for an active existing signup (no enumeration)', async () => {
     maybeSingleMock.mockResolvedValue({
       data: {
         id: 'row-id',
@@ -195,10 +209,42 @@ describe('POST /api/waitlist', () => {
     });
     const { status, body } = await callPost(makeRequest({ email: 'a@b.test', locale: 'en' }));
     expect(status).toBe(200);
-    expect(body).toEqual({ id: 'row-id', token: 'signed-token' });
+    expect(body).toEqual({ status: 'ok' });
+    expect(body.id).toBeUndefined();
+    expect(body.token).toBeUndefined();
     expect(insertSingleMock).not.toHaveBeenCalled();
     expect(updateEqMock).not.toHaveBeenCalled();
+    expect(signTokenMock).not.toHaveBeenCalled();
     expect(sendWaitlistConfirmationMock).not.toHaveBeenCalled();
+  });
+
+  it('a second POST with the same email never returns the same id+token as the first', async () => {
+    maybeSingleMock.mockResolvedValueOnce({ data: null, error: null });
+    const first = await callPost(makeRequest({ email: 'a@b.test', locale: 'en' }));
+    expect(first.status).toBe(200);
+    expect(first.body).toEqual({ id: 'row-id', token: 'signed-token' });
+
+    maybeSingleMock.mockResolvedValueOnce({
+      data: {
+        id: 'row-id',
+        unsubscribe_token: 'unsub-token',
+        removed_at: null,
+        rejoin_count: 0,
+      },
+      error: null,
+    });
+    const second = await callPost(makeRequest({ email: 'a@b.test', locale: 'en' }));
+    expect(second.status).toBe(200);
+    expect(second.body).toEqual({ status: 'ok' });
+    expect(second.body.id).toBeUndefined();
+    expect(second.body.token).toBeUndefined();
+  });
+
+  it('omits zod issue tree on invalid input (no schema-shape leak)', async () => {
+    const { status, body } = await callPost(makeRequest({ email: 'not-an-email', locale: 'en' }));
+    expect(status).toBe(400);
+    expect(body.error).toBe('invalid_input');
+    expect(body.issues).toBeUndefined();
   });
 
   it('returns 500 server_error when the insert fails', async () => {

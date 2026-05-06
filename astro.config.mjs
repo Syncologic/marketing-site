@@ -23,7 +23,6 @@ export default defineConfig({
         defaultLocale: 'en',
         locales: { en: 'en-US', 'pt-br': 'pt-BR' },
       },
-      filter: (page) => !page.includes('/dev/'),
     }),
   ],
   vite: {
