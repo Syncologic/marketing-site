@@ -1,0 +1,80 @@
+# Syncologic
+
+> Move files between clouds without downloading them first.
+
+Syncologic is a file-transfer service that moves data directly between cloud
+providers — Google Drive, OneDrive, Dropbox, S3-compatible storage, SFTP,
+WebDAV, and Nextcloud — without pulling files through your laptop. You connect
+a source and a destination, preview what will change, run the transfer, and
+get a clear completion report.
+
+The service is pre-launch. The website captures waitlist signups segmented by
+use case (one-time transfer, business migration, scheduled backup, private
+runner, browser transfer, local backup, developer automation, self-hosting).
+
+## Core pages
+
+- [Homepage](https://syncologic.com/): Product overview, three runner choices, waitlist signup
+- [Plans](https://syncologic.com/plans): Pricing hypotheses (Free, Pro, Business, plus a free self-hosting plan)
+- [Self-hosted](https://syncologic.com/self-hosted): Source-visible architecture, control plane vs data plane
+- [Developers](https://syncologic.com/developers): Future API, CLI, webhook, and runner model
+- [Privacy](https://syncologic.com/privacy): Privacy policy and data handling
+
+## Use cases
+
+- [Cloud-to-cloud transfer](https://syncologic.com/use-cases/cloud-to-cloud-transfer): Move folders between cloud drives without going through your laptop
+- [Business cloud migration](https://syncologic.com/use-cases/business-cloud-migration): Move team files to a new workspace with preview, progress, and a final report
+- [Scheduled cloud backup](https://syncologic.com/use-cases/scheduled-cloud-backup): Recurring copies of important cloud folders
+- [Private Runner](https://syncologic.com/use-cases/private-runner): Run transfers through your own server, NAS, or VPS
+
+## Guides
+
+- [Move files between clouds without downloading them first](https://syncologic.com/guides/move-files-between-clouds-without-downloading): Why download-and-reupload fails on large folders, what works
+- [Transfer Google Drive to OneDrive](https://syncologic.com/guides/transfer-google-drive-to-onedrive): Step-by-step practical guide
+
+## Brazilian Portuguese (pt-BR)
+
+The site is bilingual. Every URL above also exists at `/pt-br/<path>`.
+
+- [Página inicial](https://syncologic.com/pt-br/)
+- [Planos](https://syncologic.com/pt-br/plans)
+- [Auto-hospedado](https://syncologic.com/pt-br/self-hosted)
+- [Desenvolvedores](https://syncologic.com/pt-br/developers)
+- [Casos de uso](https://syncologic.com/pt-br/use-cases/cloud-to-cloud-transfer)
+- [Guias](https://syncologic.com/pt-br/guides)
+
+## How transfers run
+
+A user picks a source cloud, a destination cloud, and where the transfer
+should run. Files move directly between the source and destination — they
+do not flow through Syncologic's servers in metadata, only through the
+runner that executes the transfer.
+
+There are three runner choices:
+
+- On Syncologic infrastructure (brand name: Cloud Runner) — convenient, paid,
+  scheduled jobs and large migrations.
+- In the user's browser tab (brand name: Browser Runner / "This Device") —
+  free, manual, transparent. The tab must stay open.
+- On the user's own server, NAS, or VPS (brand name: Private Runner /
+  self-hosted runner) — for privacy, homelab use, business policy, or high
+  volume.
+
+A "Local Runner Mode" reuses the Private Runner binary to copy from a local
+folder or NAS to a cloud destination.
+
+## Status
+
+Pre-launch (2026). The website is the only public surface. The waitlist
+captures use-case segmentation. There is no product UI yet, no public API,
+and no SDK.
+
+## Not Syncologic
+
+For clarity:
+
+- Syncologic does not store user files. Files move from source provider to
+  destination provider through the chosen runner.
+- Syncologic does not aggregate cloud drives into a single mounted view.
+- "All your files in one place" is not the product — the product is
+  point-to-point transfer with preview, scheduling, and reports.
