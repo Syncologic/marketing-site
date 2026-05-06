@@ -30,9 +30,13 @@ export const waitlistPostSchema = z
   .object({
     email: z.string().email().max(254),
     locale: z.enum(LOCALES).default('en'),
-    source_page: z.string().max(255).optional(),
+    source_page: z
+      .string()
+      .regex(/^\/[a-zA-Z0-9/_-]*$/)
+      .max(255)
+      .optional(),
     segment_hint: z.enum(USE_CASES).nullable().optional(),
-    website: z.string().optional(),
+    website: z.string().max(1).optional(),
   })
   .strict();
 

@@ -24,13 +24,58 @@ describe('waitlistPostSchema', () => {
     const r = waitlistPostSchema.safeParse({ email: 'a@b.test', locale: 'en', segment_hint: 'browser_runner' });
     expect(r.success).toBe(false);
   });
-  it('accepts a filled honeypot so the handler can silently 200', () => {
+  it('accepts a single-character honeypot so the handler can silently 200', () => {
     const r = waitlistPostSchema.safeParse({
       email: 'a@b.test',
       locale: 'en',
-      website: 'http://spam',
+      website: 'x',
     });
     expect(r.success).toBe(true);
+  });
+
+  it('rejects a multi-character honeypot value (length cap)', () => {
+    const r = waitlistPostSchema.safeParse({
+      email: 'a@b.test',
+      locale: 'en',
+      website: 'http://spam.example',
+    });
+    expect(r.success).toBe(false);
+  });
+
+  it('accepts a path-shaped source_page', () => {
+    const r = waitlistPostSchema.safeParse({
+      email: 'a@b.test',
+      locale: 'en',
+      source_page: '/use-cases/cloud-to-cloud-transfer',
+    });
+    expect(r.success).toBe(true);
+  });
+
+  it('rejects a javascript: pseudo-protocol in source_page', () => {
+    const r = waitlistPostSchema.safeParse({
+      email: 'a@b.test',
+      locale: 'en',
+      source_page: 'javascript:alert(1)',
+    });
+    expect(r.success).toBe(false);
+  });
+
+  it('rejects an HTML-injection payload in source_page', () => {
+    const r = waitlistPostSchema.safeParse({
+      email: 'a@b.test',
+      locale: 'en',
+      source_page: '"><img src=x onerror=alert(1)>',
+    });
+    expect(r.success).toBe(false);
+  });
+
+  it('rejects a source_page that does not start with /', () => {
+    const r = waitlistPostSchema.safeParse({
+      email: 'a@b.test',
+      locale: 'en',
+      source_page: 'evil.com/path',
+    });
+    expect(r.success).toBe(false);
   });
 });
 

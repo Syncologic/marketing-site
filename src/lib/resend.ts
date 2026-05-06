@@ -73,8 +73,19 @@ const COLOR = {
   paper: '#F7F8FA',
 } as const;
 
+function htmlEscape(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function renderEmail(p: ConfirmationParams, c: Copy): string {
-  const logoUrl = `${p.siteUrl}/assets/brand/icon-black.png`;
+  const logoUrl = htmlEscape(`${p.siteUrl}/assets/brand/icon-black.png`);
+  const segHref = htmlEscape(p.segmentationLink);
+  const unsubHref = htmlEscape(p.unsubscribeLink);
   return `<!doctype html>
 <html lang="${p.locale}">
   <head>
@@ -105,7 +116,7 @@ function renderEmail(p: ConfirmationParams, c: Copy): string {
                   <tr>
                     <td style="padding:20px 24px;">
                       <p style="margin:0 0 12px 0;font-size:15px;line-height:1.5;color:${COLOR.text};">${c.segPrompt}</p>
-                      <a href="${p.segmentationLink}" style="display:inline-block;padding:12px 22px;background:${COLOR.brand};color:#FFFFFF;font-size:15px;font-weight:500;line-height:1;text-decoration:none;border-radius:100px;">${c.segCta}</a>
+                      <a href="${segHref}" style="display:inline-block;padding:12px 22px;background:${COLOR.brand};color:#FFFFFF;font-size:15px;font-weight:500;line-height:1;text-decoration:none;border-radius:100px;">${c.segCta}</a>
                     </td>
                   </tr>
                 </table>
@@ -119,7 +130,7 @@ function renderEmail(p: ConfirmationParams, c: Copy): string {
             <tr>
               <td style="padding:24px 32px 32px 32px;">
                 <hr style="border:none;border-top:1px solid ${COLOR.divider};margin:0 0 16px 0;" />
-                <p style="margin:0;font-size:12px;line-height:1.5;color:${COLOR.muted};">${c.unsubPrompt} <a href="${p.unsubscribeLink}" style="color:${COLOR.body};text-decoration:underline;">${c.unsubCta}</a>.</p>
+                <p style="margin:0;font-size:12px;line-height:1.5;color:${COLOR.muted};">${c.unsubPrompt} <a href="${unsubHref}" style="color:${COLOR.body};text-decoration:underline;">${c.unsubCta}</a>.</p>
               </td>
             </tr>
           </table>
@@ -138,5 +149,9 @@ export async function sendWaitlistConfirmation(params: ConfirmationParams): Prom
     to: params.to,
     subject: copy.subject,
     html: renderEmail(params, copy),
+    headers: {
+      'List-Unsubscribe': `<${params.unsubscribeLink}>`,
+      'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+    },
   });
 }
