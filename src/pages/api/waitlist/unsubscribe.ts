@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { supabase } from '../../../lib/supabase';
+import { checkUnsubBudget, getClientIp, hashIp } from '../../../lib/ratelimit';
 
 export const prerender = false;
 
@@ -15,7 +16,33 @@ const UNSUB_PAGE = (locale: 'en' | 'pt-br') => {
   return locale === 'pt-br' ? pt : en;
 };
 
-export const GET: APIRoute = async ({ url }) => {
+const TOO_MANY_PAGE = (locale: 'en' | 'pt-br') => {
+  const en = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><title>Too many requests</title>
+    <style>body{font-family:Montserrat,sans-serif;color:#1C2B33;max-width:480px;margin:80px auto;padding:0 24px;line-height:1.5}</style>
+    </head><body><h1 style="font-weight:500">Too many requests.</h1>
+    <p>Please wait a bit and try the link again.</p></body></html>`;
+  const pt = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"/><title>Muitas tentativas</title>
+    <style>body{font-family:Montserrat,sans-serif;color:#1C2B33;max-width:480px;margin:80px auto;padding:0 24px;line-height:1.5}</style>
+    </head><body><h1 style="font-weight:500">Muitas tentativas.</h1>
+    <p>Aguarde um momento e tente o link novamente.</p></body></html>`;
+  return locale === 'pt-br' ? pt : en;
+};
+
+function preferredLocale(request: Request): 'en' | 'pt-br' {
+  const al = request.headers.get('accept-language') ?? '';
+  return /\bpt(-br)?\b/i.test(al) ? 'pt-br' : 'en';
+}
+
+export const GET: APIRoute = async ({ request, url }) => {
+  const ipHash = hashIp(getClientIp(request));
+  const budget = await checkUnsubBudget(ipHash);
+  if (!budget.ok) {
+    return new Response(TOO_MANY_PAGE(preferredLocale(request)), {
+      status: 429,
+      headers: { 'content-type': 'text/html; charset=utf-8' },
+    });
+  }
+
   const token = url.searchParams.get('token') ?? '';
   if (token && /^[0-9a-f]{32}$/i.test(token)) {
     const result = await supabase
