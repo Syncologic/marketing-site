@@ -18,13 +18,14 @@
         "desc": "Use a API, a CLI, webhooks ou hospede o runner por conta própria. A gente cuida do OAuth — seus usuários conectam à Syncologic, não ao seu app."
       }
     },
-    "providersLabel": "Funciona com",
+    "providersLabel": "Vai funcionar com",
     "runnersTitle": "Onde a transferência acontece?",
     "runnersSubtitle": "Três opções com perfis bem diferentes de praticidade, custo e privacidade.",
     "useCasesTitle": "Encontre seu caso de uso",
     "useCasesSubtitle": "Estamos construindo para vários tipos de públicos — comece pelo que faz mais sentido para você.",
     "trustTitle": "Sua confiança em primeiro lugar",
-    "trustSubtitle": "Sem surpresas. Sem mudanças silenciosas. Você vê o que roda, onde roda e o que mudou."
+    "trustSubtitle": "Sem surpresas. Sem mudanças silenciosas. Você vê o que roda, onde roda e o que mudou.",
+    "providersFootnote": "Mais provedores após o lançamento do early access."
   },
   "nav": {
     "useCases": "Casos de uso",
@@ -77,7 +78,8 @@
     "questionSize": "Quanto de dados?",
     "questionFrequency": "Com que frequência?",
     "questionRunner": "Onde a transferência deve rodar?",
-    "questionRole": "O que melhor descreve você?"
+    "questionRole": "O que melhor descreve você?",
+    "errorInvalidEmail": "Digite um e-mail válido."
   },
   "providers": {
     "googleDrive": "Google Drive",
@@ -462,22 +464,6 @@
     "cliTitle": "Uma CLI para scripts e CI",
     "cliBody": "Os mesmos jobs, executados de um terminal ou de um runner de CI. Útil para migrações pontuais e para backups definidos por um script que você consegue revisar em um code review.",
     "cliCaption": "Planejado. O comportamento espelha a API um-para-um.",
-    "runnersTitle": "Escolha o runner que combina com o job",
-    "runnersBody": "A mesma API. Três caminhos de dados diferentes. Escolha por job, não por conta.",
-    "runnersFooterText": "Quer o passo a passo completo do Private Runner?",
-    "runnersFooterLink": "Veja /self-hosted",
-    "runnerCloud": {
-      "title": "Cloud Runner",
-      "desc": "Runners hospedados para jobs agendados e grandes migrações. Sem infraestrutura do seu lado."
-    },
-    "runnerBrowser": {
-      "title": "Browser Runner",
-      "desc": "Para transferências pontuais a partir de uma aba. O caminho dos dados fica no navegador do usuário; sem tokens de longa duração."
-    },
-    "runnerPrivate": {
-      "title": "Private Runner",
-      "desc": "Hospede o binário do runner em uma VPS, servidor on-prem ou NAS. Conexão apenas de saída com a camada de controle."
-    },
     "webhooksTitle": "Webhooks para os eventos que importam",
     "webhooksBody": "Assine os eventos do ciclo de vida dos jobs e direcione para sua fila, seu dashboard ou seu log de auditoria. Os payloads serão assinados com HMAC.",
     "webhookEventsLabel": "Eventos planejados",

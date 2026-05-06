@@ -18,13 +18,14 @@
         "desc": "Use the API, CLI, webhooks, or self-host the runner. We handle OAuth — your users connect to Syncologic, not to your app."
       }
     },
-    "providersLabel": "Connects to",
+    "providersLabel": "Will work with",
     "runnersTitle": "Where does the transfer happen?",
     "runnersSubtitle": "Three options with very different trade-offs in cost, convenience, and privacy.",
     "useCasesTitle": "Find your use case",
     "useCasesSubtitle": "We're building for several different audiences — start with the one that fits.",
     "trustTitle": "Built around your trust",
-    "trustSubtitle": "No surprises. No silent changes. You see what runs, where, and what changed."
+    "trustSubtitle": "No surprises. No silent changes. You see what runs, where, and what changed.",
+    "providersFootnote": "More providers after early access launch."
   },
   "nav": {
     "useCases": "Use cases",
@@ -77,7 +78,8 @@
     "questionSize": "How much data?",
     "questionFrequency": "How often?",
     "questionRunner": "Where should the transfer run?",
-    "questionRole": "Which best describes you?"
+    "questionRole": "Which best describes you?",
+    "errorInvalidEmail": "Please enter a valid email address."
   },
   "providers": {
     "googleDrive": "Google Drive",
@@ -462,22 +464,6 @@
     "cliTitle": "A CLI for scripts and CI",
     "cliBody": "Same jobs, driven from a terminal or a CI runner. Useful for one-shot migrations and for backups owned by a script you can read in a code review.",
     "cliCaption": "Planned. Behavior mirrors the API one-to-one.",
-    "runnersTitle": "Pick the runner that fits the job",
-    "runnersBody": "Same API. Three different data paths. Choose per job, not per account.",
-    "runnersFooterText": "Want the full Private Runner walkthrough?",
-    "runnersFooterLink": "See /self-hosted",
-    "runnerCloud": {
-      "title": "Cloud Runner",
-      "desc": "Hosted runners for scheduled jobs and large migrations. No infrastructure on your side."
-    },
-    "runnerBrowser": {
-      "title": "Browser Runner",
-      "desc": "For ad-hoc transfers from a tab. The data path stays in the user's browser; no long-lived tokens."
-    },
-    "runnerPrivate": {
-      "title": "Private Runner",
-      "desc": "Self-host the runner binary on a VPS, on-prem server, or NAS. Outbound-only connection to the control plane."
-    },
     "webhooksTitle": "Webhooks for the events you care about",
     "webhooksBody": "Subscribe to job lifecycle events and stream them into your queue, your dashboard, or your audit log. Payloads will be HMAC-signed.",
     "webhookEventsLabel": "Planned events",

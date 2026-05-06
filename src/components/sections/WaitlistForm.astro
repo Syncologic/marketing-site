@@ -46,7 +46,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       </Button>
     </form>
     <p
-      class="waitlist-msg mt-3 text-caption text-slate-gray min-h-[20px]"
+      class="waitlist-msg mt-4 text-body font-medium text-dark-charcoal min-h-[28px] transition-colors"
       role="status"
       aria-live="polite"
       data-msg-success={t('waitlist.success')}
@@ -102,6 +102,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       success: "✓ You're on the list",
       errorNetwork: "Couldn't reach the server. Try again?",
       errorRate: "Slow down — try again in a minute.",
+      errorInvalidEmail: 'Please enter a valid email address.',
       questionUseCase: 'What would you like to do?',
       questionSourceProvider: 'Where do the files live now?',
       questionDestProvider: 'Where do they need to go?',
@@ -125,6 +126,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       success: '✓ Você está na lista',
       errorNetwork: 'Não conseguimos nos conectar ao servidor. Tentar de novo?',
       errorRate: 'Calma — tente de novo em um minuto.',
+      errorInvalidEmail: 'Digite um e-mail válido.',
       questionUseCase: 'O que você pretende fazer?',
       questionSourceProvider: 'Onde os arquivos estão hoje?',
       questionDestProvider: 'Para onde eles precisam ir?',
@@ -270,14 +272,31 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
     const sourcePage = form.dataset.sourcePage ?? '/';
     const segmentHint = form.dataset.segmentHint || null;
 
+    function setMsg(text: string, state: 'success' | 'error' | '' = '') {
+      msg.textContent = text;
+      msg.classList.toggle('text-success', state === 'success');
+      msg.classList.toggle('text-error', state === 'error');
+    }
+
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
+    emailInput?.addEventListener('input', () => {
+      if (msg.textContent) setMsg('');
+    });
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const fd = new FormData(form);
       const email = String(fd.get('email') ?? '').trim();
       const honeypot = String(fd.get('website') ?? '');
-      if (!email || honeypot) return;
+      if (honeypot) return;
+      if (!email || !EMAIL_RE.test(email)) {
+        setMsg(I18N[locale].errorInvalidEmail, 'error');
+        return;
+      }
 
-      msg.textContent = '';
+      setMsg('');
       labelDefault.classList.add('hidden');
       labelLoading.classList.remove('hidden');
       submitBtn.disabled = true;
@@ -290,16 +309,16 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         });
 
         if (res.status === 429) {
-          msg.textContent = I18N[locale].errorRate;
+          setMsg(I18N[locale].errorRate, 'error');
           return;
         }
         if (!res.ok) {
-          msg.textContent = I18N[locale].errorNetwork;
+          setMsg(I18N[locale].errorNetwork, 'error');
           return;
         }
 
         const data = (await res.json()) as Stage1Result;
-        msg.textContent = I18N[locale].success;
+        setMsg(I18N[locale].success, 'success');
         step2.dataset.rowId = data.id;
         step2.dataset.token = data.token;
         step2.classList.remove('hidden');
@@ -317,7 +336,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
           }
         });
       } catch {
-        msg.textContent = I18N[locale].errorNetwork;
+        setMsg(I18N[locale].errorNetwork, 'error');
       } finally {
         labelDefault.classList.remove('hidden');
         labelLoading.classList.add('hidden');

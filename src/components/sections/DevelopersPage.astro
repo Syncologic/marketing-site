@@ -1,6 +1,5 @@
 ---
 import Section from '../ui/Section.astro';
-import Card from '../ui/Card.astro';
 import Hero from './Hero.astro';
 import FAQ from './FAQ.astro';
 import WaitlistForm from './WaitlistForm.astro';
@@ -33,7 +32,6 @@ const cliSnippet = `syncologic jobs create \\
   --schedule "0 2 * * *" \\
   --on-conflict skip`;
 
-const runners = [dev.runnerCloud, dev.runnerBrowser, dev.runnerPrivate];
 ---
 
 <Hero
@@ -86,28 +84,7 @@ const runners = [dev.runnerCloud, dev.runnerBrowser, dev.runnerPrivate];
   </div>
 </Section>
 
-<Section surface="white" padding="lg" id="runners">
-  <div class="text-center mb-12 max-w-2xl mx-auto">
-    <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{dev.runnersTitle}</h2>
-    <p class="text-body text-slate-gray">{dev.runnersBody}</p>
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    {runners.map((r) => (
-      <Card class="p-8">
-        <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{r.title}</h3>
-        <p class="text-caption text-slate-gray">{r.desc}</p>
-      </Card>
-    ))}
-  </div>
-  <p class="text-caption text-slate-gray text-center mt-10">
-    {dev.runnersFooterText}{' '}
-    <a href={locale === 'pt-br' ? '/pt-br/self-hosted' : '/self-hosted'} class="text-brand-blue hover:underline focus-visible:underline">
-      {dev.runnersFooterLink} →
-    </a>
-  </p>
-</Section>
-
-<Section surface="soft" padding="lg" id="webhooks">
+<Section surface="white" padding="lg" id="webhooks">
   <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] gap-10 items-start">
     <div class="flex flex-col gap-3">
       <h2 class="text-h1 font-medium text-dark-charcoal">{dev.webhooksTitle}</h2>
