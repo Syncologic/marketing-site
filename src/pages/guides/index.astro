@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../components/layout/Layout.astro';
 import Nav from '../../components/layout/Nav.astro';
 import Footer from '../../components/layout/Footer.astro';
+import Card from '../../components/ui/Card.astro';
 import { getT, localizedPath } from '../../i18n/utils';
 import { readingTimeMinutes } from '../../lib/reading-time';
 
@@ -41,20 +42,22 @@ const indexDescription = t('guides.index.description');
           <li>
             <a
               href={localizedPath('en', `/guides/${g.slug}`)}
-              class="block bg-white rounded-card p-6 h-full hover:shadow-card transition-shadow"
+              class="block group h-full"
             >
-              <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{g.eyebrow}</span>
-              <h2 class="text-h3 font-bold text-dark-charcoal mt-2">{g.title}</h2>
-              <p class="text-body text-slate-gray mt-3 line-clamp-3">{g.description}</p>
-              <p class="text-caption text-slate-gray mt-4 flex flex-wrap gap-x-3 gap-y-1">
-                <span>{t('guides.meta.readingTime', { minutes: g.readingTime })}</span>
-                <span aria-hidden="true">·</span>
-                <span>
-                  {t('guides.meta.updated')}
-                  {' '}
-                  <time datetime={g.updatedIso}>{g.updatedLabel}</time>
-                </span>
-              </p>
+              <Card radius="card" elevation="flat" class="p-6 h-full transition-shadow group-hover:shadow-card">
+                <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{g.eyebrow}</span>
+                <h2 class="text-h3 font-bold text-dark-charcoal mt-2">{g.title}</h2>
+                <p class="text-body text-slate-gray mt-3 line-clamp-3">{g.description}</p>
+                <p class="text-caption text-slate-gray mt-4 flex flex-wrap gap-x-3 gap-y-1">
+                  <span>{t('guides.meta.readingTime', { minutes: g.readingTime })}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>
+                    {t('guides.meta.updated')}
+                    {' '}
+                    <time datetime={g.updatedIso}>{g.updatedLabel}</time>
+                  </span>
+                </p>
+              </Card>
             </a>
           </li>
         ))}

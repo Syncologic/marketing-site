@@ -2,7 +2,7 @@
   "site": {
     "name": "Syncologic",
     "tagline": "Move files between clouds without downloading them first.",
-    "description": "Connect a source and destination, preview what changes, then run the transfer in our cloud, in your browser, or on your own server."
+    "description": "Move files between clouds without downloading them first. Connect a source and destination, preview what will change, run the transfer, and get a clear report."
   },
   "homepage": {
     "heroEyebrow": "Cloud-to-cloud transfer",
@@ -24,8 +24,7 @@
     "useCasesTitle": "Find your use case",
     "useCasesSubtitle": "We're building for several different audiences — start with the one that fits.",
     "trustTitle": "Built around your trust",
-    "trustSubtitle": "No surprises. No silent changes. You see what runs, where, and what changed.",
-    "providersFootnote": "More providers after early access launch."
+    "trustSubtitle": "No surprises. No silent changes. You see what runs, where, and what changed."
   },
   "nav": {
     "useCases": "Use cases",
@@ -77,10 +76,7 @@
     "errorRate": "Slow down — try again in a minute.",
     "errorAlreadyRemoved": "This email was already removed from the list. To rejoin, email us at hello@syncologic.com",
     "step1Subtitle": "Help us build the right tool. Drop your email, then tell us what you need — it takes about a minute.",
-    "step2Title": "Help us build this for you",
-    "step2Intro": "7 quick questions.",
     "step2Skip": "Skip — finish later",
-    "step2Done": "Done",
     "questionUseCase": "What would you like to do?",
     "questionSourceProvider": "Where do the files live now?",
     "questionDestProvider": "Where do they need to go?",
@@ -152,13 +148,10 @@
   "notFound": {
     "eyebrow": "Error 404",
     "title": "Page not found.",
-    "body": "The link might be old, mistyped, or the page may have moved. Pick one of these to get back on track.",
-    "ctaHome": "Back to home",
-    "ctaPlans": "See plans"
+    "body": "The link might be old, mistyped, or the page may have moved.",
+    "ctaHome": "Back to home"
   },
   "useCases": {
-    "indexTitle": "Use cases",
-    "indexDescription": "Pick the workflow that matches what you're trying to do.",
     "furtherReading": "Further reading"
   },
   "visuals": {

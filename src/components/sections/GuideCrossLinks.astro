@@ -1,5 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import Section from '../ui/Section.astro';
+import Card from '../ui/Card.astro';
 import { getLocaleFromUrl, getT, localizedPath, type Locale } from '../../i18n/utils';
 import { readingTimeMinutes } from '../../lib/reading-time';
 
@@ -28,22 +30,24 @@ const guides = slugs
 ---
 
 {guides.length > 0 && (
-  <section class="bg-warm-gray py-section">
-    <div class="max-w-[960px] mx-auto px-6">
+  <Section surface="soft" padding="md">
+    <div class="max-w-[960px] mx-auto">
       <h2 class="text-h1 font-medium text-dark-charcoal mb-8">{t('useCases.furtherReading')}</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {guides.map((g) => (
           <a
             href={localizedPath(locale, `/guides/${g.slug}`)}
-            class="block bg-white rounded-card p-6 hover:shadow-card transition-shadow"
+            class="block group transition-shadow group-hover:shadow-card"
           >
-            <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{g.eyebrow}</span>
-            <h3 class="text-h3 font-bold text-dark-charcoal mt-2">{g.title}</h3>
-            <p class="text-body text-slate-gray mt-3 line-clamp-3">{g.description}</p>
-            <p class="text-caption text-slate-gray mt-4">{t('guides.meta.readingTime', { minutes: g.readingTime })}</p>
+            <Card radius="card" elevation="flat" class="p-6 transition-shadow group-hover:shadow-card">
+              <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{g.eyebrow}</span>
+              <h3 class="text-h3 font-bold text-dark-charcoal mt-2">{g.title}</h3>
+              <p class="text-body text-slate-gray mt-3 line-clamp-3">{g.description}</p>
+              <p class="text-caption text-slate-gray mt-4">{t('guides.meta.readingTime', { minutes: g.readingTime })}</p>
+            </Card>
           </a>
         ))}
       </div>
     </div>
-  </section>
+  </Section>
 )}
