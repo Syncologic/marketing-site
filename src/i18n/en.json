@@ -67,6 +67,7 @@
     "success": "✓ You're on the list",
     "errorNetwork": "Couldn't reach the server. Try again?",
     "errorRate": "Slow down — try again in a minute.",
+    "errorAlreadyRemoved": "This email was already removed from the list. To rejoin, email us at hello@syncologic.com",
     "step1Subtitle": "Help us build the right tool. Drop your email, then tell us what you need — it takes about a minute.",
     "step2Title": "Help us build this for you",
     "step2Intro": "7 quick questions.",

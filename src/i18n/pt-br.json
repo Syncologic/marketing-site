@@ -67,6 +67,7 @@
     "success": "✓ Você está na lista",
     "errorNetwork": "Não conseguimos nos conectar ao servidor. Tentar de novo?",
     "errorRate": "Espere um momento — tente de novo em um minuto.",
+    "errorAlreadyRemoved": "Este e-mail já foi removido da lista. Para entrar de novo, mande um e-mail para hello@syncologic.com",
     "step1Subtitle": "Ajude a construir a ferramenta certa. Deixe seu e-mail e conte o que você precisa — leva cerca de um minuto.",
     "step2Title": "Ajude a construir isso para você",
     "step2Intro": "7 perguntas rápidas.",

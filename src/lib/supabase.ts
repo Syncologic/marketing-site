@@ -31,6 +31,7 @@ export type WaitlistRow = {
   segmentation_completed_at: string | null;
   removed_at: string | null;
   confirmed_at: string | null;
+  rejoin_count: number;
   created_at: string;
   updated_at: string;
 };
