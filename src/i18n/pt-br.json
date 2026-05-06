@@ -55,6 +55,14 @@
       "useCases": "Casos de uso"
     }
   },
+  "breadcrumb": {
+    "home": "Início",
+    "guides": "Guias",
+    "useCases": "Casos de uso",
+    "plans": "Planos",
+    "selfHosted": "Auto-hospedado",
+    "developers": "Desenvolvedores"
+  },
   "language": {
     "label": "Idioma",
     "en": "English",

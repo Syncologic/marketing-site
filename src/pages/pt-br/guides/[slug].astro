@@ -13,8 +13,10 @@ import ProviderArc from '../../../components/visuals/ProviderArc.astro';
 import MigrationChecklist from '../../../components/visuals/MigrationChecklist.astro';
 import ScheduleClock from '../../../components/visuals/ScheduleClock.astro';
 import PrivateRunnerPath from '../../../components/visuals/PrivateRunnerPath.astro';
+import JsonLd from '../../../components/layout/JsonLd.astro';
 import { getT, localizedPath } from '../../../i18n/utils';
 import { readingTimeMinutes } from '../../../lib/reading-time';
+import { buildBreadcrumb } from '../../../lib/breadcrumb';
 
 export async function getStaticPaths() {
   const entries = await getCollection('guides', (e) => e.data.locale === 'pt-br');
@@ -36,6 +38,7 @@ export async function getStaticPaths() {
 }
 
 const { entry, related } = Astro.props;
+const { slug } = Astro.params;
 const { Content, headings } = await render(entry);
 const ogImage = entry.data.ogImage ?? '/og/default-pt-br.png';
 const t = getT('pt-br');
@@ -45,9 +48,39 @@ const updatedIso = entry.data.updatedAt.toISOString().slice(0, 10);
 const segmentHref = entry.data.waitlistSegment === 'business_migration'
   ? '/use-cases/business-cloud-migration'
   : '/use-cases/cloud-to-cloud-transfer';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://syncologic.com';
+const canonical = `${siteUrl}${localizedPath('pt-br', `/guides/${slug}`)}`;
+const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+const breadcrumbSchema = buildBreadcrumb([
+  { name: t('breadcrumb.home'), url: `${siteUrl}/pt-br/` },
+  { name: t('breadcrumb.guides'), url: `${siteUrl}/pt-br/guides` },
+  { name: entry.data.title, url: canonical },
+]);
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: entry.data.headline,
+  description: entry.data.description,
+  inLanguage: 'pt-BR',
+  datePublished: entry.data.publishedAt.toISOString(),
+  dateModified: entry.data.updatedAt.toISOString(),
+  image: ogImageAbs,
+  mainEntityOfPage: canonical,
+  author: { '@type': 'Organization', name: 'Syncologic', url: siteUrl },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Syncologic',
+    url: siteUrl,
+    logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/brand/icon-white.svg` },
+  },
+};
 ---
 
 <Layout title={entry.data.title} description={entry.data.description} ogImage={ogImage}>
+  <JsonLd slot="head" schema={[breadcrumbSchema, articleSchema]} />
   <Nav slot="nav" />
 
   <article class="bg-reading-paper">

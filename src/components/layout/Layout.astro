@@ -18,6 +18,8 @@ const canonical = `${siteUrl}${localizedPath(locale, pathSansLocale)}`;
 const altEn = `${siteUrl}${localizedPath('en', pathSansLocale)}`;
 const altPt = `${siteUrl}${localizedPath('pt-br', pathSansLocale)}`;
 const og = ogImage ?? `${siteUrl}/og/default-${locale}.png`;
+const ogLocale = locale === 'pt-br' ? 'pt_BR' : 'en_US';
+const ogLocaleAlternate = locale === 'pt-br' ? 'en_US' : 'pt_BR';
 ---
 
 <!DOCTYPE html>
@@ -39,6 +41,8 @@ const og = ogImage ?? `${siteUrl}/og/default-${locale}.png`;
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={og} />
     <meta property="og:site_name" content={t('site.name')} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlternate} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />

@@ -1,18 +1,27 @@
 ---
 import Layout from '../components/layout/Layout.astro';
+import JsonLd from '../components/layout/JsonLd.astro';
 import Nav from '../components/layout/Nav.astro';
 import Footer from '../components/layout/Footer.astro';
 import Hero from '../components/sections/Hero.astro';
 import SelfHostedSections from '../components/sections/SelfHostedSections.astro';
 import WaitlistForm from '../components/sections/WaitlistForm.astro';
 import PrivateRunnerPath from '../components/visuals/PrivateRunnerPath.astro';
-import { getLocaleFromUrl, getT } from '../i18n/utils';
+import { getLocaleFromUrl, getT, localizedPath } from '../i18n/utils';
+import { buildBreadcrumb } from '../lib/breadcrumb';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://syncologic.com';
+const breadcrumbSchema = buildBreadcrumb([
+  { name: t('breadcrumb.home'), url: `${siteUrl}${localizedPath(locale, '/')}` },
+  { name: t('breadcrumb.selfHosted'), url: `${siteUrl}${localizedPath(locale, '/self-hosted')}` },
+]);
 ---
 
 <Layout title={t('selfHosted.meta.title')} description={t('selfHosted.meta.description')}>
+  <JsonLd slot="head" schema={breadcrumbSchema} />
   <Nav slot="nav" />
   <div data-hero>
     <Hero
