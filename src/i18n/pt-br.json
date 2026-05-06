@@ -108,7 +108,7 @@
     "googleDrive": "Google Drive",
     "oneDrive": "OneDrive",
     "dropbox": "Dropbox",
-    "s3": "Armazenamento compatível com S3",
+    "s3": "Compatível com S3",
     "sftp": "SFTP",
     "your_server": "Seu servidor",
     "nextcloud": "Nextcloud",
