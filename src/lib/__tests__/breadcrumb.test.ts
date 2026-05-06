@@ -23,10 +23,13 @@ describe('buildBreadcrumb', () => {
       { name: 'Início', url: 'https://syncologic.com/pt-br/' },
       { name: 'Planos', url: 'https://syncologic.com/pt-br/plans' },
     ]);
-    expect(schema.inLanguage).toBe('pt-BR');
-    expect(schema.itemListElement).toHaveLength(2);
-    expect(schema.itemListElement[0].position).toBe(1);
-    expect(schema.itemListElement[1].position).toBe(2);
+    expect(schema).toMatchObject({
+      inLanguage: 'pt-BR',
+      itemListElement: [
+        { position: 1 },
+        { position: 2 },
+      ],
+    });
   });
 
   it('preserves order and assigns sequential positions', () => {
@@ -35,10 +38,13 @@ describe('buildBreadcrumb', () => {
       { name: 'Guides', url: 'https://syncologic.com/guides' },
       { name: 'Move files', url: 'https://syncologic.com/guides/move' },
     ]);
-    const positions = schema.itemListElement.map((i) => i.position);
-    expect(positions).toEqual([1, 2, 3]);
-    expect(schema.itemListElement[2].name).toBe('Move files');
-    expect(schema.itemListElement[2].item).toBe('https://syncologic.com/guides/move');
+    expect(schema).toMatchObject({
+      itemListElement: [
+        { position: 1, name: 'Home' },
+        { position: 2, name: 'Guides' },
+        { position: 3, name: 'Move files', item: 'https://syncologic.com/guides/move' },
+      ],
+    });
   });
 
   it('throws when given an empty list', () => {

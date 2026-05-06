@@ -5,21 +5,10 @@ export interface BreadcrumbItem {
   url: string;
 }
 
-export interface BreadcrumbListItem {
-  '@type': 'ListItem';
-  position: number;
-  name: string;
-  item: string;
-}
-
-export interface BreadcrumbSchema {
-  '@context': 'https://schema.org';
-  '@type': 'BreadcrumbList';
-  inLanguage: 'en' | 'pt-BR';
-  itemListElement: BreadcrumbListItem[];
-}
-
-export function buildBreadcrumb(locale: Locale, items: BreadcrumbItem[]): BreadcrumbSchema {
+export function buildBreadcrumb(
+  locale: Locale,
+  items: BreadcrumbItem[],
+): Record<string, unknown> {
   if (items.length === 0) {
     throw new Error('buildBreadcrumb requires at least one item');
   }
