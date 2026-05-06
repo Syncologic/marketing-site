@@ -26,7 +26,7 @@ Support message:
 | Technical / architectural docs | **self-hosted runner** |
 | User-facing | **Cloud Runner** |
 | User-facing | **Browser Runner** or **This Device** |
-| User-facing local mode | **Local Runner Mode** (or "your machine") |
+| User-facing local mode | **Local Helper** (or "your machine") |
 
 Don't mix them in the same paragraph. Pick the register, stick with it.
 
