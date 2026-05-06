@@ -377,7 +377,8 @@
         ],
         "footnote": "30-day run history. Unlimited runners. Single-user during early access."
       },
-      "title": "Self-host the data path"
+      "title": "Self-host the data path",
+      "controlPlaneLink": "Don't know what a control plane is?"
     },
     "affects": {
       "title": "What affects cost",

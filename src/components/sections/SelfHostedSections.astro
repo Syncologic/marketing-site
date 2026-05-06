@@ -37,7 +37,7 @@ const roadmapLevels = ['level1', 'level2'] as const;
 </Section>
 
 <Section surface="soft" padding="lg">
-  <details class="group max-w-[1040px] mx-auto self-hosted-details">
+  <details id="under-the-hood" class="group max-w-[1040px] mx-auto self-hosted-details scroll-mt-24">
     <summary class="flex items-center justify-between gap-4 cursor-pointer rounded-card bg-white border border-divider px-6 py-5 text-h3 font-bold text-dark-charcoal hover:border-slate-gray transition-colors">
       <span>{t('selfHosted.underTheHood.summary')}</span>
       <ChevronDown size={20} class="shrink-0 transition-transform duration-200 group-open:rotate-180 text-slate-gray" />
@@ -120,3 +120,16 @@ const roadmapLevels = ['level1', 'level2'] as const;
     display: none;
   }
 </style>
+
+<script>
+  function openUnderTheHoodFromHash() {
+    if (window.location.hash !== '#under-the-hood') return;
+    const el = document.getElementById('under-the-hood');
+    if (el instanceof HTMLDetailsElement) {
+      el.open = true;
+      el.scrollIntoView({ block: 'start' });
+    }
+  }
+  openUnderTheHoodFromHash();
+  window.addEventListener('hashchange', openUnderTheHoodFromHash);
+</script>
