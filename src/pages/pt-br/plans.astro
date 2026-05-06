@@ -123,7 +123,15 @@ const selfHostFree = p.selfHost.free;
         </div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-        <p class="text-body text-dark-charcoal leading-snug">{selfHostFree.description}</p>
+        <div class="flex flex-col gap-3">
+          <p class="text-body text-dark-charcoal leading-snug">{selfHostFree.description}</p>
+          <a
+            href={`${localizedPath(locale, '/self-hosted')}#under-the-hood`}
+            class="text-caption text-brand-blue hover:underline self-start"
+          >
+            {p.selfHost.controlPlaneLink}
+          </a>
+        </div>
         <ul class="flex flex-col gap-2 text-body text-dark-charcoal list-none p-0">
           {selfHostFree.features.map((feature) => (
             <li class="flex gap-2 items-start">

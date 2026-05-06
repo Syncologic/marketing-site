@@ -377,7 +377,8 @@
         ],
         "footnote": "Histórico de execuções de 30 dias. Runners ilimitados. Usuário único durante o acesso antecipado."
       },
-      "title": "Auto-hospede o caminho dos dados"
+      "title": "Auto-hospede o caminho dos dados",
+      "controlPlaneLink": "Não sabe o que é um control plane?"
     },
     "affects": {
       "title": "O que afeta o custo",
