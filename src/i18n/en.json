@@ -48,6 +48,7 @@
     "resources": "Resources",
     "company": "Company",
     "copyright": "© {year} Syncologic",
+    "privacy": "Privacy",
     "resourcesColumn": {
       "title": "Resources",
       "guides": "Guides",
@@ -80,7 +81,10 @@
     "questionFrequency": "How often?",
     "questionRunner": "Where should the transfer run?",
     "questionRole": "Which best describes you?",
-    "errorInvalidEmail": "Please enter a valid email address."
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "consentBefore": "By joining, you agree to our ",
+    "consentLink": "Privacy notice",
+    "consentAfter": "."
   },
   "providers": {
     "googleDrive": "Google Drive",
@@ -575,5 +579,107 @@
       "title": "Move the control plane to your server when you're ready",
       "body": "Today, self-hosting means running the Private Runner on your hardware while Syncologic hosts the control plane (free during early access). When the self-host control plane ships, you'll be able to export your jobs, schedules, run history, and connections from our control plane and import them into your own. Control-plane data is yours to move."
     }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacy — Syncologic",
+      "description": "How Syncologic collects, stores, and uses the email and segmentation answers you give when you join the waitlist."
+    },
+    "title": "Privacy",
+    "lastUpdated": "Last updated: 6 May 2026",
+    "intro": "Syncologic is pre-launch. The only personal data we collect right now is what you give us when you join the waitlist: your email and the segmentation answers you choose. This page tells you exactly what we keep, why, where, for how long, and how to remove it.",
+    "sections": [
+      {
+        "title": "1. What we collect",
+        "body": [
+          { "p": "When you join the waitlist:" },
+          { "list": [
+            "Your email address.",
+            "The segmentation answers you pick (use case, source provider, destination provider, estimated size, transfer frequency, preferred runner, role).",
+            "Your language and the page you joined from.",
+            "A non-reversible hash of your IP address. We use it for rate limiting and never store the original.",
+            "Your browser's user agent and referrer header, used for spam-pattern analysis."
+          ] },
+          { "p": "We do not collect names, phone numbers, addresses, or payment details. There is no product to sign in to yet." }
+        ]
+      },
+      {
+        "title": "2. Why we collect it",
+        "body": [
+          { "p": "Three reasons:" },
+          { "list": [
+            "To email you when Syncologic launches and at significant milestones.",
+            "To validate which use cases and provider pairs people actually want, so we build the right things first.",
+            "To prevent spam and abuse of the waitlist form."
+          ] },
+          { "p": "We do not sell, share, or trade the list." }
+        ]
+      },
+      {
+        "title": "3. Where it lives",
+        "body": [
+          { "p": "Email and segmentation answers live in a Supabase Postgres database with row-level security enabled. Access is limited to a service-role key held only by the Syncologic marketing-site backend." },
+          { "p": "Email delivery for waitlist confirmations and milestone updates goes through Resend. Resend retains delivery metadata (recipient, timestamp, status) per its own privacy policy." },
+          { "p": "Rate-limit counters, keyed by your hashed IP, live in Upstash Redis with a short TTL (24 hours)." },
+          { "p": "Pageview counts and aggregate visitor data come from cookieless analytics — no tracking across sites, no per-visitor profile." },
+          { "p": "Supabase, Resend, and Upstash are based in the United States, where your data is processed." }
+        ]
+      },
+      {
+        "title": "4. How long we keep it",
+        "body": [
+          { "p": "Until launch plus six months, or until you unsubscribe — whichever comes first." },
+          { "p": "Hashed-IP rate-limit counters expire automatically (24 hours)." },
+          { "p": "After unsubscribe, your row is marked as removed. We retain the hashed unsubscribe token for 30 days to prevent stale-link abuse, then delete the row entirely." }
+        ]
+      },
+      {
+        "title": "5. Your rights",
+        "body": [
+          { "p": "You can:" },
+          { "list": [
+            "Ask what we have on you.",
+            "Correct it.",
+            "Have it deleted.",
+            "Have it ported to another service in a portable format.",
+            "Object to specific uses."
+          ] },
+          { "p": "Email hello@syncologic.com from the address on the list. We respond within 30 days." },
+          { "p": "You can also unsubscribe immediately yourself with the link at the bottom of any email we send." },
+          { "p": "Your consent for email and segmentation processing can be withdrawn at any time. The unsubscribe link in any email we send is the fastest way; emailing hello@syncologic.com works too. Withdrawing consent does not affect processing that already happened legally before the withdrawal." }
+        ]
+      },
+      {
+        "title": "6. Voluntary nature and automated decisions",
+        "body": [
+          { "p": "Providing your email and segmentation answers is voluntary. If you do not, you simply do not get added to the waitlist — no other consequence." },
+          { "p": "We do not use automated decision-making or profiling that produces legal or significant effects on you. The segmentation answers are used only to prioritize what we build, not to make decisions about you individually." }
+        ]
+      },
+      {
+        "title": "7. Third-party processors",
+        "body": [
+          { "p": "We share the data above with:" },
+          { "list": [
+            "Supabase — database storage",
+            "Resend — email delivery",
+            "Upstash — rate-limit cache"
+          ] },
+          { "p": "We do not use Google Analytics, Meta Pixel, advertising trackers, or session-replay tools." }
+        ]
+      },
+      {
+        "title": "8. Cookies",
+        "body": [
+          { "p": "The site does not set tracking cookies." }
+        ]
+      },
+      {
+        "title": "9. Contact",
+        "body": [
+          { "p": "Email hello@syncologic.com for any privacy question, data request, or concern. The site lives at syncologic.com." }
+        ]
+      }
+    ]
   }
 }
