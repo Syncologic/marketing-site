@@ -148,9 +148,8 @@
   "notFound": {
     "eyebrow": "Error 404",
     "title": "Page not found.",
-    "body": "The link might be old, mistyped, or the page may have moved. Pick one of these to get back on track.",
-    "ctaHome": "Back to home",
-    "ctaPlans": "See plans"
+    "body": "The link might be old, mistyped, or the page may have moved.",
+    "ctaHome": "Back to home"
   },
   "useCases": {
     "furtherReading": "Further reading"

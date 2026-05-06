@@ -30,12 +30,9 @@ const description = t('notFound.body');
       <p class="text-body text-slate-gray mb-8 max-w-lg mx-auto">
         {t('notFound.body')}
       </p>
-      <div class="flex gap-3 flex-wrap justify-center">
+      <div class="flex justify-center">
         <Button href={localizedPath(locale, '/')} variant="primary" size="lg">
           {t('notFound.ctaHome')}
-        </Button>
-        <Button href={localizedPath(locale, '/plans')} variant="secondary" size="lg">
-          {t('notFound.ctaPlans')}
         </Button>
       </div>
     </div>

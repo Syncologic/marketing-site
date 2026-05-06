@@ -17,9 +17,7 @@ const ptDict = {
   title: pt('notFound.title'),
   body: pt('notFound.body'),
   ctaHome: pt('notFound.ctaHome'),
-  ctaPlans: pt('notFound.ctaPlans'),
   hrefHome: localizedPath('pt-br', '/'),
-  hrefPlans: localizedPath('pt-br', '/plans'),
 };
 ---
 
@@ -43,12 +41,9 @@ const ptDict = {
       <p id="nf-body" class="text-body text-slate-gray mb-8 max-w-lg mx-auto">
         {en('notFound.body')}
       </p>
-      <div class="flex gap-3 flex-wrap justify-center">
+      <div class="flex justify-center">
         <Button href={localizedPath('en', '/')} variant="primary" size="lg" class="nf-cta-home">
           {en('notFound.ctaHome')}
-        </Button>
-        <Button href={localizedPath('en', '/plans')} variant="secondary" size="lg" class="nf-cta-plans">
-          {en('notFound.ctaPlans')}
         </Button>
       </div>
     </div>
@@ -68,11 +63,6 @@ const ptDict = {
     if (home) {
       home.textContent = pt.ctaHome;
       home.setAttribute('href', pt.hrefHome);
-    }
-    const plans = document.querySelector('.nf-cta-plans');
-    if (plans) {
-      plans.textContent = pt.ctaPlans;
-      plans.setAttribute('href', pt.hrefPlans);
     }
   }
 </script>

@@ -148,9 +148,8 @@
   "notFound": {
     "eyebrow": "Erro 404",
     "title": "Página não encontrada.",
-    "body": "O link pode estar desatualizado, com erro de digitação, ou a página pode ter sido movida. Escolha uma das opções abaixo.",
-    "ctaHome": "Voltar ao início",
-    "ctaPlans": "Ver planos"
+    "body": "O link pode estar desatualizado, com erro de digitação, ou a página pode ter sido movida.",
+    "ctaHome": "Voltar ao início"
   },
   "useCases": {
     "furtherReading": "Leitura complementar"
