@@ -58,7 +58,7 @@ Plus optionally `syncologic/.github` for org profile and templates.
 | 2 | Define source of truth for product state | `server` (auth, workspaces, OpenAPI, schema, runner registration) |
 | 3 | Prove data plane can move bytes reliably | `runners` (transfer core, first provider pair, Cloud + Private Runner paths, conformance tests) |
 | 4 | Let users run real transfers | `clients/apps/web` + `clients/packages/api-client` |
-| 5 | Add only what demand proves | CLI, Local Runner Mode, Browser Runner, self-host assets, docs |
+| 5 | Add only what demand proves | CLI, Local Helper, Browser Runner, self-host assets, docs |
 
 Don't create SDK / desktop / provider-kit / design-system / api-contracts repos until usage justifies them.
 
@@ -72,7 +72,7 @@ Don't create SDK / desktop / provider-kit / design-system / api-contracts repos 
 | Bilingual content (en + pt-BR) | Jobs / schedules / runs | Cloud Runner | Generated API client |
 | Email confirmation (Resend) | Runner registration / leases | Browser Runner | Shared UI package |
 | Pricing language (no actual billing) | Billing / usage / metering | Private Runner | |
-| | Webhook delivery | Local Runner Mode | |
+| | Webhook delivery | Local Helper | |
 | | Audit logs | Conformance tests | |
 
 If a task pulls toward anything in columns 2–4: **stop and ask.** The split is intentional.
@@ -91,10 +91,10 @@ Server (control plane)
      logs, reports, usage, billing, webhooks
 
 Runners (data plane)
-  └─ Cloud Runner, Private Runner, Browser Runner, Local Runner Mode
+  └─ Cloud Runner, Private Runner, Browser Runner, Local Helper
 
 Storage Providers
-  └─ Google Drive, OneDrive, Dropbox, S3-compatible, SFTP, WebDAV, Nextcloud
+  └─ Google Drive, OneDrive, Dropbox, S3-compatible, SFTP, your server, Nextcloud
 ```
 
 ### Runtime flow (for context when writing copy or visuals)
@@ -121,7 +121,7 @@ User creates job in client
 | **Cloud Runner** | source provider → Syncologic infra → destination provider | Convenience, scheduled jobs, large migrations | Paid feature. Strict isolation, short-lived credentials, log redaction. |
 | **Browser Runner** ("This Device") | source provider → user's browser tab → destination provider | Free / manual, trust story | Tab must stay open. No long-lived token storage. |
 | **Private Runner** (self-hosted runner) | source provider → user's runner → destination provider | Privacy, homelab, business, high volume | Outbound connection to control plane. User controls where bytes flow. |
-| **Local Runner Mode** | local path / NAS → user's machine → destination | Local backup, NAS restore | Reuses Private Runner binary. |
+| **Local Helper** | local path / NAS → user's machine → destination | Local backup, NAS restore, tabless Browser Runner | Thin background daemon for one machine. No UI, no admin surface, no multi-user model. Separate codebase from Private Runner — shares no code. |
 
 ## Static-first, server-minimal
 

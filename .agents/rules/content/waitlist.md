@@ -9,8 +9,6 @@
 | "I need to move files once" | `/use-cases/cloud-to-cloud-transfer` | `one_time_transfer` |
 | "I am migrating a team" | `/use-cases/business-cloud-migration` | `business_migration` |
 | "I want recurring backups" | `/use-cases/scheduled-cloud-backup` | `scheduled_backup` |
-| "I want to use my own server" | `/use-cases/private-runner` | `private_runner` |
-| "I want to try it in the browser" | `/use-cases/browser-transfer` | `browser_runner` |
 | "I want to back up local/NAS files" | `/use-cases/local-nas-backup` | `local_backup` |
 | "I want API or CLI automation" | `/use-cases/developer-automation` | `developer` |
 | "I want self-hosting" | `/self-hosted` | `self_hosted` |
@@ -41,8 +39,8 @@ Form is short on the page; uses progressive steps after the email is captured.
 - `.claude/rules/architecture.md` and `CLAUDE.md` — taxonomy section
 
 Current enums:
-- **use_case:** `one_time_transfer`, `business_migration`, `scheduled_backup`, `private_runner`, `browser_runner`, `local_backup`, `developer`, `self_hosted`
-- **provider:** `google_drive`, `onedrive`, `dropbox`, `s3`, `sftp`, `webdav`, `nextcloud`, `other`
+- **use_case:** `one_time_transfer`, `business_migration`, `scheduled_backup`, `local_backup`, `developer`, `self_hosted`
+- **provider:** `google_drive`, `onedrive`, `dropbox`, `s3`, `sftp`, `your_server`, `nextcloud`, `other`
 - **est_size:** `lt_10gb`, `10_to_100gb`, `100gb_to_1tb`, `gt_1tb`
 - **frequency:** `one_time`, `weekly`, `daily`, `continuous`
 - **preferred_runner:** `cloud`, `browser`, `private`, `not_sure`
@@ -59,7 +57,7 @@ Always in this order when shown together:
 3. Dropbox
 4. S3-compatible storage
 5. SFTP
-6. WebDAV
+6. Your server
 7. Nextcloud
 
 `other` exists in the schema for waitlist signal but is not shown in marketing visuals.

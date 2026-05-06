@@ -4,7 +4,7 @@
 
 1. Hero with **product-like transfer planner** (animated, source → destination → runner → progress → completion).
 2. Short broad promise.
-3. **Provider row:** Google Drive, OneDrive, Dropbox, S3-compatible, SFTP, WebDAV, Nextcloud.
+3. **Provider row:** Google Drive, OneDrive, Dropbox, S3-compatible, SFTP, your server, Nextcloud.
 4. **Runner choice cards:** Cloud Runner, Browser Runner, Private Runner.
 5. **Use-case router:** migration, backup, private transfer, local NAS, developer automation.
 6. **Trust story:** preview, scoped access, progress, reports, runner transparency.

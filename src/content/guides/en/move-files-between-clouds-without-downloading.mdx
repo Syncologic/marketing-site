@@ -53,7 +53,7 @@ If any of those describe your situation, a CLI plus a cron job can still work �
 
 Syncologic will move files between clouds without ever pulling them through your computer. The workflow is the same regardless of provider pair:
 
-You connect a source and a destination — Google Drive, OneDrive, Dropbox, S3-compatible storage, SFTP, WebDAV, or Nextcloud. You scope access to the folder you actually care about, not the whole drive. You preview what will be transferred before anything moves: count, total size, conflicts, files that will be skipped. Then you choose where the transfer runs.
+You connect a source and a destination — Google Drive, OneDrive, Dropbox, S3-compatible storage, SFTP, your server, or Nextcloud. You scope access to the folder you actually care about, not the whole drive. You preview what will be transferred before anything moves: count, total size, conflicts, files that will be skipped. Then you choose where the transfer runs.
 
 There are three options for that. **Cloud Runner** is the convenient default — Syncologic infrastructure does the work, with short-lived credentials and isolated job state. **Browser Runner** ("This Device") streams the bytes through your open browser tab, so nothing lives on a hosted runner; the trade-off is that the tab will need to stay open. **Private Runner** is a small binary you run yourself, on your own server, NAS, or VPS — the bytes flow source → your hardware → destination, and Syncologic only sees metadata.
 
