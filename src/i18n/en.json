@@ -15,7 +15,7 @@
       },
       "dev": {
         "title": "I'm building with this",
-        "desc": "Use the API, CLI, webhooks, or self-host the runner. We handle OAuth — your users connect to Syncologic, not to your app."
+        "desc": "Use the API, CLI, or webhooks."
       }
     },
     "providersLabel": "Will work with",
@@ -408,7 +408,7 @@
         },
         {
           "q": "What about source-visible self-hosting?",
-          "a": "The Private Runner binary is source-visible (not OSI open-source — you can read it, build it, and run it on your hardware). The full self-host control plane (so you can host the metadata layer too) is on the roadmap; when it ships, exporting and importing your control-plane data will be free."
+          "a": "Once the binary is built, running the Private Runner on your own hardware costs us nothing. During early access, all of self-hosting is free."
         },
         {
           "q": "Will I keep my data if I migrate to a self-hosted control plane?",
@@ -480,8 +480,8 @@
     ],
     "faq": [
       {
-        "q": "When will the API ship?",
-        "a": "We're not committing to a date. The API ships with the first paid Cloud Runner tier — join the waitlist for early access."
+        "q": "When can I start using the API?",
+        "a": "With early access. Syncologic is API-first — our browser frontend uses the same API you would. Every plan (Free, Pro, Business) includes API access from day one."
       },
       {
         "q": "Will there be a free tier for developers?",
@@ -543,16 +543,19 @@
     },
     "underTheHood": {
       "summary": "How it works under the hood",
-      "intro": "Architecture, the self-host levels, and why core code stays public — for the technical buyer.",
+      "intro": "Architecture, the self-host levels, and why core code stays public — for the technical user.",
       "controlData": {
         "title": "Control plane vs data plane",
-        "body": "Two layers. The control plane (auth, jobs, schedules, reports) holds metadata about your transfers. The data plane (the runner) is where bytes flow source → destination. We host the control plane at launch; you host the data plane from day one. The Private Runner is the full data-plane runtime; for one-machine, headless cases we also ship a lighter sibling, the Local Helper."
+        "body": [
+          "Two layers. The control plane (auth, jobs, schedules, reports) stores metadata about your transfers. The data plane (the runner) is where bytes flow from source → destination.",
+          "We host the control plane at launch; you host the data plane on day one. The Private Runner is the full data-plane runtime."
+        ]
       },
       "roadmap": {
         "title": "Self-host levels",
         "level1": {
           "name": "Private Runner",
-          "status": "Available first",
+          "status": "First to land",
           "desc": "Hosted control plane, your data path. For users who want our convenience and your bandwidth."
         },
         "level2": {
@@ -569,7 +572,7 @@
     },
     "migration": {
       "title": "Move the control plane to your server when you're ready",
-      "body": "Today, self-hosting means running the Private Runner on your hardware while Syncologic hosts the control plane (free for as long as you need it). When the self-host control plane ships, you'll be able to export your jobs, schedules, run history, and connections from our control plane and import them into your own. Either path stays free — control-plane data is yours to move."
+      "body": "Today, self-hosting means running the Private Runner on your hardware while Syncologic hosts the control plane (free during early access). When the self-host control plane ships, you'll be able to export your jobs, schedules, run history, and connections from our control plane and import them into your own. Control-plane data is yours to move."
     }
   }
 }

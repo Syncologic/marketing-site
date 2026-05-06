@@ -17,12 +17,12 @@ publishedAt: 2026-05-01
 - Você não quer infraestrutura de mais ninguém no caminho dos seus arquivos.
 - Você lida com material sensível — arquivos jurídicos, registros financeiros, conteúdo regulado — que não pode passar pelos servidores de outra pessoa.
 - Você já tem um servidor, NAS ou VPS sempre ligado, preparado para esse tipo de job.
-- Você move volume suficiente para que entrar com a própria banda saia mais barato do que alugar throughput.
+- Você move volume suficiente para que usar a sua própria banda saia mais barato do que pagar pela nossa.
 
 ## Como vai funcionar
 
-1. Instale o runner em um hardware que você controla — um NAS, uma VPS, um Linux sempre ligado ou um Raspberry Pi que fica ligado.
-2. Pareie com sua conta Syncologic usando um código de inscrição de uso único.
+1. Instale o runner em um hardware que você controla — um NAS, uma VPS, uma máquina Linux sempre ligada ou um Raspberry Pi 24/7.
+2. Conecte-o à sua conta Syncologic usando um código de pareamento de uso único.
 3. Conecte os provedores de origem e destino pelo painel.
 4. Quando começar um job, escolha o runner que você acabou de parear em vez da opção hospedada.
 5. O runner puxa o trabalho, transfere os arquivos entre as APIs dos provedores e devolve um relatório quando terminar.
@@ -37,7 +37,7 @@ Sem regras de firewall de entrada. Sem IP público. Sem proxy reverso. Sem túne
 
 ## Onde você rodaria
 
-O runner é pequeno o bastante para conviver com outros serviços leves em hardware que você já tem — um Synology, QNAP ou TrueNAS já ligado 24/7, um servidor Linux de homelab ou mini-PC, uma VPS pequena (Hetzner, Fly, DigitalOcean, OVH), uma workstation sempre ligada funcionando como pequeno servidor doméstico, ou um dispositivo da classe Raspberry Pi para backups mais lentos e de baixo throughput.
+O runner é pequeno o bastante para conviver com outros serviços leves em hardware que você já tem — um Synology, QNAP ou TrueNAS ligado 24/7, um servidor Linux de homelab ou mini-PC, uma VPS pequena (Hetzner, Fly, DigitalOcean, OVH), uma workstation sempre ligada funcionando como pequeno servidor doméstico, ou um dispositivo da classe Raspberry Pi para backups mais lentos e de baixo throughput.
 
 Ele se importa com uma rede confiável e disco suficiente para buffers de staging; não se importa com a distro ou o hardware que você escolheu.
 
@@ -71,8 +71,8 @@ Os dois modos usam o mesmo painel, as mesmas definições de job, a mesma prévi
 - **Modelo de preço:** você paga pelo software e entra com a banda.
 - **Requisitos de rede:** HTTPS de saída a partir do runner.
 
-## Código público
+## Código visível
 
-Você pode auditar como o runner move os arquivos antes de instalar — o código é público. A gente pretende manter essa propriedade enquanto cresce.
+Você pode auditar como o runner move os arquivos antes de instalar — o código é publicado para qualquer pessoa ler. Pretendemos manter essa propriedade enquanto crescemos.
 
 Onde você rodaria seu Private Runner — NAS, servidor de homelab, VPS ou workstation? Conte para a gente na lista de espera abaixo — é a primeira pergunta que vamos fazer depois do seu e-mail.

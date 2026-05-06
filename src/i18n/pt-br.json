@@ -15,14 +15,14 @@
       },
       "dev": {
         "title": "Estou construindo algo com isso",
-        "desc": "Use a API, a CLI, webhooks ou hospede o runner por conta própria. A gente cuida do OAuth — seus usuários conectam à Syncologic, não ao seu app."
+        "desc": "Use a API, a CLI ou webhooks."
       }
     },
     "providersLabel": "Vai funcionar com",
     "runnersTitle": "Onde a transferência acontece?",
     "runnersSubtitle": "Três opções com perfis bem diferentes de praticidade, custo e privacidade.",
     "useCasesTitle": "Encontre seu caso de uso",
-    "useCasesSubtitle": "Estamos construindo para vários tipos de públicos — comece pelo que faz mais sentido para você.",
+    "useCasesSubtitle": "Estamos construindo para públicos diferentes — comece pelo que combina com você.",
     "trustTitle": "Sua confiança em primeiro lugar",
     "trustSubtitle": "Sem surpresas. Sem mudanças silenciosas. Você vê o que roda, onde roda e o que mudou.",
     "providersFootnote": "Mais provedores após o lançamento do early access."
@@ -66,7 +66,7 @@
     "submitting": "Entrando…",
     "success": "✓ Você está na lista",
     "errorNetwork": "Não conseguimos nos conectar ao servidor. Tentar de novo?",
-    "errorRate": "Calma — tente de novo em um minuto.",
+    "errorRate": "Espere um momento — tente de novo em um minuto.",
     "step1Subtitle": "Ajude a construir a ferramenta certa. Deixe seu e-mail e conte o que você precisa — leva cerca de um minuto.",
     "step2Title": "Ajude a construir isso para você",
     "step2Intro": "7 perguntas rápidas.",
@@ -100,12 +100,12 @@
     "browser": {
       "name": "Browser Runner",
       "plainTitle": "Na aba do seu navegador",
-      "description": "A aba precisa ficar aberta enquanto roda. Sem custo. Boa pra uma transferência única."
+      "description": "A aba precisa ficar aberta enquanto roda. Sem custo. Boa para transferências pontuais."
     },
     "private": {
       "name": "Private Runner",
       "plainTitle": "No seu próprio servidor",
-      "description": "Você instala um programinha. Os arquivos nunca passam pelos nossos servidores. Perfeito para empresas, homelabs e dados sensíveis."
+      "description": "Você instala um programinha. Os arquivos nunca passam pelos nossos servidores — ideal para empresas, homelabs e dados sensíveis."
     }
   },
   "useCaseRouter": {
@@ -115,7 +115,7 @@
     },
     "businessMigration": {
       "title": "Migrar uma equipe",
-      "desc": "Mova um Workspace ou tenant do Microsoft 365 — com prévia e relatórios."
+      "desc": "Mova um Google Workspace ou um tenant do Microsoft 365 — com prévia e relatórios."
     },
     "scheduledBackup": {
       "title": "Agendar backups recorrentes",
@@ -324,7 +324,7 @@
           "Tudo do plano Free",
           "500 GB nos nossos servidores por mês",
           "4 transferências por vez",
-          "Pastas monitoradas — defina uma pasta para fazer backup automaticamente",
+          "Pastas monitoradas — aponte uma pasta e o backup roda automaticamente",
           "Agendamento estilo cron e janelas de banda",
           "Histórico de execuções de 1 ano"
         ],
@@ -408,7 +408,7 @@
         },
         {
           "q": "E quanto à auto-hospedagem com código visível?",
-          "a": "O binário do Private Runner é de código visível (não é open source no sentido OSI — você pode ler, compilar e rodar no seu hardware). O control plane completo para auto-hospedagem (para você hospedar também a camada de metadados) está no roadmap; quando lançar, exportar e importar os dados do seu control plane será sem custo."
+          "a": "Depois que o binário está pronto, rodar o Private Runner no seu próprio hardware não tem custo para nós. Durante o early access, toda a auto-hospedagem é grátis."
         },
         {
           "q": "Eu mantenho meus dados se migrar para um control plane auto-hospedado?",
@@ -416,7 +416,7 @@
         },
         {
           "q": "O que é o Local Helper, e por que ele não é só o Private Runner?",
-          "a": "O Local Helper é um daemon leve em segundo plano para uma máquina — sem UI, sem painel de administração, sem modelo multi-usuário. Ele existe para que as transferências do Browser Runner continuem depois que você fecha a aba e para que uma pasta local possa funcionar como qualquer provedor conectado. O Private Runner é o runtime completo do data plane para NAS, VPS e servidores — vários jobs, vários usuários, plug-ins. Eles não compartilham código."
+          "a": "O Local Helper é um daemon leve em segundo plano para uma máquina — sem UI, sem painel de administração, sem suporte a múltiplos usuários. Ele existe para que as transferências do Browser Runner continuem depois que você fecha a aba e para que uma pasta local possa funcionar como qualquer provedor conectado. O Private Runner é o runtime completo do data plane para NAS, VPS e servidores — vários jobs, vários usuários, plug-ins. Eles não compartilham código."
         }
       ]
     }
@@ -459,7 +459,7 @@
     "apiBody": "Crie um job com origem, destino, runner e um agendamento opcional. A camada de controle valida, despacha e emite eventos de progresso.",
     "apiCaption": "Esboço — o formato final vem com a API v1.",
     "oauthTitle": "OAuth fica do nosso lado",
-    "oauthBody": "Seus usuários conectam as contas de nuvem deles à Syncologic, não ao seu app. Você nunca guarda credenciais de provedor. A camada de controle cuida do ciclo de vida do OAuth e entrega tokens com escopo e curta duração para os runners — seu app se autentica na Syncologic com a sua chave de API e nunca vê um token de provedor.",
+    "oauthBody": "Seus usuários conectam as contas de nuvem deles à Syncologic, não ao seu app. Você nunca guarda credenciais de provedor. A camada de controle cuida do ciclo de vida do OAuth e entrega tokens com escopo restrito e curta duração para os runners — seu app se autentica na Syncologic com a sua chave de API e nunca vê um token de provedor.",
     "oauthCaption": "Seu app integra a API; a fronteira do OAuth fica do nosso lado.",
     "cliTitle": "Uma CLI para scripts e CI",
     "cliBody": "Os mesmos jobs, executados de um terminal ou de um runner de CI. Útil para migrações pontuais e para backups definidos por um script que você consegue revisar em um code review.",
@@ -480,8 +480,8 @@
     ],
     "faq": [
       {
-        "q": "Quando a API vai sair?",
-        "a": "Não temos uma data definida. A API sai com o primeiro plano pago do Cloud Runner — entre na lista de espera para acesso antecipado."
+        "q": "Quando posso começar a usar a API?",
+        "a": "Com o early access. A Syncologic é API-first — o nosso frontend web usa a mesma API que você usaria. Todos os planos (Free, Pro e Business) incluem acesso à API desde o primeiro dia."
       },
       {
         "q": "Vai ter um plano grátis para desenvolvedores?",
@@ -543,16 +543,19 @@
     },
     "underTheHood": {
       "summary": "Como funciona por baixo dos panos",
-      "intro": "Arquitetura, os níveis de auto-hospedagem e por que o código principal fica público — para o comprador técnico.",
+      "intro": "Arquitetura, os níveis de auto-hospedagem e por que o código principal fica público — para o usuário técnico.",
       "controlData": {
         "title": "Camada de controle e camada de dados",
-        "body": "Duas camadas. A camada de controle (autenticação, jobs, agendamentos, relatórios) guarda metadados sobre as suas transferências. A camada de dados (o runner) é por onde os bytes trafegam de origem → destino. A gente hospeda a camada de controle no lançamento; você hospeda a camada de dados desde o primeiro dia. O Private Runner é o runtime completo da camada de dados; para casos de uma máquina, sem UI, também temos uma versão mais leve, o Local Helper."
+        "body": [
+          "Duas camadas. A camada de controle (autenticação, jobs, agendamentos, relatórios) guarda metadados sobre as suas transferências. A camada de dados (o runner) é por onde os bytes trafegam de origem → destino.",
+          "A gente hospeda a camada de controle no lançamento; você hospeda a camada de dados desde o primeiro dia. O Private Runner é o runtime completo da camada de dados."
+        ]
       },
       "roadmap": {
         "title": "Níveis de auto-hospedagem",
         "level1": {
           "name": "Private Runner",
-          "status": "Primeiro nível",
+          "status": "Primeiro a chegar",
           "desc": "Camada de controle hospedada, caminho de dados seu. Para quem quer a nossa praticidade com a sua banda."
         },
         "level2": {
@@ -569,7 +572,7 @@
     },
     "migration": {
       "title": "Mova o control plane para o seu servidor quando estiver pronto",
-      "body": "Hoje, auto-hospedar significa rodar o Private Runner no seu hardware enquanto a Syncologic hospeda o control plane (grátis pelo tempo que você precisar). Quando o control plane auto-hospedado lançar, você poderá exportar seus jobs, agendamentos, histórico de execuções e conexões do nosso control plane e importá-los no seu próprio. Os dois caminhos continuam grátis — os dados do control plane são seus para mover."
+      "body": "Hoje, auto-hospedar significa rodar o Private Runner no seu hardware enquanto a Syncologic hospeda o control plane (grátis durante o early access). Quando o control plane auto-hospedado lançar, você poderá exportar seus jobs, agendamentos, histórico de execuções e conexões do nosso control plane e importá-los no seu próprio. Os dados do control plane são seus para mover."
     }
   }
 }
