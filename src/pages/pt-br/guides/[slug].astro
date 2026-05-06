@@ -4,6 +4,7 @@ import Layout from '../../../components/layout/Layout.astro';
 import Nav from '../../../components/layout/Nav.astro';
 import Footer from '../../../components/layout/Footer.astro';
 import Section from '../../../components/ui/Section.astro';
+import Card from '../../../components/ui/Card.astro';
 import Button from '../../../components/ui/Button.astro';
 import Caption from '../../../components/guides/Caption.astro';
 import Note from '../../../components/guides/Note.astro';
@@ -128,24 +129,26 @@ const articleSchema = {
   </Section>
 
   {related.length > 0 && (
-    <section class="bg-reading-paper py-section">
-      <div class="max-w-[960px] mx-auto px-6">
+    <Section surface="soft" padding="md">
+      <div class="max-w-[960px] mx-auto">
         <h2 class="text-h1 font-medium text-dark-charcoal mb-8">{t('guides.meta.readNext')}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           {related.map((r) => (
             <a
               href={localizedPath('pt-br', `/guides/${r.slug}`)}
-              class="block bg-white rounded-card p-6 hover:shadow-card transition-shadow"
+              class="block group"
             >
-              <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{r.eyebrow}</span>
-              <h3 class="text-h3 font-bold text-dark-charcoal mt-2">{r.title}</h3>
-              <p class="text-body text-slate-gray mt-3 line-clamp-3">{r.description}</p>
-              <p class="text-caption text-slate-gray mt-4">{t('guides.meta.readingTime', { minutes: r.readingTime })}</p>
+              <Card radius="card" elevation="flat" class="p-6 transition-shadow group-hover:shadow-card">
+                <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{r.eyebrow}</span>
+                <h3 class="text-h3 font-bold text-dark-charcoal mt-2">{r.title}</h3>
+                <p class="text-body text-slate-gray mt-3 line-clamp-3">{r.description}</p>
+                <p class="text-caption text-slate-gray mt-4">{t('guides.meta.readingTime', { minutes: r.readingTime })}</p>
+              </Card>
             </a>
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   )}
 
   <BackToTop />
