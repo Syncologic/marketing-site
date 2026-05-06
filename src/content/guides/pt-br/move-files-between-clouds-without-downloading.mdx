@@ -1,7 +1,7 @@
 ---
 locale: pt-br
 title: "Como mover arquivos entre nuvens sem ter que baixar antes"
-description: "Um guia prático para mover arquivos entre provedores de nuvem — Drive, OneDrive, Dropbox, S3 — sem arrastar cada byte pelo seu notebook."
+description: "Um guia prático para mover arquivos entre provedores de nuvem — Drive, OneDrive, Dropbox, S3 — sem arrastar cada byte pelo seu computador."
 eyebrow: "Guia"
 headline: "Mova arquivos entre nuvens sem ter que baixar antes"
 subheading: "Por que baixar e subir de novo falha em pastas grandes, o que de fato funciona e em que momento uma ferramenta de transferência dedicada vale o investimento."
@@ -28,7 +28,7 @@ Terceiro, você perde metadados. Comentários, permissões de compartilhamento, 
 
 ## O que funciona melhor
 
-Algumas abordagens evitam o notebook por completo. Vale conhecê-las pelos seus próprios méritos — nem todo job precisa de um produto pago.
+Algumas abordagens evitam o computador por completo. Vale conhecê-las pelos seus próprios méritos — nem todo job precisa de um produto pago.
 
 - **Ferramentas de migração nativas dos provedores.** Google Workspace, Microsoft 365 e Dropbox oferecem ferramentas de migração no nível administrativo para a própria plataforma. São a resposta certa quando você fica dentro do mesmo fornecedor (por exemplo, consolidando dois tenants de Google Workspace). Fora desse cenário, não ajudam.
 - **`rclone`.** Ferramenta de linha de comando open source que monta e copia entre a maioria dos provedores de nuvem, servidor a servidor, sem passar pela sua máquina. É poderosa, gratuita e testada em produção. O trade-off é que é uma CLI: você escreve um arquivo de configuração, entende escopos de OAuth, lê a documentação. Para usuários técnicos, costuma ser a escolha certa. Para a maioria das pessoas, não é.
@@ -51,7 +51,7 @@ Se alguma dessas descreve a sua situação, uma CLI mais um cron job ainda funci
 
 ## Como a Syncologic faz isso
 
-A Syncologic vai mover arquivos entre nuvens sem nunca puxar tudo pelo seu notebook. O fluxo é o mesmo independentemente do par de provedores:
+A Syncologic vai mover arquivos entre nuvens sem nunca puxar tudo pelo seu computador. O fluxo é o mesmo independentemente do par de provedores:
 
 Você conecta uma origem e um destino — Google Drive, OneDrive, Dropbox, armazenamento compatível com S3, SFTP, WebDAV ou Nextcloud. Restringe o acesso à pasta que importa, não ao drive inteiro. Pré-visualiza o que vai ser transferido antes de qualquer coisa se mover: contagem, tamanho total, conflitos, arquivos que vão ser pulados. Depois escolhe onde a transferência roda.
 

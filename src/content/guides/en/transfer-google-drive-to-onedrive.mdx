@@ -1,7 +1,7 @@
 ---
 locale: en
 title: "Transfer Google Drive to OneDrive — a practical guide"
-description: "Move folders from Google Drive into OneDrive without dragging every file through your laptop. The honest options for personal accounts, Workspace tenants, and large drives."
+description: "Move folders from Google Drive into OneDrive without dragging every file through your computer. The honest options for personal accounts, Workspace tenants, and large drives."
 eyebrow: "Guide"
 headline: "Transfer Google Drive to OneDrive"
 subheading: "What still works in 2026, what doesn't, and how to handle large drives or a Workspace-to-Microsoft-365 migration without losing files along the way."
@@ -31,7 +31,7 @@ Third, **you lose metadata.** "Last modified" timestamps reset to today. Comment
 
 ## What works better
 
-A few approaches sidestep the laptop entirely. Which one fits depends on whether you're moving a personal account or a Workspace tenant.
+A few approaches sidestep the computer entirely. Which one fits depends on whether you're moving a personal account or a Workspace tenant.
 
 - **Microsoft Mover.io is gone.** It used to be the obvious answer — Microsoft acquired it in 2019 and ran it as a free Drive→OneDrive bridge. **The service was retired in late 2024**, and is no longer accepting new transfers. If you find a guide telling you to "use Mover," it's out of date.
 - **Microsoft 365's Migration Manager (Workspace → Microsoft 365 only).** If you have a Microsoft 365 Business or Enterprise tenant *and* a Google Workspace tenant, the SharePoint Admin Center's Migration Manager can pull Drive content directly. It preserves more metadata than a manual download. It does not work for personal Gmail/Drive accounts, and it's an admin-only workflow — not something a single user can run for their own files.
@@ -55,7 +55,7 @@ If any of those describe your situation, you're either running `rclone` and writ
 
 ## How Syncologic does this
 
-Syncologic is being built for exactly this kind of move — Google Drive to OneDrive (or any other pair of supported clouds) without ever pulling the files through your laptop.
+Syncologic is being built for exactly this kind of move — Google Drive to OneDrive (or any other pair of supported clouds) without ever pulling the files through your computer.
 
 You connect Drive as the source and OneDrive as the destination. You scope access to the folder you actually care about, not your whole drive — relevant if you're moving "Q4 Reports" rather than every file you've ever owned. Before anything moves, you preview the transfer: how many files, total size, name conflicts, items that will be skipped, native Google types that will be exported.
 

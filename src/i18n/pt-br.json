@@ -240,7 +240,7 @@
       }
     },
     "beforeAfterTransfer": {
-      "alt": "Dois painéis empilhados. No painel de cima, o caminho manual: os arquivos saem de uma nuvem, passam por um notebook no meio e seguem para a segunda nuvem — e de vez em quando quebram no notebook, ficando vermelhos. No painel de baixo, o caminho direto: um único arco azul leva os arquivos da primeira nuvem direto para a segunda, sem passar pelo notebook."
+      "alt": "Dois painéis empilhados. No painel de cima, o caminho manual: os arquivos saem de uma nuvem, passam por um computador no meio e seguem para a segunda nuvem — e de vez em quando quebram no computador, ficando vermelhos. No painel de baixo, o caminho direto: um único arco azul leva os arquivos da primeira nuvem direto para a segunda, sem passar pelo computador."
     },
     "hostedVsPrivatePath": {
       "alt": "Dois diagramas de arquitetura empilhados, um acima do outro. Cada um mostra arquivos passando entre duas nuvens por uma caixa do meio. No diagrama de cima, a caixa do meio está rotulada 'Nosso servidor'. No de baixo, a caixa do meio está rotulada 'Seu servidor'. Os dois caminhos são idênticos no resto — mesmo arco, mesmas fichas de arquivo — para que a única diferença seja a localização da caixa do meio.",
@@ -278,7 +278,7 @@
       "note": "Nota"
     },
     "cta": {
-      "title": "Quer isso sem precisar escrever a integração?",
+      "title": "Quer uma ferramenta que faça isso para você?",
       "body": "A Syncologic move pastas direto entre provedores — com prévia, execução e relatório. Escolha o caso de uso que combina com o seu trabalho e entre na lista de espera.",
       "primary": "Escolha seu caso de uso",
       "secondary": "Voltar ao início"
