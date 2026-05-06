@@ -71,7 +71,7 @@ const selfHostFree = p.selfHost.free;
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       {mainPlans.map((plan) => (
-        <div class="relative h-full">
+        <div class="relative flex flex-col h-full">
           {plan.recommended && (
             <span class="absolute -top-3 left-1/2 -translate-x-1/2 z-10 bg-brand-blue text-white text-caption font-medium px-3 py-1 rounded-pill whitespace-nowrap">
               {p.hypotheses.recommendedLabel}
@@ -98,10 +98,8 @@ const selfHostFree = p.selfHost.free;
                 </li>
               ))}
             </ul>
-            <p class="text-caption text-slate-gray border-t border-divider pt-4 mt-auto">
-              {plan.footnote}
-            </p>
           </Card>
+          <p class="text-caption text-slate-gray mt-3 px-2">{plan.footnote}</p>
         </div>
       ))}
     </div>
