@@ -56,6 +56,10 @@ const GITHUB_URL = 'https://github.com/syncologic';
       </div>
     </div>
 
-    <p class="text-small text-slate-gray mt-12">{t('footer.copyright', { year })}</p>
+    <p class="text-small text-slate-gray mt-12">
+      <span>{t('footer.copyright', { year })}</span>
+      <span class="mx-2" aria-hidden="true">·</span>
+      <a href={localizedPath(locale, '/privacy')} class="hover:underline">{t('footer.privacy')}</a>
+    </p>
   </div>
 </footer>

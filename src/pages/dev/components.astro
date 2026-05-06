@@ -8,6 +8,10 @@ import ProviderLogo from '../../components/ui/ProviderLogo.astro';
 
 export const prerender = true;
 
+if (import.meta.env.PROD) {
+  return new Response(null, { status: 404 });
+}
+
 const providers = [
   'google-drive',
   'onedrive',

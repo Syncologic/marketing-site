@@ -48,6 +48,7 @@
     "resources": "Recursos",
     "company": "Empresa",
     "copyright": "© {year} Syncologic",
+    "privacy": "Privacidade",
     "resourcesColumn": {
       "title": "Recursos",
       "guides": "Guias",
@@ -80,7 +81,10 @@
     "questionFrequency": "Com que frequência?",
     "questionRunner": "Onde a transferência deve rodar?",
     "questionRole": "O que melhor descreve você?",
-    "errorInvalidEmail": "Digite um e-mail válido."
+    "errorInvalidEmail": "Digite um e-mail válido.",
+    "consentBefore": "Ao entrar, você concorda com nossa ",
+    "consentLink": "Política de privacidade",
+    "consentAfter": "."
   },
   "providers": {
     "googleDrive": "Google Drive",
@@ -575,5 +579,107 @@
       "title": "Mova o control plane para o seu servidor quando estiver pronto",
       "body": "Hoje, auto-hospedar significa rodar o Private Runner no seu hardware enquanto a Syncologic hospeda o control plane (grátis durante o early access). Quando o control plane auto-hospedado lançar, você poderá exportar seus jobs, agendamentos, histórico de execuções e conexões do nosso control plane e importá-los no seu próprio. Os dados do control plane são seus para mover."
     }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacidade — Syncologic",
+      "description": "Como a Syncologic coleta, armazena e usa o e-mail e as respostas de segmentação que você fornece ao entrar na lista de espera."
+    },
+    "title": "Privacidade",
+    "lastUpdated": "Atualizado em 6 de maio de 2026",
+    "intro": "A Syncologic ainda está em pré-lançamento. Os únicos dados pessoais que coletamos hoje são os que você nos dá ao entrar na lista de espera: seu e-mail e as respostas de segmentação que você escolher. Esta página explica exatamente o que guardamos, por quê, onde, por quanto tempo e como remover.",
+    "sections": [
+      {
+        "title": "1. O que coletamos",
+        "body": [
+          { "p": "Quando você entra na lista de espera:" },
+          { "list": [
+            "Seu e-mail.",
+            "As respostas de segmentação que você marca (caso de uso, provedor de origem, provedor de destino, tamanho estimado, frequência de transferência, runner preferido, perfil).",
+            "Seu idioma e a página de onde você entrou.",
+            "Um hash não-reversível do seu endereço IP. Usamos só para limite de taxa e nunca guardamos o IP original.",
+            "O user agent e o referrer do seu navegador, para análise de padrões de spam."
+          ] },
+          { "p": "Não coletamos nome, telefone, endereço ou dados de pagamento. Ainda não há produto para você fazer login." }
+        ]
+      },
+      {
+        "title": "2. Por que coletamos",
+        "body": [
+          { "p": "Três motivos:" },
+          { "list": [
+            "Para te avisar por e-mail quando a Syncologic for lançada e em marcos importantes.",
+            "Para validar quais casos de uso e pares de provedores as pessoas realmente querem, e construir as coisas certas primeiro.",
+            "Para prevenir spam e abuso do formulário da lista."
+          ] },
+          { "p": "Não vendemos, compartilhamos nem trocamos a lista." }
+        ]
+      },
+      {
+        "title": "3. Onde os dados ficam",
+        "body": [
+          { "p": "E-mail e respostas de segmentação ficam em um banco Postgres da Supabase com row-level security ativada. O acesso é limitado a uma chave de service-role mantida só pelo backend do site de marketing da Syncologic." },
+          { "p": "A entrega de e-mails de confirmação da lista de espera e atualizações de marcos é feita pela Resend. A Resend retém metadados de entrega (destinatário, timestamp, status) conforme a política de privacidade dela." },
+          { "p": "Contadores de limite de taxa, indexados pelo seu IP em hash, ficam no Upstash Redis com TTL curto (24 horas)." },
+          { "p": "Contagens de pageview e dados agregados vêm de analytics sem cookies — sem rastreamento entre sites e sem perfil por visitante." },
+          { "p": "Supabase, Resend e Upstash são baseados nos Estados Unidos, onde seus dados são processados." }
+        ]
+      },
+      {
+        "title": "4. Por quanto tempo guardamos",
+        "body": [
+          { "p": "Até o lançamento mais seis meses, ou até você sair da lista — o que vier primeiro." },
+          { "p": "Contadores de limite de taxa em hash de IP expiram automaticamente (24 horas)." },
+          { "p": "Após sair da lista, sua linha é marcada como removida. Mantemos o hash do token de unsubscribe por 30 dias para evitar abuso por links antigos, e então deletamos a linha por completo." }
+        ]
+      },
+      {
+        "title": "5. Seus direitos",
+        "body": [
+          { "p": "Você pode:" },
+          { "list": [
+            "Perguntar o que temos sobre você.",
+            "Corrigir.",
+            "Pedir para deletar.",
+            "Pedir os dados em um formato portável.",
+            "Se opor a usos específicos."
+          ] },
+          { "p": "Envie um e-mail para hello@syncologic.com a partir do endereço que está na lista. Respondemos em até 30 dias." },
+          { "p": "Você também pode sair da lista imediatamente pelo link no rodapé de qualquer e-mail que enviamos." },
+          { "p": "Seu consentimento para o processamento de e-mail e segmentação pode ser retirado a qualquer momento. O link de unsubscribe em qualquer e-mail que enviamos é o caminho mais rápido; mandar um e-mail para hello@syncologic.com também funciona. Retirar o consentimento não afeta o processamento que já aconteceu legalmente antes da retirada." }
+        ]
+      },
+      {
+        "title": "6. Caráter voluntário e decisões automatizadas",
+        "body": [
+          { "p": "Fornecer seu e-mail e respostas de segmentação é voluntário. Se você não fornecer, simplesmente não entra na lista de espera — nenhuma outra consequência." },
+          { "p": "Não usamos decisões automatizadas nem profiling que produzam efeitos legais ou significativos sobre você. As respostas de segmentação são usadas apenas para priorizar o que construímos, não para tomar decisões sobre você individualmente." }
+        ]
+      },
+      {
+        "title": "7. Processadores terceiros",
+        "body": [
+          { "p": "Compartilhamos os dados acima com:" },
+          { "list": [
+            "Supabase — armazenamento do banco",
+            "Resend — entrega de e-mails",
+            "Upstash — cache do limite de taxa"
+          ] },
+          { "p": "Não usamos Google Analytics, Meta Pixel, rastreadores de propaganda nem ferramentas de session-replay." }
+        ]
+      },
+      {
+        "title": "8. Cookies",
+        "body": [
+          { "p": "O site não define cookies de rastreamento." }
+        ]
+      },
+      {
+        "title": "9. Contato",
+        "body": [
+          { "p": "Envie um e-mail para hello@syncologic.com para qualquer dúvida sobre privacidade, solicitação de dados ou preocupação. O site fica em syncologic.com. O endereço syncologic.com.br redireciona para o mesmo site." }
+        ]
+      }
+    ]
   }
 }

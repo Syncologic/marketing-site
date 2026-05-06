@@ -2,7 +2,7 @@
 import Button from '../ui/Button.astro';
 import Input from '../ui/Input.astro';
 import ProviderLogo from '../ui/ProviderLogo.astro';
-import { getLocaleFromUrl, getT } from '../../i18n/utils';
+import { getLocaleFromUrl, getT, localizedPath } from '../../i18n/utils';
 import type { WaitlistPost } from '../../lib/validation';
 
 interface Props {
@@ -45,6 +45,9 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         <span class="btn-label-loading hidden">{t('waitlist.submitting')}</span>
       </Button>
     </form>
+    <p class="text-caption text-slate-gray mt-3">
+      {t('waitlist.consentBefore')}<a href={localizedPath(locale, '/privacy')} class="text-brand-blue hover:underline">{t('waitlist.consentLink')}</a>{t('waitlist.consentAfter')}
+    </p>
     <p
       class="waitlist-msg mt-4 text-body font-medium text-dark-charcoal min-h-[28px] transition-colors"
       role="status"

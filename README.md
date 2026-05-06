@@ -39,7 +39,8 @@ src/
 ## Documentation
 
 - [`DESIGN.md`](./DESIGN.md) — visual design system: colors, typography, components, layout principles
-- [`docs/superpowers/specs/`](./docs/superpowers/specs/) — design specs for major features
+- [`AGENTS.md`](./AGENTS.md) — standing brief for AI agents working on this repo
+- [`.agents/rules/`](./.agents/rules/) — cross-cutting rules (architecture, design system, engineering, content, workflow)
 
 ## License
 

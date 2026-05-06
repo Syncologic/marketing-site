@@ -17,7 +17,7 @@ symlinks back here for shared content.
 ## Precedence (when rules conflict)
 1. Explicit user instructions — always win.
 2. `../DESIGN.md` (root) — visual source of truth.
-3. The active spec under `../docs/superpowers/specs/` — current task scope.
+3. The active GitHub issue body — current task scope.
 4. Files in this directory — architecture, content, engineering, design-token usage, workflow.
 5. Default agent behavior — lowest priority.
 

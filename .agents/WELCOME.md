@@ -21,9 +21,8 @@ standardized workflow defined in `AGENTS.md`:
    `.agents/templates/issue.md` and asks before `gh issue create`.
 2. **Worktree always** at `<project-root>/.worktrees/issue-<num>-<slug>/`.
    Never the main checkout, never on `main`/`development` directly.
-3. **Plan, then execute.** Plans live in the issue body (not in
-   `docs/superpowers/plans/`, which is deprecated). For design-heavy
-   work, a spec goes in `docs/superpowers/specs/` first.
+3. **Plan, then execute.** Plans live in the GitHub issue body. Brief
+   the design directly in the issue — no separate plan or spec files.
 4. **PR-mode commit gating.** Once a PR is open, the agent modifies
    code, runs verification, presents the diff, waits for your "OK",
    and only then commits + pushes. One commit per review round —
@@ -79,7 +78,6 @@ Restart your agent. Verify with `rtk --version` and `rtk gain`.
 - `DESIGN.md` — visual source of truth.
 - `.agents/rules/` — cross-cutting rules.
 - `.agents/skills/` — project-local how-to.
-- `docs/superpowers/specs/` — current specs.
 
 ## Feedback
 
