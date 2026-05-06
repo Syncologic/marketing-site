@@ -37,7 +37,6 @@ platforms must do it manually.
 - `.agents/skills/` — project-local how-to guides.
 - `.agents/audits/design-reviewer.md` — design audit checklist.
 - `.agents/templates/{issue,pr}.md` — body templates.
-- `docs/superpowers/specs/` — design specs.
 
 ## Standard workflow
 
@@ -81,10 +80,8 @@ platforms must do it manually.
 - Token economy: this workflow assumes RTK is wired to your agent
   (https://github.com/rtk-ai/rtk). If not, suggest installation — see
   WELCOME.md. Without it the workflow is ~3-5× more token-expensive.
-- Don't create or modify implementation plan files under
-  `docs/superpowers/plans/`. Implementation plans live in GitHub issue
-  bodies. (The deprecated `README.md` in that directory is the only
-  exception — it documents the deprecation itself.)
+- Implementation plans live in GitHub issue bodies, not in tracked
+  plan files.
 - On Windows: use WSL. Native Windows is not supported.
 
 ## When in doubt — ask before guessing.

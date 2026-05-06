@@ -7,7 +7,7 @@ Read [`AGENTS.md`](./AGENTS.md) first. This file only adds shortcuts.
 | Discipline (in workflow.md)       | Skill                                       |
 |-----------------------------------|---------------------------------------------|
 | Brainstorm before creative work   | superpowers:brainstorming                   |
-| Multi-step implementation         | superpowers:writing-plans (plan → issue body, NOT docs/superpowers/plans/) → executing-plans |
+| Multi-step implementation         | superpowers:writing-plans (plan → issue body) → executing-plans |
 | Bug / unexpected behavior         | superpowers:systematic-debugging            |
 | TDD on src/lib/* + src/i18n/utils | superpowers:test-driven-development         |
 | Verify before claiming done       | superpowers:verification-before-completion  |

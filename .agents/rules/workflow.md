@@ -5,14 +5,13 @@ superpowers plugin maps each discipline to a skill — see CLAUDE.md.
 
 ## 1. Brainstorm before creative work
 Explore intent before writing code. Ask one question at a time. Propose
-2–3 approaches. Get the dev's approval. Spec writing (in
-`docs/superpowers/specs/`) is OPTIONAL — only for design-heavy work.
+2–3 approaches. Get the dev's approval before any code or issue draft.
 
 ## 2. Issues are where plans live
 
-`docs/superpowers/plans/` is DEPRECATED. Do not create new files there.
 Implementation plans go in GitHub issue bodies using
-`.agents/templates/issue.md`.
+`.agents/templates/issue.md`. There is no separate plans or specs
+directory — the issue body carries the full design and task list.
 
 The `gh` CLI is required. If `gh --version` fails, stop and recommend
 installation (https://cli.github.com) before proceeding.
