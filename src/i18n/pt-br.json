@@ -76,10 +76,7 @@
     "errorRate": "Espere um momento — tente de novo em um minuto.",
     "errorAlreadyRemoved": "Este e-mail já foi removido da lista. Para entrar de novo, mande um e-mail para hello@syncologic.com",
     "step1Subtitle": "Ajude a construir a ferramenta certa. Deixe seu e-mail e conte o que você precisa — leva cerca de um minuto.",
-    "step2Title": "Ajude a construir isso para você",
-    "step2Intro": "7 perguntas rápidas.",
     "step2Skip": "Pular — terminar depois",
-    "step2Done": "Pronto",
     "questionUseCase": "O que você pretende fazer?",
     "questionSourceProvider": "Onde os arquivos estão hoje?",
     "questionDestProvider": "Para onde eles precisam ir?",
@@ -156,8 +153,6 @@
     "ctaPlans": "Ver planos"
   },
   "useCases": {
-    "indexTitle": "Casos de uso",
-    "indexDescription": "Escolha o fluxo de trabalho que combina com o que você está tentando fazer.",
     "furtherReading": "Leitura complementar"
   },
   "visuals": {
@@ -509,7 +504,7 @@
         "q": "Vai ter um plano grátis para desenvolvedores?",
         "a": "Não há uma oferta específica para desenvolvedores — tudo o que você pagaria (ou não pagaria) está nos planos atuais.",
         "link": {
-          "href": "/pt-br/plans",
+          "href": "/plans",
           "label": "Ver planos"
         }
       },
@@ -525,7 +520,7 @@
         "q": "Posso rodar os jobs inteiramente na minha infraestrutura?",
         "a": "Sim, no caminho dos dados — o Private Runner roda em qualquer servidor que você controla, e os bytes dos arquivos nunca chegam à Syncologic.",
         "link": {
-          "href": "/pt-br/self-hosted",
+          "href": "/self-hosted",
           "label": "Arquitetura e roadmap"
         }
       },

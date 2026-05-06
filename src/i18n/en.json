@@ -76,10 +76,7 @@
     "errorRate": "Slow down — try again in a minute.",
     "errorAlreadyRemoved": "This email was already removed from the list. To rejoin, email us at hello@syncologic.com",
     "step1Subtitle": "Help us build the right tool. Drop your email, then tell us what you need — it takes about a minute.",
-    "step2Title": "Help us build this for you",
-    "step2Intro": "7 quick questions.",
     "step2Skip": "Skip — finish later",
-    "step2Done": "Done",
     "questionUseCase": "What would you like to do?",
     "questionSourceProvider": "Where do the files live now?",
     "questionDestProvider": "Where do they need to go?",
@@ -156,8 +153,6 @@
     "ctaPlans": "See plans"
   },
   "useCases": {
-    "indexTitle": "Use cases",
-    "indexDescription": "Pick the workflow that matches what you're trying to do.",
     "furtherReading": "Further reading"
   },
   "visuals": {
