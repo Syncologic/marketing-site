@@ -53,7 +53,7 @@ const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://syncologic.com';
 const canonical = `${siteUrl}${localizedPath('en', `/guides/${slug}`)}`;
 const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 
-const breadcrumbSchema = buildBreadcrumb('en', [
+const breadcrumbSchema = buildBreadcrumb([
   { name: t('breadcrumb.home'), url: `${siteUrl}/` },
   { name: t('breadcrumb.guides'), url: `${siteUrl}/guides` },
   { name: entry.data.title, url: canonical },

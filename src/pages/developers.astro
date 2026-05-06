@@ -11,7 +11,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://syncologic.com';
-const breadcrumbSchema = buildBreadcrumb(locale, [
+const breadcrumbSchema = buildBreadcrumb([
   { name: t('breadcrumb.home'), url: `${siteUrl}${localizedPath(locale, '/')}` },
   { name: t('breadcrumb.developers'), url: `${siteUrl}${localizedPath(locale, '/developers')}` },
 ]);

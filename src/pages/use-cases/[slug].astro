@@ -50,7 +50,7 @@ const t = getT('en');
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://syncologic.com';
 const canonical = `${siteUrl}${localizedPath('en', `/use-cases/${slug}`)}`;
 
-const breadcrumbSchema = buildBreadcrumb('en', [
+const breadcrumbSchema = buildBreadcrumb([
   { name: t('breadcrumb.home'), url: `${siteUrl}/` },
   { name: t('breadcrumb.useCases'), url: `${siteUrl}/use-cases` },
   { name: entry.data.title, url: canonical },
