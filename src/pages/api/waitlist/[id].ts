@@ -3,6 +3,7 @@ import { supabase } from '../../../lib/supabase';
 import { waitlistPatchSchema } from '../../../lib/validation';
 import { verifyToken } from '../../../lib/hmac';
 import { hashIp, getClientIp, checkPatchBudget } from '../../../lib/ratelimit';
+import { isAllowedOrigin } from '../../../lib/origin';
 
 export const prerender = false;
 
@@ -14,6 +15,10 @@ function json(data: unknown, status = 200): Response {
 }
 
 export const PATCH: APIRoute = async ({ request, params }) => {
+  if (!isAllowedOrigin(request)) {
+    return json({ error: 'forbidden_origin' }, 403);
+  }
+
   const id = params.id;
   if (!id || !/^[0-9a-f-]{36}$/.test(id)) {
     return json({ error: 'invalid_id' }, 400);

@@ -52,6 +52,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       data-msg-success={t('waitlist.success')}
       data-msg-error-network={t('waitlist.errorNetwork')}
       data-msg-error-rate={t('waitlist.errorRate')}
+      data-msg-error-removed={t('waitlist.errorAlreadyRemoved')}
     ></p>
 
     <div class="waitlist-step2 hidden bg-soft-gray text-left flex flex-col fixed inset-0 z-[60] mt-0 mx-0 max-w-none rounded-none px-6 pt-4 pb-6 overflow-hidden sm:relative sm:inset-auto sm:z-auto sm:mt-10 sm:mx-auto sm:max-w-xl sm:rounded-card sm:p-8 sm:overflow-visible" data-row-id="" data-token="" data-segment-hint={segmentHint ?? ''}>
@@ -95,7 +96,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
 
 <script>
   type Locale = 'en' | 'pt-br';
-  type Stage1Result = { id: string; token: string; status: 'created' | 'existed' };
+  type Stage1Result = { id: string; token: string };
 
   const I18N = {
     en: {
@@ -103,6 +104,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       errorNetwork: "Couldn't reach the server. Try again?",
       errorRate: "Slow down — try again in a minute.",
       errorInvalidEmail: 'Please enter a valid email address.',
+      errorAlreadyRemoved: "This email was already removed from the list. To rejoin, email us at hello@syncologic.com",
       questionUseCase: 'What would you like to do?',
       questionSourceProvider: 'Where do the files live now?',
       questionDestProvider: 'Where do they need to go?',
@@ -127,6 +129,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       errorNetwork: 'Não conseguimos nos conectar ao servidor. Tentar de novo?',
       errorRate: 'Calma — tente de novo em um minuto.',
       errorInvalidEmail: 'Digite um e-mail válido.',
+      errorAlreadyRemoved: 'Este e-mail já foi removido da lista. Para entrar de novo, mande um e-mail para hello@syncologic.com',
       questionUseCase: 'O que você pretende fazer?',
       questionSourceProvider: 'Onde os arquivos estão hoje?',
       questionDestProvider: 'Para onde eles precisam ir?',
@@ -279,11 +282,37 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
     }
 
     const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const TOKEN_RE = /^[0-9a-f]{64}$/i;
 
     const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
     emailInput?.addEventListener('input', () => {
       if (msg.textContent) setMsg('');
     });
+
+    const params = new URLSearchParams(window.location.search);
+    const wlId = params.get('wl_id');
+    const wlToken = params.get('wl_t');
+    const sectionId = root.parentElement?.id;
+    const targetsThisForm = !sectionId || window.location.hash === `#${sectionId}`;
+    if (wlId && wlToken && UUID_RE.test(wlId) && TOKEN_RE.test(wlToken) && targetsThisForm) {
+      step2.dataset.rowId = wlId;
+      step2.dataset.token = wlToken;
+      step2.classList.remove('hidden');
+      form.classList.add('hidden');
+      try {
+        const cached = localStorage.getItem(`waitlist:${wlId}`);
+        if (!cached) {
+          localStorage.setItem(`waitlist:${wlId}`, JSON.stringify({ token: wlToken }));
+        }
+      } catch {}
+      renderStep2(step2, locale);
+      openFullscreen(step2);
+      const url = new URL(window.location.href);
+      url.searchParams.delete('wl_id');
+      url.searchParams.delete('wl_t');
+      window.history.replaceState({}, '', url.toString());
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -310,6 +339,10 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
 
         if (res.status === 429) {
           setMsg(I18N[locale].errorRate, 'error');
+          return;
+        }
+        if (res.status === 409) {
+          setMsg(I18N[locale].errorAlreadyRemoved, 'error');
           return;
         }
         if (!res.ok) {
