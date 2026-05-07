@@ -121,7 +121,9 @@ function renderEmail(p: ConfirmationParams, c: Copy): string {
                   <tr>
                     <td style="padding:20px 24px;">
                       <p style="margin:0 0 12px 0;font-size:15px;line-height:1.5;color:${COLOR.text};">${c.segPrompt}</p>
-                      <a href="${segHref}" style="display:inline-block;padding:12px 22px;background:${COLOR.brand};color:#FFFFFF;font-size:15px;font-weight:500;line-height:1;text-decoration:none;border-radius:100px;">${c.segCta}</a>
+                      <div style="text-align:center;">
+                        <a href="${segHref}" style="display:inline-block;padding:12px 22px;background:${COLOR.brand};color:#FFFFFF;font-size:15px;font-weight:500;line-height:1;text-decoration:none;border-radius:100px;">${c.segCta}</a>
+                      </div>
                       <p style="margin:14px 0 0 0;font-size:13px;line-height:1.5;color:${COLOR.muted};">${c.segNote}</p>
                     </td>
                   </tr>
