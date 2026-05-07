@@ -25,6 +25,7 @@ interface Copy {
   intro: string;
   segPrompt: string;
   segCta: string;
+  segNote: string;
   signoff: string;
   team: string;
   unsubPrompt: string;
@@ -41,6 +42,8 @@ const COPY: Record<Locale, Copy> = {
       "Thanks for joining the Syncologic waitlist. We're building the calmest way to move files between clouds — and we're genuinely happy you're here. We'll only email when there's something real to try. No noise in between.",
     segPrompt: 'If you have 30 seconds, help us build the right thing first:',
     segCta: 'Tell us what you want to move →',
+    segNote:
+      "This button takes you to the questions shown after you entered your email. If you already answered them on the page, you're good. If not, your answers help us build the best product for you.",
     signoff: 'Talk soon,',
     team: 'The Syncologic team',
     unsubPrompt: "Didn't sign up?",
@@ -55,6 +58,8 @@ const COPY: Record<Locale, Copy> = {
       'Obrigado por entrar na lista de espera da Syncologic. Estamos construindo o jeito mais tranquilo de mover arquivos entre nuvens — e ficamos felizes de verdade com você aqui. Só vamos te escrever quando tiver algo de verdade para experimentar. Nada de spam.',
     segPrompt: 'Se tiver 30 segundos, nos ajude a construir a coisa certa primeiro:',
     segCta: 'Conta o que você quer transferir →',
+    segNote:
+      'Este botão leva você às perguntas que aparecem depois que você digita seu e-mail. Se você já respondeu na página, está tudo certo. Se não, suas respostas ajudam a gente a construir o melhor produto para você.',
     signoff: 'Até breve,',
     team: 'A equipe da Syncologic',
     unsubPrompt: 'Não foi você?',
@@ -117,6 +122,7 @@ function renderEmail(p: ConfirmationParams, c: Copy): string {
                     <td style="padding:20px 24px;">
                       <p style="margin:0 0 12px 0;font-size:15px;line-height:1.5;color:${COLOR.text};">${c.segPrompt}</p>
                       <a href="${segHref}" style="display:inline-block;padding:12px 22px;background:${COLOR.brand};color:#FFFFFF;font-size:15px;font-weight:500;line-height:1;text-decoration:none;border-radius:100px;">${c.segCta}</a>
+                      <p style="margin:14px 0 0 0;font-size:13px;line-height:1.5;color:${COLOR.muted};">${c.segNote}</p>
                     </td>
                   </tr>
                 </table>
