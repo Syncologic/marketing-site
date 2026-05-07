@@ -79,7 +79,6 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       data-msg-encourage-last={t('waitlist.encourageLast')}
       data-msg-done={t('waitlist.done')}
       data-msg-done-sub={t('waitlist.doneSub')}
-      data-msg-done-cta={t('waitlist.doneCta')}
       data-msg-next={t('waitlist.next')}
       data-msg-back={t('waitlist.back')}
       data-msg-close={t('waitlist.close')}
@@ -383,7 +382,6 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       encourageLast: step2.dataset.msgEncourageLast ?? '',
       done: step2.dataset.msgDone ?? '',
       doneSub: step2.dataset.msgDoneSub ?? '',
-      doneCta: step2.dataset.msgDoneCta ?? '',
       next: step2.dataset.msgNext ?? '',
       back: step2.dataset.msgBack ?? '',
       close: step2.dataset.msgClose ?? '',
@@ -508,7 +506,8 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
 
       backBtn.disabled = cursor === 0;
       backBtn.textContent = step2Msgs.back;
-      nextBtn.textContent = isLast ? step2Msgs.doneCta : step2Msgs.next;
+      nextBtn.textContent = step2Msgs.next;
+      nextBtn.hidden = isLast;
 
       paintProgress();
     }
@@ -569,7 +568,6 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       patch({ [field]: value });
       if (pendingAdvance !== null) clearTimeout(pendingAdvance);
       if (isLast) {
-        if (!isMobile()) return;
         pendingAdvance = window.setTimeout(() => {
           pendingAdvance = null;
           complete();
