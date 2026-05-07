@@ -1,0 +1,70 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import Nav from '../components/layout/Nav.astro';
+import Footer from '../components/layout/Footer.astro';
+import { getLocaleFromUrl } from '../i18n/utils';
+import en from '../i18n/en.json';
+import ptBr from '../i18n/pt-br.json';
+
+type ParagraphBlock = { p: string };
+type ListBlock = { list: string[] };
+type Block = ParagraphBlock | ListBlock;
+type Section = { title: string; body: Block[] };
+type PrivacyContent = {
+  meta: { title: string; description: string };
+  title: string;
+  lastUpdated: string;
+  intro: string;
+  sections: Section[];
+};
+
+const locale = getLocaleFromUrl(Astro.url);
+const dict = (locale === 'pt-br' ? ptBr : en) as { privacy: PrivacyContent };
+const privacy = dict.privacy;
+
+const SUPPORT_EMAIL = 'hello@syncologic.com';
+---
+
+<Layout title={privacy.meta.title} description={privacy.meta.description}>
+  <Nav slot="nav" />
+
+  <article class="bg-reading-paper">
+    <div class="container-wide max-w-3xl mx-auto py-section md:py-section-lg">
+      <header class="mb-12">
+        <p class="text-caption text-slate-gray mb-3">{privacy.lastUpdated}</p>
+        <h1 class="text-h1 md:text-display-2 font-medium text-dark-charcoal mb-6">{privacy.title}</h1>
+        <p class="text-body text-slate-gray">{privacy.intro}</p>
+      </header>
+
+      <div class="space-y-12">
+        {privacy.sections.map((section) => (
+          <section>
+            <h2 class="text-h2 md:text-h1 font-medium text-dark-charcoal mb-4">{section.title}</h2>
+            <div class="space-y-4 text-body text-slate-gray">
+              {section.body.map((block) =>
+                'p' in block ? (
+                  <p>
+                    {block.p.split(SUPPORT_EMAIL).map((part, i, arr) => (
+                      <Fragment>
+                        {part}
+                        {i < arr.length - 1 && (
+                          <a href={`mailto:${SUPPORT_EMAIL}`} class="text-brand-blue hover:underline">{SUPPORT_EMAIL}</a>
+                        )}
+                      </Fragment>
+                    ))}
+                  </p>
+                ) : (
+                  <ul class="list-disc pl-6 space-y-1.5">
+                    {block.list.map((item) => <li>{item}</li>)}
+                  </ul>
+                ),
+              )}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </article>
+
+  <Footer slot="footer" />
+</Layout>

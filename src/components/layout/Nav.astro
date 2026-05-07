@@ -1,33 +1,40 @@
 ---
 import Button from '../ui/Button.astro';
+import GithubIcon from '../ui/GithubIcon.astro';
 import { getLocaleFromUrl, getT, localizedPath, pathWithoutLocale } from '../../i18n/utils';
+
+const GITHUB_URL = 'https://github.com/syncologic';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 const path = pathWithoutLocale(Astro.url.pathname);
 
 const useCases = [
-  { slug: 'cloud-to-cloud-transfer', label: 'Cloud-to-cloud transfer' },
-  { slug: 'business-cloud-migration', label: 'Business migration' },
-  { slug: 'scheduled-cloud-backup', label: 'Scheduled backup' },
-  { slug: 'private-runner', label: 'Private Runner' },
+  { slug: 'cloud-to-cloud-transfer', key: 'cloudToCloud' },
+  { slug: 'business-cloud-migration', key: 'businessMigration' },
+  { slug: 'scheduled-cloud-backup', key: 'scheduledBackup' },
+  { slug: 'private-runner', key: 'privateRunner' },
 ];
 
 const otherLocale = locale === 'en' ? 'pt-br' : 'en';
 const otherLocalePath = localizedPath(otherLocale, path);
+
+const isGuide = path === '/guides' || path.startsWith('/guides/');
+const positionClass = isGuide ? 'absolute' : 'fixed';
+const waitlistHref = isGuide ? `${localizedPath(locale, '/')}#waitlist` : '#waitlist';
 ---
 
 <header
-  class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur border-b border-[rgba(0,0,0,0.06)]"
+  class={`${positionClass} top-0 left-0 right-0 z-50 w-full bg-white/85 backdrop-blur border-b border-nav`}
   data-locale={locale}
 >
-  <nav class="container-wide flex items-center justify-between h-16">
+  <nav class="container-wide flex items-center justify-between h-12 lg:h-14">
     <a href={localizedPath(locale, '/')} class="flex items-center gap-2">
-      <img src="/assets/brand/icon-black.png" alt="" width="48" height="48" class="rounded-input" />
-      <span class="text-h3 font-bold tracking-tight leading-none text-brand-blue">{t('site.name')}</span>
+      <img src="/assets/brand/icon-white.svg" alt="" width="48" height="48" class="rounded-input w-9 h-9" />
+      <span class="text-compact font-bold tracking-tight leading-none text-logo-blue">{t('site.name')}</span>
     </a>
 
-    <ul class="hidden lg:flex items-center gap-7 text-compact text-dark-charcoal">
+    <ul class="hidden lg:flex items-center gap-5 text-caption text-dark-charcoal">
       <li class="relative group">
         <button class="flex items-center gap-1 hover:underline" type="button" aria-haspopup="true" aria-expanded="false">
           {t('nav.useCases')}
@@ -41,17 +48,17 @@ const otherLocalePath = localizedPath(otherLocale, path);
               <a
                 href={localizedPath(locale, `/use-cases/${u.slug}`)}
                 class="block px-3 py-2 text-caption rounded-input hover:bg-soft-gray"
-              >{u.label}</a>
+              >{t(`nav.useCasesMenu.${u.key}`)}</a>
             </li>
           ))}
         </ul>
       </li>
-      <li><a href={localizedPath(locale, '/pricing')} class="hover:underline">{t('nav.pricing')}</a></li>
+      <li><a href={localizedPath(locale, '/plans')} class="hover:underline">{t('nav.pricing')}</a></li>
       <li><a href={localizedPath(locale, '/self-hosted')} class="hover:underline">{t('nav.selfHosted')}</a></li>
       <li><a href={localizedPath(locale, '/developers')} class="hover:underline">{t('nav.developers')}</a></li>
     </ul>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 sm:gap-3">
       <a
         href={otherLocalePath}
         class="hidden lg:inline-block text-caption text-slate-gray hover:text-dark-charcoal"
@@ -59,7 +66,128 @@ const otherLocalePath = localizedPath(otherLocale, path);
       >
         {otherLocale === 'pt-br' ? 'PT' : 'EN'}
       </a>
-      <Button href="#waitlist" variant="primary" size="sm">{t('nav.joinWaitlist')}</Button>
+      <a
+        href={GITHUB_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden lg:inline-flex items-center justify-center w-8 h-8 rounded-input text-slate-gray hover:text-dark-charcoal hover:bg-soft-gray transition-colors"
+        aria-label="GitHub"
+      >
+        <GithubIcon size={16} />
+      </a>
+      <Button href={waitlistHref} variant="primary" size="sm">
+        <span class="sm:hidden">{t('nav.joinWaitlistShort')}</span>
+        <span class="hidden sm:inline">{t('nav.joinWaitlist')}</span>
+      </Button>
+      <button
+        id="nav-menu-toggle"
+        type="button"
+        class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-input bg-soft-gray border border-divider text-dark-charcoal hover:bg-baby-blue"
+        aria-label={t('nav.menu')}
+        aria-expanded="false"
+        aria-controls="nav-mobile-panel"
+        data-label-close={t('nav.close')}
+      >
+        <svg data-icon="open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="17" x2="20" y2="17" />
+        </svg>
+        <svg data-icon="close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="6" y1="6" x2="18" y2="18" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+        </svg>
+      </button>
     </div>
   </nav>
+
+  <div
+    id="nav-mobile-panel"
+    class="lg:hidden hidden border-t border-divider bg-soft-gray shadow-card-elevated max-h-[calc(100vh-3rem)] overflow-y-auto"
+  >
+    <ul class="container-wide py-4 text-compact text-dark-charcoal">
+      <li class="py-2">
+        <p class="text-caption uppercase tracking-wide text-slate-gray mb-2">{t('nav.useCases')}</p>
+        <ul class="pl-2 space-y-1">
+          {useCases.map((u) => (
+            <li>
+              <a
+                href={localizedPath(locale, `/use-cases/${u.slug}`)}
+                class="block py-2 hover:underline"
+              >{t(`nav.useCasesMenu.${u.key}`)}</a>
+            </li>
+          ))}
+        </ul>
+      </li>
+      <li><a href={localizedPath(locale, '/plans')} class="block py-3 hover:underline">{t('nav.pricing')}</a></li>
+      <li><a href={localizedPath(locale, '/self-hosted')} class="block py-3 hover:underline">{t('nav.selfHosted')}</a></li>
+      <li><a href={localizedPath(locale, '/developers')} class="block py-3 hover:underline">{t('nav.developers')}</a></li>
+      <li>
+        <a
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 py-3 hover:underline"
+        >
+          <GithubIcon size={18} />
+          GitHub
+        </a>
+      </li>
+      <li class="border-t border-divider mt-2 pt-3">
+        <p class="text-caption uppercase tracking-wide text-slate-gray mb-2">{t('language.label')}</p>
+        <ul class="pl-2 space-y-1">
+          <li><a href={localizedPath('en', path)} class="block py-2 hover:underline" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>{t('language.en')}</a></li>
+          <li><a href={localizedPath('pt-br', path)} class="block py-2 hover:underline" hreflang="pt-br" aria-current={locale === 'pt-br' ? 'true' : undefined}>{t('language.pt-br')}</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 </header>
+
+<script>
+  const toggle = document.getElementById('nav-menu-toggle');
+  const panel = document.getElementById('nav-mobile-panel');
+  if (toggle && panel) {
+    const openIcon = toggle.querySelector<SVGElement>('[data-icon="open"]');
+    const closeIcon = toggle.querySelector<SVGElement>('[data-icon="close"]');
+    const labelOpen = toggle.getAttribute('aria-label') || 'Menu';
+    const labelClose = toggle.dataset.labelClose || 'Close';
+
+    const setOpen = (open: boolean) => {
+      panel.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? labelClose : labelOpen);
+      openIcon?.classList.toggle('hidden', open);
+      closeIcon?.classList.toggle('hidden', !open);
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    };
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      setOpen(!expanded);
+    });
+
+    panel.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener('pointerdown', (e) => {
+      if (toggle.getAttribute('aria-expanded') !== 'true') return;
+      const target = e.target as Node;
+      if (panel.contains(target) || toggle.contains(target)) return;
+      setOpen(false);
+    });
+
+    const mq = window.matchMedia('(min-width: 1024px)');
+    mq.addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>

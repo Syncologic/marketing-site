@@ -1,37 +1,156 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '../../components/layout/Layout.astro';
 import Nav from '../../components/layout/Nav.astro';
 import Footer from '../../components/layout/Footer.astro';
-import Hero from '../../components/sections/Hero.astro';
-import WaitlistForm from '../../components/sections/WaitlistForm.astro';
-import StickyWaitlistBar from '../../components/sections/StickyWaitlistBar.astro';
+import Section from '../../components/ui/Section.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+import Caption from '../../components/guides/Caption.astro';
+import Note from '../../components/guides/Note.astro';
+import TableOfContents from '../../components/guides/TableOfContents.astro';
+import BackToTop from '../../components/guides/BackToTop.astro';
+import ProviderArc from '../../components/visuals/ProviderArc.astro';
+import MigrationChecklist from '../../components/visuals/MigrationChecklist.astro';
+import ScheduleClock from '../../components/visuals/ScheduleClock.astro';
+import PrivateRunnerPath from '../../components/visuals/PrivateRunnerPath.astro';
+import JsonLd from '../../components/layout/JsonLd.astro';
+import { getT, localizedPath } from '../../i18n/utils';
+import { readingTimeMinutes } from '../../lib/reading-time';
+import { buildBreadcrumb } from '../../lib/breadcrumb';
 
 export async function getStaticPaths() {
   const entries = await getCollection('guides', (e) => e.data.locale === 'en');
-  return entries.map((entry) => ({
-    params: { slug: entry.slug.replace(/^en\//, '') },
-    props: { entry },
-  }));
+  const bySlug = new Map(entries.map((e) => [e.id.replace(/^en\//, ''), e]));
+  return entries.map((entry) => {
+    const slug = entry.id.replace(/^en\//, '');
+    const related = (entry.data.relatedSlugs ?? [])
+      .map((s) => bySlug.get(s))
+      .filter((e): e is NonNullable<typeof e> => Boolean(e))
+      .map((e) => ({
+        slug: e.id.replace(/^en\//, ''),
+        title: e.data.title,
+        description: e.data.description,
+        eyebrow: e.data.eyebrow,
+        readingTime: readingTimeMinutes(e.body ?? ''),
+      }));
+    return { params: { slug }, props: { entry, related } };
+  });
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { entry, related } = Astro.props;
+const { slug } = Astro.params;
+const { Content, headings } = await render(entry);
 const ogImage = entry.data.ogImage ?? '/og/default-en.png';
+const t = getT('en');
+const minutes = readingTimeMinutes(entry.body ?? '');
+const updatedLabel = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(entry.data.updatedAt);
+const updatedIso = entry.data.updatedAt.toISOString().slice(0, 10);
+const segmentHref = entry.data.waitlistSegment === 'business_migration'
+  ? '/use-cases/business-cloud-migration'
+  : '/use-cases/cloud-to-cloud-transfer';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://syncologic.com';
+const canonical = `${siteUrl}${localizedPath('en', `/guides/${slug}`)}`;
+const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+const breadcrumbSchema = buildBreadcrumb([
+  { name: t('breadcrumb.home'), url: `${siteUrl}/` },
+  { name: t('breadcrumb.guides'), url: `${siteUrl}/guides` },
+  { name: entry.data.title, url: canonical },
+]);
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: entry.data.headline,
+  description: entry.data.description,
+  inLanguage: 'en',
+  datePublished: entry.data.publishedAt.toISOString(),
+  dateModified: entry.data.updatedAt.toISOString(),
+  image: ogImageAbs,
+  mainEntityOfPage: canonical,
+  author: { '@type': 'Organization', name: 'Syncologic', url: siteUrl },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Syncologic',
+    url: siteUrl,
+    logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/brand/icon-white.svg` },
+  },
+};
 ---
 
 <Layout title={entry.data.title} description={entry.data.description} ogImage={ogImage}>
+  <JsonLd slot="head" schema={[breadcrumbSchema, articleSchema]} />
   <Nav slot="nav" />
-  <Hero
-    eyebrow={entry.data.eyebrow}
-    headline={entry.data.headline}
-    subheading={entry.data.subheading}
-    primaryCta={entry.data.primaryCta}
-  />
-  <article class="prose-syncologic container-wide max-w-[760px] py-section">
-    <Content />
+
+  <article class="bg-reading-paper">
+    <div class="max-w-[1280px] mx-auto px-6 py-section-lg lg:grid lg:grid-cols-[200px_minmax(0,880px)_120px] lg:gap-10">
+      <aside class="hidden lg:block">
+        <div class="sticky top-24">
+          <TableOfContents headings={headings} />
+        </div>
+      </aside>
+
+      <div class="min-w-0">
+        <header class="mb-12">
+          <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{entry.data.eyebrow}</span>
+          <h1 class="text-h1 font-medium text-dark-charcoal mt-3 leading-tight">{entry.data.headline}</h1>
+          <p class="text-body text-slate-gray mt-5 leading-relaxed">{entry.data.subheading}</p>
+          <p class="text-caption text-slate-gray mt-6 flex flex-wrap gap-x-3 gap-y-1 items-center">
+            <span>{t('guides.meta.readingTime', { minutes })}</span>
+            <span aria-hidden="true">·</span>
+            <span>
+              {t('guides.meta.updated')}
+              {' '}
+              <time datetime={updatedIso}>{updatedLabel}</time>
+            </span>
+          </p>
+        </header>
+
+        <div class="prose-syncologic prose-syncologic--reading">
+          <Content components={{ ProviderArc, MigrationChecklist, ScheduleClock, PrivateRunnerPath, Caption, Note }} />
+        </div>
+      </div>
+
+      <div class="hidden lg:block" aria-hidden="true"></div>
+    </div>
   </article>
-  <WaitlistForm segmentHint={entry.data.waitlistSegment ?? null} />
+
+  <Section surface="soft" padding="md">
+    <div class="max-w-[720px] mx-auto text-center">
+      <h2 class="text-h1 font-medium text-dark-charcoal">{t('guides.cta.title')}</h2>
+      <p class="text-body text-slate-gray mt-4 leading-relaxed">{t('guides.cta.body')}</p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <Button href={localizedPath('en', segmentHref)} variant="primary" size="lg">{t('guides.cta.primary')}</Button>
+        <Button href={localizedPath('en', '/')} variant="secondary" size="lg">{t('guides.cta.secondary')}</Button>
+      </div>
+    </div>
+  </Section>
+
+  {related.length > 0 && (
+    <Section surface="soft" padding="md">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-h1 font-medium text-dark-charcoal mb-8">{t('guides.meta.readNext')}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {related.map((r) => (
+            <a
+              href={localizedPath('en', `/guides/${r.slug}`)}
+              class="block group"
+            >
+              <Card radius="card" elevation="flat" class="p-6 transition-shadow group-hover:shadow-card">
+                <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{r.eyebrow}</span>
+                <h3 class="text-h3 font-bold text-dark-charcoal mt-2">{r.title}</h3>
+                <p class="text-body text-slate-gray mt-3 line-clamp-3">{r.description}</p>
+                <p class="text-caption text-slate-gray mt-4">{t('guides.meta.readingTime', { minutes: r.readingTime })}</p>
+              </Card>
+            </a>
+          ))}
+        </div>
+      </div>
+    </Section>
+  )}
+
+  <BackToTop />
   <Footer slot="footer" />
-  <StickyWaitlistBar />
 </Layout>

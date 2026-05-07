@@ -1,0 +1,50 @@
+---
+import Card from '../ui/Card.astro';
+import { getLocaleFromUrl, getT, localizedPath } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <a href="#how-it-works" class="block group rounded-feature">
+    <Card
+      radius="feature"
+      class="p-8 lg:p-10 transition-all group-hover:-translate-y-0.5 group-hover:shadow-card h-full"
+    >
+      <div class="flex items-start justify-between gap-4 mb-3">
+        <h3 class="text-h3 font-bold text-dark-charcoal">
+          {t('homepage.pathChooser.user.title')}
+        </h3>
+        <span
+          aria-hidden="true"
+          class="text-slate-gray text-h3 transition-transform group-hover:translate-x-1"
+          >→</span
+        >
+      </div>
+      <p class="text-body text-slate-gray leading-relaxed">
+        {t('homepage.pathChooser.user.desc')}
+      </p>
+    </Card>
+  </a>
+  <a href={localizedPath(locale, '/developers')} class="block group rounded-feature">
+    <Card
+      radius="feature"
+      class="p-8 lg:p-10 transition-all group-hover:-translate-y-0.5 group-hover:shadow-card h-full"
+    >
+      <div class="flex items-start justify-between gap-4 mb-3">
+        <h3 class="text-h3 font-bold text-dark-charcoal">
+          {t('homepage.pathChooser.dev.title')}
+        </h3>
+        <span
+          aria-hidden="true"
+          class="text-slate-gray text-h3 transition-transform group-hover:translate-x-1"
+          >→</span
+        >
+      </div>
+      <p class="text-body text-slate-gray leading-relaxed">
+        {t('homepage.pathChooser.dev.desc')}
+      </p>
+    </Card>
+  </a>
+</div>

@@ -11,18 +11,16 @@ const providers = [
   { id: 'dropbox' as const, key: 'dropbox' },
   { id: 's3' as const, key: 's3' },
   { id: 'sftp' as const, key: 'sftp' },
-  { id: 'webdav' as const, key: 'webdav' },
+  { id: 'your_server' as const, key: 'your_server' },
   { id: 'nextcloud' as const, key: 'nextcloud' },
 ];
 ---
 
-<div class="overflow-x-auto">
-  <ul class="flex items-center gap-10 sm:gap-14 min-w-max px-4 py-6 justify-center">
-    {providers.map((p) => (
-      <li class="flex flex-col items-center gap-3 text-caption text-slate-gray whitespace-nowrap">
-        <ProviderLogo provider={p.id} size={56} />
-        <span>{t(`providers.${p.key}`)}</span>
-      </li>
-    ))}
-  </ul>
-</div>
+<ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-y-8 gap-x-6 sm:gap-x-8 lg:gap-x-10 max-w-md sm:max-w-2xl lg:max-w-none mx-auto px-4 py-6 [&>li:last-child]:col-span-2 sm:[&>li:last-child]:col-span-3 lg:[&>li:last-child]:col-span-1">
+  {providers.map((p) => (
+    <li class="flex flex-col items-center gap-3 text-caption text-slate-gray whitespace-nowrap">
+      <ProviderLogo provider={p.id} size={56} />
+      <span>{t(`providers.${p.key}`)}</span>
+    </li>
+  ))}
+</ul>

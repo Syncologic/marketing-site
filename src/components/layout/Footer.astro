@@ -1,10 +1,12 @@
 ---
+import GithubIcon from '../ui/GithubIcon.astro';
 import { getLocaleFromUrl, getT, localizedPath } from '../../i18n/utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 const year = new Date().getFullYear();
 const pathname = Astro.url.pathname;
+const GITHUB_URL = 'https://github.com/syncologic';
 ---
 
 <footer class="bg-soft-gray border-t border-divider">
@@ -12,25 +14,36 @@ const pathname = Astro.url.pathname;
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
       <div class="col-span-2 md:col-span-1">
         <a href={localizedPath(locale, '/')} class="flex items-center gap-2 mb-4">
-          <img src="/assets/brand/icon-black.png" alt={t('site.name')} width="48" height="48" class="rounded-input" />
-          <span class="text-h3 font-bold tracking-tight leading-none text-brand-blue">{t('site.name')}</span>
+          <img src="/assets/brand/icon-white.svg" alt={t('site.name')} width="48" height="48" loading="lazy" decoding="async" class="rounded-input" />
+          <span class="text-h3 font-bold tracking-tight leading-none text-logo-blue">{t('site.name')}</span>
         </a>
         <p class="text-caption text-slate-gray max-w-xs">{t('site.tagline')}</p>
+        <a
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 mt-4 text-caption text-slate-gray hover:text-dark-charcoal transition-colors"
+          aria-label="GitHub — github.com/syncologic"
+        >
+          <GithubIcon size={18} />
+          <span>github.com/syncologic</span>
+        </a>
       </div>
 
       <div>
         <h3 class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{t('footer.product')}</h3>
         <ul class="space-y-2 text-caption">
-          <li><a href={localizedPath(locale, '/pricing')} class="hover:underline">{t('nav.pricing')}</a></li>
+          <li><a href={localizedPath(locale, '/plans')} class="hover:underline">{t('nav.pricing')}</a></li>
           <li><a href={localizedPath(locale, '/self-hosted')} class="hover:underline">{t('nav.selfHosted')}</a></li>
           <li><a href={localizedPath(locale, '/developers')} class="hover:underline">{t('nav.developers')}</a></li>
         </ul>
       </div>
 
       <div>
-        <h3 class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{t('footer.resources')}</h3>
+        <h3 class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{t('footer.resourcesColumn.title')}</h3>
         <ul class="space-y-2 text-caption">
-          <li><a href={localizedPath(locale, '/use-cases/cloud-to-cloud-transfer')} class="hover:underline">{t('nav.useCases')}</a></li>
+          <li><a href={localizedPath(locale, '/guides')} class="hover:underline">{t('footer.resourcesColumn.guides')}</a></li>
+          <li><a href={`${localizedPath(locale, '/')}#how-it-works`} class="hover:underline">{t('footer.resourcesColumn.useCases')}</a></li>
         </ul>
       </div>
 
@@ -43,6 +56,10 @@ const pathname = Astro.url.pathname;
       </div>
     </div>
 
-    <p class="text-small text-slate-gray mt-12">{t('footer.copyright', { year })}</p>
+    <p class="text-small text-slate-gray mt-12">
+      <span>{t('footer.copyright', { year })}</span>
+      <span class="mx-2" aria-hidden="true">·</span>
+      <a href={localizedPath(locale, '/privacy')} class="hover:underline">{t('footer.privacy')}</a>
+    </p>
   </div>
 </footer>

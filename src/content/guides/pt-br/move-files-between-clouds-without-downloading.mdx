@@ -1,63 +1,66 @@
 ---
 locale: pt-br
-title: "Move files between clouds without downloading them first"
-description: "A practical guide to moving files between cloud providers — Drive, OneDrive, Dropbox, S3 — without dragging every byte through your laptop."
-eyebrow: "Guide"
-headline: "Move files between clouds without downloading them first"
-subheading: "Why download-and-reupload fails on large folders, what actually works, and where a dedicated transfer tool earns its keep."
+title: "Como mover arquivos entre nuvens sem ter que baixar antes"
+description: "Um guia prático para mover arquivos entre provedores de nuvem — Drive, OneDrive, Dropbox, S3 — sem arrastar cada byte pelo seu computador."
+eyebrow: "Guia"
+headline: "Mova arquivos entre nuvens sem ter que baixar antes"
+subheading: "Por que baixar e subir de novo falha em pastas grandes, o que de fato funciona e em que momento uma ferramenta de transferência dedicada vale o investimento."
 primaryCta:
-  label: "Join the waitlist"
+  label: "Entrar na lista de espera"
   href: "#waitlist"
 publishedAt: 2026-04-30
+updatedAt: 2026-04-30
+relatedSlugs:
+  - transfer-google-drive-to-onedrive
 ---
 
-You have a folder in Google Drive, Dropbox, or OneDrive. You want it in another cloud. The obvious path — download everything, then re-upload — is also the slowest, most fragile one. This guide walks through the alternatives honestly: what works for small jobs, where each approach breaks, and what to reach for when none of them are enough.
+Você tem uma pasta no Google Drive, no Dropbox ou no OneDrive. Quer ela em outra nuvem. O caminho óbvio — baixar tudo e subir de novo — também é o mais lento e o mais frágil. Este guia passa pelas alternativas com honestidade: o que funciona em jobs pequenos, onde cada abordagem quebra e o que vale buscar quando nenhuma dá conta.
 
-## What people usually try first
+## O que as pessoas costumam tentar primeiro
 
-The default plan is to right-click the folder, hit **Download**, wait for a zip, and re-upload it on the destination. For a few hundred megabytes, that's fine. For anything bigger, three things tend to go wrong.
+O plano padrão é clicar com o botão direito na pasta, apertar **Baixar**, esperar um zip e subir o zip no destino. Para algumas centenas de megabytes, tudo bem. Para mais que isso, três coisas costumam dar errado.
 
-First, the zip itself fails. Google Drive's web UI silently splits very large folders into multiple archives or stops mid-export. Dropbox refuses to zip past a size limit. OneDrive's "Download" can quietly skip shared items you don't fully own.
+Primeiro, o próprio zip falha. A interface web do Google Drive divide silenciosamente pastas muito grandes em vários arquivos ou para no meio da exportação. O Dropbox se recusa a zipar acima de um certo tamanho. O "Baixar" do OneDrive pode pular silenciosamente itens compartilhados que não pertencem totalmente a você.
 
-Second, the upload chokes on home internet. A 200&nbsp;GB folder over a 50&nbsp;Mbps upload link is roughly nine hours of uninterrupted streaming — which means it's actually a week of restarts, because anything from a Wi-Fi blip to a tab close kills it. Resume support across providers is uneven.
+Segundo, o upload morre na internet residencial. Uma pasta de 200&nbsp;GB em um link de upload de 50&nbsp;Mbps dá cerca de nove horas ininterruptas — o que na prática vira uma semana de reinícios, porque qualquer oscilação de Wi-Fi ou aba fechada mata o processo. O suporte a retomada varia bastante entre provedores.
 
-Third, you lose metadata. Comments, share permissions, version history, "Last modified" timestamps — most of it doesn't survive a download/re-upload round trip. For a personal photo dump that's annoying. For a company migration it's a real problem.
+Terceiro, você perde metadados. Comentários, permissões de compartilhamento, histórico de versões, "Última modificação" — a maior parte não sobrevive a um ciclo de download e novo upload. Para um arquivo pessoal de fotos, é chato. Para uma migração de empresa, é um problema sério.
 
-## What works better
+## O que funciona melhor
 
-A handful of approaches sidestep the laptop entirely. They're worth knowing on their own merits — not every job needs a paid product.
+Algumas abordagens evitam o computador por completo. Vale conhecê-las pelos seus próprios méritos — nem todo job precisa de um produto pago.
 
-- **Provider-native migration tools.** Google Workspace, Microsoft 365, and Dropbox each ship admin-level migration tooling for their own platform. They're the right answer when you're staying within one vendor (e.g., consolidating two Google Workspace tenants). Outside that lane, they don't help.
-- **`rclone`.** The open-source command-line tool that mounts and copies between most cloud providers, server-to-server, without round-tripping through your machine. It's powerful, free, and battle-tested. The trade-off is that it's a CLI: you write a config file, you understand OAuth scopes, you read the docs. For technical users, it's often the right choice. For most people, it isn't.
-- **Google Takeout / equivalents.** Useful for a one-shot personal export, especially before leaving a service. The export is asynchronous (sometimes a day or more), the archives are split by size, and you still have to upload them somewhere. Fine for backups; painful for migrations.
-- **Server-to-server hosted tools.** Mover.io was the canonical example before Microsoft acquired it and shut it down to non-Microsoft destinations. MultCloud, CloudHQ, and similar services still exist; they vary widely in pricing, provider coverage, and how transparent they are about where your data flows.
+- **Ferramentas de migração nativas dos provedores.** Google Workspace, Microsoft 365 e Dropbox oferecem ferramentas de migração no nível administrativo para a própria plataforma. São a resposta certa quando você fica dentro do mesmo fornecedor (por exemplo, consolidando dois tenants de Google Workspace). Fora desse cenário, não ajudam.
+- **`rclone`.** Ferramenta de linha de comando open source que monta e copia entre a maioria dos provedores de nuvem, servidor a servidor, sem passar pela sua máquina. É poderosa, gratuita e testada em produção. O trade-off é que é uma CLI: você escreve um arquivo de configuração, entende escopos de OAuth, lê a documentação. Para usuários técnicos, costuma ser a escolha certa. Para a maioria das pessoas, não é.
+- **Google Takeout e equivalentes.** Útil para uma exportação pessoal pontual, especialmente antes de sair de um serviço. A exportação é assíncrona (às vezes leva um dia ou mais), os arquivos saem divididos por tamanho e você ainda precisa subir tudo em algum lugar. Bom para backup; doloroso para migração.
+- **Ferramentas hospedadas de servidor a servidor.** O Mover.io era o exemplo canônico antes da Microsoft comprar e fechar o serviço para destinos não-Microsoft. MultCloud, CloudHQ e serviços parecidos ainda existem; variam bastante em preço, cobertura de provedores e transparência sobre por onde seus dados passam.
 
-For a one-off transfer of moderate size, one of those will probably do the job.
+Para uma transferência pontual de tamanho moderado, alguma delas provavelmente resolve.
 
-## When that still isn't enough
+## Quando isso ainda não basta
 
-The honest answer to "which is best" is "it depends on the job." A few situations push past what the simple answers cover:
+A resposta honesta para "qual é a melhor" é "depende do job". Algumas situações vão além do que as respostas simples cobrem:
 
-- **Large folders with mixed file types** — hundreds of thousands of small files, where per-file API overhead matters more than raw bandwidth.
-- **Recurring transfers, not a one-time migration** — you want a backup that runs every Sunday, not a tool you click once.
-- **Privacy or compliance constraints** — you can't have files traversing a vendor's hosted infrastructure, even briefly.
-- **Cross-organization moves** — a company switching from Google Workspace to Microsoft 365, with permissions and shared drives to preserve.
-- **Verification needs** — you need a manifest of what was copied, what was skipped, and why, so the migration doesn't end with "I think it's done."
+- **Pastas grandes com tipos de arquivo variados** — centenas de milhares de arquivos pequenos, em que o overhead de API por arquivo conta mais do que a banda bruta.
+- **Transferências recorrentes, não uma migração única** — você quer um backup que roda todo domingo, não uma ferramenta que você clica uma vez.
+- **Restrições de privacidade ou conformidade** — os arquivos não podem passar pela infraestrutura hospedada de um fornecedor, nem por um instante.
+- **Movimentações entre organizações** — uma empresa trocando do Google Workspace para o Microsoft 365, com permissões e drives compartilhados para preservar.
+- **Necessidade de verificação** — você precisa de um manifesto do que foi copiado, do que foi pulado e por quê, para a migração não terminar em "acho que tá pronto".
 
-If any of those describe your situation, a CLI plus a cron job can still work — but you're now maintaining transfer infrastructure as a side project. That's the gap dedicated tools try to fill.
+Se alguma dessas descreve a sua situação, uma CLI mais um cron job ainda funcionam — mas agora você está mantendo infraestrutura de transferência como projeto paralelo. Essa é a lacuna que ferramentas dedicadas tentam preencher.
 
-## How Syncologic does this
+## Como a Syncologic faz isso
 
-Syncologic moves files between clouds without ever pulling them through your laptop. The workflow is the same regardless of provider pair:
+A Syncologic vai mover arquivos entre nuvens sem nunca puxar tudo pelo seu computador. O fluxo é o mesmo independentemente do par de provedores:
 
-You connect a source and a destination — Google Drive, OneDrive, Dropbox, S3-compatible storage, SFTP, WebDAV, or Nextcloud. You scope access to the folder you actually care about, not the whole drive. You preview what will be transferred before anything moves: count, total size, conflicts, files that will be skipped. Then you choose where the transfer runs.
+Você conecta uma origem e um destino — Google Drive, OneDrive, Dropbox, armazenamento compatível com S3, SFTP, seu servidor ou Nextcloud. Restringe o acesso à pasta que importa, não ao drive inteiro. Pré-visualiza o que vai ser transferido antes de qualquer coisa se mover: contagem, tamanho total, conflitos, arquivos que vão ser pulados. Depois escolhe onde a transferência roda.
 
-There are three options for that. **Cloud Runner** is the convenient default — Syncologic infrastructure does the work, with short-lived credentials and isolated job state. **Browser Runner** ("This Device") streams the bytes through your open browser tab, so nothing lives on a hosted runner; the trade-off is that the tab must stay open. **Private Runner** is a small binary you run yourself, on your own machine, NAS, or VPS — the bytes flow source → your hardware → destination, and Syncologic only sees metadata.
+Há três opções aí. Na infraestrutura da Syncologic (**Cloud Runner**) é o padrão prático — credenciais de curta duração, estado de job isolado, sem configuração do seu lado. Na aba do seu navegador ("This Device", **Browser Runner**) faz os bytes passarem entre origem e destino sem viver em um runner hospedado; o trade-off é que a aba vai precisar ficar aberta. No seu próprio hardware (**Private Runner**) é um binário pequeno que você roda no seu próprio servidor, NAS ou VPS — os bytes fluem origem → seu hardware → destino, e a Syncologic só vê metadados.
 
-Once it's running, you watch progress live and get a completion report at the end: what copied, what was skipped, what failed and why. The same workflow handles a one-time migration, a scheduled backup, or a cross-cloud sync.
+Quando estiver rodando, você vai acompanhar o progresso ao vivo e receber um relatório de conclusão no final: o que foi copiado, o que foi pulado, o que falhou e por quê. O mesmo fluxo vai dar conta de uma migração pontual, um backup agendado ou uma sincronização entre nuvens.
 
-## Caveats
+## Ressalvas
 
-A few things to be straight about. Syncologic is pre-launch — you can join the waitlist, but you can't run a transfer today. Provider coverage starts with the seven listed above; we're not promising every cloud on the internet. The Browser Runner trades convenience for transparency: it works, but a one-terabyte job over a residential link will still take hours, and you'll need to keep the tab open. And no transfer tool — ours or anyone else's — preserves every piece of provider-specific metadata across vendors. Some things (Google Drive comments, OneDrive sharing intricacies) live in the source provider and don't have a destination equivalent.
+Algumas coisas para deixar claras. A Syncologic está em pré-lançamento — você pode entrar na lista de espera, mas não dá para rodar uma transferência hoje. A cobertura de provedores começa com os sete listados acima; não estamos prometendo toda nuvem da internet. O Browser Runner troca praticidade por transparência: funciona, mas um job de um terabyte em um link residencial ainda leva horas, e você vai precisar manter a aba aberta. E nenhuma ferramenta de transferência — nem a nossa, nem a de ninguém — preserva todos os metadados específicos de provedor entre fornecedores. Algumas coisas (comentários do Google Drive, detalhes de compartilhamento do OneDrive) ficam no provedor de origem e não têm equivalente no destino.
 
-If your job is small, one-off, and within a single vendor, you may not need any of this. If it's anything more — large, recurring, sensitive, or cross-vendor — that's the case Syncologic is being built for. Drop your email below and we'll let you know when it's ready.
+Se o seu job é pequeno, pontual e dentro de um único fornecedor, talvez você não precise de nada disso. Se for qualquer coisa além — grande, recorrente, sensível ou entre fornecedores — esse é o caso para o qual a Syncologic está sendo construída. Deixe seu e-mail abaixo e a gente avisa quando estiver pronto.

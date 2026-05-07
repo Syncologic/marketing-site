@@ -1,7 +1,7 @@
 ---
 locale: en
 title: "Transfer Google Drive to OneDrive — a practical guide"
-description: "Move folders from Google Drive into OneDrive without dragging every file through your laptop. The honest options for personal accounts, Workspace tenants, and large drives."
+description: "Move folders from Google Drive into OneDrive without dragging every file through your computer. The honest options for personal accounts, Workspace tenants, and large drives."
 eyebrow: "Guide"
 headline: "Transfer Google Drive to OneDrive"
 subheading: "What still works in 2026, what doesn't, and how to handle large drives or a Workspace-to-Microsoft-365 migration without losing files along the way."
@@ -10,6 +10,9 @@ primaryCta:
   href: "#waitlist"
 waitlistSegment: one_time_transfer
 publishedAt: 2026-05-01
+updatedAt: 2026-05-01
+relatedSlugs:
+  - move-files-between-clouds-without-downloading
 ---
 
 You have files in Google Drive. You want them in OneDrive. Maybe you're switching to Microsoft 365, consolidating a company onto a single workspace, or just tired of paying for two cloud subscriptions. Either way, the path between the two clouds is messier than it should be — and the official tools that used to bridge them are mostly gone.
@@ -28,7 +31,7 @@ Third, **you lose metadata.** "Last modified" timestamps reset to today. Comment
 
 ## What works better
 
-A few approaches sidestep the laptop entirely. Which one fits depends on whether you're moving a personal account or a Workspace tenant.
+A few approaches sidestep the computer entirely. Which one fits depends on whether you're moving a personal account or a Workspace tenant.
 
 - **Microsoft Mover.io is gone.** It used to be the obvious answer — Microsoft acquired it in 2019 and ran it as a free Drive→OneDrive bridge. **The service was retired in late 2024**, and is no longer accepting new transfers. If you find a guide telling you to "use Mover," it's out of date.
 - **Microsoft 365's Migration Manager (Workspace → Microsoft 365 only).** If you have a Microsoft 365 Business or Enterprise tenant *and* a Google Workspace tenant, the SharePoint Admin Center's Migration Manager can pull Drive content directly. It preserves more metadata than a manual download. It does not work for personal Gmail/Drive accounts, and it's an admin-only workflow — not something a single user can run for their own files.
@@ -52,16 +55,16 @@ If any of those describe your situation, you're either running `rclone` and writ
 
 ## How Syncologic does this
 
-Syncologic is being built for exactly this kind of move — Google Drive to OneDrive (or any other pair of supported clouds) without ever pulling the files through your laptop.
+Syncologic is being built for exactly this kind of move — Google Drive to OneDrive (or any other pair of supported clouds) without ever pulling the files through your computer.
 
 You connect Drive as the source and OneDrive as the destination. You scope access to the folder you actually care about, not your whole drive — relevant if you're moving "Q4 Reports" rather than every file you've ever owned. Before anything moves, you preview the transfer: how many files, total size, name conflicts, items that will be skipped, native Google types that will be exported.
 
-Then you choose where the transfer runs. **Cloud Runner** is the convenient default — Syncologic's infrastructure handles the bytes, with short-lived credentials and isolated job state. **Browser Runner** ("This Device") streams the bytes through your open browser tab; nothing lives on a hosted runner, but the tab has to stay open until it's done. **Private Runner** is a small binary you run yourself on your own machine, NAS, or VPS — bytes flow Drive → your hardware → OneDrive, and Syncologic only sees metadata. For a Workspace-to-Microsoft-365 migration where the data can't leave your control, that's usually the right choice.
+Then you choose where the transfer runs. On Syncologic's infrastructure (**Cloud Runner**) is the convenient default — short-lived credentials, isolated job state, no setup on your side. Through your browser tab ("This Device", **Browser Runner**) streams the bytes between source and destination so nothing lives on a hosted runner, but the tab will need to stay open until it's done. On your own hardware (**Private Runner**) is a small binary you run yourself on a server, NAS, or VPS — bytes flow Drive → your hardware → OneDrive, and Syncologic only sees metadata. For a Workspace-to-Microsoft-365 migration where the data can't leave your control, that's usually the right choice.
 
-Once it starts, you watch progress live. At the end you get a completion report: what copied, what was skipped, what failed and why, with enough detail to act on. The same workflow handles a one-time personal move, a recurring backup, or a full company migration.
+Once it starts, you'll watch progress live. At the end you'll get a completion report: what copied, what was skipped, what failed and why, with enough detail to act on. The same workflow will handle a one-time personal move, a recurring backup, or a full company migration.
 
 ## Caveats
 
-A few honest notes. Syncologic is pre-launch — you can join the waitlist below, but you can't run a Drive-to-OneDrive transfer today. Provider coverage starts with seven (Google Drive, OneDrive, Dropbox, S3-compatible storage, SFTP, WebDAV, Nextcloud); Drive and OneDrive are both in. The Browser Runner trades convenience for transparency: it works, but a one-terabyte job over a residential link still takes hours, and the tab has to stay open. And no transfer tool — ours or anyone else's — preserves every piece of provider-specific metadata across vendors. Drive comments and OneDrive's particular sharing model live in the source provider and don't have a clean destination equivalent.
+A few honest notes. Syncologic is pre-launch — you can join the waitlist below, but you can't run a Drive-to-OneDrive transfer today. Provider coverage starts with seven (Google Drive, OneDrive, Dropbox, S3-compatible storage, SFTP, your server, Nextcloud); Drive and OneDrive are both in. The Browser Runner trades convenience for transparency: it works, but a one-terabyte job over a residential link still takes hours, and the tab has to stay open. And no transfer tool — ours or anyone else's — preserves every piece of provider-specific metadata across vendors. Drive comments and OneDrive's particular sharing model live in the source provider and don't have a clean destination equivalent.
 
 If you're moving a small personal Drive once and don't mind a long upload, Takeout plus a manual reupload will probably get you there. If it's larger, recurring, a Workspace migration, or you need a manifest at the end, drop your email below — we'll let you know when Syncologic is ready.

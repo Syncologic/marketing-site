@@ -1,0 +1,28 @@
+---
+import { Eye, KeyRound, Activity, ClipboardList, Compass, FileCode } from '@lucide/astro';
+
+type Variant = 'preview' | 'scoped' | 'progress' | 'reports' | 'transparency' | 'sourceVisible';
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props as Props;
+
+const icons = {
+  preview: Eye,
+  scoped: KeyRound,
+  progress: Activity,
+  reports: ClipboardList,
+  transparency: Compass,
+  sourceVisible: FileCode,
+} as const;
+
+const Icon = icons[variant];
+---
+
+<div
+  class="inline-flex items-center justify-center w-12 h-12 rounded-pill bg-baby-blue text-dark-charcoal mb-4"
+  aria-hidden="true"
+>
+  <Icon size={24} stroke-width={1.75} />
+</div>

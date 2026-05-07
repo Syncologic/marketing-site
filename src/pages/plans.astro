@@ -1,0 +1,172 @@
+---
+import { Check } from '@lucide/astro';
+import Layout from '../components/layout/Layout.astro';
+import JsonLd from '../components/layout/JsonLd.astro';
+import Nav from '../components/layout/Nav.astro';
+import Footer from '../components/layout/Footer.astro';
+import Section from '../components/ui/Section.astro';
+import Card from '../components/ui/Card.astro';
+import Hero from '../components/sections/Hero.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import WaitlistForm from '../components/sections/WaitlistForm.astro';
+import PricingCurves from '../components/visuals/PricingCurves.astro';
+import CostDrivers from '../components/visuals/CostDrivers.astro';
+import { getLocaleFromUrl, getT, localizedPath } from '../i18n/utils';
+import { buildBreadcrumb } from '../lib/breadcrumb';
+import en from '../i18n/en.json';
+import ptBr from '../i18n/pt-br.json';
+
+const locale = getLocaleFromUrl(Astro.url);
+const dict = locale === 'pt-br' ? ptBr : en;
+const p = dict.pricing;
+const t = getT(locale);
+
+const title = p.meta.title;
+const description = p.meta.description;
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: locale === 'pt-br' ? 'pt-BR' : 'en',
+  mainEntity: p.faq.items.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://syncologic.com';
+const breadcrumbSchema = buildBreadcrumb([
+  { name: t('breadcrumb.home'), url: `${siteUrl}${localizedPath(locale, '/')}` },
+  { name: t('breadcrumb.plans'), url: `${siteUrl}${localizedPath(locale, '/plans')}` },
+]);
+
+const mainPlans = [
+  { ...p.hypotheses.free, recommended: false },
+  { ...p.hypotheses.pro, recommended: true },
+  { ...p.hypotheses.business, recommended: false },
+];
+const selfHostFree = p.selfHost.free;
+---
+
+<Layout title={title} description={description}>
+  <JsonLd slot="head" schema={[breadcrumbSchema, faqSchema]} />
+  <Nav slot="nav" />
+
+  <Hero
+    surface="white"
+    eyebrow={p.hero.eyebrow}
+    headline={p.hero.headline}
+    subheading={p.hero.subheading}
+    primaryCta={{ label: p.hero.primaryCta, href: '#waitlist' }}
+  >
+    <Fragment slot="visual">
+      <PricingCurves />
+    </Fragment>
+  </Hero>
+
+  <Section surface="soft" padding="lg" id="hypotheses">
+    <div class="text-center mb-12">
+      <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{p.hypotheses.title}</h2>
+      <p class="text-body text-slate-gray max-w-xl mx-auto">{p.hypotheses.subtitle}</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+      {mainPlans.map((plan) => (
+        <div class="relative flex flex-col h-full">
+          {plan.recommended && (
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 z-10 bg-brand-blue text-white text-caption font-medium px-3 py-1 rounded-pill whitespace-nowrap">
+              {p.hypotheses.recommendedLabel}
+            </span>
+          )}
+          <Card
+            radius="card"
+            elevation={plan.recommended ? 'elevated' : 'flat'}
+            class={`p-8 flex flex-col gap-5 h-full ${plan.recommended ? 'ring-2 ring-brand-blue' : ''}`}
+          >
+            <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+              <h3 class="text-h3 font-bold text-dark-charcoal">{plan.name}</h3>
+              <div class="flex items-baseline gap-1 whitespace-nowrap">
+                <span class="text-h1 font-medium text-dark-charcoal">{plan.price}</span>
+                <span class="text-caption text-slate-gray">{p.hypotheses.priceSuffix}</span>
+              </div>
+            </div>
+            <p class="text-body text-dark-charcoal leading-snug">{plan.description}</p>
+            <ul class="flex flex-col gap-2 text-body text-dark-charcoal list-none p-0">
+              {plan.features.map((feature) => (
+                <li class="flex gap-2 items-start">
+                  <Check size={20} stroke-width={1.5} class="text-success shrink-0 mt-0.5" aria-hidden="true" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </Card>
+          <p class="text-caption text-slate-gray mt-3 px-2">{plan.footnote}</p>
+        </div>
+      ))}
+    </div>
+
+    <p class="text-caption text-slate-gray text-center mt-6">
+      {p.hypotheses.priceCaption}
+    </p>
+  </Section>
+
+  <Section surface="white" padding="lg" id="self-host">
+    <div class="text-center mb-12">
+      <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{p.selfHost.title}</h2>
+      <p class="text-body text-slate-gray max-w-2xl mx-auto">{p.selfHost.subtitle}</p>
+    </div>
+    <Card radius="card" elevation="flat" class="p-8 md:p-10 max-w-4xl mx-auto">
+      <div class="flex flex-wrap items-baseline justify-between gap-3 mb-6">
+        <h3 class="text-h3 font-bold text-dark-charcoal">{selfHostFree.name}</h3>
+        <div class="flex items-baseline gap-1">
+          <span class="text-h1 font-medium text-dark-charcoal">{selfHostFree.price}</span>
+          <span class="text-caption text-slate-gray">{p.hypotheses.priceSuffix}</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+        <div class="flex flex-col gap-3">
+          <p class="text-body text-dark-charcoal leading-snug">{selfHostFree.description}</p>
+          <a
+            href={`${localizedPath(locale, '/self-hosted')}#under-the-hood`}
+            class="text-caption text-brand-blue hover:underline self-start"
+          >
+            {p.selfHost.controlPlaneLink}
+          </a>
+        </div>
+        <ul class="flex flex-col gap-2 text-body text-dark-charcoal list-none p-0">
+          {selfHostFree.features.map((feature) => (
+            <li class="flex gap-2 items-start">
+              <Check size={20} stroke-width={1.5} class="text-success shrink-0 mt-0.5" aria-hidden="true" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <p class="text-caption text-slate-gray border-t border-divider pt-4 mt-6">
+        {selfHostFree.footnote}
+      </p>
+    </Card>
+  </Section>
+
+  <Section surface="soft" padding="lg">
+    <div class="text-center mb-12">
+      <h2 class="text-h1 font-medium text-dark-charcoal mb-3">{p.affects.title}</h2>
+      <p class="text-body text-slate-gray max-w-xl mx-auto">{p.affects.subtitle}</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+      {(['volume', 'frequency', 'runner'] as const).map((key) => (
+        <div class="flex flex-col">
+          <CostDrivers variant={key} />
+          <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{p.affects[key].title}</h3>
+          <p class="text-body text-slate-gray leading-relaxed">{p.affects[key].body}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <WaitlistForm id="waitlist" />
+
+  <FAQ surface="soft" title={p.faq.title} items={p.faq.items} />
+
+  <Footer slot="footer" />
+</Layout>

@@ -100,5 +100,15 @@
   },
   "env": {
     "ASTRO_TELEMETRY_DISABLED": "1"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/welcome.sh" }
+        ]
+      }
+    ]
   }
 }

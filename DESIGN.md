@@ -31,6 +31,7 @@ The visual hierarchy is ruthlessly simple. Visuals do the heavy lifting, support
 - **White** (`#FFFFFF`): Primary page canvas, nav bar background, card surfaces
 - **Soft Gray** (`#F1F4F7`): Secondary background for content sections
 - **Warm Gray** (`#F7F8FA`): Flat card background, subtle surface differentiation
+- **Reading Paper** (`#F6F5F1`): Long-form reading surface (guide articles). Near-neutral off-white — distinct from pure white, eases eye strain on extended reading. Used **only** for guide article wrappers.
 - **Baby Blue** (`#E8F3FF`): Highlight background, subtle blue tint for informational areas
 - **Near Black** (`#1C1E21`): Dark section backgrounds, immersive product showcase areas
 - **Overlay** (`rgba(0, 0, 0, 0.6)`): Modal/lightbox backdrop

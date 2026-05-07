@@ -1,7 +1,7 @@
 ---
 locale: en
 title: "Move files between clouds without downloading them first"
-description: "A practical guide to moving files between cloud providers — Drive, OneDrive, Dropbox, S3 — without dragging every byte through your laptop."
+description: "A practical guide to moving files between cloud providers — Drive, OneDrive, Dropbox, S3 — without dragging every byte through your computer."
 eyebrow: "Guide"
 headline: "Move files between clouds without downloading them first"
 subheading: "Why download-and-reupload fails on large folders, what actually works, and where a dedicated transfer tool earns its keep."
@@ -9,6 +9,9 @@ primaryCta:
   label: "Join the waitlist"
   href: "#waitlist"
 publishedAt: 2026-04-30
+updatedAt: 2026-04-30
+relatedSlugs:
+  - transfer-google-drive-to-onedrive
 ---
 
 You have a folder in Google Drive, Dropbox, or OneDrive. You want it in another cloud. The obvious path — download everything, then re-upload — is also the slowest, most fragile one. This guide walks through the alternatives honestly: what works for small jobs, where each approach breaks, and what to reach for when none of them are enough.
@@ -25,7 +28,7 @@ Third, you lose metadata. Comments, share permissions, version history, "Last mo
 
 ## What works better
 
-A handful of approaches sidestep the laptop entirely. They're worth knowing on their own merits — not every job needs a paid product.
+A handful of approaches sidestep the computer entirely. They're worth knowing on their own merits — not every job needs a paid product.
 
 - **Provider-native migration tools.** Google Workspace, Microsoft 365, and Dropbox each ship admin-level migration tooling for their own platform. They're the right answer when you're staying within one vendor (e.g., consolidating two Google Workspace tenants). Outside that lane, they don't help.
 - **`rclone`.** The open-source command-line tool that mounts and copies between most cloud providers, server-to-server, without round-tripping through your machine. It's powerful, free, and battle-tested. The trade-off is that it's a CLI: you write a config file, you understand OAuth scopes, you read the docs. For technical users, it's often the right choice. For most people, it isn't.
@@ -48,13 +51,13 @@ If any of those describe your situation, a CLI plus a cron job can still work �
 
 ## How Syncologic does this
 
-Syncologic moves files between clouds without ever pulling them through your laptop. The workflow is the same regardless of provider pair:
+Syncologic will move files between clouds without ever pulling them through your computer. The workflow is the same regardless of provider pair:
 
-You connect a source and a destination — Google Drive, OneDrive, Dropbox, S3-compatible storage, SFTP, WebDAV, or Nextcloud. You scope access to the folder you actually care about, not the whole drive. You preview what will be transferred before anything moves: count, total size, conflicts, files that will be skipped. Then you choose where the transfer runs.
+You connect a source and a destination — Google Drive, OneDrive, Dropbox, S3-compatible storage, SFTP, your server, or Nextcloud. You scope access to the folder you actually care about, not the whole drive. You preview what will be transferred before anything moves: count, total size, conflicts, files that will be skipped. Then you choose where the transfer runs.
 
-There are three options for that. **Cloud Runner** is the convenient default — Syncologic infrastructure does the work, with short-lived credentials and isolated job state. **Browser Runner** ("This Device") streams the bytes through your open browser tab, so nothing lives on a hosted runner; the trade-off is that the tab must stay open. **Private Runner** is a small binary you run yourself, on your own machine, NAS, or VPS — the bytes flow source → your hardware → destination, and Syncologic only sees metadata.
+There are three options for that. On Syncologic's infrastructure (**Cloud Runner**) is the convenient default — short-lived credentials, isolated job state, no setup on your side. Through your browser tab ("This Device", **Browser Runner**) streams the bytes between source and destination so nothing lives on a hosted runner; the trade-off is that the tab will need to stay open. On your own hardware (**Private Runner**) is a small binary you run yourself on a server, NAS, or VPS — the bytes flow source → your hardware → destination, and Syncologic only sees metadata.
 
-Once it's running, you watch progress live and get a completion report at the end: what copied, what was skipped, what failed and why. The same workflow handles a one-time migration, a scheduled backup, or a cross-cloud sync.
+Once it's running, you'll watch progress live and get a completion report at the end: what copied, what was skipped, what failed and why. The same workflow will handle a one-time migration, a scheduled backup, or a cross-cloud sync.
 
 ## Caveats
 

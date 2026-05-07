@@ -1,0 +1,262 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const altLabel = t('visuals.pricingCurves.alt');
+const cloudTitle = t('visuals.pricingCurves.cloudTitle');
+const cloudSubtitle = t('visuals.pricingCurves.cloudSubtitle');
+const privateTitle = t('visuals.pricingCurves.privateTitle');
+const privateStatus = t('visuals.pricingCurves.privateStatus');
+---
+
+<div class="pricing-curves relative w-full max-w-[480px] mx-auto" role="presentation">
+  <svg
+    viewBox="0 0 480 480"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label={altLabel}
+    class="w-full h-auto block"
+  >
+    <defs>
+      <g id="pc-pkt">
+        <rect x="-14" y="-9" width="28" height="18" rx="4" class="fill-white stroke-brand-blue" stroke-width="1" />
+        <line x1="-7" y1="-3" x2="6" y2="-3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+        <line x1="-7" y1="3"  x2="2" y2="3"  stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+      </g>
+      <g id="pc-dollar">
+        <circle r="12" class="fill-success-bg" />
+        <text y="4" class="dollar-text fill-success" text-anchor="middle">$</text>
+      </g>
+    </defs>
+
+    <g class="card card-cloud">
+      <rect x="40" y="60" width="400" height="160" rx="24" class="fill-warm-gray" />
+      <rect class="ring ring-cloud stroke-brand-blue" x="40" y="60" width="400" height="160" rx="24" fill="none" stroke-width="2" />
+
+      <g transform="translate(72 92)" class="stroke-slate-gray" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M 8 22 C 2 22, 0 14, 6 12 C 4 4, 16 2, 18 8 C 22 4, 32 6, 30 14 C 36 14, 36 22, 30 22 Z" />
+      </g>
+
+      <text x="120" y="100" class="card-title fill-dark-charcoal">{cloudTitle}</text>
+      <text x="120" y="124" class="card-sub fill-slate-gray">{cloudSubtitle}</text>
+
+      <g class="files files-cloud" aria-hidden="true">
+        <use class="file-pill file-pill-c1" href="#pc-pkt" />
+        <use class="file-pill file-pill-c2" href="#pc-pkt" />
+      </g>
+
+      <g class="dollars" aria-hidden="true">
+        <use class="dollar dollar-1" href="#pc-dollar" x="320" y="190" />
+        <use class="dollar dollar-2" href="#pc-dollar" x="350" y="190" />
+        <use class="dollar dollar-3" href="#pc-dollar" x="380" y="190" />
+        <use class="dollar dollar-4" href="#pc-dollar" x="410" y="190" />
+      </g>
+    </g>
+
+    <g class="card card-private">
+      <rect x="40" y="260" width="400" height="160" rx="24" class="fill-white" />
+      <rect class="ring ring-private stroke-brand-blue" x="40" y="260" width="400" height="160" rx="24" fill="none" stroke-width="2" />
+
+      <g transform="translate(75 296)" class="stroke-dark-charcoal" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <rect x="0" y="0" width="30" height="14" rx="3" />
+        <rect x="0" y="20" width="30" height="14" rx="3" />
+        <circle cx="6" cy="7" r="1.5" class="fill-dark-charcoal stroke-none" />
+        <circle cx="6" cy="27" r="1.5" class="fill-dark-charcoal stroke-none" />
+        <line x1="12" y1="7"  x2="22" y2="7" />
+        <line x1="12" y1="27" x2="22" y2="27" />
+      </g>
+
+      <text x="120" y="305" class="card-title fill-dark-charcoal">{privateTitle}</text>
+      <g transform="translate(120 326)">
+        <circle cx="6" cy="0" r="4" class="status-dot fill-success" />
+        <circle cx="6" cy="0" r="4" class="status-pulse fill-success" />
+        <text x="22" y="4" class="card-sub fill-slate-gray">{privateStatus}</text>
+      </g>
+
+      <g class="files files-private" aria-hidden="true">
+        <use class="file-pill file-pill-p1" href="#pc-pkt" />
+        <use class="file-pill file-pill-p2" href="#pc-pkt" />
+      </g>
+
+      <g class="zero-cost" transform="translate(380 390)" aria-hidden="true">
+        <rect x="-32" y="-15" width="64" height="30" rx="15" class="fill-baby-blue" />
+        <text y="5" class="zero-text fill-brand-blue" text-anchor="middle">$0</text>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<style>
+  .pricing-curves { min-width: 320px; }
+
+  @media (max-width: 1023px) {
+    .pricing-curves { margin-block: -1rem -2rem; }
+  }
+  @media (max-width: 639px) {
+    .pricing-curves { min-width: 0; max-width: 420px; margin-block: -1rem -3rem; }
+  }
+
+  .card-title {
+    font-size: var(--text-h3);
+    font-weight: 700;
+  }
+  .card-sub {
+    font-size: var(--text-caption);
+    letter-spacing: var(--text-caption--letter-spacing);
+  }
+  .dollar-text {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .zero-text {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .ring { opacity: 0; }
+
+  .card-cloud { opacity: 1; }
+  .card-private { opacity: 0.5; }
+
+  .files-cloud,
+  .files-private {
+    opacity: 0;
+  }
+
+  .file-pill {
+    offset-distance: 0%;
+    offset-rotate: 0deg;
+    opacity: 0;
+  }
+  .file-pill-c1,
+  .file-pill-c2 {
+    offset-path: path('M 70 190 L 290 190');
+  }
+  .file-pill-p1,
+  .file-pill-p2 {
+    offset-path: path('M 70 390 L 320 390');
+  }
+
+  .dollar {
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+  }
+
+  .status-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ring-cloud   { animation: pc-ring-cloud 10s infinite; }
+    .ring-private { animation: pc-ring-private 10s infinite; }
+
+    .card-cloud   { animation: pc-emphasis-cloud 10s infinite; }
+    .card-private { animation: pc-emphasis-private 10s infinite; }
+
+    .files-cloud   { animation: pc-files-cloud-show 10s infinite; }
+    .files-private { animation: pc-files-private-show 10s infinite; }
+
+    .file-pill-c1 { animation: pc-file-travel 2.5s linear infinite; animation-delay: 0s; }
+    .file-pill-c2 { animation: pc-file-travel 2.5s linear infinite; animation-delay: 1.25s; }
+    .file-pill-p1 { animation: pc-file-travel 2.5s linear infinite; animation-delay: 0s; }
+    .file-pill-p2 { animation: pc-file-travel 2.5s linear infinite; animation-delay: 1.25s; }
+
+    .dollar-1 { animation: pc-dollar-1 10s ease-out infinite; }
+    .dollar-2 { animation: pc-dollar-2 10s ease-out infinite; }
+    .dollar-3 { animation: pc-dollar-3 10s ease-out infinite; }
+    .dollar-4 { animation: pc-dollar-4 10s ease-out infinite; }
+
+    .status-pulse {
+      animation: pc-pulse-scale 2.5s ease-out infinite, pc-pulse-show 10s infinite;
+    }
+
+    @keyframes pc-ring-cloud {
+      0%, 2%    { opacity: 0; }
+      4%, 47%   { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    @keyframes pc-ring-private {
+      0%, 50%   { opacity: 0; }
+      52%, 97%  { opacity: 1; }
+      100%      { opacity: 0; }
+    }
+
+    @keyframes pc-emphasis-cloud {
+      0%, 47%   { opacity: 1; }
+      52%, 100% { opacity: 0.5; }
+    }
+    @keyframes pc-emphasis-private {
+      0%, 47%   { opacity: 0.5; }
+      52%, 100% { opacity: 1; }
+    }
+
+    @keyframes pc-files-cloud-show {
+      0%, 4%    { opacity: 0; }
+      6%, 47%   { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    @keyframes pc-files-private-show {
+      0%, 50%   { opacity: 0; }
+      52%, 97%  { opacity: 1; }
+      100%      { opacity: 0; }
+    }
+
+    @keyframes pc-file-travel {
+      0%   { offset-distance: 0%;   opacity: 0; }
+      8%   { offset-distance: 4%;   opacity: 1; }
+      92%  { offset-distance: 96%;  opacity: 1; }
+      100% { offset-distance: 100%; opacity: 0; }
+    }
+
+    @keyframes pc-dollar-1 {
+      0%, 6%    { opacity: 0; transform: translateY(8px) scale(0.6); }
+      10%, 48%  { opacity: 1; transform: translateY(0) scale(1); }
+      50%, 100% { opacity: 0; transform: translateY(8px) scale(0.6); }
+    }
+    @keyframes pc-dollar-2 {
+      0%, 16%   { opacity: 0; transform: translateY(8px) scale(0.6); }
+      20%, 48%  { opacity: 1; transform: translateY(0) scale(1); }
+      50%, 100% { opacity: 0; transform: translateY(8px) scale(0.6); }
+    }
+    @keyframes pc-dollar-3 {
+      0%, 26%   { opacity: 0; transform: translateY(8px) scale(0.6); }
+      30%, 48%  { opacity: 1; transform: translateY(0) scale(1); }
+      50%, 100% { opacity: 0; transform: translateY(8px) scale(0.6); }
+    }
+    @keyframes pc-dollar-4 {
+      0%, 36%   { opacity: 0; transform: translateY(8px) scale(0.6); }
+      40%, 48%  { opacity: 1; transform: translateY(0) scale(1); }
+      50%, 100% { opacity: 0; transform: translateY(8px) scale(0.6); }
+    }
+
+    @keyframes pc-pulse-scale {
+      0%   { opacity: 0.6; transform: scale(1); }
+      80%  { opacity: 0;   transform: scale(2.6); }
+      100% { opacity: 0;   transform: scale(2.6); }
+    }
+    @keyframes pc-pulse-show {
+      0%, 50%   { visibility: hidden; }
+      52%, 100% { visibility: visible; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ring-cloud,
+    .ring-private { opacity: 1; }
+    .card-cloud,
+    .card-private { opacity: 1; }
+    .files-cloud,
+    .files-private,
+    .status-pulse { display: none; }
+    .dollar-1,
+    .dollar-2,
+    .dollar-3,
+    .dollar-4 {
+      opacity: 1;
+    }
+  }
+</style>

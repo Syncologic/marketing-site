@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
@@ -14,12 +14,9 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: false,
       redirectToDefaultLocale: false,
-      fallbackType: 'redirect',
     },
-    fallback: { 'pt-br': 'en' },
   },
   integrations: [
-    tailwind({ applyBaseStyles: false }),
     mdx(),
     sitemap({
       i18n: {
@@ -28,4 +25,7 @@ export default defineConfig({
       },
     }),
   ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

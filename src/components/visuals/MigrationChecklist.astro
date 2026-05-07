@@ -1,0 +1,142 @@
+---
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+
+const titleText = t('visuals.migrationChecklist.title');
+const ariaLabel = t('visuals.migrationChecklist.ariaLabel');
+const statusRunning = t('visuals.migrationChecklist.statusRunning');
+const statusComplete = t('visuals.migrationChecklist.statusComplete');
+const filesLabel = t('visuals.migrationChecklist.filesLabel').toUpperCase();
+const sizeLabel = t('visuals.migrationChecklist.sizeLabel').toUpperCase();
+const errorsLabel = t('visuals.migrationChecklist.errorsLabel').toUpperCase();
+const recentActivityLabel = t('visuals.migrationChecklist.recentActivityLabel').toUpperCase();
+const viewFinalReport = t('visuals.migrationChecklist.viewFinalReport');
+
+const fileSteps = ['0', '312', '678', '994', '1,247'];
+const sizeSteps = ['0', '4.6', '9.7', '14.5', '18.3'];
+
+const activityRows = [
+  t('visuals.migrationChecklist.file1'),
+  t('visuals.migrationChecklist.file2'),
+  t('visuals.migrationChecklist.file3'),
+  t('visuals.migrationChecklist.file4'),
+  t('visuals.migrationChecklist.file5'),
+];
+---
+
+<svg viewBox="0 0 480 480" class="mc-svg w-full h-auto max-w-[480px] mx-auto font-sans" role="img" aria-labelledby="mc-title">
+  <title id="mc-title">{ariaLabel}</title>
+  <rect x=".5" y=".5" width="479" height="479" rx="20" class="fill-white stroke-divider" stroke-width="1" />
+  <text x="24" y="40" class="mc-title-text fill-dark-charcoal">{titleText}</text>
+  <g class="mc-pill-running">
+    <rect x="356" y="20" width="100" height="32" rx="16" class="fill-baby-blue" />
+    <circle class="mc-pulse fill-brand-blue" cx="372" cy="36" r="4" />
+    <text x="384" y="36" class="mc-pill-text fill-brand-blue">{statusRunning}</text>
+  </g>
+  <g class="mc-pill-complete">
+    <rect x="356" y="20" width="100" height="32" rx="16" class="fill-success-bg" />
+    <path d="M369 36l4 4 8-8" class="mc-check-path stroke-success" stroke-width="2" />
+    <text x="386" y="36" class="mc-pill-text fill-success">{statusComplete}</text>
+  </g>
+  <line x1="0" y1="68" x2="480" y2="68" class="stroke-divider" stroke-width="1" />
+
+  <text x="24" y="100" class="mc-cap fill-slate-gray">{filesLabel}</text>
+  {fileSteps.map((v, i) => (
+    <text x="24" y="138" class={`mc-step-${i + 1} mc-num fill-dark-charcoal`}>{v}</text>
+  ))}
+  <text x="180" y="100" class="mc-cap fill-slate-gray">{sizeLabel}</text>
+  {sizeSteps.map((v, i) => (
+    <g class={`mc-step-${i + 1}`}>
+      <text x="180" y="138" class="mc-num fill-dark-charcoal">{v}</text>
+      <text x="248" y="138" class="mc-unit fill-slate-gray">GB</text>
+    </g>
+  ))}
+  <text x="336" y="100" class="mc-cap fill-slate-gray">{errorsLabel}</text>
+  <text x="336" y="138" class="mc-num fill-dark-charcoal">0</text>
+
+  <rect x="24" y="168" width="432" height="8" rx="4" class="fill-soft-gray" />
+  <rect class="mc-progress-fill fill-brand-blue" x="24" y="168" width="432" height="8" rx="4" />
+
+  <text x="24" y="216" class="mc-cap fill-slate-gray">{recentActivityLabel}</text>
+  <g class="mc-report-btn" aria-hidden="true">
+    <rect x="316" y="200" width="140" height="28" rx="14" class="fill-white stroke-brand-blue" stroke-width="1.5" />
+    <text x="386" y="214" class="mc-report-text fill-brand-blue">{viewFinalReport} →</text>
+  </g>
+  {activityRows.map((filename, i) => {
+    const cy = 258 + i * 44;
+    return (
+      <g class={`mc-row mc-row-${i + 1}`}>
+        <circle cx="40" cy={cy} r="10" class="fill-success" />
+        <path d={`M36 ${cy}l3 3 6-6`} class="mc-check-path stroke-white" stroke-width="1.75" />
+        <text x="62" y={cy} class="mc-row-text fill-dark-charcoal">{filename}</text>
+      </g>
+    );
+  })}
+</svg>
+
+<style>
+  .mc-svg text { font-weight: 500; }
+  .mc-title-text { font-size: 16px; }
+  .mc-pill-text { font-size: 12px; dominant-baseline: middle; }
+  .mc-cap { font-size: 11px; letter-spacing: 0.06em; }
+  .mc-num { font-size: 28px; }
+  .mc-unit { font-size: 14px; }
+  .mc-row-text { font-size: 14px; font-weight: 400; dominant-baseline: middle; }
+  .mc-report-text { font-size: 12px; dominant-baseline: middle; text-anchor: middle; }
+  .mc-check-path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  .mc-step-1, .mc-step-2, .mc-step-3, .mc-step-4 { opacity: 0; }
+  .mc-pill-complete { opacity: 0; }
+  .mc-report-btn { opacity: 0; }
+  .mc-row { opacity: 0; transform: translateY(6px); transform-box: fill-box; transform-origin: center; }
+  .mc-progress-fill { transform-box: fill-box; transform-origin: left center; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mc-step-1 { animation: mc-step-1 10s linear infinite; }
+    .mc-step-2 { animation: mc-step-2 10s linear infinite; }
+    .mc-step-3 { animation: mc-step-3 10s linear infinite; }
+    .mc-step-4 { animation: mc-step-4 10s linear infinite; }
+    .mc-step-5 { animation: mc-step-5 10s linear infinite; }
+    .mc-pill-running  { animation: mc-pill-running  10s linear infinite; }
+    .mc-pill-complete { animation: mc-pill-complete 10s linear infinite; }
+    .mc-pulse { animation: mc-pulse 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .mc-progress-fill { animation: mc-progress 10s linear infinite; }
+    .mc-report-btn { animation: mc-report-btn 10s linear infinite; }
+    .mc-row-1 { animation: mc-row-1 10s linear infinite; }
+    .mc-row-2 { animation: mc-row-2 10s linear infinite; }
+    .mc-row-3 { animation: mc-row-3 10s linear infinite; }
+    .mc-row-4 { animation: mc-row-4 10s linear infinite; }
+    .mc-row-5 { animation: mc-row-5 10s linear infinite; }
+  }
+
+  /* Active phase 0–5 s; status flips to Complete at 5 s; "View final report"
+     reveals at 6 s; entire 6–10 s window holds the completed state before
+     the loop snaps back. */
+  @keyframes mc-step-1 { 0%, 10% { opacity: 1; } 11%, 100% { opacity: 0; } }
+  @keyframes mc-step-2 { 0%, 10% { opacity: 0; } 11%, 20% { opacity: 1; } 21%, 100% { opacity: 0; } }
+  @keyframes mc-step-3 { 0%, 20% { opacity: 0; } 21%, 30% { opacity: 1; } 31%, 100% { opacity: 0; } }
+  @keyframes mc-step-4 { 0%, 30% { opacity: 0; } 31%, 40% { opacity: 1; } 41%, 100% { opacity: 0; } }
+  @keyframes mc-step-5 { 0%, 40% { opacity: 0; } 41%, 100% { opacity: 1; } }
+  @keyframes mc-pill-running  { 0%, 48% { opacity: 1; } 53%, 100% { opacity: 0; } }
+  @keyframes mc-pill-complete { 0%, 48% { opacity: 0; } 53%, 100% { opacity: 1; } }
+  @keyframes mc-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+  @keyframes mc-progress { 0% { transform: scaleX(0); } 50%, 100% { transform: scaleX(1); } }
+  @keyframes mc-report-btn { 0%, 55% { opacity: 0; } 60%, 100% { opacity: 1; } }
+  @keyframes mc-row-1 { 0%, 2% { opacity: 0; transform: translateY(6px); } 8%, 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes mc-row-2 { 0%, 12% { opacity: 0; transform: translateY(6px); } 18%, 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes mc-row-3 { 0%, 22% { opacity: 0; transform: translateY(6px); } 28%, 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes mc-row-4 { 0%, 32% { opacity: 0; transform: translateY(6px); } 38%, 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes mc-row-5 { 0%, 42% { opacity: 0; transform: translateY(6px); } 48%, 100% { opacity: 1; transform: translateY(0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mc-step-1, .mc-step-2, .mc-step-3, .mc-step-4 { opacity: 0; }
+    .mc-step-5 { opacity: 1; }
+    .mc-pill-running { opacity: 0; }
+    .mc-pill-complete { opacity: 1; }
+    .mc-progress-fill { transform: scaleX(1); }
+    .mc-report-btn { opacity: 1; }
+    .mc-row { opacity: 1; transform: translateY(0); }
+  }
+</style>
