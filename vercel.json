@@ -2,6 +2,30 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/_astro/:path*",
+      "has": [{ "type": "host", "value": "syncologic.com.br" }],
+      "destination": "https://syncologic.com/_astro/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/_astro/:path*",
+      "has": [{ "type": "host", "value": "www.syncologic.com.br" }],
+      "destination": "https://syncologic.com/_astro/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/api/:path*",
+      "has": [{ "type": "host", "value": "syncologic.com.br" }],
+      "destination": "https://syncologic.com/api/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/api/:path*",
+      "has": [{ "type": "host", "value": "www.syncologic.com.br" }],
+      "destination": "https://syncologic.com/api/:path*",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "syncologic.com.br" }],
       "destination": "https://syncologic.com/pt-br/:path*",
