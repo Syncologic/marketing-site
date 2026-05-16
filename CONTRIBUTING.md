@@ -4,7 +4,9 @@ Thanks for working on Syncologic's marketing site.
 
 ## Setup
 
-**Prerequisites:** Node 20+, Docker (for the local Supabase stack). On Windows, use WSL.
+**Prerequisites:** Node 20+, Docker (for the local Supabase stack).
+
+### macOS / Linux / WSL
 
 ```bash
 git clone <repo>
@@ -20,6 +22,22 @@ npm run dev                 # http://localhost:4321
 - Supabase Studio: <http://127.0.0.1:54323>
 - Faked emails: `.local/dev-emails/<timestamp>-<to>.html`
 - Stop Supabase: `npm run db:stop`
+
+### Native Windows
+
+We recommend WSL (Ubuntu or Debian) on Windows — once installed, the macOS / Linux / WSL snippet above works as-is. If you'd rather stay on native Windows, run the block below in **PowerShell as Administrator** (or with Developer Mode on: Settings → Privacy & Security → For Developers → *Developer Mode*). Admin / Dev Mode is needed only for the clone step, so Windows allows the `AGENTS.md` symlink to be created instead of being checked out as a text file.
+
+```powershell
+git config --global core.symlinks true   # once per machine — lets git create symlinks
+git clone <repo>                          # admin / Dev Mode required so symlinks land
+cd marketing-site
+npm install
+Copy-Item .env.example .env               # ships pre-filled — no edits needed
+npm run db:start                          # Docker Desktop must be running first
+npm run dev                               # http://localhost:4321
+```
+
+Sanity check after cloning: open `AGENTS.md` — you should see the brief, not the literal text `.agents/AGENTS.md`. If you see the path, the symlink didn't take; re-clone with admin / Dev Mode active.
 
 ### Day-to-day
 
