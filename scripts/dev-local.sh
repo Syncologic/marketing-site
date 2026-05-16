@@ -13,11 +13,6 @@ require npx
 echo "[dev-local] Starting Redis + SRH..."
 docker compose -f scripts/docker-compose.local.yml up -d
 
-if [[ ! -f supabase/config.toml ]]; then
-  echo "[dev-local] Initializing Supabase project..."
-  npx --yes supabase init --force --with-vscode-settings=false
-fi
-
 echo "[dev-local] Starting Supabase..."
 if ! npx --yes supabase status >/dev/null 2>&1; then
   npx --yes supabase start
