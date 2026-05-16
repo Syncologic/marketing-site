@@ -36,5 +36,10 @@ npm-debug.log*
 
 # Supabase CLI
 supabase/.temp/
+supabase/.branches/
+
+# Local dev stack
+tmp/
+.dev-local-secret
 
 # Welcome marker — per-clone state

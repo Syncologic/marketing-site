@@ -5,6 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "dev:local": "bash scripts/dev-local.sh",
+    "dev:local:stop": "bash scripts/dev-local-stop.sh",
+    "db:reset": "npx --yes supabase db reset",
     "build": "astro build",
     "preview": "astro preview",
     "test": "vitest run",
