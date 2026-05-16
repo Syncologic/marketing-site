@@ -20,12 +20,12 @@ Requires Node 20+ and Docker.
 
 ```bash
 npm install
-cp .env.example .env       # ships pre-filled with local creds — no edits needed
-npm run dev:up             # boots local Supabase + Redis containers
+cp .env.example .env       # ships pre-filled — no edits needed
+npm run db:start           # boots local Supabase (Postgres + PostgREST + Studio)
 npm run dev                # http://localhost:4321
 ```
 
-`dev:up` starts Postgres + PostgREST + Studio (Supabase CLI) and a Redis + serverless-redis-http pair that mimics the Upstash REST wire format. Resend is faked — sent emails land in `.local/dev-emails/*.html`.
+Supabase runs for real (Docker). KV rate-limiting uses an in-memory store; Resend is faked — sent emails land in `.local/dev-emails/*.html`.
 
 See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the full workflow and per-service commands.
 
