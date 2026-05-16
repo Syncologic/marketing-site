@@ -16,13 +16,22 @@ This repository contains the homepage, use-case landing pages, pricing page, and
 
 ## Local development
 
-> Setup instructions will be filled in once `package.json` and the initial scaffolding land. Until then this section is a placeholder.
+Recommended — local stack (Docker required, no secrets needed):
 
 ```bash
 npm install
-cp .env.example .env       # add your Supabase / Resend / KV credentials
-npm run dev                # start the dev server at http://localhost:4321
+npm run dev:local          # Supabase + Redis containers + Resend stub
 ```
+
+Or against hosted services:
+
+```bash
+cp .env.example .env       # add Supabase / Resend / KV credentials
+npm install
+npm run dev                # http://localhost:4321
+```
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the full workflow.
 
 ## Project structure
 
@@ -38,9 +47,10 @@ src/
 
 ## Documentation
 
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md) — setup, branch model, PR workflow
 - [`DESIGN.md`](./DESIGN.md) — visual design system: colors, typography, components, layout principles
 - [`AGENTS.md`](./AGENTS.md) — standing brief for AI agents working on this repo
-- [`.agents/rules/`](./.agents/rules/) — cross-cutting rules (architecture, design system, engineering, content, workflow)
+- [`.agents/rules/`](./.agents/rules/) — architecture + engineering rules
 
 ## License
 
