@@ -1,9 +1,12 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 
-function getSecret(): string {
+const DEV_FALLBACK_SECRET = 'dev-only-not-secret-' + 'd'.repeat(48);
+
+export function getSecret(): string {
   const s = import.meta.env.WAITLIST_TOKEN_SECRET;
-  if (!s) throw new Error('WAITLIST_TOKEN_SECRET is required');
-  return s;
+  if (s) return s;
+  if (import.meta.env.DEV) return DEV_FALLBACK_SECRET;
+  throw new Error('WAITLIST_TOKEN_SECRET is required');
 }
 
 export function signToken(rowId: string): string {

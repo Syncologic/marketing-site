@@ -16,22 +16,18 @@ This repository contains the homepage, use-case landing pages, pricing page, and
 
 ## Local development
 
-Recommended — local stack (Docker required, no secrets needed):
+Requires Node 20+ and Docker.
 
 ```bash
 npm install
-npm run dev:local          # Supabase + Redis containers + Resend stub
-```
-
-Or against hosted services:
-
-```bash
-cp .env.example .env       # add Supabase / Resend / KV credentials
-npm install
+cp .env.example .env       # ships pre-filled with local creds — no edits needed
+npm run dev:up             # boots local Supabase + Redis containers
 npm run dev                # http://localhost:4321
 ```
 
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the full workflow.
+`dev:up` starts Postgres + PostgREST + Studio (Supabase CLI) and a Redis + serverless-redis-http pair that mimics the Upstash REST wire format. Resend is faked — sent emails land in `.local/dev-emails/*.html`.
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the full workflow and per-service commands.
 
 ## Project structure
 

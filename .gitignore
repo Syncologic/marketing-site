@@ -38,8 +38,7 @@ npm-debug.log*
 supabase/.temp/
 supabase/.branches/
 
-# Local dev stack
-tmp/
-.dev-local-secret
+# Local dev state (faked email captures, etc.)
+.local/
 
 # Welcome marker — per-clone state

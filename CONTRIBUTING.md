@@ -4,35 +4,46 @@ Thanks for working on Syncologic's marketing site.
 
 ## Setup
 
-Two options. Pick one.
-
-### Option A — Local stack (recommended, no secrets needed)
-
-Requires **Docker** running. Brings up Supabase + Redis containers and stubs Resend to the filesystem.
+**Prerequisites:** Node 20+, Docker (for the local Supabase + Redis containers). On Windows, use WSL.
 
 ```bash
+git clone <repo>
+cd marketing-site
 npm install
-npm run dev:local           # http://localhost:4321
-```
-
-`npm run dev:local` writes its own `.env.local`, applies the migrations, and starts `astro dev`. Side effects:
-
-- Supabase Studio: <http://127.0.0.1:54323>
-- Sent emails: `tmp/emails/<timestamp>-<to>.html` (open in a browser to inspect)
-- Stop the stack: `npm run dev:local:stop`
-- Re-apply migrations: `npm run db:reset`
-
-### Option B — Hosted services
-
-For Docker-less setups or when you need a real Resend send.
-
-```bash
-cp .env.example .env        # fill Supabase / Resend / KV / waitlist secrets
-npm install
+cp .env.example .env        # ships pre-filled — no edits needed for local dev
+npm run dev:up              # boots Supabase + Redis (one-time per session)
 npm run dev                 # http://localhost:4321
 ```
 
-On Windows: use WSL (Ubuntu or Debian). Native Windows is not supported.
+`.env.example` ships with the deterministic local Supabase JWT and the local Redis-REST credentials pre-filled. Nothing to fill in for local dev.
+
+- Supabase Studio: <http://127.0.0.1:54323>
+- Faked emails: `.local/dev-emails/<timestamp>-<to>.html`
+- Stop everything: `npm run dev:down`
+
+### Day-to-day
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Astro dev server, `--host` so it's reachable on your LAN |
+| `npm run dev:up` | Start Supabase + Redis (idempotent) |
+| `npm run dev:down` | Stop both stacks |
+| `npm run db:reset` | Drop the local DB and replay all migrations |
+| `npm run db:status` | URLs + Studio link |
+| `npm run db:env` | Same info as env vars (if the shipped JWT stops working after a CLI upgrade, refresh from here) |
+| `npm run kv:start` / `kv:stop` | Redis + serverless-redis-http only |
+| `npm run db:start` / `db:stop` | Supabase only |
+
+### What runs for real vs. faked
+
+| Service | Local dev | Production |
+|---|---|---|
+| **Supabase** | Real Postgres via `npm run db:start` (Docker). Migrations apply, RLS enforced. | Hosted Supabase project. |
+| **Vercel KV** | Real Redis behind serverless-redis-http (Docker) — same Upstash REST wire format. | Real Upstash Redis. |
+| **Resend** | Email HTML written to `.local/dev-emails/*.html`. Open in a browser to preview. | Real Resend API. |
+| **HMAC waitlist tokens** | Stable dev-only secret (`hmac.ts`). | Required `WAITLIST_TOKEN_SECRET`. |
+
+The dev fakes only activate when `astro dev` is running (`import.meta.env.DEV`). `npm run build` throws if any required env var is missing.
 
 ## Branch model
 

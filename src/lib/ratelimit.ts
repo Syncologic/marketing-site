@@ -1,5 +1,6 @@
 import { Redis } from '@upstash/redis';
 import { createHash } from 'node:crypto';
+import { getSecret } from './hmac';
 
 const kv = new Redis({
   url: import.meta.env.KV_REST_API_URL,
@@ -7,10 +8,7 @@ const kv = new Redis({
 });
 
 export function hashIp(ip: string): string {
-  return createHash('sha256')
-    .update(ip + import.meta.env.WAITLIST_TOKEN_SECRET)
-    .digest('hex')
-    .slice(0, 32);
+  return createHash('sha256').update(ip + getSecret()).digest('hex').slice(0, 32);
 }
 
 export function getClientIp(request: Request): string {
