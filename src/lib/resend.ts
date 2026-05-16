@@ -1,14 +1,12 @@
 import { Resend } from 'resend';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import type { Locale } from '../i18n/utils';
 
 const apiKey = import.meta.env.RESEND_API_KEY;
 const fromEmail = import.meta.env.RESEND_FROM_EMAIL || 'Syncologic <onboarding@resend.dev>';
 
-if (!apiKey) {
-  throw new Error('RESEND_API_KEY is required');
-}
-
-export const resend = new Resend(apiKey);
+export const resend = apiKey ? new Resend(apiKey) : null;
 
 interface ConfirmationParams {
   to: string;
@@ -152,11 +150,24 @@ function renderEmail(p: ConfirmationParams, c: Copy): string {
 
 export async function sendWaitlistConfirmation(params: ConfirmationParams): Promise<void> {
   const copy = COPY[params.locale];
+  const html = renderEmail(params, copy);
+
+  if (!resend) {
+    const dir = join(process.cwd(), 'tmp', 'emails');
+    await mkdir(dir, { recursive: true });
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const slug = params.to.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const file = join(dir, `${stamp}-${slug}.html`);
+    await writeFile(file, html, 'utf8');
+    console.log(`[resend stub] wrote ${file}`);
+    return;
+  }
+
   await resend.emails.send({
     from: fromEmail,
     to: params.to,
     subject: copy.subject,
-    html: renderEmail(params, copy),
+    html,
     headers: {
       'List-Unsubscribe': `<${params.unsubscribeLink}>`,
       'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',

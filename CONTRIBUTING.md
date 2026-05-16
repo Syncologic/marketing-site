@@ -4,10 +4,31 @@ Thanks for working on Syncologic's marketing site.
 
 ## Setup
 
+Two options. Pick one.
+
+### Option A — Local stack (recommended, no secrets needed)
+
+Requires **Docker** running. Brings up Supabase + Redis containers and stubs Resend to the filesystem.
+
 ```bash
-node --version              # match package.json engines
 npm install
+npm run dev:local           # http://localhost:4321
+```
+
+`npm run dev:local` writes its own `.env.local`, applies the migrations, and starts `astro dev`. Side effects:
+
+- Supabase Studio: <http://127.0.0.1:54323>
+- Sent emails: `tmp/emails/<timestamp>-<to>.html` (open in a browser to inspect)
+- Stop the stack: `npm run dev:local:stop`
+- Re-apply migrations: `npm run db:reset`
+
+### Option B — Hosted services
+
+For Docker-less setups or when you need a real Resend send.
+
+```bash
 cp .env.example .env        # fill Supabase / Resend / KV / waitlist secrets
+npm install
 npm run dev                 # http://localhost:4321
 ```
 
