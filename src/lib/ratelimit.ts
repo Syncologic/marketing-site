@@ -1,16 +1,33 @@
 import { Redis } from '@upstash/redis';
 import { createHash } from 'node:crypto';
+import { getSecret } from './hmac';
+import { createDevKv } from './dev/in-memory-kv';
 
-const kv = new Redis({
-  url: import.meta.env.KV_REST_API_URL,
-  token: import.meta.env.KV_REST_API_TOKEN,
-});
+const kvUrl = import.meta.env.KV_REST_API_URL;
+const kvToken = import.meta.env.KV_REST_API_TOKEN;
+
+type KvLike = {
+  incr(key: string): Promise<number>;
+  expire(key: string, seconds: number): Promise<number>;
+  sadd(key: string, ...members: string[]): Promise<number>;
+  scard(key: string): Promise<number>;
+};
+
+function buildKv(): KvLike {
+  if (kvUrl && kvToken) {
+    return new Redis({ url: kvUrl, token: kvToken }) as unknown as KvLike;
+  }
+  if (import.meta.env.DEV) {
+    console.info('[dev] KV creds missing — using in-memory rate-limit store (resets on restart)');
+    return createDevKv();
+  }
+  throw new Error('KV_REST_API_URL and KV_REST_API_TOKEN are required');
+}
+
+const kv = buildKv();
 
 export function hashIp(ip: string): string {
-  return createHash('sha256')
-    .update(ip + import.meta.env.WAITLIST_TOKEN_SECRET)
-    .digest('hex')
-    .slice(0, 32);
+  return createHash('sha256').update(ip + getSecret()).digest('hex').slice(0, 32);
 }
 
 export function getClientIp(request: Request): string {

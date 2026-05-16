@@ -4,35 +4,61 @@ Thanks for working on Syncologic's marketing site.
 
 ## Setup
 
-Two options. Pick one.
+**Prerequisites:** Node 20+, Docker (for the local Supabase stack).
 
-### Option A — Local stack (recommended, no secrets needed)
-
-Requires **Docker** running. Brings up Supabase + Redis containers and stubs Resend to the filesystem.
+### macOS / Linux / WSL
 
 ```bash
+git clone <repo>
+cd marketing-site
 npm install
-npm run dev:local           # http://localhost:4321
-```
-
-`npm run dev:local` writes its own `.env.local`, applies the migrations, and starts `astro dev`. Side effects:
-
-- Supabase Studio: <http://127.0.0.1:54323>
-- Sent emails: `tmp/emails/<timestamp>-<to>.html` (open in a browser to inspect)
-- Stop the stack: `npm run dev:local:stop`
-- Re-apply migrations: `npm run db:reset`
-
-### Option B — Hosted services
-
-For Docker-less setups or when you need a real Resend send.
-
-```bash
-cp .env.example .env        # fill Supabase / Resend / KV / waitlist secrets
-npm install
+cp .env.example .env        # ships pre-filled — no edits needed for local dev
+npm run db:start            # boots local Supabase (one-time per session)
 npm run dev                 # http://localhost:4321
 ```
 
-On Windows: use WSL (Ubuntu or Debian). Native Windows is not supported.
+`.env.example` ships with the deterministic local Supabase JWT pre-filled. KV and Resend env vars stay blank — they activate in-memory and filesystem fakes when `astro dev` runs.
+
+- Supabase Studio: <http://127.0.0.1:54323>
+- Faked emails: `.local/dev-emails/<timestamp>-<to>.html`
+- Stop Supabase: `npm run db:stop`
+
+### Native Windows
+
+We recommend WSL (Ubuntu or Debian) on Windows — once installed, the macOS / Linux / WSL snippet above works as-is. If you'd rather stay on native Windows, run the block below in **PowerShell as Administrator** (or with Developer Mode on: Settings → Privacy & Security → For Developers → *Developer Mode*). Admin / Dev Mode is needed only for the clone step, so Windows allows the `AGENTS.md` symlink to be created instead of being checked out as a text file.
+
+```powershell
+git config --global core.symlinks true   # once per machine — lets git create symlinks
+git clone <repo>                          # admin / Dev Mode required so symlinks land
+cd marketing-site
+npm install
+Copy-Item .env.example .env               # ships pre-filled — no edits needed
+npm run db:start                          # Docker Desktop must be running first
+npm run dev                               # http://localhost:4321
+```
+
+Sanity check after cloning: open `AGENTS.md` — you should see the brief, not the literal text `.agents/AGENTS.md`. If you see the path, the symlink didn't take; re-clone with admin / Dev Mode active.
+
+### Day-to-day
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Astro dev server, `--host` so it's reachable on your LAN |
+| `npm run db:start` / `db:stop` | Start / stop local Supabase (idempotent) |
+| `npm run db:reset` | Drop the local DB and replay all migrations |
+| `npm run db:status` | URLs + Studio link |
+| `npm run db:env` | Same info as env vars (if the shipped JWT stops working after a CLI upgrade, refresh from here) |
+
+### What runs for real vs. faked
+
+| Service | Local dev | Production |
+|---|---|---|
+| **Supabase** | Real Postgres via `npm run db:start` (Docker). Migrations apply, RLS enforced. | Hosted Supabase project. |
+| **Vercel KV** | In-memory `Map` rate-limit store, resets when the dev server restarts. | Real Upstash Redis. |
+| **Resend** | Email HTML written to `.local/dev-emails/*.html`. Open in a browser to preview. | Real Resend API. |
+| **HMAC waitlist tokens** | Stable dev-only secret (`hmac.ts`). | Required `WAITLIST_TOKEN_SECRET`. |
+
+The dev fakes only activate when `astro dev` is running (`import.meta.env.DEV`). `npm run build` throws if any required env var is missing.
 
 ## Branch model
 

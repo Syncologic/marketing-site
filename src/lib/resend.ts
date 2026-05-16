@@ -1,12 +1,20 @@
 import { Resend } from 'resend';
-import { mkdir, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
 import type { Locale } from '../i18n/utils';
+import { fakeResend } from './dev/fake-resend';
 
 const apiKey = import.meta.env.RESEND_API_KEY;
 const fromEmail = import.meta.env.RESEND_FROM_EMAIL || 'Syncologic <onboarding@resend.dev>';
 
-export const resend = apiKey ? new Resend(apiKey) : null;
+function buildResend(): Resend {
+  if (apiKey) return new Resend(apiKey);
+  if (import.meta.env.DEV) {
+    console.info('[dev] RESEND_API_KEY missing — emails will be written to .local/dev-emails/ instead of sent');
+    return fakeResend as unknown as Resend;
+  }
+  throw new Error('RESEND_API_KEY is required');
+}
+
+export const resend = buildResend();
 
 interface ConfirmationParams {
   to: string;
@@ -150,24 +158,11 @@ function renderEmail(p: ConfirmationParams, c: Copy): string {
 
 export async function sendWaitlistConfirmation(params: ConfirmationParams): Promise<void> {
   const copy = COPY[params.locale];
-  const html = renderEmail(params, copy);
-
-  if (!resend) {
-    const dir = join(process.cwd(), 'tmp', 'emails');
-    await mkdir(dir, { recursive: true });
-    const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const slug = params.to.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const file = join(dir, `${stamp}-${slug}.html`);
-    await writeFile(file, html, 'utf8');
-    console.log(`[resend stub] wrote ${file}`);
-    return;
-  }
-
   await resend.emails.send({
     from: fromEmail,
     to: params.to,
     subject: copy.subject,
-    html,
+    html: renderEmail(params, copy),
     headers: {
       'List-Unsubscribe': `<${params.unsubscribeLink}>`,
       'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',

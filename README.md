@@ -16,13 +16,18 @@ This repository contains the homepage, use-case landing pages, pricing page, and
 
 ## Local development
 
-> Setup instructions will be filled in once `package.json` and the initial scaffolding land. Until then this section is a placeholder.
+Requires Node 20+ and Docker.
 
 ```bash
 npm install
-cp .env.example .env       # add your Supabase / Resend / KV credentials
-npm run dev                # start the dev server at http://localhost:4321
+cp .env.example .env       # ships pre-filled — no edits needed
+npm run db:start           # boots local Supabase (Postgres + PostgREST + Studio)
+npm run dev                # http://localhost:4321
 ```
+
+Supabase runs for real (Docker). KV rate-limiting uses an in-memory store; Resend is faked — sent emails land in `.local/dev-emails/*.html`.
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the full workflow and per-service commands.
 
 ## Project structure
 
@@ -38,9 +43,10 @@ src/
 
 ## Documentation
 
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md) — setup, branch model, PR workflow
 - [`DESIGN.md`](./DESIGN.md) — visual design system: colors, typography, components, layout principles
 - [`AGENTS.md`](./AGENTS.md) — standing brief for AI agents working on this repo
-- [`.agents/rules/`](./.agents/rules/) — cross-cutting rules (architecture, design system, engineering, content, workflow)
+- [`.agents/rules/`](./.agents/rules/) — architecture + engineering rules
 
 ## License
 
