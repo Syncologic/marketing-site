@@ -12,8 +12,8 @@ const t = getT(locale);
 const resolvedLabel = label ?? t('guides.callout.note');
 ---
 
-<aside class={`bg-baby-blue rounded-card px-6 py-5 my-8 text-body text-dark-charcoal ${extra}`}>
-  <span class="block text-caption font-medium uppercase tracking-wide text-slate-gray mb-2">{resolvedLabel}</span>
+<aside class={`bg-[color:color-mix(in_srgb,var(--sky-action)_12%,transparent)] rounded-card px-6 py-5 my-8 text-body text-ink ${extra}`}>
+  <span class="block text-caption font-medium uppercase tracking-wide text-ink-soft mb-2">{resolvedLabel}</span>
   <div class="prose-syncologic-note">
     <slot />
   </div>
