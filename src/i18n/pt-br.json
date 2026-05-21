@@ -5,8 +5,38 @@
     "description": "Mova arquivos entre nuvens sem baixá-los primeiro. Conecte uma origem e um destino, pré-visualize o que vai mudar, execute a transferência e receba um relatório claro."
   },
   "homepage": {
-    "heroEyebrow": "Transferência entre nuvens",
-    "heroBody": "Conecte origem e destino, veja a prévia das mudanças e execute a transferência na nossa nuvem, no seu navegador ou no seu próprio servidor.",
+    "heroAudience": "Sem download. Sem reupload.",
+    "openPromiseNote": "No lançamento do acesso antecipado",
+    "heroHookLine": "Mova arquivos entre nuvens, na nuvem",
+    "heroBody": "Seja um dos primeiros a rodar transferências cloud-to-cloud sem complicação.",
+    "heroBodyNote": "O acesso antecipado abre em breve.",
+    "cloudCompareTitle": "Hoje → O futuro",
+    "cloudCompareSubtitle": "Como uma transferência entre nuvens funciona hoje, e como funciona com Syncologic.",
+    "supportedProvidersTitle": "Suportados no acesso antecipado",
+    "supportedProvidersSubtitle": "Quatro provedores principais no primeiro dia.",
+    "supportedProvidersNote": "Mais provedores serão adicionados ao longo do acesso antecipado.",
+    "cloudCompare": {
+      "label": "Como uma transferência roda",
+      "toggleOld": "Hoje",
+      "toggleNew": "O futuro",
+      "downloading": "Baixar",
+      "uploading": "Subir de novo",
+      "youLabel": "Seu computador",
+      "directLabel": "Direto, de servidor pra servidor",
+      "oldStatus": "Você espera. Seu laptop tem que ficar ligado.",
+      "newStatus": "Feche o laptop. A gente termina sem você."
+    },
+    "heroForm": {
+      "refineLink": "Conte mais sobre sua transferência ↓"
+    },
+    "modal": {
+      "title": "Conte mais sobre sua transferência",
+      "subtitle": "Algumas perguntas rápidas para a gente moldar o Syncologic ao que você realmente precisa.",
+      "greeting": "Oi, que bom te ver aqui.",
+      "intro": "Antes de você sair, podemos fazer umas perguntas rápidas sobre sua transferência? Ajuda a gente a moldar o Syncologic ao que você realmente precisa.",
+      "cta": "Bora lá",
+      "skipIntro": "Talvez depois"
+    },
     "pathChooser": {
       "eyebrow": "Por onde começar",
       "user": {
@@ -19,20 +49,81 @@
       }
     },
     "providersLabel": "Vai funcionar com",
-    "runnersTitle": "Onde a transferência acontece?",
-    "runnersSubtitle": "Três opções com perfis bem diferentes de praticidade, custo e privacidade.",
-    "useCasesTitle": "Encontre seu caso de uso",
-    "useCasesSubtitle": "Estamos construindo para públicos diferentes — comece pelo que combina com você.",
+    "runnersTitle": "Onde a transferência vai acontecer?",
+    "bottomCtaTitle": "Curtiu o que viu?",
+    "bottomCtaSubtitle": "Entre na lista de espera e garantimos uma vaga no acesso antecipado.",
     "trustTitle": "Sua confiança em primeiro lugar",
-    "trustSubtitle": "Sem surpresas. Sem mudanças silenciosas. Você vê o que roda, onde roda e o que mudou."
+    "trustSubtitle": "Sem surpresas. Sem mudanças silenciosas. Você vê o que roda, onde roda e o que mudou.",
+    "walkthrough": {
+      "preview": {
+        "eyebrow": "Prévia",
+        "title": "Veja o que vai acontecer antes de qualquer coisa se mover.",
+        "body": "Conecte uma origem e um destino. A gente compara os dois e mostra exatamente quais arquivos vão ser copiados, substituídos ou deixados como estão. Nada se move até você confirmar."
+      },
+      "runner": {
+        "eyebrow": "Escolha o runner",
+        "title": "Decida onde a transferência roda.",
+        "body": "O runner é a máquina que faz o trabalho. Três opções, com trade-offs bem diferentes.",
+        "columnLabels": {
+          "where": "Onde",
+          "bandwidth": "Banda",
+          "tabClosed": "Se você fechar a aba"
+        },
+        "rows": {
+          "cloud": { "name": "Cloud", "where": "Nossos servidores", "bandwidth": "Nossa", "tabClosed": "Continua rodando" },
+          "browser": { "name": "Browser", "where": "A aba do seu navegador", "bandwidth": "Sua", "tabClosed": "Pausa até você reabrir" },
+          "private": { "name": "Private", "where": "Seu próprio servidor", "bandwidth": "Sua", "tabClosed": "Continua rodando" }
+        }
+      },
+      "transfer": {
+        "eyebrow": "Execute",
+        "title": "Acompanhe em tempo real.",
+        "body": "Os arquivos vão direto da origem para o destino. Eles não passam pela gente, nem mesmo no Cloud Runner. Pause, retome ou interrompa sem perder o que já foi movido."
+      },
+      "report": {
+        "eyebrow": "Receba o relatório",
+        "title": "Termine com um registro claro.",
+        "body": "Cada transferência termina com um relatório que você pode salvar. Você vê exatamente o que aconteceu.",
+        "fields": [
+          "Arquivos movidos e bytes verificados",
+          "Conflitos encontrados, com a decisão que tomamos",
+          "Erros e as repetições que resolveram",
+          "Tempo total, runner e timestamp"
+        ]
+      },
+      "useCase": {
+        "eyebrow": "A sua situação",
+        "title": "Escolha o caso mais próximo do seu.",
+        "body": "Cada um cobre o específico: provedores, agendamento, o que esperar."
+      }
+    }
+  },
+  "join": {
+    "meta": {
+      "title": "Entre na Syncologic",
+      "description": "Mova arquivos entre nuvens sem ter que baixar antes. Deixe seu e-mail para entrar na lista de espera de acesso antecipado."
+    },
+    "eyebrow": "Acesso antecipado",
+    "headline": "Mova arquivos entre nuvens sem ter que baixar antes.",
+    "body": "Deixe seu e-mail. A gente avisa quando abrirmos.",
+    "lowerPanel": {
+      "title": "Quer a versão longa?",
+      "links": [
+        { "label": "Como funciona", "href": "/#how-it-works" },
+        { "label": "Planos e preços", "href": "/#plans" },
+        { "label": "Auto-hospede no seu próprio servidor", "href": "/self-hosted" }
+      ]
+    },
+    "footer": {
+      "back": "Voltar para a página inicial"
+    }
   },
   "nav": {
     "useCases": "Casos de uso",
     "useCasesMenu": {
       "cloudToCloud": "Transferência entre nuvens",
       "businessMigration": "Migração empresarial",
-      "scheduledBackup": "Backup agendado",
-      "privateRunner": "Private Runner"
+      "scheduledBackup": "Backup agendado"
     },
     "pricing": "Planos",
     "selfHosted": "Auto-hospedado",
@@ -50,8 +141,7 @@
     "privacy": "Privacidade",
     "resourcesColumn": {
       "title": "Recursos",
-      "guides": "Guias",
-      "useCases": "Casos de uso"
+      "guides": "Guias"
     }
   },
   "breadcrumb": {
@@ -69,14 +159,21 @@
   "waitlist": {
     "emailLabel": "E-mail",
     "emailPlaceholder": "voce@exemplo.com",
+    "earlyAccessCta": "Entrar na lista de espera",
     "submit": "Entrar na lista de espera",
     "submitting": "Entrando…",
     "success": "✓ Você está na lista",
+    "joinedInputSkipped": "Você está na lista — bora responder umas perguntas rápidas?",
+    "joinedButtonSkipped": "Ajude a moldar",
+    "joinedInputPartial": "Você está na lista — continuar de onde parou?",
+    "joinedButtonPartial": "Continuar ({answered}/{total})",
+    "joinedInputComplete": "Valeu — você está pronto.",
+    "joinedButtonComplete": "Inscrito ✓",
     "errorNetwork": "Não conseguimos nos conectar ao servidor. Tentar de novo?",
-    "errorRate": "Espere um momento — tente de novo em um minuto.",
+    "errorRate": "Espere um momento. Tente de novo em um minuto.",
     "errorAlreadyRemoved": "Este e-mail já foi removido da lista. Para entrar de novo, mande um e-mail para hello@syncologic.com",
-    "step1Subtitle": "Ajude a construir a ferramenta certa. Deixe seu e-mail e conte o que você precisa — leva cerca de um minuto.",
-    "step2Skip": "Pular — terminar depois",
+    "step1Subtitle": "Ajude a construir a ferramenta certa. Deixe seu e-mail e conte o que você precisa. Leva cerca de um minuto.",
+    "step2Skip": "Pular, terminar depois",
     "questionUseCase": "O que você pretende fazer?",
     "questionSourceProvider": "Onde os arquivos estão hoje?",
     "questionDestProvider": "Para onde eles precisam ir?",
@@ -89,41 +186,83 @@
     "encourageFirst": "Bem-vindo! A gente quer te conhecer um pouco.",
     "encourageMid": "Boa. Conta um pouco mais.",
     "encourageLast": "Última! Quase lá.",
-    "done": "Valeu — isso ajuda muito.",
-    "doneSub": "A gente entra em contato.",
+    "done": "Valeu — a gente te ouviu.",
+    "doneSub": "O que você contou molda o que a gente vai construir. A gente te manda um e-mail assim que o acesso antecipado abrir.",
     "next": "Próxima →",
     "back": "← Voltar",
     "close": "Fechar",
     "errorInvalidEmail": "Digite um e-mail válido.",
     "consentBefore": "Ao entrar, você concorda com nossa ",
     "consentLink": "Política de privacidade",
-    "consentAfter": "."
+    "consentAfter": ".",
+    "joinedCompleteTitle": "Valeu — você está na lista.",
+    "joinedCompleteBody": "A gente te avisa por e-mail no minuto em que o acesso antecipado abrir.",
+    "joinedPartialTitle": "Você está na lista.",
+    "joinedPartialBody": "Você respondeu {answered} de {total} perguntas. Quanto mais a gente souber, melhor a gente afina seu acesso antecipado.",
+    "joinedPartialCta": "Terminar as perguntas",
+    "joinedSkippedTitle": "Você está na lista.",
+    "joinedSkippedBody": "Quer um acesso antecipado afinado pro seu setup? Responda umas perguntinhas rápidas — leva cerca de um minuto.",
+    "joinedSkippedCta": "Responder algumas perguntas"
+  },
+  "openPromise": {
+    "openSource": {
+      "title": "Código aberto",
+      "desc": "O código fica público no GitHub no lançamento do acesso antecipado. Leia, audite, confie."
+    },
+    "freePlan": {
+      "title": "Plano gratuito",
+      "desc": "Tier gratuito de verdade para transferências pessoais, sem contagem regressiva."
+    },
+    "noCard": {
+      "title": "Sem cartão de crédito",
+      "desc": "Entre na lista de espera e experimente sem precisar de cartão."
+    },
+    "selfHosting": {
+      "title": "Self-hosting planejado",
+      "desc": "Rode a stack inteira na sua máquina quando estiver pronto."
+    }
   },
   "providers": {
     "googleDrive": "Google Drive",
     "oneDrive": "OneDrive",
-    "dropbox": "Dropbox",
     "s3": "Compatível com S3",
-    "sftp": "SFTP",
     "your_server": "Seu servidor",
-    "nextcloud": "Nextcloud",
+    "dropbox": "Dropbox",
     "other": "Outro"
   },
   "runners": {
+    "bestForLabel": "Ideal para",
     "cloud": {
       "name": "Cloud Runner",
       "plainTitle": "Pelos nossos servidores",
-      "description": "Hospedamos a transferência. Você fecha o navegador e ela continua rodando. Cobramos pelo uso."
+      "description": "Hospedamos a transferência. Você fecha o navegador e ela continua rodando.",
+      "bestFor": [
+        "Jobs agendados e backups recorrentes",
+        "Migrações grandes que você não quer babá",
+        "Fechar o laptop e ir cuidar da vida"
+      ]
     },
     "browser": {
       "name": "Browser Runner",
       "plainTitle": "Na aba do seu navegador",
-      "description": "A aba precisa ficar aberta enquanto roda. Sem custo. Boa para transferências pontuais."
+      "description": "A aba precisa ficar aberta enquanto roda. Sem custo. Boa para transferências pontuais.",
+      "bestFor": [
+        "Transferências pontuais entre duas nuvens",
+        "Testar o Syncologic sem plano pago",
+        "Jobs pequenos que dá pra ver terminar"
+      ]
     },
     "private": {
       "name": "Private Runner",
       "plainTitle": "No seu próprio servidor",
-      "description": "Você instala um programinha. Os arquivos nunca passam pelos nossos servidores — ideal para empresas, homelabs e dados sensíveis."
+      "badge": "Previsto",
+      "plannedNote": "Chega mais adiante no early access, não no lançamento.",
+      "description": "Você instala um programinha. Os arquivos nunca passam pelos nossos servidores — ideal para empresas, homelabs e dados sensíveis.",
+      "bestFor": [
+        "Dados sensíveis que não podem sair da sua rede",
+        "Empresas, homelabs e self-hosters",
+        "Alto volume usando sua própria banda"
+      ]
     }
   },
   "useCaseRouter": {
@@ -138,10 +277,6 @@
     "scheduledBackup": {
       "title": "Agendar backups recorrentes",
       "desc": "Entre nuvens ou para o S3, em um agendamento que você define."
-    },
-    "privateRunner": {
-      "title": "Rodar no seu próprio servidor",
-      "desc": "Mantenha credenciais e bytes na sua infraestrutura."
     }
   },
   "notFound": {
@@ -218,8 +353,8 @@
     },
     "controlDataPlanes": {
       "alt": "Dois painéis empilhados. O painel de cima — a camada de controle da Syncologic — guarda autenticação, jobs, agendamentos e logs. Um conector pontilhado marcado como 'apenas metadados' liga ele ao painel de baixo, a camada de dados, que contém um único runner. Uma seta sólida sai de uma nuvem de origem, atravessa direto o runner da camada de dados e chega em uma nuvem de destino — sem passar pela camada de controle.",
-      "controlTitle": "Camada de controle (nuvem da Syncologic)",
-      "dataTitle": "Camada de dados (sua infra)",
+      "controlTitle": "Camada de controle",
+      "dataTitle": "Camada de dados",
       "metadataLabel": "apenas metadados",
       "auth": "auth",
       "jobs": "jobs",
@@ -294,13 +429,42 @@
     },
     "cta": {
       "title": "Quer uma ferramenta que faça isso para você?",
-      "body": "A Syncologic move pastas direto entre provedores — com prévia, execução e relatório. Escolha o caso de uso que combina com o seu trabalho e entre na lista de espera.",
-      "primary": "Escolha seu caso de uso",
-      "secondary": "Voltar ao início"
+      "body": "A Syncologic vai te ajudar a mover pastas entre provedores de nuvem sem precisar baixar antes. Você vai ver cada mudança antes de qualquer coisa acontecer, executar a transferência e terminar com um relatório claro. Entre na lista de espera do acesso antecipado.",
+      "primary": "Conheça a Syncologic"
     }
   },
   "faq": {
-    "title": "Perguntas frequentes"
+    "title": "Perguntas frequentes",
+    "homepage": {
+      "items": [
+        {
+          "q": "Quanto vai custar?",
+          "a": "Os preços ainda não estão finais, mas a estrutura está definida: tier gratuito (5 GB hospedados por mês mais transferências ilimitadas em aba de navegador), Pro por volta de R$ 45 por mês para 500 GB hospedados, Pro+ por volta de R$ 145 por mês para 5 TB. Rodar no seu próprio servidor continua grátis."
+        },
+        {
+          "q": "Quando vocês vão lançar?",
+          "a": "O acesso antecipado está aberto via lista de espera. Entrar nunca gera cobrança; migrar para um plano pago vai ser sempre um passo explícito."
+        },
+        {
+          "q": "E se uma transferência falhar no meio?",
+          "a": "Ela retoma de onde parou. Arquivos já verificados no destino são pulados na repetição; os que falharam voltam para a fila. O relatório mostra o que aconteceu e quais repetições resolveram."
+        },
+        {
+          "q": "O que a prévia mostra exatamente?",
+          "a": "Uma lista de cada arquivo que vai ser copiado, substituído ou mantido, por nome, tamanho e caminho de destino. Nada se move até você confirmar."
+        },
+        {
+          "q": "O código é público?",
+          "a": "Sim. Toda parte que mexe numa transferência (runners, lógica de transferência, adaptadores de provedor) é lançada com código visível. Você pode ler o que roda sobre os seus dados antes de confiar.",
+          "link": { "href": "/self-hosted", "label": "Arquitetura auto-hospedada" }
+        },
+        {
+          "q": "Posso rodar no meu próprio servidor?",
+          "a": "Sim. O Private Runner roda em qualquer servidor, NAS ou VPS que você controla. Os arquivos nunca chegam à nossa infraestrutura. Grátis durante o acesso antecipado.",
+          "link": { "href": "/self-hosted", "label": "Como a auto-hospedagem funciona" }
+        }
+      ]
+    }
   },
   "pricing": {
     "meta": {
@@ -314,22 +478,23 @@
       "primaryCta": "Entrar na lista de espera"
     },
     "hypotheses": {
-      "title": "Planos hospedados",
+      "title": "Planos de acesso antecipado",
       "subtitle": "Escolha o plano que combina com quanto você transfere na nossa infraestrutura por mês.",
       "priceSuffix": "/mês",
       "recommendedLabel": "Recomendado",
       "free": {
         "name": "Free",
         "price": "R$ 0",
-        "description": "Para transferências pontuais. Abre uma aba, transfere e fecha.",
+        "description": "Para transferências pontuais. Experimente qualquer provedor, sem precisar de cartão.",
         "features": [
-          "Todos os provedores — sem restrições, nunca",
-          "5 GB nos nossos servidores por mês",
-          "1 transferência por vez",
-          "Transferências ilimitadas em uma aba do navegador — a aba precisa ficar aberta",
-          "Um pequeno daemon em segundo plano (Local Helper) que transfere sem precisar de aba aberta e deixa pastas locais funcionarem como origem ou destino"
+          "5 GB/mês de transferência na Cloud",
+          "Todos os provedores disponíveis",
+          "1 transferência ativa simultânea",
+          "Retenção do histórico por 30 dias",
+          "No Browser: ilimitado",
+          "Logs de auditoria + webhooks + tokens de API"
         ],
-        "footnote": "Grátis para sempre. Histórico de execuções de 30 dias. Faça upgrade para o Pro para mais volume hospedado e pastas monitoradas."
+        "footnote": "Sem cobrança de excedente no Free — faça upgrade para continuar após 5 GB/mês."
       },
       "pro": {
         "name": "Pro",
@@ -337,29 +502,27 @@
         "description": "Para quem não quer ficar acompanhando transferências.",
         "features": [
           "Tudo do plano Free",
-          "500 GB nos nossos servidores por mês",
-          "4 transferências por vez",
-          "Pastas monitoradas — aponte uma pasta e o backup roda automaticamente",
-          "Agendamento estilo cron e janelas de banda",
-          "Histórico de execuções de 1 ano"
+          "500 GB/mês de transferência na Cloud",
+          "4 transferências ativas simultâneas",
+          "Retenção do histórico por 1 ano",
+          "Excedente: R$ 12,50 / TB"
         ],
-        "footnote": "R$ 12,50 a cada 1 TB adicional. Todos os provedores, sem restrição."
+        "footnote": "Excedente da Cloud cobrado a R$ 12,50 por TB adicional."
       },
       "business": {
-        "name": "Business",
+        "name": "Pro+",
         "price": "R$ 145",
-        "description": "Para equipes migrando um workspace ou rodando vários jobs.",
+        "description": "Para usuários avançados movendo grandes volumes ou rodando várias transferências ao mesmo tempo.",
         "features": [
           "Tudo do plano Pro",
-          "5 TB nos nossos servidores por mês",
+          "5 TB/mês de transferência na Cloud",
           "Transferências simultâneas ilimitadas",
-          "Prioridade por job na fila (alta / normal / baixa)",
-          "Ultimate Scheduling — cron, janelas de banda, repetição automática, jobs condicionais",
-          "Exportação do histórico em CSV/PDF"
+          "Retenção do histórico por 1 ano",
+          "Excedente: R$ 12,50 / TB"
         ],
-        "footnote": "R$ 12,50 a cada 1 TB adicional. Todos os provedores, sem restrição."
+        "footnote": "Excedente da Cloud cobrado a R$ 12,50 por TB adicional."
       },
-      "priceCaption": "Preços aproximados — podem ter pequenos ajustes antes do lançamento."
+      "priceCaption": "Transferências no Browser rodam dentro da sua aba — sempre grátis, nunca contam na cota em nenhum plano. Preços aproximados, podem ter pequenos ajustes antes do lançamento."
     },
     "selfHost": {
       "subtitle": "Rode o Private Runner no seu próprio servidor, NAS ou VPS. Bytes e credenciais nunca saem da sua rede.",
@@ -396,7 +559,7 @@
       }
     },
     "faq": {
-      "title": "Dúvidas frequentes sobre planos",
+      "title": "FAQ",
       "items": [
         {
           "q": "Esses preços são definitivos?",
@@ -412,27 +575,19 @@
         },
         {
           "q": "E se eu mover mais dados do que o meu plano inclui?",
-          "a": "No Free, quando você atinge o limite de 5 GB por mês, as transferências hospedadas param até o próximo mês — a aba do navegador e o Local Helper continuam funcionando. Pro e Business adicionam 1 TB por R$ 12,50 sempre que você passar do limite. A auto-hospedagem não tem cota de GB nenhuma — os bytes passam pelo seu próprio servidor, com a sua banda."
+          "a": "No Free, quando você atingir o limite de 5 GB por mês, as transferências hospedadas vão parar até o próximo mês — as transferências do Browser Runner vão continuar funcionando. Pro e Pro+ vão adicionar 1 TB por R$ 12,50 sempre que você passar do limite. A auto-hospedagem não vai ter cota de GB nenhuma — os bytes vão passar pelo seu próprio servidor, com a sua banda."
         },
         {
-          "q": "O Browser Runner, o Local Helper e o Private Runner consomem a minha cota de GB?",
-          "a": "Não. Só o Cloud Runner usa a nossa banda hospedada, então só ele entra na cota. O Browser Runner roda na sua aba, o Local Helper roda como um pequeno daemon na sua máquina, e o Private Runner roda no seu próprio servidor — os arquivos nunca passam pela nossa infraestrutura."
+          "q": "Transferências que falharem vão contar para a minha cota?",
+          "a": "Não. Qualquer cota usada por uma transferência que falhar vai ser devolvida automaticamente — você só paga pelos bytes que chegarem de fato ao destino. A exceção são transferências que você mesmo cancelar: os bytes que já tiverem sido movidos antes do cancelamento ficam contabilizados."
         },
         {
-          "q": "Por que a auto-hospedagem é grátis?",
-          "a": "Depois que o binário está pronto, rodar o Private Runner no seu próprio hardware não custa nada para a gente. Durante o acesso antecipado, toda a auto-hospedagem é grátis — e o essencial, \"mover arquivos entre nuvens no meu próprio servidor\", sempre vai continuar grátis."
+          "q": "A auto-hospedagem vai ser grátis?",
+          "a": "Sim. Depois que o binário estiver pronto, rodar o Private Runner no seu próprio hardware não vai custar nada para a gente. Durante o acesso antecipado, toda a auto-hospedagem vai ser grátis — e o essencial, \"mover arquivos entre nuvens no meu próprio servidor\", sempre vai continuar grátis."
         },
         {
-          "q": "E quanto à auto-hospedagem com código visível?",
-          "a": "Depois que o binário está pronto, rodar o Private Runner no seu próprio hardware não tem custo para nós. Durante o acesso antecipado, toda a auto-hospedagem é grátis."
-        },
-        {
-          "q": "Eu mantenho meus dados se migrar para uma camada de controle auto-hospedada?",
-          "a": "Sim. Quando a camada de controle auto-hospedada lançar, você poderá exportar jobs, agendamentos, histórico de execuções, conexões e logs de auditoria da Syncologic e importá-los no seu próprio. Não há cobrança em nenhuma direção — os dados da camada de controle são seus para mover."
-        },
-        {
-          "q": "O que é o Local Helper, e por que ele não é só o Private Runner?",
-          "a": "O Local Helper é um daemon leve em segundo plano para uma máquina — sem UI, sem painel de administração, sem suporte a múltiplos usuários. Ele existe para que as transferências do Browser Runner continuem depois que você fecha a aba e para que uma pasta local possa funcionar como qualquer provedor conectado. O Private Runner é o runtime completo da camada de dados para NAS, VPS e servidores — vários jobs, vários usuários, plug-ins. Eles não compartilham código."
+          "q": "Vou conseguir transferir arquivos do meu próprio computador?",
+          "a": "Sim, de duas formas. Com o Browser Runner você vai conseguir enviar arquivos do seu computador direto para qualquer provedor conectado — mas a aba precisa ficar aberta o tempo todo. O Local Helper, que está planejado, é um daemon leve em segundo plano que você vai instalar na sua máquina para que uma pasta local possa funcionar como qualquer provedor conectado; com ele rodando, a aba pode fechar e a transferência continua."
         }
       ]
     }
@@ -497,31 +652,15 @@
     "faq": [
       {
         "q": "Quando posso começar a usar a API?",
-        "a": "Com o acesso antecipado. A Syncologic é API-first — o nosso frontend web usa a mesma API que você usaria. Todos os planos (Free, Pro e Business) incluem acesso à API desde o primeiro dia."
+        "a": "Com o acesso antecipado. A Syncologic é API-first — o nosso frontend web usa a mesma API que você usaria. Todos os planos (Free, Pro e Pro+) incluem acesso à API desde o primeiro dia."
       },
       {
         "q": "Vai ter um plano grátis para desenvolvedores?",
-        "a": "Não há uma oferta específica para desenvolvedores — tudo o que você pagaria (ou não pagaria) está nos planos atuais.",
-        "link": {
-          "href": "/plans",
-          "label": "Ver planos"
-        }
+        "a": "Não há uma oferta específica para desenvolvedores — tudo o que você pagaria (ou não pagaria) está nos planos atuais."
       },
       {
         "q": "Vocês cuidam do OAuth em nome dos meus usuários?",
-        "a": "Sim — seu app nunca guarda um token de provedor.",
-        "link": {
-          "href": "#oauth",
-          "label": "Como o OAuth funciona"
-        }
-      },
-      {
-        "q": "Posso rodar os jobs inteiramente na minha infraestrutura?",
-        "a": "Sim, no caminho dos dados — o Private Runner roda em qualquer servidor que você controla, e os bytes dos arquivos nunca chegam à Syncologic.",
-        "link": {
-          "href": "/self-hosted",
-          "label": "Arquitetura e roadmap"
-        }
+        "a": "Sim — seu app nunca guarda um token de provedor."
       },
       {
         "q": "Os payloads dos webhooks são assinados?",
@@ -535,11 +674,31 @@
       "description": "Mova arquivos entre nuvens com o caminho de dados rodando inteiramente no seu próprio servidor, NAS ou VPS. Os arquivos nunca passam pela nossa infraestrutura."
     },
     "hero": {
+      "banner": "CHEGA DEPOIS DO LANÇAMENTO DO EARLY ACCESS",
       "eyebrow": "No seu próprio servidor",
       "headline": "Rode tudo no seu próprio servidor.",
-      "subheading": "Os arquivos nunca passam pela nossa infraestrutura. Instale um pequeno programa, conecte as suas nuvens nele, e a transferência roda dentro da sua rede. Grátis durante o acesso antecipado.",
+      "subheading": "Os arquivos nunca vão passar pela nossa infraestrutura. Você instala um pequeno programa, conecta as suas nuvens nele, e roda transferências dentro da sua rede. Não no dia do lançamento, mas alto na lista de prioridades pós-lançamento.",
       "audience": "Para usuários de homelab, pessoas que se importam com privacidade e empresas que querem rodar transferências de arquivos em uma infraestrutura que elas controlam.",
-      "primaryCta": "Entrar na lista de espera"
+      "primaryCta": "Avisem quando o self-hosting chegar"
+    },
+    "update": {
+      "label": "Por que não no lançamento",
+      "title": "Self-hosting não chega no dia do lançamento — e isso é proposital",
+      "intro": "O acesso antecipado existe pra provar o motor principal. Self-hosting é um outro tipo de produto em cima disso, e a gente prefere esperar do que lançar pela metade.",
+      "reasons": [
+        {
+          "title": "O motor precisa estar certo primeiro",
+          "desc": "Transferências entre nuvens precisam ser confiáveis, rápidas e previsíveis antes de colocar runtime self-hosted por cima."
+        },
+        {
+          "title": "Self-hosting é um produto, não uma flag",
+          "desc": "É um produto de duas camadas (controle e dados) rodando em hardware que a gente não controla, com atualizações que você confia que a gente vai entregar. Segurança é a nossa maior prioridade, e em infra self-hosted ela precisa viver dentro do próprio produto."
+        },
+        {
+          "title": "É uma das prioridades pós-lançamento",
+          "desc": "Assim que o core estiver estável, self-hosting vai pro topo do roadmap."
+        }
+      ]
     },
     "howItWorks": {
       "title": "Como funciona para você",
@@ -558,13 +717,14 @@
       }
     },
     "underTheHood": {
+      "label": "Arquitetura",
       "summary": "Como funciona por baixo dos panos",
-      "intro": "Arquitetura, os níveis de auto-hospedagem e por que o código principal fica público — para o usuário técnico.",
+      "intro": "Arquitetura, os níveis de auto-hospedagem e por que o código fica público — para o usuário técnico.",
       "controlData": {
         "title": "Camada de controle e camada de dados",
         "body": [
-          "Duas camadas. A camada de controle (autenticação, jobs, agendamentos, relatórios) guarda metadados sobre as suas transferências. A camada de dados (o runner) é por onde os bytes trafegam de origem → destino.",
-          "A gente hospeda a camada de controle no lançamento; você hospeda a camada de dados desde o primeiro dia. O Private Runner é o runtime completo da camada de dados."
+          "Duas camadas. A camada de controle (autenticação, jobs, agendamentos, relatórios) guarda metadados sobre as suas transferências.",
+          "A camada de dados (o runner) é por onde os bytes trafegam de origem → destino."
         ]
       },
       "roadmap": {
@@ -582,13 +742,9 @@
         "footnote": "Mais uma variante air-gapped para ambientes de alta conformidade que não acessam a internet pública."
       },
       "sourceVisible": {
-        "title": "Por que o código principal fica público",
-        "body": "Todos os runners — Cloud Runner, Browser Runner, Local Helper, Private Runner — são lançados com código visível, junto com a lógica de transferência e os adaptadores de provedor. Você pode auditar como os arquivos trafegam antes de confiar no sistema."
+        "title": "Por que o código fica público",
+        "body": "Segurança vem do que você pode verificar, não do que a gente promete. Todos os runners — Cloud Runner, Browser Runner, Local Helper, Private Runner — são lançados com código visível no GitHub, junto com a lógica de transferência e os adaptadores de provedor. Leia, audite como as credenciais são tratadas, veja como os bytes trafegam entre os provedores e decida se quer confiar no sistema antes de qualquer arquivo ser movido."
       }
-    },
-    "migration": {
-      "title": "Mova a camada de controle para o seu servidor quando estiver pronto",
-      "body": "Hoje, auto-hospedar significa rodar o Private Runner no seu hardware enquanto a Syncologic hospeda a camada de controle (grátis durante o acesso antecipado). Quando a camada de controle auto-hospedada lançar, você poderá exportar seus jobs, agendamentos, histórico de execuções e conexões da nossa camada de controle e importá-los no seu próprio. Os dados da camada de controle são seus para mover."
     }
   },
   "privacy": {
