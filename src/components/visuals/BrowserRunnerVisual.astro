@@ -1,0 +1,317 @@
+---
+import ProviderLogo from '../ui/ProviderLogo.astro';
+
+interface Props {
+  ariaLabel?: string;
+}
+const { ariaLabel = 'A browser tab on your machine carries files from a source provider to a destination provider while the tab stays open.' } = Astro.props;
+---
+
+<div class="browser-stage" role="img" aria-label={ariaLabel}>
+  <svg class="browser-stage__sky" viewBox="0 0 400 400" aria-hidden="true">
+    <defs>
+      <radialGradient id="browser-stage-bloom" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="var(--sky-action)" stop-opacity="0.18" />
+        <stop offset="55%" stop-color="var(--sky-action)" stop-opacity="0.05" />
+        <stop offset="100%" stop-color="var(--sky-action)" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id="browser-stage-stroke" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="var(--sky-action)" stop-opacity="0.15" />
+        <stop offset="50%" stop-color="var(--sky-action)" stop-opacity="0.55" />
+        <stop offset="100%" stop-color="var(--sky-action)" stop-opacity="0.15" />
+      </linearGradient>
+    </defs>
+
+    <circle cx="200" cy="200" r="170" fill="url(#browser-stage-bloom)" />
+
+    <g class="browser-stage__pulse">
+      <rect x="86" y="118" width="228" height="160" rx="32" fill="none"
+        stroke="var(--sky-action)" stroke-opacity="0.18" />
+      <rect x="72" y="106" width="256" height="184" rx="40" fill="none"
+        stroke="var(--sky-action)" stroke-opacity="0.10" />
+    </g>
+
+    <path class="browser-stage__arc browser-stage__arc--in"
+      d="M 78 240 C 78 180, 130 150, 188 200"
+      fill="none" stroke="url(#browser-stage-stroke)" stroke-width="1.2"
+      stroke-dasharray="3 6" stroke-linecap="round" />
+    <path class="browser-stage__arc browser-stage__arc--out"
+      d="M 212 200 C 270 150, 322 180, 322 240"
+      fill="none" stroke="url(#browser-stage-stroke)" stroke-width="1.2"
+      stroke-dasharray="3 6" stroke-linecap="round" />
+
+  </svg>
+
+  <div class="browser-stage__window glass-pane" data-squircle data-squircle-radius="22">
+    <div class="browser-stage__chrome">
+      <span class="browser-stage__dot browser-stage__dot--r"></span>
+      <span class="browser-stage__dot browser-stage__dot--y"></span>
+      <span class="browser-stage__dot browser-stage__dot--g"></span>
+      <span class="browser-stage__url">
+        <span class="browser-stage__url-text">syncologic.com</span>
+        <span class="browser-stage__caret"></span>
+      </span>
+    </div>
+    <div class="browser-stage__page">
+      <span class="browser-stage__mark"></span>
+    </div>
+  </div>
+
+  <div class="browser-stage__chip browser-stage__chip--src">
+    <div class="browser-stage__chip-inner glass-pane" data-squircle data-squircle-radius="18">
+      <ProviderLogo provider="google-drive" size={36} />
+      <span class="browser-stage__chip-label">Source</span>
+    </div>
+  </div>
+
+  <div class="browser-stage__chip browser-stage__chip--dst">
+    <div class="browser-stage__chip-inner glass-pane" data-squircle data-squircle-radius="18">
+      <ProviderLogo provider="dropbox" size={36} />
+      <span class="browser-stage__chip-label">Destination</span>
+    </div>
+  </div>
+
+  <svg class="browser-stage__packets-layer" viewBox="0 0 400 400" aria-hidden="true">
+    <rect class="browser-stage__packet browser-stage__packet--1" x="-7" y="-5" width="14" height="10" rx="2.5" />
+    <rect class="browser-stage__packet browser-stage__packet--2" x="-7" y="-5" width="14" height="10" rx="2.5" />
+  </svg>
+
+  <div class="browser-stage__hint">
+    <span class="browser-stage__hint-dot"></span>
+    Tab stays open
+  </div>
+</div>
+
+<style>
+  .browser-stage {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+  }
+
+  .browser-stage__sky,
+  .browser-stage__packets-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .browser-stage__packets-layer { z-index: 3; }
+
+  .browser-stage__arc {
+    stroke-dashoffset: 0;
+    animation: browser-stage-flow 6s linear infinite;
+  }
+  .browser-stage__arc--out { animation-delay: -3s; }
+  @keyframes browser-stage-flow { to { stroke-dashoffset: -36; } }
+
+  .browser-stage__pulse rect {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: browser-stage-pulse 4.8s ease-in-out infinite;
+  }
+  .browser-stage__pulse rect:nth-child(2) { animation-delay: 1.2s; }
+  @keyframes browser-stage-pulse {
+    0%, 100% { transform: scale(0.97); opacity: 0.55; }
+    50%      { transform: scale(1.02); opacity: 1; }
+  }
+
+  .browser-stage__packet {
+    fill: var(--sky-action);
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--sky-action) 60%, transparent));
+    opacity: 0;
+  }
+  .browser-stage__packet--1 {
+    offset-path: path('M 78 240 C 78 180, 130 150, 188 200');
+    animation: browser-stage-trip 4.4s cubic-bezier(0.5, 0, 0.5, 1) -0.3s infinite,
+               browser-stage-fade 4.4s linear -0.3s infinite;
+  }
+  .browser-stage__packet--2 {
+    offset-path: path('M 212 200 C 270 150, 322 180, 322 240');
+    animation: browser-stage-trip 5.6s cubic-bezier(0.5, 0, 0.5, 1) -2.1s infinite,
+               browser-stage-fade 5.6s linear -2.1s infinite;
+  }
+  @keyframes browser-stage-trip { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+  @keyframes browser-stage-fade {
+    0%   { opacity: 0; transform: scale(0.7); }
+    10%  { opacity: 1; transform: scale(1); }
+    50%  { opacity: 1; transform: scale(1.15); }
+    80%  { opacity: 1; transform: scale(1); }
+    88%  { opacity: 0; transform: scale(0.7); }
+    100% { opacity: 0; transform: scale(0.7); }
+  }
+
+  .browser-stage__window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 58%;
+    aspect-ratio: 1.42 / 1;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    filter: var(--drop-shadow-sky-lg);
+    animation: browser-stage-float 9s ease-in-out infinite;
+  }
+  .browser-stage__chrome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    background: color-mix(in srgb, var(--sky-action) 10%, var(--glass-bg));
+    border-bottom: 1px solid color-mix(in srgb, var(--sky-action) 22%, transparent);
+  }
+  .browser-stage__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .browser-stage__dot--r { background: #ff6058; }
+  .browser-stage__dot--y { background: #ffbc2c; }
+  .browser-stage__dot--g { background: #28c83f; }
+  .browser-stage__url {
+    flex: 1;
+    height: 16px;
+    margin-left: 6px;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sky-action) 16%, transparent);
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .browser-stage__url-text {
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--sky-action);
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .browser-stage__caret {
+    width: 1.4px;
+    height: 10px;
+    background: var(--sky-action);
+    animation: browser-stage-caret 1.2s steps(2) infinite;
+  }
+  @keyframes browser-stage-caret { 50% { opacity: 0; } }
+  .browser-stage__page {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--sky-action) 4%, transparent);
+  }
+  .browser-stage__mark {
+    width: 28%;
+    aspect-ratio: 1 / 1;
+    background: var(--sky-action);
+    clip-path: polygon(50% 0, 100% 35%, 100% 65%, 50% 100%, 0 65%, 0 35%);
+    filter: drop-shadow(0 0 10px color-mix(in srgb, var(--sky-action) 60%, transparent));
+    animation: browser-stage-mark 8s ease-in-out infinite;
+  }
+
+  @keyframes browser-stage-float {
+    0%, 100% { transform: translate(-50%, -50%); }
+    50%      { transform: translate(-50%, calc(-50% - 6px)); }
+  }
+  @keyframes browser-stage-mark {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50%      { transform: rotate(180deg) scale(1.06); }
+  }
+
+  .browser-stage__chip {
+    position: absolute;
+    width: 22%;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+  }
+  .browser-stage__chip--src { left: 4%;  top: 56%; }
+  .browser-stage__chip--dst { right: 4%; top: 56%; }
+
+  .browser-stage__chip-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    filter: var(--drop-shadow-sky-md);
+    will-change: transform;
+  }
+  .browser-stage__chip--src .browser-stage__chip-inner { animation: browser-stage-float-x 7.5s ease-in-out infinite; }
+  .browser-stage__chip--dst .browser-stage__chip-inner { animation: browser-stage-float-x 8s   ease-in-out -1.4s infinite reverse; }
+
+  @keyframes browser-stage-float-x {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(-6px); }
+  }
+
+  .browser-stage__chip-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .browser-stage__hint {
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    background: var(--sky-action);
+    border: 0;
+    animation: browser-stage-hint 4s ease-in-out infinite;
+  }
+  .browser-stage__hint-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    animation: browser-stage-hint-dot 1.4s ease-in-out infinite;
+  }
+  @keyframes browser-stage-hint {
+    0%, 100% { transform: translate(-50%, 0); }
+    50%      { transform: translate(-50%, -3px); }
+  }
+  @keyframes browser-stage-hint-dot { 50% { opacity: 0.35; } }
+
+  @media (max-width: 640px) {
+    .browser-stage { max-width: 360px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .browser-stage__arc,
+    .browser-stage__pulse rect,
+    .browser-stage__window,
+    .browser-stage__chip-inner,
+    .browser-stage__mark,
+    .browser-stage__caret,
+    .browser-stage__hint,
+    .browser-stage__hint-dot,
+    .browser-stage__packet {
+      animation: none !important;
+    }
+    .browser-stage__packet { opacity: 0; }
+  }
+</style>
