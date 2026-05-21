@@ -84,7 +84,9 @@ const splitFeatures = (tier: Tier) => {
             <ul class="plans-tier__features">
               {own.map((feature) => <li>{feature}</li>)}
             </ul>
-            <p class="plans-tier__footnote">{s.tier.footnote}</p>
+            {s.tier.footnote && (
+              <p class="plans-tier__footnote">{s.tier.footnote}</p>
+            )}
           </li>
         );
       })}

@@ -504,7 +504,7 @@
           "1-year run-history retention",
           "Overage: $2.50 / TB"
         ],
-        "footnote": "Cloud overage billed at $2.50 per extra TB."
+        "footnote": ""
       },
       "business": {
         "name": "Pro+",
@@ -517,7 +517,7 @@
           "1-year run-history retention",
           "Overage: $2.50 / TB"
         ],
-        "footnote": "Cloud overage billed at $2.50 per extra TB."
+        "footnote": ""
       },
       "priceCaption": "On Browser transfers run inside your tab — always free, never counted against quota on any plan. Approximate prices, may shift slightly before launch."
     },
