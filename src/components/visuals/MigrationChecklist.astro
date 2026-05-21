@@ -28,41 +28,39 @@ const activityRows = [
 
 <svg viewBox="0 0 480 480" class="mc-svg w-full h-auto max-w-[480px] mx-auto font-sans" role="img" aria-labelledby="mc-title">
   <title id="mc-title">{ariaLabel}</title>
-  <rect x=".5" y=".5" width="479" height="479" rx="20" class="fill-white stroke-divider" stroke-width="1" />
-  <text x="24" y="40" class="mc-title-text fill-dark-charcoal">{titleText}</text>
+  <text x="24" y="40" class="mc-title-text fill-[var(--ink)]">{titleText}</text>
   <g class="mc-pill-running">
-    <rect x="356" y="20" width="100" height="32" rx="16" class="fill-baby-blue" />
-    <circle class="mc-pulse fill-brand-blue" cx="372" cy="36" r="4" />
-    <text x="384" y="36" class="mc-pill-text fill-brand-blue">{statusRunning}</text>
+    <rect x="326" y="20" width="130" height="32" rx="16" class="fill-[color:color-mix(in_srgb,var(--sky-action)_12%,transparent)]" />
+    <circle class="mc-pulse fill-[var(--sky-action)]" cx="342" cy="36" r="4" />
+    <text x="354" y="36" class="mc-pill-text fill-[var(--sky-action)]">{statusRunning}</text>
   </g>
   <g class="mc-pill-complete">
-    <rect x="356" y="20" width="100" height="32" rx="16" class="fill-success-bg" />
-    <path d="M369 36l4 4 8-8" class="mc-check-path stroke-success" stroke-width="2" />
-    <text x="386" y="36" class="mc-pill-text fill-success">{statusComplete}</text>
+    <rect x="326" y="20" width="130" height="32" rx="16" class="fill-success-bg" />
+    <path d="M339 36l4 4 8-8" class="mc-check-path stroke-success" stroke-width="2" />
+    <text x="356" y="36" class="mc-pill-text fill-success">{statusComplete}</text>
   </g>
-  <line x1="0" y1="68" x2="480" y2="68" class="stroke-divider" stroke-width="1" />
 
-  <text x="24" y="100" class="mc-cap fill-slate-gray">{filesLabel}</text>
+  <text x="24" y="100" class="mc-cap fill-[var(--ink-soft)]">{filesLabel}</text>
   {fileSteps.map((v, i) => (
-    <text x="24" y="138" class={`mc-step-${i + 1} mc-num fill-dark-charcoal`}>{v}</text>
+    <text x="24" y="138" class={`mc-step-${i + 1} mc-num fill-[var(--ink)]`}>{v}</text>
   ))}
-  <text x="180" y="100" class="mc-cap fill-slate-gray">{sizeLabel}</text>
+  <text x="180" y="100" class="mc-cap fill-[var(--ink-soft)]">{sizeLabel}</text>
   {sizeSteps.map((v, i) => (
     <g class={`mc-step-${i + 1}`}>
-      <text x="180" y="138" class="mc-num fill-dark-charcoal">{v}</text>
-      <text x="248" y="138" class="mc-unit fill-slate-gray">GB</text>
+      <text x="180" y="138" class="mc-num fill-[var(--ink)]">{v}</text>
+      <text x="248" y="138" class="mc-unit fill-[var(--ink-soft)]">GB</text>
     </g>
   ))}
-  <text x="336" y="100" class="mc-cap fill-slate-gray">{errorsLabel}</text>
-  <text x="336" y="138" class="mc-num fill-dark-charcoal">0</text>
+  <text x="336" y="100" class="mc-cap fill-[var(--ink-soft)]">{errorsLabel}</text>
+  <text x="336" y="138" class="mc-num fill-[var(--ink)]">0</text>
 
-  <rect x="24" y="168" width="432" height="8" rx="4" class="fill-soft-gray" />
-  <rect class="mc-progress-fill fill-brand-blue" x="24" y="168" width="432" height="8" rx="4" />
+  <rect x="24" y="168" width="432" height="8" rx="4" class="fill-[var(--glass-bg-strong)]" />
+  <rect class="mc-progress-fill fill-[var(--sky-action)]" x="24" y="168" width="432" height="8" rx="4" />
 
-  <text x="24" y="216" class="mc-cap fill-slate-gray">{recentActivityLabel}</text>
+  <text x="24" y="216" class="mc-cap fill-[var(--ink-soft)]">{recentActivityLabel}</text>
   <g class="mc-report-btn" aria-hidden="true">
-    <rect x="316" y="200" width="140" height="28" rx="14" class="fill-white stroke-brand-blue" stroke-width="1.5" />
-    <text x="386" y="214" class="mc-report-text fill-brand-blue">{viewFinalReport} →</text>
+    <rect x="316" y="200" width="140" height="28" rx="14" class="fill-[var(--glass-bg-strong)] stroke-[var(--sky-action)]" stroke-width="1.5" />
+    <text x="386" y="214" class="mc-report-text fill-[var(--sky-action)]">{viewFinalReport} →</text>
   </g>
   {activityRows.map((filename, i) => {
     const cy = 258 + i * 44;
@@ -70,13 +68,14 @@ const activityRows = [
       <g class={`mc-row mc-row-${i + 1}`}>
         <circle cx="40" cy={cy} r="10" class="fill-success" />
         <path d={`M36 ${cy}l3 3 6-6`} class="mc-check-path stroke-white" stroke-width="1.75" />
-        <text x="62" y={cy} class="mc-row-text fill-dark-charcoal">{filename}</text>
+        <text x="62" y={cy} class="mc-row-text fill-[var(--ink)]">{filename}</text>
       </g>
     );
   })}
 </svg>
 
 <style>
+  .mc-svg { filter: var(--drop-shadow-sky-sm); }
   .mc-svg text { font-weight: 500; }
   .mc-title-text { font-size: 16px; }
   .mc-pill-text { font-size: 12px; dominant-baseline: middle; }

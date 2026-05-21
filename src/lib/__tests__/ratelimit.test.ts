@@ -1,6 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 const { kvState, kvMock } = vi.hoisted(() => {
+  process.env.KV_REST_API_URL = 'http://test.local';
+  process.env.KV_REST_API_TOKEN = 'test-token';
   const kvState = {
     counters: new Map<string, number>(),
     expirations: new Map<string, number>(),

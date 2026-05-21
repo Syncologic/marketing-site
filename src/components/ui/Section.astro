@@ -1,5 +1,5 @@
 ---
-type Surface = 'white' | 'soft' | 'dark';
+type Surface = 'sky' | 'pane' | 'tint';
 type Padding = 'sm' | 'md' | 'lg';
 
 interface Props {
@@ -8,14 +8,15 @@ interface Props {
   class?: string;
   id?: string;
   as?: 'section' | 'div' | 'header' | 'footer';
+  reveal?: boolean;
 }
 
-const { surface = 'white', padding = 'lg', class: extra = '', id, as = 'section' } = Astro.props as Props;
+const { surface = 'sky', padding = 'lg', class: extra = '', id, as = 'section', reveal = false } = Astro.props as Props;
 
 const surfaces: Record<Surface, string> = {
-  white: 'bg-white text-dark-charcoal',
-  soft: 'bg-soft-gray text-dark-charcoal',
-  dark: 'bg-near-black text-white',
+  sky: 'bg-transparent text-ink',
+  pane: 'section-pane text-ink',
+  tint: 'section-tint text-ink',
 };
 
 const paddings: Record<Padding, string> = {
@@ -28,8 +29,31 @@ const classes = [surfaces[surface], paddings[padding], extra].filter(Boolean).jo
 const Tag = as;
 ---
 
-<Tag id={id} class={classes} data-surface={surface}>
+<Tag id={id} class={classes} data-surface={surface} data-reveal={reveal ? '' : undefined}>
   <div class="container-wide">
     <slot />
   </div>
 </Tag>
+
+<style is:global>
+  /* Section bands: subtle horizontal washes over the sky so adjacent
+     sections can read as separated without breaking the atmospheric layer.
+     Use sparingly — sky is the default. */
+  .section-pane {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--glass-bg-strong) 60%, transparent) 8%,
+      color-mix(in srgb, var(--glass-bg-strong) 60%, transparent) 92%,
+      transparent 100%
+    );
+  }
+  .section-tint {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--sky-mid) 18%, transparent) 50%,
+      transparent 100%
+    );
+  }
+</style>

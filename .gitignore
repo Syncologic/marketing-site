@@ -25,6 +25,9 @@ npm-debug.log*
 # Brainstorming companion (local mockups)
 .superpowers/
 
+# Impeccable skill — local design cache
+.impeccable/
+
 # Claude Code — local-only overrides
 .claude/settings.local.json
 
@@ -36,6 +39,7 @@ npm-debug.log*
 
 # Supabase CLI
 supabase/.temp/
+supabase/.branches/
 
-# Welcome marker — per-clone state
-.agents/.welcomed
+# Local dev state (faked email captures, etc.)
+.local/

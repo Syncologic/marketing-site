@@ -1,6 +1,6 @@
 ---
 type Radius = 'card' | 'feature';
-type Elevation = 'flat' | 'card' | 'elevated';
+type Elevation = 'flat' | 'elevated';
 
 interface Props {
   radius?: Radius;
@@ -16,16 +16,21 @@ const radii: Record<Radius, string> = {
   feature: 'rounded-feature',
 };
 
-const elevations: Record<Elevation, string> = {
-  flat: '',
-  card: 'shadow-card',
-  elevated: 'shadow-card-elevated',
-};
+const squircleRadius = radius === 'feature' ? 32 : 24;
+const wrapClass = elevation === 'elevated' ? 'squircle-elevation card-elevated-halo' : 'squircle-elevation';
 
-const classes = ['bg-white border border-divider', radii[radius], elevations[elevation], extra]
-  .filter(Boolean)
-  .join(' ');
+const classes = ['glass-pane', radii[radius], extra].filter(Boolean).join(' ');
 const Tag = as;
 ---
 
-<Tag class={classes}><slot /></Tag>
+<div class={wrapClass}>
+  <Tag class={classes} data-squircle data-squircle-radius={squircleRadius}><slot /></Tag>
+</div>
+
+<style is:global>
+  .card-elevated-halo {
+    filter:
+      var(--drop-shadow-sky-md)
+      drop-shadow(0 12px 36px color-mix(in srgb, var(--sky-action) 30%, transparent));
+  }
+</style>

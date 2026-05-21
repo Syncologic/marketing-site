@@ -23,64 +23,64 @@ const noTokenLabel = t('visuals.oauthIntermediary.noTokenLabel');
     stroke-linejoin="round"
   >
     <g aria-hidden="true">
-      <rect x="20" y="80" width="110" height="80" rx="14" class="fill-white stroke-slate-gray" stroke-width="1.2" />
-      <g transform="translate(75 110)" class="stroke-slate-gray" stroke-width="1.5" fill="none">
+      <rect x="20" y="80" width="110" height="80" rx="14" class="fill-[var(--glass-bg)] stroke-[var(--ink-soft)]" stroke-width="1.2" />
+      <g transform="translate(75 110)" class="stroke-[var(--ink-soft)]" stroke-width="1.5" fill="none">
         <polyline points="-9,-6 -16,0 -9,6" />
         <polyline points="9,-6 16,0 9,6" />
         <line x1="-3" y1="-7" x2="3" y2="7" />
       </g>
-      <text x="75" y="148" class="box-label fill-dark-charcoal" text-anchor="middle">{appLabel}</text>
+      <text x="75" y="148" class="box-label fill-[var(--ink)]" text-anchor="middle">{appLabel}</text>
     </g>
 
     <g aria-hidden="true">
-      <rect x="185" y="80" width="110" height="80" rx="14" class="fill-baby-blue stroke-brand-blue" stroke-width="1.5" />
-      <g transform="translate(240 110)" class="stroke-brand-blue" stroke-width="1.5" fill="none">
+      <rect x="185" y="80" width="110" height="80" rx="14" class="fill-[color:color-mix(in_srgb,var(--sky-action)_12%,transparent)] stroke-[var(--sky-action)]" stroke-width="1.5" />
+      <g transform="translate(240 110)" class="stroke-[var(--sky-action)]" stroke-width="1.5" fill="none">
         <rect x="-14" y="-9" width="28" height="18" rx="4" />
         <line x1="-14" y1="-3" x2="14" y2="-3" />
         <line x1="-9" y1="3" x2="9" y2="3" />
       </g>
-      <text x="240" y="148" class="box-label fill-dark-charcoal" text-anchor="middle">{syncologicLabel}</text>
+      <text x="240" y="148" class="box-label fill-[var(--ink)]" text-anchor="middle">{syncologicLabel}</text>
     </g>
 
     <g aria-hidden="true">
-      <rect x="350" y="80" width="110" height="80" rx="14" class="fill-soft-gray stroke-slate-gray" stroke-width="1.2" />
-      <g transform="translate(405 110)" class="stroke-slate-gray fill-white" stroke-width="1.5">
+      <rect x="350" y="80" width="110" height="80" rx="14" class="fill-[var(--glass-bg)] stroke-[var(--ink-soft)]" stroke-width="1.2" />
+      <g transform="translate(405 110)" class="stroke-[var(--ink-soft)] fill-[var(--glass-bg)]" stroke-width="1.5">
         <path d="M -16 6 C -22 6, -22 -2, -16 -2 C -16 -10, 0 -12, 2 -4 C 12 -4, 12 6, 4 6 Z" />
       </g>
-      <text x="405" y="148" class="box-label fill-dark-charcoal" text-anchor="middle">{providerLabel}</text>
+      <text x="405" y="148" class="box-label fill-[var(--ink)]" text-anchor="middle">{providerLabel}</text>
     </g>
 
-    <g class="api-arrow stroke-brand-blue" stroke-width="1.5" fill="none">
+    <g class="api-arrow stroke-[var(--sky-action)]" stroke-width="1.5" fill="none">
       <line x1="135" y1="115" x2="180" y2="115" />
       <polyline points="172,110 180,115 172,120" class="fill-none" />
       <line x1="180" y1="125" x2="135" y2="125" />
       <polyline points="143,120 135,125 143,130" class="fill-none" />
     </g>
-    <text x="157" y="100" class="arrow-label fill-slate-gray" text-anchor="middle" aria-hidden="true">{apiArrowLabel}</text>
+    <text x="157" y="100" class="arrow-label fill-[var(--ink-soft)]" text-anchor="middle" aria-hidden="true">{apiArrowLabel}</text>
 
-    <g class="oauth-arrow stroke-brand-blue" stroke-width="1.5" fill="none">
+    <g class="oauth-arrow stroke-[var(--sky-action)]" stroke-width="1.5" fill="none">
       <line x1="300" y1="115" x2="345" y2="115" />
       <polyline points="337,110 345,115 337,120" class="fill-none" />
       <line x1="345" y1="125" x2="300" y2="125" />
       <polyline points="308,120 300,125 308,130" class="fill-none" />
     </g>
-    <text x="322" y="100" class="arrow-label fill-slate-gray" text-anchor="middle" aria-hidden="true">{oauthArrowLabel}</text>
+    <text x="322" y="100" class="arrow-label fill-[var(--ink-soft)]" text-anchor="middle" aria-hidden="true">{oauthArrowLabel}</text>
 
     <g class="no-token" aria-hidden="true">
-      <line x1="135" y1="220" x2="345" y2="220" stroke-width="1" stroke-dasharray="3 5" class="stroke-divider" />
+      <line x1="135" y1="220" x2="345" y2="220" stroke-width="1" stroke-dasharray="3 5" class="stroke-[color:color-mix(in_srgb,var(--ink)_18%,transparent)]" />
       <g transform="translate(240 220)" class="stroke-error" stroke-width="1.5" fill="none">
-        <circle r="9" class="fill-white" />
+        <circle r="9" class="fill-[var(--glass-bg)]" />
         <line x1="-4" y1="-4" x2="4" y2="4" />
         <line x1="4" y1="-4" x2="-4" y2="4" />
       </g>
-      <text x="240" y="248" class="no-token-label fill-slate-gray" text-anchor="middle">{noTokenLabel}</text>
+      <text x="240" y="248" class="no-token-label fill-[var(--ink-soft)]" text-anchor="middle">{noTokenLabel}</text>
     </g>
 
     <g class="api-pulse" aria-hidden="true">
-      <circle r="3" class="fill-brand-blue" />
+      <circle r="3" class="fill-[var(--sky-action)]" />
     </g>
     <g class="oauth-pulse" aria-hidden="true">
-      <circle r="3" class="fill-brand-blue" />
+      <circle r="3" class="fill-[var(--sky-action)]" />
     </g>
   </svg>
 </div>

@@ -19,15 +19,15 @@ const t = getT(locale);
 
 {items.length > 1 && (
   <nav class="guide-toc text-caption" aria-labelledby="guide-toc-title">
-    <p id="guide-toc-title" class="text-caption font-medium text-dark-charcoal mb-3">{t('guides.meta.tableOfContents')}</p>
-    <ul class="space-y-1 border-l border-divider">
+    <p id="guide-toc-title" class="text-caption font-medium text-ink mb-3">{t('guides.meta.tableOfContents')}</p>
+    <ul class="space-y-1 border-l border-[var(--glass-border-soft)]">
       {items.map((h) => (
         <li>
           <a
             href={`#${h.slug}`}
             data-toc-link
             data-toc-target={h.slug}
-            class="guide-toc__link block py-1.5 pl-4 -ml-px border-l-2 border-transparent text-slate-gray hover:text-dark-charcoal transition-colors"
+            class="guide-toc__link block py-1.5 pl-4 -ml-px border-l-2 border-transparent text-ink hover:text-[var(--sky-action)] transition-colors"
           >
             {h.text}
           </a>
@@ -39,8 +39,8 @@ const t = getT(locale);
 
 <style>
   .guide-toc__link.is-active {
-    color: var(--color-dark-charcoal);
-    border-color: var(--color-brand-blue);
+    color: var(--ink);
+    border-color: var(--sky-action);
     font-weight: 500;
   }
 </style>

@@ -4,6 +4,13 @@ const url = import.meta.env.SUPABASE_URL;
 const key = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!url || !key) {
+  if (import.meta.env.DEV) {
+    throw new Error(
+      'SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are missing.\n' +
+        'Local dev: `cp .env.example .env` then `npm run dev:up` then `npm run dev`.\n' +
+        'See CONTRIBUTING.md → "Setup" for details.',
+    );
+  }
   throw new Error('SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required');
 }
 

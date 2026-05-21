@@ -1,14 +1,20 @@
 import { Resend } from 'resend';
 import type { Locale } from '../i18n/utils';
+import { fakeResend } from './dev/fake-resend';
 
 const apiKey = import.meta.env.RESEND_API_KEY;
 const fromEmail = import.meta.env.RESEND_FROM_EMAIL || 'Syncologic <onboarding@resend.dev>';
 
-if (!apiKey) {
+function buildResend(): Resend {
+  if (apiKey) return new Resend(apiKey);
+  if (import.meta.env.DEV) {
+    console.info('[dev] RESEND_API_KEY missing — emails will be written to .local/dev-emails/ instead of sent');
+    return fakeResend as unknown as Resend;
+  }
   throw new Error('RESEND_API_KEY is required');
 }
 
-export const resend = new Resend(apiKey);
+export const resend = buildResend();
 
 interface ConfirmationParams {
   to: string;
@@ -69,13 +75,15 @@ const COPY: Record<Locale, Copy> = {
 };
 
 const COLOR = {
-  text: '#1C2B33',
-  body: '#5D6C7B',
-  muted: '#8595A4',
-  brand: '#0064E0',
-  brandSoft: '#E8F3FF',
-  divider: '#DEE3E9',
-  paper: '#F7F8FA',
+  text: '#1B2230',
+  body: '#3B4554',
+  muted: '#7A8694',
+  brand: '#1B6BD4',
+  brandDark: '#0F4FA8',
+  brandSoft: '#EAF2FC',
+  divider: '#DDE7F2',
+  paper: '#F1F6FC',
+  card: '#FFFFFF',
 } as const;
 
 function htmlEscape(s: string): string {
@@ -88,9 +96,10 @@ function htmlEscape(s: string): string {
 }
 
 function renderEmail(p: ConfirmationParams, c: Copy): string {
-  const logoUrl = htmlEscape(`${p.siteUrl}/assets/brand/icon-black.png`);
+  const logoUrl = htmlEscape(`${p.siteUrl}/assets/brand/icon_adaptive.svg`);
   const segHref = htmlEscape(p.segmentationLink);
   const unsubHref = htmlEscape(p.unsubscribeLink);
+  const fontStack = `'Switzer','Inter','Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif`;
   return `<!doctype html>
 <html lang="${p.locale}">
   <head>
@@ -98,33 +107,33 @@ function renderEmail(p: ConfirmationParams, c: Copy): string {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${c.subject}</title>
   </head>
-  <body style="margin:0;padding:0;background:${COLOR.paper};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:${COLOR.text};">
+  <body style="margin:0;padding:0;background:${COLOR.paper};font-family:${fontStack};color:${COLOR.text};-webkit-font-smoothing:antialiased;">
     <span style="display:none!important;visibility:hidden;opacity:0;color:transparent;height:0;width:0;overflow:hidden;mso-hide:all;">${c.preview}</span>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${COLOR.paper};">
       <tr>
-        <td align="center" style="padding:40px 16px;">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;background:#FFFFFF;border:1px solid ${COLOR.divider};border-radius:20px;overflow:hidden;">
+        <td align="center" style="padding:48px 16px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;background:${COLOR.card};border:1px solid ${COLOR.divider};border-radius:24px;overflow:hidden;box-shadow:0 14px 28px -16px rgba(20,40,80,0.18),0 4px 10px -4px rgba(20,40,80,0.08);">
             <tr>
-              <td align="center" style="padding:36px 32px 8px 32px;">
-                <img src="${logoUrl}" width="64" height="64" alt="${c.logoAlt}" style="display:block;width:64px;height:64px;border:0;outline:none;text-decoration:none;" />
-              </td>
-            </tr>
-            <tr>
-              <td style="padding:16px 32px 0 32px;">
-                <h1 style="margin:0 0 12px 0;font-size:26px;line-height:1.25;font-weight:500;color:${COLOR.text};text-align:center;">${c.greeting}</h1>
-                <p style="margin:0 0 20px 0;font-size:16px;line-height:1.6;color:${COLOR.body};text-align:center;">${c.intro}</p>
+              <td style="background:linear-gradient(180deg,${COLOR.brandSoft} 0%,${COLOR.card} 100%);padding:36px 32px 12px 32px;text-align:center;">
+                <img src="${logoUrl}" width="64" height="64" alt="${c.logoAlt}" style="display:block;width:64px;height:64px;border:0;outline:none;margin:0 auto;text-decoration:none;" />
               </td>
             </tr>
             <tr>
               <td style="padding:8px 32px 0 32px;">
-                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${COLOR.brandSoft};border-radius:16px;">
+                <h1 style="margin:0 0 12px 0;font-size:28px;line-height:1.2;font-weight:700;color:${COLOR.text};text-align:center;letter-spacing:-0.01em;">${c.greeting}</h1>
+                <p style="margin:0 0 24px 0;font-size:16px;line-height:1.65;color:${COLOR.body};text-align:center;">${c.intro}</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:8px 32px 0 32px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${COLOR.brandSoft};border:1px solid ${COLOR.divider};border-radius:18px;">
                   <tr>
-                    <td style="padding:20px 24px;">
-                      <p style="margin:0 0 12px 0;font-size:15px;line-height:1.5;color:${COLOR.text};">${c.segPrompt}</p>
+                    <td style="padding:22px 24px;">
+                      <p style="margin:0 0 14px 0;font-size:15px;line-height:1.55;color:${COLOR.text};font-weight:600;">${c.segPrompt}</p>
                       <div style="text-align:center;">
-                        <a href="${segHref}" style="display:inline-block;padding:12px 22px;background:${COLOR.brand};color:#FFFFFF;font-size:15px;font-weight:500;line-height:1;text-decoration:none;border-radius:100px;">${c.segCta}</a>
+                        <a href="${segHref}" style="display:inline-block;padding:13px 24px;background:${COLOR.brand};color:#FFFFFF;font-size:15px;font-weight:700;line-height:1;text-decoration:none;border-radius:999px;letter-spacing:0.01em;">${c.segCta}</a>
                       </div>
-                      <p style="margin:14px 0 0 0;font-size:13px;line-height:1.5;color:${COLOR.muted};">${c.segNote}</p>
+                      <p style="margin:14px 0 0 0;font-size:13px;line-height:1.55;color:${COLOR.muted};">${c.segNote}</p>
                     </td>
                   </tr>
                 </table>
@@ -132,17 +141,17 @@ function renderEmail(p: ConfirmationParams, c: Copy): string {
             </tr>
             <tr>
               <td style="padding:28px 32px 8px 32px;">
-                <p style="margin:0;font-size:14px;line-height:1.6;color:${COLOR.muted};">${c.signoff}<br/>${c.team}</p>
+                <p style="margin:0;font-size:14px;line-height:1.6;color:${COLOR.body};">${c.signoff}<br/><span style="color:${COLOR.muted};">${c.team}</span></p>
               </td>
             </tr>
             <tr>
               <td style="padding:24px 32px 32px 32px;">
                 <hr style="border:none;border-top:1px solid ${COLOR.divider};margin:0 0 16px 0;" />
-                <p style="margin:0;font-size:12px;line-height:1.5;color:${COLOR.muted};">${c.unsubPrompt} <a href="${unsubHref}" style="color:${COLOR.body};text-decoration:underline;">${c.unsubCta}</a>.</p>
+                <p style="margin:0;font-size:12px;line-height:1.55;color:${COLOR.muted};">${c.unsubPrompt} <a href="${unsubHref}" style="color:${COLOR.brand};text-decoration:underline;">${c.unsubCta}</a>.</p>
               </td>
             </tr>
           </table>
-          <p style="margin:24px 0 0 0;font-size:12px;color:${COLOR.muted};">Syncologic</p>
+          <p style="margin:24px 0 0 0;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:${COLOR.muted};font-weight:600;">Syncologic</p>
         </td>
       </tr>
     </table>

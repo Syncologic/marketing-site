@@ -1,129 +1,148 @@
 ---
 import Button from '../ui/Button.astro';
-import Input from '../ui/Input.astro';
 import ProviderLogo from '../ui/ProviderLogo.astro';
-import Section from '../ui/Section.astro';
-import { getLocaleFromUrl, getT, localizedPath } from '../../i18n/utils';
-import type { WaitlistPost } from '../../lib/validation';
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
 
-interface Props {
-  segmentHint?: WaitlistPost['segment_hint'];
-  id?: string;
-}
-
-const { segmentHint = null, id = 'waitlist' } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
-const sourcePage = Astro.url.pathname;
 
-const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive' | 'dropbox' | 's3' | 'sftp' | 'your_server' | 'nextcloud' }> = [
+const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive' | 's3' | 'your_server' | 'dropbox' }> = [
   { value: 'google_drive', logoId: 'google-drive' },
   { value: 'onedrive', logoId: 'onedrive' },
   { value: 'dropbox', logoId: 'dropbox' },
   { value: 's3', logoId: 's3' },
-  { value: 'sftp', logoId: 'sftp' },
   { value: 'your_server', logoId: 'your_server' },
-  { value: 'nextcloud', logoId: 'nextcloud' },
 ];
 ---
 
-<Section surface="soft" padding="md" id={id}>
-  <div class="max-w-2xl mx-auto text-center" data-locale={locale}>
-    <h2 class="text-h1 font-medium text-dark-charcoal mb-4">{t('nav.joinWaitlist')}</h2>
-    <p class="text-body text-slate-gray mb-8 max-w-xl mx-auto">{t('waitlist.step1Subtitle')}</p>
+<div
+  class="waitlist-modal hidden fixed inset-0 z-[80]"
+  data-locale={locale}
+  aria-hidden="true"
+>
+  <div class="waitlist-modal-backdrop absolute inset-0 bg-[rgb(8_14_30/0.7)] opacity-0 transition-opacity duration-300"></div>
 
-    <form
-      class="waitlist-form-step1 flex flex-col sm:flex-row gap-3 justify-center"
-      data-source-page={sourcePage}
-      data-locale={locale}
-      data-segment-hint={segmentHint}
-      novalidate
-    >
-      <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-      <Input type="email" name="email" required placeholder={t('waitlist.emailPlaceholder')} ariaLabel={t('waitlist.emailLabel')} class="sm:max-w-xs" />
-      <Button type="submit" variant="primary">
-        <span class="btn-label-default">{t('waitlist.submit')}</span>
-        <span class="btn-label-loading hidden">{t('waitlist.submitting')}</span>
-      </Button>
-    </form>
-    <p class="text-caption text-slate-gray mt-3">
-      {t('waitlist.consentBefore')}<a href={localizedPath(locale, '/privacy')} class="text-brand-blue hover:underline">{t('waitlist.consentLink')}</a>{t('waitlist.consentAfter')}
-    </p>
-    <p
-      class="waitlist-msg mt-4 text-body font-medium text-dark-charcoal min-h-[28px] transition-colors"
-      role="status"
-      aria-live="polite"
-      data-msg-success={t('waitlist.success')}
-      data-msg-error-network={t('waitlist.errorNetwork')}
-      data-msg-error-rate={t('waitlist.errorRate')}
-      data-msg-error-removed={t('waitlist.errorAlreadyRemoved')}
-      data-msg-error-invalid-email={t('waitlist.errorInvalidEmail')}
-    ></p>
-
+  <div class="absolute inset-0 flex items-stretch sm:items-center justify-center sm:p-6 overflow-y-auto">
     <div
-      class="waitlist-step2 hidden bg-soft-gray text-left flex flex-col fixed inset-0 z-[60] mt-0 mx-0 max-w-none rounded-none px-6 pt-4 pb-6 overflow-hidden sm:relative sm:inset-auto sm:z-auto sm:mt-10 sm:mx-auto sm:max-w-xl sm:rounded-card sm:p-8 sm:overflow-visible"
-      data-row-id=""
-      data-token=""
-      data-segment-hint={segmentHint ?? ''}
-      data-msg-q-use-case={t('waitlist.questionUseCase')}
-      data-msg-q-source-provider={t('waitlist.questionSourceProvider')}
-      data-msg-q-dest-provider={t('waitlist.questionDestProvider')}
-      data-msg-q-size={t('waitlist.questionSize')}
-      data-msg-q-frequency={t('waitlist.questionFrequency')}
-      data-msg-q-runner={t('waitlist.questionRunner')}
-      data-msg-q-role={t('waitlist.questionRole')}
-      data-msg-hint-auto={t('waitlist.hintAutoAdvance')}
-      data-msg-hint-last={t('waitlist.hintLastStep')}
-      data-msg-encourage-first={t('waitlist.encourageFirst')}
-      data-msg-encourage-mid={t('waitlist.encourageMid')}
-      data-msg-encourage-last={t('waitlist.encourageLast')}
-      data-msg-done={t('waitlist.done')}
-      data-msg-done-sub={t('waitlist.doneSub')}
-      data-msg-next={t('waitlist.next')}
-      data-msg-back={t('waitlist.back')}
-      data-msg-close={t('waitlist.close')}
+      class="waitlist-modal-panel relative w-full sm:max-w-xl sm:!rounded-card flex flex-col max-h-[100dvh] sm:h-[500px] sm:max-h-[calc(100dvh-3rem)] opacity-0 translate-y-3 transition-all duration-400 focus:outline-none focus-visible:outline-none"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="waitlist-modal-title"
+      tabindex="-1"
+      data-squircle
+      data-squircle-radius="24"
     >
-      <div class="flex justify-end mb-1 shrink-0 sm:hidden">
-        <button type="button" class="step2-close w-11 h-11 shrink-0 -mr-2 inline-flex items-center justify-center text-slate-gray hover:text-dark-charcoal" aria-label={t('nav.close')}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <line x1="6" y1="6" x2="18" y2="18" />
-            <line x1="18" y1="6" x2="6" y2="18" />
-          </svg>
-        </button>
-      </div>
-      <div class="step2-progress flex justify-center items-center gap-1.5 mb-3 shrink-0" role="tablist" aria-label="Question steps"></div>
-      <p class="step2-progress-label hidden sm:block text-caption text-slate-gray text-center mb-6" role="status" aria-live="polite"></p>
+      <button
+        type="button"
+        class="waitlist-modal-nav waitlist-modal-back absolute top-4 left-4"
+        style="display: none"
+        aria-label={t('waitlist.back')}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12,19 5,12 12,5" />
+        </svg>
+      </button>
 
-      <div class="step2-stage relative overflow-hidden grow shrink min-h-0 flex flex-col">
-        <div class="step2-card transition-all duration-300 ease-out flex flex-col h-full min-h-0">
-          <p class="step2-eyebrow text-compact font-medium text-dark-charcoal text-center mb-3 min-h-[1.5rem] shrink-0"></p>
-          <h3 class="step2-title text-h3 font-bold text-dark-charcoal text-center mb-4 sm:mb-6 shrink-0"></h3>
-          <div class="step2-options grid grid-cols-1 sm:grid-cols-2 gap-2 grow min-h-0 overflow-y-auto sm:grow-0 sm:overflow-visible"></div>
+      <button
+        type="button"
+        class="waitlist-modal-nav waitlist-modal-close absolute top-4 right-4"
+        aria-label={t('nav.close')}
+      >
+        <svg class="waitlist-modal-close-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <line x1="6" y1="6" x2="18" y2="18" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+        </svg>
+      </button>
+
+      <div class="waitlist-modal-intro px-6 sm:px-10 py-6 sm:py-8 text-center flex flex-col items-center justify-center grow">
+        <div class="waitlist-modal-logo inline-flex items-center justify-center mb-4">
+          <img
+            src="/assets/brand/icon_white_background.svg"
+            alt=""
+            width="88"
+            height="88"
+            class="w-20 h-20 sm:w-22 sm:h-22"
+          />
+        </div>
+        <p class="waitlist-modal-greeting text-compact font-medium text-ink-soft mb-2 tracking-wide">
+          {t('homepage.modal.greeting')}
+        </p>
+        <h2
+          id="waitlist-modal-title"
+          class="waitlist-modal-title sr-only"
+        >
+          {t('homepage.modal.title')}
+        </h2>
+        <p class="waitlist-modal-intro-body text-body text-ink mt-3 max-w-md leading-snug">
+          {t('homepage.modal.intro')}
+        </p>
+        <div class="waitlist-modal-intro-actions flex flex-col items-center gap-2 mt-5">
+          <Button type="button" variant="primary" size="lg" class="waitlist-modal-cta">
+            {t('homepage.modal.cta')}
+          </Button>
+          <button
+            type="button"
+            class="waitlist-modal-skip"
+          >
+            {t('homepage.modal.skipIntro')}
+          </button>
         </div>
       </div>
 
-      <p class="step2-hint hidden sm:block text-small text-slate-gray text-center mt-5 min-h-[1.25rem]"></p>
+      <div
+        class="waitlist-step2 hidden px-6 sm:px-8 pt-8 sm:pt-10 pb-6 sm:pb-8 flex-col grow min-h-0"
+        data-row-id=""
+        data-token=""
+        data-segment-hint=""
+        data-msg-q-use-case={t('waitlist.questionUseCase')}
+        data-msg-q-source-provider={t('waitlist.questionSourceProvider')}
+        data-msg-q-dest-provider={t('waitlist.questionDestProvider')}
+        data-msg-q-size={t('waitlist.questionSize')}
+        data-msg-hint-auto={t('waitlist.hintAutoAdvance')}
+        data-msg-hint-last={t('waitlist.hintLastStep')}
+        data-msg-encourage-first={t('waitlist.encourageFirst')}
+        data-msg-encourage-mid={t('waitlist.encourageMid')}
+        data-msg-encourage-last={t('waitlist.encourageLast')}
+        data-msg-done={t('waitlist.done')}
+        data-msg-done-sub={t('waitlist.doneSub')}
+        data-msg-next={t('waitlist.next')}
+        data-msg-back={t('waitlist.back')}
+        data-msg-close={t('waitlist.close')}
+      >
+        <div class="shrink-0">
+          <div class="step2-progress flex justify-center items-center gap-1.5 mb-3" role="tablist" aria-label="Question steps"></div>
+          <p class="step2-progress-label text-caption text-ink-soft text-center mb-4" role="status" aria-live="polite"></p>
+          <div class="step2-anim transition-all duration-300 ease-out">
+            <p class="step2-eyebrow text-compact font-medium text-ink text-center mb-2 min-h-[1.5rem]"></p>
+            <h3 class="step2-title text-h3 font-bold text-ink text-center"></h3>
+          </div>
+        </div>
 
-      <div class="step2-controls hidden sm:flex items-center justify-between gap-3 mt-6 shrink-0">
-        <button type="button" class="step2-back text-caption text-slate-gray hover:text-dark-charcoal underline disabled:opacity-30 disabled:no-underline disabled:hover:text-slate-gray transition-colors" disabled>← Back</button>
-        <button type="button" class="step2-skip text-caption text-slate-gray hover:text-dark-charcoal underline transition-colors">{t('waitlist.step2Skip')}</button>
-        <Button type="button" variant="primary" size="sm" class="step2-next">Next →</Button>
+        <div class="grow flex items-center justify-center min-h-0 py-4">
+          <div class="step2-anim transition-all duration-300 ease-out w-full">
+            <div class="step2-options grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+          </div>
+        </div>
+
+        <p class="step2-hint hidden sm:block text-small text-ink-soft text-center min-h-[1.25rem] shrink-0"></p>
       </div>
     </div>
-
-    <template class="step2-icon-template">
-      {providerIconMap.map((p) => (
-        <div data-id={p.value}>
-          <ProviderLogo provider={p.logoId} size={24} />
-        </div>
-      ))}
-    </template>
   </div>
-</Section>
+
+  <template class="step2-icon-template">
+    {providerIconMap.map((p) => (
+      <div data-id={p.value}>
+        <ProviderLogo provider={p.logoId} size={24} />
+      </div>
+    ))}
+  </template>
+</div>
 
 <script>
+  import { loadWaitlistState, saveWaitlistState, clearWaitlistState } from '../../lib/waitlist-storage';
+
   type Locale = 'en' | 'pt-br';
-  type Stage1Result = { id: string; token: string };
 
   const QUESTIONS: Array<{ field: string; options: Array<{ value: string; label: { en: string; 'pt-br': string } }> }> = [
     {
@@ -144,9 +163,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         { value: 'onedrive', label: { en: 'OneDrive', 'pt-br': 'OneDrive' } },
         { value: 'dropbox', label: { en: 'Dropbox', 'pt-br': 'Dropbox' } },
         { value: 's3', label: { en: 'S3 / S3-compatible', 'pt-br': 'S3 / compatível com S3' } },
-        { value: 'sftp', label: { en: 'SFTP', 'pt-br': 'SFTP' } },
         { value: 'your_server', label: { en: 'My server', 'pt-br': 'Meu servidor' } },
-        { value: 'nextcloud', label: { en: 'Nextcloud', 'pt-br': 'Nextcloud' } },
         { value: 'other', label: { en: 'Other', 'pt-br': 'Outro' } },
       ],
     },
@@ -157,9 +174,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         { value: 'onedrive', label: { en: 'OneDrive', 'pt-br': 'OneDrive' } },
         { value: 'dropbox', label: { en: 'Dropbox', 'pt-br': 'Dropbox' } },
         { value: 's3', label: { en: 'S3 / S3-compatible', 'pt-br': 'S3 / compatível com S3' } },
-        { value: 'sftp', label: { en: 'SFTP', 'pt-br': 'SFTP' } },
         { value: 'your_server', label: { en: 'My server', 'pt-br': 'Meu servidor' } },
-        { value: 'nextcloud', label: { en: 'Nextcloud', 'pt-br': 'Nextcloud' } },
         { value: 'other', label: { en: 'Other', 'pt-br': 'Outro' } },
       ],
     },
@@ -172,195 +187,215 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         { value: 'gt_1tb', label: { en: 'More than 1 TB', 'pt-br': 'Mais de 1 TB' } },
       ],
     },
-    {
-      field: 'frequency',
-      options: [
-        { value: 'one_time', label: { en: 'One time', 'pt-br': 'Uma vez' } },
-        { value: 'weekly', label: { en: 'Weekly', 'pt-br': 'Semanalmente' } },
-        { value: 'daily', label: { en: 'Daily', 'pt-br': 'Diariamente' } },
-        { value: 'continuous', label: { en: 'Continuous sync', 'pt-br': 'Sincronização contínua' } },
-      ],
-    },
-    {
-      field: 'preferred_runner',
-      options: [
-        { value: 'cloud', label: { en: 'Syncologic cloud', 'pt-br': 'Nuvem da Syncologic' } },
-        { value: 'browser', label: { en: 'My browser', 'pt-br': 'Meu navegador' } },
-        { value: 'private', label: { en: 'My own server / NAS', 'pt-br': 'Meu próprio servidor / NAS' } },
-        { value: 'not_sure', label: { en: 'Not sure yet', 'pt-br': 'Ainda não sei' } },
-      ],
-    },
-    {
-      field: 'role',
-      options: [
-        { value: 'consumer', label: { en: 'Personal user', 'pt-br': 'Usuário pessoal' } },
-        { value: 'business', label: { en: 'Small business / founder', 'pt-br': 'Pequena empresa / fundador' } },
-        { value: 'it', label: { en: 'IT / sysadmin', 'pt-br': 'TI / sysadmin' } },
-        { value: 'developer', label: { en: 'Developer', 'pt-br': 'Desenvolvedor' } },
-        { value: 'homelab', label: { en: 'Homelab / hobbyist', 'pt-br': 'Homelab / hobbyista' } },
-      ],
-    },
   ];
 
-  const FULLSCREEN_MQ = '(max-width: 639px)';
-  const isMobile = () => window.matchMedia(FULLSCREEN_MQ).matches;
-  let bodyScrollLocked = false;
-  function lockBodyScroll() {
-    if (bodyScrollLocked) return;
-    document.documentElement.style.overflow = 'hidden';
-    bodyScrollLocked = true;
-  }
-  function unlockBodyScroll() {
-    if (!bodyScrollLocked) return;
-    document.documentElement.style.overflow = '';
-    bodyScrollLocked = false;
-  }
-  function openFullscreen(step2: HTMLElement) {
-    if (isMobile()) lockBodyScroll();
-    const closeBtn = step2.querySelector<HTMLButtonElement>('.step2-close');
-    closeBtn?.addEventListener('click', () => closeFullscreen(step2), { once: true });
-  }
-  function closeFullscreen(step2: HTMLElement) {
-    const wasMobile = isMobile();
-    step2.classList.add('hidden');
-    unlockBodyScroll();
-    if (wasMobile) {
-      const msg = step2.parentElement?.querySelector<HTMLElement>('.waitlist-msg');
-      if (msg) {
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        requestAnimationFrame(() => {
-          msg.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+  const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  const TOKEN_RE = /^[0-9a-f]{64}$/i;
+
+  const modalState = { answered: 0, total: 0, complete: false, hint: null as string | null };
+
+  const modalEl = document.querySelector<HTMLElement>('.waitlist-modal');
+  if (modalEl) {
+    const modal = modalEl;
+    const backdrop = modal.querySelector<HTMLElement>('.waitlist-modal-backdrop')!;
+    const panel = modal.querySelector<HTMLElement>('.waitlist-modal-panel')!;
+    const intro = modal.querySelector<HTMLElement>('.waitlist-modal-intro')!;
+    const step2 = modal.querySelector<HTMLElement>('.waitlist-step2')!;
+    const backBtn = modal.querySelector<HTMLButtonElement>('.waitlist-modal-back')!;
+    let activeBackHandler: ((e: Event) => void) | null = null;
+    function setBackHandler(fn: (e: Event) => void) {
+      if (activeBackHandler) backBtn.removeEventListener('click', activeBackHandler);
+      activeBackHandler = fn;
+      backBtn.addEventListener('click', fn);
+    }
+    const introCta = modal.querySelector<HTMLButtonElement>('.waitlist-modal-cta')!;
+    const introSkip = modal.querySelector<HTMLButtonElement>('.waitlist-modal-skip')!;
+    const closeBtn = modal.querySelector<HTMLButtonElement>('.waitlist-modal-close')!;
+    const pageLocale = (modal.dataset.locale ?? 'en') as Locale;
+    const step2Template = step2.innerHTML;
+    let step2Rendered = false;
+    function restoreStep2Scaffold() {
+      step2.innerHTML = step2Template;
+    }
+
+    let lastView: 'intro' | 'step2' = 'intro';
+
+    function showIntro() {
+      intro.classList.remove('hidden');
+      intro.style.opacity = '';
+      intro.style.transform = '';
+      step2.classList.add('hidden');
+      step2.classList.remove('flex');
+      backBtn.style.display = 'none';
+      lastView = 'intro';
+    }
+
+    function showStep2() {
+      intro.classList.add('hidden');
+      intro.style.opacity = '';
+      intro.style.transform = '';
+      step2.classList.remove('hidden');
+      step2.classList.add('flex');
+      backBtn.style.display = '';
+      lastView = 'step2';
+    }
+
+    function resetToIntro() {
+      showIntro();
+      step2Rendered = false;
+    }
+
+    function advanceToQuestions() {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reveal = () => {
+        showStep2();
+        if (!step2Rendered) {
+          renderStep2(step2, pageLocale);
+          step2Rendered = true;
+        }
+      };
+      if (reduceMotion) {
+        reveal();
+        return;
+      }
+      intro.style.transition = 'opacity 220ms ease-out, transform 220ms ease-out';
+      intro.style.opacity = '0';
+      intro.style.transform = 'translateY(-4px)';
+      window.setTimeout(reveal, 220);
+    }
+
+    introCta.addEventListener('click', advanceToQuestions);
+
+    let lastFocus: HTMLElement | null = null;
+    let bodyLocked = false;
+    function lockScroll() {
+      if (bodyLocked) return;
+      document.documentElement.style.overflow = 'hidden';
+      bodyLocked = true;
+    }
+    function unlockScroll() {
+      if (!bodyLocked) return;
+      document.documentElement.style.overflow = '';
+      bodyLocked = false;
+    }
+
+    function openModal(id: string, token: string) {
+      const saved = loadWaitlistState();
+      const resume = saved && saved.id === id && saved.token === token ? saved : null;
+      if (saved && !resume) clearWaitlistState();
+
+      step2.dataset.rowId = id;
+      step2.dataset.token = token;
+      modalState.hint = step2.dataset.segmentHint || null;
+      modalState.answered = resume?.answered ?? 0;
+      modalState.total = resume?.total ?? 0;
+      modalState.complete = resume?.complete ?? false;
+      saveWaitlistState({
+        id,
+        token,
+        answers: resume?.answers ?? {},
+        cursor: resume?.cursor ?? 0,
+        complete: resume?.complete ?? false,
+        answered: resume?.answered ?? 0,
+        total: resume?.total ?? 0,
+        lastView: resume?.lastView ?? 'intro',
+      });
+
+      if (resume && (resume.lastView === 'step2' || resume.complete)) {
+        restoreStep2Scaffold();
+        showStep2();
+        renderStep2(step2, pageLocale, resume);
+        step2Rendered = true;
+      } else {
+        restoreStep2Scaffold();
+        showIntro();
+        step2Rendered = false;
+      }
+      modal.classList.remove('hidden');
+      modal.setAttribute('aria-hidden', 'false');
+      lockScroll();
+      lastFocus = document.activeElement as HTMLElement | null;
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        panel.classList.remove('opacity-0', 'translate-y-3');
+      });
+      panel.focus({ preventScroll: true });
+    }
+
+    function closeModal() {
+      backdrop.classList.add('opacity-0');
+      panel.classList.add('opacity-0', 'translate-y-3');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finish = () => {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        unlockScroll();
+        lastFocus?.focus?.({ preventScroll: true });
+        saveWaitlistState({
+          lastView,
+          answered: modalState.answered,
+          total: modalState.total,
+          complete: modalState.complete,
         });
+        window.dispatchEvent(
+          new CustomEvent('waitlist:closed', {
+            detail: {
+              id: step2.dataset.rowId,
+              token: step2.dataset.token,
+              answered: modalState.answered,
+              total: modalState.total,
+              complete: modalState.complete,
+            },
+          }),
+        );
+      };
+      if (reduceMotion) {
+        finish();
+      } else {
+        window.setTimeout(finish, 280);
       }
     }
-  }
-  window.addEventListener('resize', () => {
-    if (!isMobile()) unlockBodyScroll();
-  });
 
-  document.querySelectorAll<HTMLFormElement>('.waitlist-form-step1').forEach((form) => {
-    const root = form.parentElement!;
-    const msg = root.querySelector<HTMLElement>('.waitlist-msg')!;
-    const step2 = root.querySelector<HTMLElement>('.waitlist-step2')!;
-    const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
-    const labelDefault = submitBtn.querySelector<HTMLElement>('.btn-label-default')!;
-    const labelLoading = submitBtn.querySelector<HTMLElement>('.btn-label-loading')!;
-    const locale = (form.dataset.locale ?? 'en') as Locale;
-    const sourcePage = form.dataset.sourcePage ?? '/';
-    const segmentHint = form.dataset.segmentHint || null;
-
-    const formMsgs = {
-      success: msg.dataset.msgSuccess ?? '',
-      errorNetwork: msg.dataset.msgErrorNetwork ?? '',
-      errorRate: msg.dataset.msgErrorRate ?? '',
-      errorAlreadyRemoved: msg.dataset.msgErrorRemoved ?? '',
-      errorInvalidEmail: msg.dataset.msgErrorInvalidEmail ?? '',
-    };
-
-    function setMsg(text: string, state: 'success' | 'error' | '' = '') {
-      msg.textContent = text;
-      msg.classList.toggle('text-success', state === 'success');
-      msg.classList.toggle('text-error', state === 'error');
-    }
-
-    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-    const TOKEN_RE = /^[0-9a-f]{64}$/i;
-
-    const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
-    emailInput?.addEventListener('input', () => {
-      if (msg.textContent) setMsg('');
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+    window.addEventListener('waitlist:completed', () => {
+      backBtn.style.display = 'none';
     });
+    window.addEventListener('waitlist:request-close', () => {
+      if (!modal.classList.contains('hidden')) closeModal();
+    });
+    introSkip.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+    });
+
+    type WaitlistModalDetail = { id: string; token: string };
+    interface WaitlistModalApi {
+      open(detail: WaitlistModalDetail): void;
+    }
+    (window as unknown as { openWaitlistModal: WaitlistModalApi['open'] }).openWaitlistModal = ({ id, token }) => {
+      if (!UUID_RE.test(id) || !TOKEN_RE.test(token)) return;
+      openModal(id, token);
+    };
 
     const params = new URLSearchParams(window.location.search);
     const wlId = params.get('wl_id');
     const wlToken = params.get('wl_t');
-    const sectionId = form.closest<HTMLElement>('section')?.id;
-    const targetsThisForm = !sectionId || window.location.hash === `#${sectionId}`;
-    if (wlId && wlToken && UUID_RE.test(wlId) && TOKEN_RE.test(wlToken) && targetsThisForm) {
-      step2.dataset.rowId = wlId;
-      step2.dataset.token = wlToken;
-      step2.classList.remove('hidden');
-      form.classList.add('hidden');
-      try {
-        const cached = localStorage.getItem(`waitlist:${wlId}`);
-        if (!cached) {
-          localStorage.setItem(`waitlist:${wlId}`, JSON.stringify({ token: wlToken }));
-        }
-      } catch {}
-      renderStep2(step2, locale);
-      openFullscreen(step2);
+    if (wlId && wlToken && UUID_RE.test(wlId) && TOKEN_RE.test(wlToken)) {
+      openModal(wlId, wlToken);
       const url = new URL(window.location.href);
       url.searchParams.delete('wl_id');
       url.searchParams.delete('wl_t');
       window.history.replaceState({}, '', url.toString());
     }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const fd = new FormData(form);
-      const email = String(fd.get('email') ?? '').trim();
-      const honeypot = String(fd.get('website') ?? '');
-      if (honeypot) return;
-      if (!email || !EMAIL_RE.test(email)) {
-        setMsg(formMsgs.errorInvalidEmail, 'error');
-        return;
-      }
+  interface Step2Seed {
+    answers?: Record<string, string>;
+    cursor?: number;
+    complete?: boolean;
+  }
 
-      setMsg('');
-      labelDefault.classList.add('hidden');
-      labelLoading.classList.remove('hidden');
-      submitBtn.disabled = true;
-
-      try {
-        const res = await fetch('/api/waitlist', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ email, locale, source_page: sourcePage, segment_hint: segmentHint }),
-        });
-
-        if (res.status === 429) {
-          setMsg(formMsgs.errorRate, 'error');
-          return;
-        }
-        if (res.status === 409) {
-          setMsg(formMsgs.errorAlreadyRemoved, 'error');
-          return;
-        }
-        if (!res.ok) {
-          setMsg(formMsgs.errorNetwork, 'error');
-          return;
-        }
-
-        const data = (await res.json()) as Stage1Result;
-        setMsg(formMsgs.success, 'success');
-        step2.dataset.rowId = data.id;
-        step2.dataset.token = data.token;
-        step2.classList.remove('hidden');
-        form.classList.add('hidden');
-        try {
-          localStorage.setItem(`waitlist:${data.id}`, JSON.stringify({ token: data.token, email }));
-        } catch {}
-        renderStep2(step2, locale);
-        openFullscreen(step2);
-
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        requestAnimationFrame(() => {
-          if (!isMobile()) {
-            step2.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
-          }
-        });
-      } catch {
-        setMsg(formMsgs.errorNetwork, 'error');
-      } finally {
-        labelDefault.classList.remove('hidden');
-        labelLoading.classList.add('hidden');
-        submitBtn.disabled = false;
-      }
-    });
-  });
-
-  function renderStep2(step2: HTMLElement, locale: Locale) {
+  function renderStep2(step2: HTMLElement, locale: Locale, seed: Step2Seed = {}) {
     const id = step2.dataset.rowId!;
     const token = step2.dataset.token!;
     const hint = step2.dataset.segmentHint || null;
@@ -371,9 +406,6 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         source_provider: step2.dataset.msgQSourceProvider ?? '',
         dest_provider: step2.dataset.msgQDestProvider ?? '',
         est_size: step2.dataset.msgQSize ?? '',
-        frequency: step2.dataset.msgQFrequency ?? '',
-        preferred_runner: step2.dataset.msgQRunner ?? '',
-        role: step2.dataset.msgQRole ?? '',
       } as Record<string, string>,
       hintAutoAdvance: step2.dataset.msgHintAuto ?? '',
       hintLastStep: step2.dataset.msgHintLast ?? '',
@@ -389,15 +421,12 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
 
     const progress = step2.querySelector<HTMLElement>('.step2-progress')!;
     const progressLabel = step2.querySelector<HTMLElement>('.step2-progress-label')!;
-    const stageEl = step2.querySelector<HTMLElement>('.step2-stage')!;
-    const cardEl = step2.querySelector<HTMLElement>('.step2-card')!;
+    const animEls = Array.from(step2.querySelectorAll<HTMLElement>('.step2-anim'));
     const eyebrowEl = step2.querySelector<HTMLElement>('.step2-eyebrow')!;
     const titleEl = step2.querySelector<HTMLElement>('.step2-title')!;
     const optionsEl = step2.querySelector<HTMLElement>('.step2-options')!;
     const hintEl = step2.querySelector<HTMLElement>('.step2-hint')!;
-    const backBtn = step2.querySelector<HTMLButtonElement>('.step2-back')!;
-    const nextBtn = step2.querySelector<HTMLButtonElement>('.step2-next')!;
-    const skipBtn = step2.querySelector<HTMLButtonElement>('.step2-skip')!;
+    // backBtn + setBackHandler are bound in the outer scope
 
     const iconTpl = document.querySelector<HTMLTemplateElement>('.step2-icon-template')!;
     function getProviderIcon(value: string): SVGElement | null {
@@ -407,10 +436,12 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
     }
     const PROVIDER_FIELDS = new Set(['source_provider', 'dest_provider']);
 
-    const answers: Record<string, string | undefined> = {};
-    if (hint) answers.use_case = hint;
+    const answers: Record<string, string | undefined> = { ...(seed.answers ?? {}) };
+    if (hint && !answers.use_case) answers.use_case = hint;
+    modalState.total = QUESTIONS.length;
+    modalState.answered = Object.keys(answers).filter((k) => k !== 'use_case' || !modalState.hint).length;
 
-    let cursor = 0;
+    let cursor = Math.min(Math.max(seed.cursor ?? 0, 0), QUESTIONS.length - 1);
     let pendingAdvance: number | null = null;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -420,7 +451,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       dot.type = 'button';
       dot.setAttribute('role', 'tab');
       dot.setAttribute('aria-label', `Question ${i + 1}: ${step2Msgs.questionByField[q.field]}`);
-      dot.className = 'h-1.5 w-6 rounded-pill bg-divider transition-all duration-300 cursor-pointer hover:bg-slate-gray';
+      dot.className = 'h-1.5 w-6 rounded-pill bg-[color-mix(in_srgb,var(--ink)_15%,transparent)] transition-all duration-300 cursor-pointer hover:bg-[color-mix(in_srgb,var(--ink)_30%,transparent)]';
       dot.addEventListener('click', () => goTo(i));
       progress.appendChild(dot);
     });
@@ -429,44 +460,34 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       progress.querySelectorAll<HTMLButtonElement>('button').forEach((dot, i) => {
         const base = 'h-1.5 rounded-pill transition-all duration-300 cursor-pointer ';
         if (i < cursor) {
-          dot.className = base + 'w-6 bg-brand-blue hover:bg-brand-blue-hover';
+          dot.className = base + 'w-6 bg-[var(--sky-action)] hover:bg-[var(--sky-action-hover)]';
           dot.setAttribute('aria-current', 'false');
         } else if (i === cursor) {
-          dot.className = base + 'w-10 bg-brand-blue';
+          dot.className = base + 'w-10 bg-[var(--sky-action)]';
           dot.setAttribute('aria-current', 'step');
         } else {
-          dot.className = base + 'w-6 bg-divider hover:bg-slate-gray';
+          dot.className = base + 'w-6 bg-[color-mix(in_srgb,var(--ink)_15%,transparent)] hover:bg-[color-mix(in_srgb,var(--ink)_30%,transparent)]';
           dot.setAttribute('aria-current', 'false');
         }
       });
     }
 
-    function buildOption(q: typeof QUESTIONS[number], opt: typeof q.options[number], isLast: boolean, idx: number): HTMLButtonElement {
+    function buildOption(q: typeof QUESTIONS[number], opt: typeof q.options[number], idx: number): HTMLButtonElement {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.dataset.field = q.field;
       btn.dataset.value = opt.value;
       btn.style.transitionDelay = reduceMotion ? '0ms' : `${idx * 25}ms`;
       btn.className =
-        'group flex items-center gap-3 w-full px-4 py-3 text-caption font-medium text-left bg-white border border-divider rounded-input hover:border-brand-blue hover:bg-baby-blue/30 data-[selected=true]:bg-brand-blue data-[selected=true]:border-brand-blue data-[selected=true]:text-white transition-all duration-200';
+        'waitlist-option group flex items-center gap-3 w-full px-4 py-3 text-caption font-medium text-left text-ink rounded-input transition-all duration-200';
 
-      const iconSlot = document.createElement('span');
-      iconSlot.className = 'flex-shrink-0 w-6 h-6 grid place-items-center';
       if (PROVIDER_FIELDS.has(q.field)) {
+        const iconSlot = document.createElement('span');
+        iconSlot.className = 'flex-shrink-0 w-6 h-6 grid place-items-center';
         const ic = getProviderIcon(opt.value);
-        if (ic) {
-          iconSlot.appendChild(ic);
-        } else {
-          const dot = document.createElement('span');
-          dot.className = 'block w-2.5 h-2.5 rounded-pill bg-divider group-data-[selected=true]:bg-white/70';
-          iconSlot.appendChild(dot);
-        }
-      } else {
-        const dot = document.createElement('span');
-        dot.className = 'block w-2 h-2 rounded-pill bg-divider group-hover:bg-brand-blue group-data-[selected=true]:bg-white transition-colors';
-        iconSlot.appendChild(dot);
+        if (ic) iconSlot.appendChild(ic);
+        btn.appendChild(iconSlot);
       }
-      btn.appendChild(iconSlot);
 
       const label = document.createElement('span');
       label.className = 'flex-1';
@@ -474,13 +495,13 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       btn.appendChild(label);
 
       const check = document.createElement('span');
-      check.className = 'hidden group-data-[selected=true]:grid place-items-center w-5 h-5 rounded-pill bg-white text-brand-blue text-small font-bold flex-shrink-0';
+      check.className = 'hidden group-data-[selected=true]:grid place-items-center w-5 h-5 rounded-pill bg-white text-[var(--sky-action)] text-small font-bold flex-shrink-0';
       check.setAttribute('aria-hidden', 'true');
       check.textContent = '✓';
       btn.appendChild(check);
 
       if (answers[q.field] === opt.value) btn.dataset.selected = 'true';
-      btn.addEventListener('click', () => onPick(q.field, opt.value, isLast));
+      btn.addEventListener('click', () => onPick(q.field, opt.value));
       return btn;
     }
 
@@ -501,36 +522,19 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
 
       optionsEl.innerHTML = '';
       q.options.forEach((opt, idx) => {
-        optionsEl.appendChild(buildOption(q, opt, isLast, idx));
+        optionsEl.appendChild(buildOption(q, opt, idx));
       });
-
-      backBtn.disabled = cursor === 0;
-      backBtn.textContent = step2Msgs.back;
-      nextBtn.textContent = step2Msgs.next;
-      nextBtn.hidden = isLast;
 
       paintProgress();
     }
 
-    function lockMaxHeight() {
-      const startCursor = cursor;
-      const savedAnswers: Record<string, string | undefined> = { ...answers };
-      QUESTIONS.forEach((q) => {
-        if (!answers[q.field]) answers[q.field] = q.options[0]?.value;
-      });
-      let max = 0;
-      for (let i = 0; i < QUESTIONS.length; i++) {
-        cursor = i;
-        paintQuestion();
-        const h = step2.offsetHeight;
-        if (h > max) max = h;
+    setBackHandler(() => {
+      if (cursor > 0) {
+        goTo(cursor - 1);
+        return;
       }
-      Object.keys(answers).forEach((k) => delete answers[k]);
-      Object.assign(answers, savedAnswers);
-      cursor = startCursor;
-      paintQuestion();
-      step2.style.minHeight = `${max}px`;
-    }
+      showIntro();
+    });
 
     function transitionTo(direction: 1 | -1, render: () => void) {
       if (reduceMotion) {
@@ -538,13 +542,15 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         return;
       }
       const offset = direction === 1 ? '-translate-x-3' : 'translate-x-3';
-      cardEl.classList.add('opacity-0', offset);
+      animEls.forEach((el) => el.classList.add('opacity-0', offset));
       window.setTimeout(() => {
         render();
-        cardEl.classList.add(direction === 1 ? 'translate-x-3' : '-translate-x-3');
-        cardEl.classList.remove(offset);
+        animEls.forEach((el) => {
+          el.classList.add(direction === 1 ? 'translate-x-3' : '-translate-x-3');
+          el.classList.remove(offset);
+        });
         requestAnimationFrame(() => {
-          cardEl.classList.remove('opacity-0', 'translate-x-3', '-translate-x-3');
+          animEls.forEach((el) => el.classList.remove('opacity-0', 'translate-x-3', '-translate-x-3'));
         });
       }, 180);
     }
@@ -560,14 +566,18 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       transitionTo(dir, paintQuestion);
     }
 
-    function onPick(field: string, value: string, isLast: boolean) {
+    function onPick(field: string, value: string) {
       answers[field] = value;
+      modalState.answered = Object.keys(answers).filter((k) => k !== 'use_case' || !modalState.hint).length;
       optionsEl.querySelectorAll<HTMLButtonElement>('button[data-field]').forEach((b) => {
         b.dataset.selected = b.dataset.value === value ? 'true' : 'false';
       });
       patch({ [field]: value });
+      persist();
       if (pendingAdvance !== null) clearTimeout(pendingAdvance);
-      if (isLast) {
+      const isLastNow = cursor === QUESTIONS.length - 1;
+      if (isLastNow) {
+        modalState.complete = true;
         pendingAdvance = window.setTimeout(() => {
           pendingAdvance = null;
           complete();
@@ -580,19 +590,20 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       }, 380);
     }
 
-    backBtn.addEventListener('click', () => {
-      if (cursor > 0) goTo(cursor - 1);
-    });
-
-    nextBtn.addEventListener('click', () => {
-      if (cursor < QUESTIONS.length - 1) {
-        goTo(cursor + 1);
-      } else {
-        complete();
-      }
-    });
-
-    skipBtn?.addEventListener('click', complete);
+    function persist() {
+      const cleanAnswers: Record<string, string> = {};
+      for (const [k, v] of Object.entries(answers)) if (typeof v === 'string') cleanAnswers[k] = v;
+      saveWaitlistState({
+        id,
+        token,
+        answers: cleanAnswers,
+        cursor,
+        complete: modalState.complete,
+        answered: modalState.answered,
+        total: modalState.total,
+        lastView: 'step2',
+      });
+    }
 
     async function patch(body: Record<string, unknown>) {
       try {
@@ -604,30 +615,300 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       } catch {}
     }
 
-    async function complete() {
-      await patch({ ...answers, _complete: true });
-      step2.style.minHeight = '';
-      stageEl.style.minHeight = '';
+    function renderThanks() {
       step2.innerHTML = `
         <div class="step2-thanks flex flex-col items-center justify-center text-center gap-4 py-8 h-full">
           <svg class="step2-checkmark text-success" width="72" height="72" viewBox="0 0 64 64" fill="none" aria-hidden="true">
             <circle class="step2-check-circle" cx="32" cy="32" r="29" stroke="currentColor" stroke-width="3" fill="none"></circle>
             <polyline class="step2-check-tick" points="20,33 28,42 46,22" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
           </svg>
-          <p class="step2-thanks-msg text-h2 font-medium text-dark-charcoal">${step2Msgs.done}</p>
-          <p class="step2-thanks-sub text-body text-slate-gray">${step2Msgs.doneSub}</p>
-          <button type="button" class="step2-thanks-close mt-4 inline-flex items-center justify-center rounded-pill border-2 border-btn-secondary bg-transparent text-dark-charcoal hover:bg-btn-secondary-hover px-6 py-2 text-caption font-medium transition-colors">${step2Msgs.close}</button>
+          <p class="step2-thanks-msg text-h2 font-medium text-ink">${step2Msgs.done}</p>
+          <p class="step2-thanks-sub text-body text-ink">${step2Msgs.doneSub}</p>
+          <button type="button" class="step2-thanks-close btn-primary-glass mt-4 px-[26px] py-[14px] text-[16px] font-semibold">${step2Msgs.close}</button>
         </div>
       `;
+      const triggerClose = () => window.dispatchEvent(new CustomEvent('waitlist:request-close'));
       step2.querySelector<HTMLButtonElement>('.step2-thanks-close')
-        ?.addEventListener('click', () => closeFullscreen(step2));
+        ?.addEventListener('click', triggerClose);
     }
 
-    lockMaxHeight();
+    async function complete() {
+      modalState.complete = true;
+      persist();
+      await patch({ ...answers, _complete: true });
+      window.dispatchEvent(new CustomEvent('waitlist:completed'));
+      renderThanks();
+    }
+
+    if (seed.complete) {
+      modalState.complete = true;
+      renderThanks();
+      return;
+    }
+
+    paintQuestion();
+  }
   }
 </script>
 
 <style is:global>
+  .waitlist-option {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--sky-action) 6%, rgb(255 255 255 / 0.55)) 0%,
+        color-mix(in srgb, var(--sky-action) 12%, rgb(255 255 255 / 0.20)) 55%,
+        color-mix(in srgb, var(--sky-action) 22%, rgb(255 255 255 / 0.14)) 100%
+      );
+    border: 1px solid color-mix(in srgb, white 55%, var(--sky-action) 25%);
+    color: var(--ink);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--sky-action) 18%, transparent);
+    transform: translateY(0);
+  }
+  .waitlist-option::before { content: none; }
+  .waitlist-option:hover {
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--sky-action) 10%, rgb(255 255 255 / 0.62)) 0%,
+        color-mix(in srgb, var(--sky-action) 20%, rgb(255 255 255 / 0.26)) 55%,
+        color-mix(in srgb, var(--sky-action) 32%, rgb(255 255 255 / 0.18)) 100%
+      );
+    border-color: color-mix(in srgb, var(--sky-action) 50%, rgb(255 255 255 / 0.6));
+    box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--sky-action) 28%, transparent);
+  }
+  .waitlist-option[data-selected='true'] {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--sky-action) 92%, white) 0%,
+      var(--sky-action-hover) 100%
+    );
+    color: var(--on-action);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--sky-action) 30%, transparent);
+  }
+  [data-theme='night'] .waitlist-option {
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--sky-action) 18%, rgb(20 27 46 / 0.55)) 0%,
+        color-mix(in srgb, var(--sky-action) 14%, rgb(20 27 46 / 0.65)) 55%,
+        color-mix(in srgb, var(--sky-action) 22%, rgb(20 27 46 / 0.55)) 100%
+      );
+    border-color: color-mix(in srgb, var(--sky-action) 30%, rgb(255 255 255 / 0.10));
+    box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--sky-action) 18%, transparent);
+  }
+  [data-theme='night'] .waitlist-option:hover {
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--sky-action) 28%, rgb(20 27 46 / 0.50)) 0%,
+        color-mix(in srgb, var(--sky-action) 24%, rgb(20 27 46 / 0.55)) 55%,
+        color-mix(in srgb, var(--sky-action) 36%, rgb(20 27 46 / 0.45)) 100%
+      );
+    border-color: color-mix(in srgb, var(--sky-action) 45%, rgb(255 255 255 / 0.12));
+    box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--sky-action) 30%, transparent);
+  }
+  [data-theme='night'] .waitlist-option[data-selected='true'] {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--sky-action) 92%, white) 0%,
+      var(--sky-action-hover) 100%
+    );
+    color: var(--on-action);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='day']) .waitlist-option {
+      background:
+        linear-gradient(
+          135deg,
+          color-mix(in srgb, var(--sky-action) 18%, rgb(20 27 46 / 0.55)) 0%,
+          color-mix(in srgb, var(--sky-action) 14%, rgb(20 27 46 / 0.65)) 55%,
+          color-mix(in srgb, var(--sky-action) 22%, rgb(20 27 46 / 0.55)) 100%
+        );
+      border-color: color-mix(in srgb, var(--sky-action) 30%, rgb(255 255 255 / 0.10));
+      box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--sky-action) 18%, transparent);
+    }
+    :root:not([data-theme='day']) .waitlist-option:hover {
+      background:
+        linear-gradient(
+          135deg,
+          color-mix(in srgb, var(--sky-action) 28%, rgb(20 27 46 / 0.50)) 0%,
+          color-mix(in srgb, var(--sky-action) 24%, rgb(20 27 46 / 0.55)) 55%,
+          color-mix(in srgb, var(--sky-action) 36%, rgb(20 27 46 / 0.45)) 100%
+        );
+      border-color: color-mix(in srgb, var(--sky-action) 45%, rgb(255 255 255 / 0.12));
+      box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--sky-action) 30%, transparent);
+    }
+    :root:not([data-theme='day']) .waitlist-option[data-selected='true'] {
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--sky-action) 92%, white) 0%,
+        var(--sky-action-hover) 100%
+      );
+      color: var(--on-action);
+    }
+  }
+
+  .waitlist-modal-nav {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sky-action) 8%, rgb(255 255 255 / 0.6));
+    border: 1px solid color-mix(in srgb, var(--sky-action) 18%, transparent);
+    color: var(--ink);
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 1px 2px rgb(20 40 80 / 0.06);
+    transition:
+      background 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .waitlist-modal-nav:hover {
+    background: var(--sky-action);
+    border-color: var(--sky-action);
+    color: var(--on-action);
+    box-shadow:
+      0 8px 20px -8px color-mix(in srgb, var(--sky-action) 55%, transparent),
+      0 2px 4px -2px color-mix(in srgb, var(--sky-action) 35%, transparent);
+  }
+  .waitlist-modal-nav:active { transform: scale(0.94); }
+  .waitlist-modal-nav:focus-visible {
+    outline: 3px solid var(--sky-action);
+    outline-offset: 2px;
+  }
+  .waitlist-modal-nav:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .waitlist-modal-nav:disabled:hover {
+    background: color-mix(in srgb, var(--sky-action) 8%, rgb(255 255 255 / 0.6));
+    border-color: color-mix(in srgb, var(--sky-action) 18%, transparent);
+    color: var(--ink);
+    box-shadow: 0 1px 2px rgb(20 40 80 / 0.06);
+  }
+  .waitlist-modal-close-icon {
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .waitlist-modal-close:hover .waitlist-modal-close-icon {
+    transform: rotate(90deg);
+  }
+  [data-theme='night'] .waitlist-modal-nav {
+    background: color-mix(in srgb, white 8%, transparent);
+    border-color: color-mix(in srgb, white 16%, transparent);
+    color: var(--ink);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='day']) .waitlist-modal-nav {
+      background: color-mix(in srgb, white 8%, transparent);
+      border-color: color-mix(in srgb, white 16%, transparent);
+      color: var(--ink);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .waitlist-modal-close:hover .waitlist-modal-close-icon { transform: none; }
+    .waitlist-modal-nav { transition: none; }
+  }
+
+  .waitlist-modal-panel {
+    background: color-mix(in srgb, white 92%, var(--sky-mid));
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    box-shadow: var(--shadow-sky-modal);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+  }
+  [data-theme='night'] .waitlist-modal-panel {
+    background: color-mix(in srgb, var(--sky-zenith) 88%, white);
+    border-color: color-mix(in srgb, white 14%, transparent);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='day']) .waitlist-modal-panel {
+      background: color-mix(in srgb, var(--sky-zenith) 88%, white);
+      border-color: color-mix(in srgb, white 14%, transparent);
+    }
+  }
+  .waitlist-modal-logo img {
+    transform-origin: center;
+    animation: waitlist-logo-in 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .waitlist-modal-logo {
+    position: relative;
+  }
+  .waitlist-modal-logo::after {
+    content: '';
+    position: absolute;
+    inset: -8%;
+    border-radius: 9999px;
+    background: radial-gradient(circle, oklch(0.65 0.18 250 / 0.18) 0%, transparent 65%);
+    opacity: 0;
+    animation: waitlist-logo-halo 1200ms cubic-bezier(0.22, 1, 0.36, 1) 200ms forwards;
+    z-index: -1;
+  }
+
+  @keyframes waitlist-logo-in {
+    0%   { opacity: 0; transform: scale(0.3) rotate(-14deg); }
+    55%  { opacity: 1; transform: scale(1.06) rotate(2deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+  @keyframes waitlist-logo-halo {
+    0%   { opacity: 0; transform: scale(0.8); }
+    60%  { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0; transform: scale(1.4); }
+  }
+
+  .waitlist-modal-greeting,
+  .waitlist-modal-title,
+  .waitlist-modal-intro-body,
+  .waitlist-modal-intro-actions {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: waitlist-fade-up 460ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .waitlist-modal-greeting { animation-delay: 320ms; }
+  .waitlist-modal-title { animation-delay: 460ms; }
+  .waitlist-modal-intro-body { animation-delay: 620ms; }
+  .waitlist-modal-intro-actions { animation-delay: 820ms; }
+
+  .waitlist-modal-skip {
+    appearance: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    padding: 12px 22px;
+    border-radius: 999px;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--sky-action) 22%, transparent);
+    transition: background 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .waitlist-modal-skip:hover {
+    background: color-mix(in srgb, var(--sky-action) 8%, transparent);
+    border-color: color-mix(in srgb, var(--sky-action) 36%, transparent);
+  }
+  .waitlist-modal-skip:focus-visible {
+    outline: 3px solid var(--sky-action);
+    outline-offset: 2px;
+  }
+
+  @keyframes waitlist-fade-up {
+    to { opacity: 1; transform: none; }
+  }
+
   .step2-checkmark {
     transform-origin: center;
     animation: step2-checkmark-pop 360ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
@@ -665,6 +946,12 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .waitlist-modal-logo img,
+    .waitlist-modal-logo::after,
+    .waitlist-modal-greeting,
+    .waitlist-modal-title,
+    .waitlist-modal-intro-body,
+    .waitlist-modal-intro-actions,
     .step2-checkmark,
     .step2-check-circle,
     .step2-check-tick,
