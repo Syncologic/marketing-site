@@ -1,0 +1,154 @@
+---
+import Button from '../ui/Button.astro';
+import Input from '../ui/Input.astro';
+import { getLocaleFromUrl, getT, localizedPath } from '../../i18n/utils';
+
+interface Props {
+  segmentHint?: string | null;
+}
+const { segmentHint = null } = Astro.props as Props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const sourcePage = Astro.url.pathname;
+---
+
+<div class="hero-email-capture" data-locale={locale}>
+  <form
+    class="hero-email-form flex flex-col sm:flex-row sm:items-center gap-3"
+    data-source-page={sourcePage}
+    data-locale={locale}
+    data-segment-hint={segmentHint ?? ''}
+    novalidate
+  >
+    <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+    <Input
+      type="email"
+      name="email"
+      required
+      maxLength={254}
+      placeholder={t('waitlist.emailPlaceholder')}
+      ariaLabel={t('waitlist.emailLabel')}
+      class="sm:flex-1"
+    />
+    <Button type="submit" variant="primary" size="lg">
+      <span class="btn-label-default">{t('waitlist.earlyAccessCta')}</span>
+      <span class="btn-label-loading hidden">{t('waitlist.submitting')}</span>
+    </Button>
+  </form>
+  <p
+    class="hero-email-error text-caption font-medium"
+    role="alert"
+    aria-live="polite"
+    data-visible="false"
+    data-msg-error-network={t('waitlist.errorNetwork')}
+    data-msg-error-rate={t('waitlist.errorRate')}
+    data-msg-error-removed={t('waitlist.errorAlreadyRemoved')}
+    data-msg-error-invalid-email={t('waitlist.errorInvalidEmail')}
+  ></p>
+  <p class="text-caption text-ink-soft mt-3">
+    {t('waitlist.consentBefore')}<a href={localizedPath(locale, '/privacy')} class="text-[var(--sky-action)] hover:underline">{t('waitlist.consentLink')}</a>{t('waitlist.consentAfter')}
+  </p>
+</div>
+
+<script>
+  type WaitlistOpen = (detail: { id: string; token: string }) => void;
+  type Stage1Result = { id: string; token: string };
+
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  document.querySelectorAll<HTMLFormElement>('.hero-email-form').forEach((form) => {
+    const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const labelDefault = submitBtn.querySelector<HTMLElement>('.btn-label-default')!;
+    const labelLoading = submitBtn.querySelector<HTMLElement>('.btn-label-loading')!;
+    const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]')!;
+    const errorEl = form.parentElement!.querySelector<HTMLElement>('.hero-email-error')!;
+    const locale = form.dataset.locale ?? 'en';
+    const sourcePage = form.dataset.sourcePage ?? '/';
+    const segmentHint = form.dataset.segmentHint || null;
+
+    const msgs = {
+      errorNetwork: errorEl.dataset.msgErrorNetwork ?? '',
+      errorRate: errorEl.dataset.msgErrorRate ?? '',
+      errorAlreadyRemoved: errorEl.dataset.msgErrorRemoved ?? '',
+      errorInvalidEmail: errorEl.dataset.msgErrorInvalidEmail ?? '',
+    };
+
+    let clearTimer: number | null = null;
+    function setError(text: string) {
+      if (clearTimer !== null) {
+        clearTimeout(clearTimer);
+        clearTimer = null;
+      }
+      if (text) {
+        errorEl.textContent = text;
+        emailInput.setAttribute('aria-invalid', 'true');
+        requestAnimationFrame(() => {
+          errorEl.dataset.visible = 'true';
+        });
+      } else {
+        emailInput.removeAttribute('aria-invalid');
+        errorEl.dataset.visible = 'false';
+        clearTimer = window.setTimeout(() => {
+          errorEl.textContent = '';
+          clearTimer = null;
+        }, 220);
+      }
+    }
+
+    emailInput.addEventListener('input', () => {
+      if (errorEl.textContent) setError('');
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const email = String(fd.get('email') ?? '').trim();
+      const honeypot = String(fd.get('website') ?? '');
+      if (honeypot) return;
+      if (!email || !EMAIL_RE.test(email)) {
+        setError(msgs.errorInvalidEmail);
+        return;
+      }
+
+      setError('');
+      labelDefault.classList.add('hidden');
+      labelLoading.classList.remove('hidden');
+      submitBtn.disabled = true;
+
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email, locale, source_page: sourcePage, segment_hint: segmentHint }),
+        });
+
+        if (res.status === 429) {
+          setError(msgs.errorRate);
+          return;
+        }
+        if (res.status === 409) {
+          setError(msgs.errorAlreadyRemoved);
+          return;
+        }
+        if (!res.ok) {
+          setError(msgs.errorNetwork);
+          return;
+        }
+
+        const data = (await res.json()) as Stage1Result;
+        try {
+          localStorage.setItem(`waitlist:${data.id}`, JSON.stringify({ token: data.token, email }));
+        } catch {}
+
+        const open = (window as unknown as { openWaitlistModal?: WaitlistOpen }).openWaitlistModal;
+        if (open) open({ id: data.id, token: data.token });
+      } catch {
+        setError(msgs.errorNetwork);
+      } finally {
+        labelDefault.classList.remove('hidden');
+        labelLoading.classList.add('hidden');
+        submitBtn.disabled = false;
+      }
+    });
+  });
+</script>

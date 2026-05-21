@@ -1,0 +1,341 @@
+---
+import HeroEmailCapture from '../sections/HeroEmailCapture.astro';
+import WaitlistJoinedCard from '../sections/WaitlistJoinedCard.astro';
+import OpenPromise from '../sections/OpenPromise.astro';
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+const hookLine = t('homepage.heroHookLine');
+const commaIdx = hookLine.lastIndexOf(',');
+const hookMain = commaIdx >= 0 ? hookLine.slice(0, commaIdx + 1) : hookLine;
+const hookFloat = commaIdx >= 0 ? hookLine.slice(commaIdx + 1).trim() : '';
+---
+
+<section class="horizon-hero" data-reveal>
+  <div class="horizon-hero__inner">
+    <div class="horizon-hero__copy">
+      <span class="horizon-hero__audience">{t('homepage.heroAudience')}</span>
+
+      <h1 class="horizon-hero__title font-display">
+        {hookMain}{hookFloat && (
+          <>
+            {' '}
+            <span class="horizon-hero__hook-float">{hookFloat}</span>
+          </>
+        )}
+      </h1>
+
+      <p class="horizon-hero__lead">
+        {t('homepage.heroBody')}
+      </p>
+      <p class="horizon-hero__lead-note">
+        {t('homepage.heroBodyNote')}
+      </p>
+    </div>
+
+    <div class="horizon-hero__copy horizon-hero__copy--bottom">
+      <div class="horizon-hero__join" data-join-swap data-joined-state="cta">
+        <button type="button" class="horizon-hero__cta-btn" data-cta-trigger>
+          {t('waitlist.earlyAccessCta')}
+        </button>
+        <div class="horizon-hero__form-shadow">
+          <div class="horizon-hero__form glass" data-squircle data-squircle-radius="22">
+            <HeroEmailCapture />
+          </div>
+        </div>
+        <div class="horizon-hero__joined">
+          <WaitlistJoinedCard />
+        </div>
+      </div>
+    </div>
+
+    <div class="horizon-hero__promise">
+      <OpenPromise />
+    </div>
+  </div>
+</section>
+
+<style>
+  .horizon-hero {
+    position: relative;
+    padding: clamp(72px, 8vh, 96px) 0 clamp(120px, 15vh, 200px);
+    overflow: visible;
+  }
+
+  .horizon-hero__inner {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(12px, 1.8vw, 20px);
+  }
+  @media (min-width: 1024px) {
+    .horizon-hero__inner { padding: 0 28px; }
+  }
+  .horizon-hero__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 880px;
+  }
+  .horizon-hero__promise {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .horizon-hero__promise-note {
+    font-size: 12px;
+    line-height: 1;
+    color: var(--ink-soft);
+    font-style: italic;
+    letter-spacing: 0.005em;
+    margin: 0;
+  }
+  .horizon-hero__copy--bottom { margin-top: clamp(32px, 6vh, 72px); }
+  .horizon-hero__lead { margin-left: auto; margin-right: auto; }
+  .horizon-hero__join { margin-left: auto; margin-right: auto; width: 100%; }
+
+  .horizon-hero__audience {
+    display: inline-flex;
+    align-items: center;
+    align-self: center;
+    font-size: clamp(12px, 0.85vw, 13px);
+    line-height: 1;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    margin: 0 auto 18px;
+    border-radius: 999px;
+    background: var(--sky-action);
+    border: 0;
+  }
+
+  .horizon-hero__title {
+    font-size: clamp(48px, 7vw, 92px);
+    line-height: 1.0;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 auto 36px;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+
+  .horizon-hero__hook-float {
+    display: inline-block;
+    color: var(--sky-action);
+    will-change: transform;
+    transform-origin: center;
+    animation:
+      hook-float-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 400ms both,
+      hook-float-drift 5.6s ease-in-out 1300ms infinite;
+  }
+  @keyframes hook-float-in {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-0.08em); }
+  }
+  @keyframes hook-float-drift {
+    0%, 100% { transform: translateY(-0.08em); }
+    50%      { transform: translateY(-0.14em); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .horizon-hero__hook-float {
+      animation: none;
+      transform: none;
+    }
+  }
+
+
+  .horizon-hero__lead {
+    font-size: clamp(17px, 1.4vw, 19px);
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 58ch;
+    margin: 0;
+  }
+  .horizon-hero__lead-note {
+    font-size: clamp(15px, 1.2vw, 17px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 8px auto 0;
+    max-width: 58ch;
+    font-style: italic;
+  }
+
+  .horizon-hero__join {
+    display: grid;
+    grid-template-areas: 'stack';
+    max-width: 560px;
+    place-items: center stretch;
+  }
+  .horizon-hero__cta-btn,
+  .horizon-hero__form-shadow,
+  .horizon-hero__joined {
+    grid-area: stack;
+    transition:
+      opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .horizon-hero__form-shadow {
+    display: flex;
+    flex-direction: column;
+    filter: var(--drop-shadow-sky-md) blur(6px);
+  }
+
+  .horizon-hero__cta-btn {
+    justify-self: center;
+    align-self: center;
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    color: white;
+    background: var(--sky-action);
+    border-radius: 999px;
+    box-shadow:
+      0 12px 28px -10px color-mix(in srgb, var(--sky-action) 60%, transparent),
+      0 2px 6px -2px color-mix(in srgb, var(--sky-action) 35%, transparent);
+    transition:
+      background 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .horizon-hero__cta-btn:hover { background: var(--sky-action-hover); transform: translateY(-1px); }
+  .horizon-hero__cta-btn:focus-visible { outline: 3px solid var(--sky-action); outline-offset: 3px; }
+
+  .horizon-hero__form-shadow,
+  .horizon-hero__joined {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .horizon-hero__form-shadow { transform: scale(0.92); }
+  .horizon-hero__joined { transform: translateY(8px) scale(0.985); }
+
+  [data-joined-state='form'] .horizon-hero__cta-btn {
+    opacity: 0;
+    transform: scale(0.72);
+    pointer-events: none;
+    box-shadow: none;
+  }
+  [data-joined-state='form'] .horizon-hero__form-shadow {
+    opacity: 1;
+    transform: scale(1);
+    filter: var(--drop-shadow-sky-md) blur(0);
+    pointer-events: auto;
+  }
+
+  [data-joined-state='joined'] .horizon-hero__cta-btn { opacity: 0; pointer-events: none; transform: scale(0.85); }
+  [data-joined-state='joined'] .horizon-hero__form-shadow {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.985);
+    filter: var(--drop-shadow-sky-md) blur(0);
+    pointer-events: none;
+  }
+  [data-joined-state='joined'] .horizon-hero__joined {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  /* Stagger the form's internal pieces in after the card lands. */
+  .horizon-hero__form :global(.hero-email-capture > *) {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 280ms cubic-bezier(0.22, 1, 0.36, 1) 120ms,
+      transform 360ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+  }
+  .horizon-hero__form :global(.hero-email-capture > *:nth-child(2)) { transition-delay: 200ms; }
+  .horizon-hero__form :global(.hero-email-capture > *:nth-child(3)) { transition-delay: 280ms; }
+  [data-joined-state='form'] .horizon-hero__form :global(.hero-email-capture > *) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .horizon-hero__cta-btn,
+    .horizon-hero__form-shadow,
+    .horizon-hero__joined,
+    .horizon-hero__form :global(.hero-email-capture > *) { transition: none; filter: none; }
+  }
+
+  .horizon-hero__form {
+    margin: 0;
+    padding: 8px;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .horizon-hero__form :global(.hero-email-capture) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .horizon-hero__form :global(.hero-email-error) {
+    margin: 0;
+    padding: 0 8px;
+    order: 2;
+    color: var(--text-error);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-4px);
+    transition:
+      max-height 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      padding 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .horizon-hero__form :global(.hero-email-error[data-visible='true']) {
+    max-height: 4rem;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 4px 8px 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .horizon-hero__form :global(.hero-email-error) { transition: none; }
+  }
+  .horizon-hero__form :global(p:has(a)) {
+    color: var(--ink-soft);
+    margin: 0;
+    padding: 4px 8px 2px;
+    order: 3;
+  }
+
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-join-swap]').forEach((wrap) => {
+    const btn = wrap.querySelector<HTMLButtonElement>('[data-cta-trigger]');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      if (wrap.dataset.joinedState !== 'cta') return;
+      wrap.dataset.joinedState = 'form';
+      const email = wrap.querySelector<HTMLInputElement>('input[name="email"]');
+      if (!email) return;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.setTimeout(() => email.focus({ preventScroll: true }), reduced ? 0 : 360);
+    });
+  });
+</script>

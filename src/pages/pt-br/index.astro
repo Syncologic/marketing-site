@@ -4,18 +4,24 @@ import JsonLd from '../../components/layout/JsonLd.astro';
 import Nav from '../../components/layout/Nav.astro';
 import Footer from '../../components/layout/Footer.astro';
 import Section from '../../components/ui/Section.astro';
-import Button from '../../components/ui/Button.astro';
-import TransferPlanner from '../../components/homepage/TransferPlanner.astro';
+import HorizonHero from '../../components/homepage/HorizonHero.astro';
 import ProviderRow from '../../components/sections/ProviderRow.astro';
+import SkyBackdrop from '../../components/visuals/SkyBackdrop.astro';
 import RunnerCards from '../../components/sections/RunnerCards.astro';
-import UseCaseRouter from '../../components/sections/UseCaseRouter.astro';
 import TrustStory from '../../components/sections/TrustStory.astro';
-import PathChooser from '../../components/sections/PathChooser.astro';
+import PlansSection from '../../components/sections/PlansSection.astro';
 import WaitlistForm from '../../components/sections/WaitlistForm.astro';
+import BottomCTA from '../../components/sections/BottomCTA.astro';
+import FAQ from '../../components/sections/FAQ.astro';
+import BackToTop from '../../components/guides/BackToTop.astro';
 import { getLocaleFromUrl, getT } from '../../i18n/utils';
+import en from '../../i18n/en.json';
+import ptBr from '../../i18n/pt-br.json';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
+const dict = locale === 'pt-br' ? ptBr : en;
+const pricingFaq = dict.pricing.faq;
 const title = `${t('site.name')} — ${t('site.tagline')}`;
 const description = t('site.description');
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://syncologic.com';
@@ -24,7 +30,7 @@ const orgSchema = {
   '@type': 'Organization',
   name: 'Syncologic',
   url: siteUrl,
-  logo: `${siteUrl}/assets/brand/icon-white.png`,
+  logo: `${siteUrl}/assets/brand/icon_white_background.svg`,
   sameAs: [],
 };
 const siteSchema = {
@@ -39,84 +45,71 @@ const siteSchema = {
 <Layout title={title} description={description}>
   <JsonLd slot="head" schema={[orgSchema, siteSchema]} />
   <Nav slot="nav" />
+  <SkyBackdrop />
 
-  <Section surface="white" padding="lg" class="!py-section-sm lg:!py-section-lg">
-    <div data-hero class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      <div>
-        <span
-          class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-5 block"
-        >
-          {t('homepage.heroEyebrow')}
-        </span>
-        <h1
-          class="text-h1 md:text-display-2 lg:text-display-1 font-medium text-dark-charcoal mb-5 leading-[1.14] tracking-tight"
-        >
-          {t('site.tagline')}
-        </h1>
-        <p class="text-body text-slate-gray mb-8 max-w-lg">
-          {t('homepage.heroBody')}
-        </p>
-        <div class="flex gap-3 flex-wrap justify-center lg:justify-start">
-          <Button href="#waitlist" variant="primary" size="lg">
-            {t('nav.joinWaitlist')}
-          </Button>
-        </div>
-      </div>
-      <div>
-        <TransferPlanner />
-      </div>
-    </div>
-  </Section>
+  <HorizonHero />
 
-  <Section surface="white" padding="md" class="border-t border-divider">
-    <p
-      class="text-caption text-center text-slate-gray uppercase tracking-wide mb-6"
-    >
-      {t('homepage.pathChooser.eyebrow')}
-    </p>
-    <PathChooser />
-  </Section>
-
-  <Section surface="soft" padding="md">
-    <p
-      class="text-caption text-center text-slate-gray uppercase tracking-wide mb-2"
-    >
-      {t('homepage.providersLabel')}
-    </p>
-    <ProviderRow />
-  </Section>
-
-  <Section surface="white" padding="lg" id="how-it-works">
-    <div class="text-center mb-12">
-      <h2 class="text-h1 font-medium mb-3">{t('homepage.runnersTitle')}</h2>
-      <p class="text-body text-slate-gray max-w-xl mx-auto">
-        {t('homepage.runnersSubtitle')}
+  <Section surface="sky" padding="md" id="supported-providers" reveal>
+    <div class="text-center mb-8 max-w-2xl mx-auto">
+      <h2 class="text-h1 font-display font-bold text-ink mb-3">{t('homepage.supportedProvidersTitle')}</h2>
+      <p class="text-body text-ink mx-auto max-w-[60ch]">
+        {t('homepage.supportedProvidersSubtitle')}
       </p>
+    </div>
+    <ProviderRow />
+    <p class="text-caption text-ink-soft text-center mx-auto max-w-[60ch] mt-2 italic">
+      {t('homepage.supportedProvidersNote')}
+    </p>
+  </Section>
+
+  <Section surface="sky" padding="lg" id="how-it-works" reveal>
+    <div class="text-center mb-12 max-w-2xl mx-auto">
+      <h2 class="text-display-2 font-display font-bold text-ink mb-4 leading-[1.1] tracking-tight">
+        {t('homepage.runnersTitle')}
+      </h2>
     </div>
     <RunnerCards />
   </Section>
 
-  <Section surface="soft" padding="lg">
-    <div class="text-center mb-12">
-      <h2 class="text-h1 font-medium mb-3">{t('homepage.useCasesTitle')}</h2>
-      <p class="text-body text-slate-gray max-w-xl mx-auto">
-        {t('homepage.useCasesSubtitle')}
-      </p>
-    </div>
-    <UseCaseRouter />
+  <Section surface="sky" padding="lg" id="plans" reveal>
+    <PlansSection />
   </Section>
 
-  <Section surface="white" padding="lg">
-    <div class="text-center mb-12">
-      <h2 class="text-h1 font-medium mb-3">{t('homepage.trustTitle')}</h2>
-      <p class="text-body text-slate-gray max-w-xl mx-auto">
+  <Section surface="sky" padding="lg" reveal>
+    <div class="mb-12 max-w-xl">
+      <h2 class="text-h1 font-display font-bold text-ink mb-3">{t('homepage.trustTitle')}</h2>
+      <p class="text-body text-ink max-w-[60ch]">
         {t('homepage.trustSubtitle')}
       </p>
     </div>
     <TrustStory />
   </Section>
 
+  <Section surface="sky" padding="lg" reveal>
+    <BottomCTA />
+  </Section>
+
   <WaitlistForm />
 
+  <FAQ surface="tint" title={pricingFaq.title} items={pricingFaq.items} id="faq" />
+
+  <BackToTop triggerSelector="#faq" />
+
   <Footer slot="footer" />
+
+  <script>
+    import { loadWaitlistState } from '../../lib/waitlist-storage';
+
+    const openGate = () => {
+      document.querySelectorAll<HTMLElement>('[data-gate="joined"]').forEach((el) => {
+        if (el.hasAttribute('hidden')) {
+          el.removeAttribute('hidden');
+          el.dataset.gateState = 'open';
+        }
+      });
+    };
+
+    if (loadWaitlistState()) openGate();
+    window.addEventListener('waitlist:closed', openGate);
+  </script>
 </Layout>

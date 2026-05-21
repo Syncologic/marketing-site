@@ -1,0 +1,222 @@
+---
+import { BadgeCheck, ArrowRight } from '@lucide/astro';
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+---
+
+<div class="waitlist-joined-shadow squircle-elevation">
+<div
+  class="waitlist-joined glass-pane"
+  data-state="hidden"
+  data-squircle
+  data-squircle-radius="22"
+  role="status"
+  aria-live="polite"
+  hidden
+>
+  <div class="waitlist-joined__icon" aria-hidden="true">
+    <BadgeCheck size={22} strokeWidth={1.8} />
+  </div>
+  <div class="waitlist-joined__body">
+    <h3 class="waitlist-joined__title" data-slot="title"></h3>
+    <p class="waitlist-joined__text" data-slot="body"></p>
+  </div>
+  <button type="button" class="waitlist-joined__cta" data-slot="cta" hidden>
+    <span data-slot="cta-label"></span>
+    <ArrowRight size={16} strokeWidth={2} />
+  </button>
+
+  <span data-i18n="completeTitle" hidden>{t('waitlist.joinedCompleteTitle')}</span>
+  <span data-i18n="completeBody" hidden>{t('waitlist.joinedCompleteBody')}</span>
+  <span data-i18n="partialTitle" hidden>{t('waitlist.joinedPartialTitle')}</span>
+  <span data-i18n="partialBody" hidden>{t('waitlist.joinedPartialBody')}</span>
+  <span data-i18n="partialCta" hidden>{t('waitlist.joinedPartialCta')}</span>
+  <span data-i18n="skippedTitle" hidden>{t('waitlist.joinedSkippedTitle')}</span>
+  <span data-i18n="skippedBody" hidden>{t('waitlist.joinedSkippedBody')}</span>
+  <span data-i18n="skippedCta" hidden>{t('waitlist.joinedSkippedCta')}</span>
+</div>
+</div>
+
+<style>
+  .waitlist-joined {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    padding: 24px 24px 22px;
+    max-width: 560px;
+    color: var(--ink);
+  }
+
+  .waitlist-joined__icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--sky-action) 14%, transparent);
+    color: var(--sky-action);
+    flex-shrink: 0;
+  }
+  .waitlist-joined__body {
+    min-width: 0;
+    transition:
+      opacity 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .waitlist-joined[data-swapping='true'] .waitlist-joined__body {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  .waitlist-joined__title {
+    margin: 0 0 4px;
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .waitlist-joined__text {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .waitlist-joined__text:empty { display: none; }
+
+  .waitlist-joined__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    background: var(--sky-action);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    border: none;
+    cursor: pointer;
+    box-shadow:
+      0 12px 28px -10px color-mix(in srgb, var(--sky-action) 60%, transparent),
+      0 2px 6px -2px color-mix(in srgb, var(--sky-action) 35%, transparent);
+    transition:
+      background 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .waitlist-joined__cta:hover {
+    background: var(--sky-action-hover);
+    transform: translateY(-1px);
+  }
+  .waitlist-joined__cta:focus-visible {
+    outline: 3px solid var(--sky-action);
+    outline-offset: 3px;
+  }
+</style>
+
+<script>
+  import { loadWaitlistState } from '../../lib/waitlist-storage';
+
+  type CloseDetail = {
+    id?: string;
+    token?: string;
+    answered?: number;
+    total?: number;
+    complete?: boolean;
+  };
+  type WaitlistOpen = (detail: { id: string; token: string }) => void;
+
+  function tx(root: HTMLElement, key: string): string {
+    const el = root.querySelector<HTMLElement>(`[data-i18n="${key}"]`);
+    return el?.textContent?.trim() ?? '';
+  }
+
+  document.querySelectorAll<HTMLElement>('.waitlist-joined').forEach((card) => {
+    const titleEl = card.querySelector<HTMLElement>('[data-slot="title"]')!;
+    const bodyEl = card.querySelector<HTMLElement>('[data-slot="body"]')!;
+    const cta = card.querySelector<HTMLButtonElement>('[data-slot="cta"]')!;
+    const ctaLabel = card.querySelector<HTMLElement>('[data-slot="cta-label"]')!;
+
+    let lastDetail: CloseDetail = {};
+    let swapTimer: ReturnType<typeof setTimeout> | null = null;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    cta.addEventListener('click', () => {
+      const open = (window as unknown as { openWaitlistModal?: WaitlistOpen }).openWaitlistModal;
+      if (open && lastDetail.id && lastDetail.token) {
+        open({ id: lastDetail.id, token: lastDetail.token });
+      }
+    });
+
+    function applyContent(detail: CloseDetail) {
+      const answered = detail.answered ?? 0;
+      const total = detail.total ?? 0;
+      const complete = !!detail.complete;
+      const state: 'complete' | 'partial' | 'skipped' = complete
+        ? 'complete'
+        : answered > 0
+          ? 'partial'
+          : 'skipped';
+
+      if (state === 'complete') {
+        titleEl.textContent = tx(card, 'completeTitle');
+        bodyEl.textContent = tx(card, 'completeBody');
+        cta.hidden = true;
+      } else if (state === 'partial') {
+        titleEl.textContent = tx(card, 'partialTitle');
+        bodyEl.textContent = tx(card, 'partialBody')
+          .replace('{answered}', String(answered))
+          .replace('{total}', String(total));
+        ctaLabel.textContent = tx(card, 'partialCta');
+        cta.hidden = false;
+      } else {
+        titleEl.textContent = tx(card, 'skippedTitle');
+        bodyEl.textContent = tx(card, 'skippedBody');
+        ctaLabel.textContent = tx(card, 'skippedCta');
+        cta.hidden = false;
+      }
+    }
+
+    function paint(detail: CloseDetail) {
+      const wasShown = card.dataset.state === 'shown' && !card.hasAttribute('hidden');
+      lastDetail = detail;
+
+      if (wasShown && !reduced.matches) {
+        if (swapTimer) clearTimeout(swapTimer);
+        card.dataset.swapping = 'true';
+        swapTimer = setTimeout(() => {
+          applyContent(detail);
+          card.dataset.swapping = 'false';
+          swapTimer = null;
+        }, 220);
+      } else {
+        applyContent(detail);
+        card.dataset.swapping = 'false';
+        card.dataset.state = 'shown';
+        card.removeAttribute('hidden');
+        const wrapper = card.closest<HTMLElement>('[data-join-swap]');
+        if (wrapper) wrapper.dataset.joinedState = 'joined';
+      }
+    }
+
+    const saved = loadWaitlistState();
+    if (saved) {
+      paint({
+        id: saved.id,
+        token: saved.token,
+        answered: saved.answered,
+        total: saved.total,
+        complete: saved.complete,
+      });
+    }
+
+    window.addEventListener('waitlist:closed', (e) => {
+      paint(((e as CustomEvent).detail ?? {}) as CloseDetail);
+    });
+  });
+</script>

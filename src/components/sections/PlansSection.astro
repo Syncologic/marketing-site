@@ -1,0 +1,71 @@
+---
+import { Check } from '@lucide/astro';
+import { getLocaleFromUrl } from '../../i18n/utils';
+import en from '../../i18n/en.json';
+import ptBr from '../../i18n/pt-br.json';
+
+const locale = getLocaleFromUrl(Astro.url);
+const dict = locale === 'pt-br' ? ptBr : en;
+const p = dict.pricing;
+
+const plans = [p.hypotheses.free, p.hypotheses.pro, p.hypotheses.business];
+---
+
+<div class="text-center mb-12 max-w-2xl mx-auto">
+  <h2 class="text-display-2 font-display font-bold text-ink mb-4 leading-[1.1] tracking-tight">
+    {p.hypotheses.title}
+  </h2>
+  <p class="text-h2 text-ink-soft leading-snug">{p.hypotheses.subtitle}</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-stretch max-w-7xl mx-auto px-4">
+  {plans.map((plan) => (
+    <div class="relative flex flex-col h-full">
+      <div class="squircle-elevation h-full">
+        <div
+          class="plans-card glass glass-strong h-full flex flex-col gap-6 p-9 lg:p-11"
+          data-squircle
+          data-squircle-radius="26"
+        >
+          <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <h3 class="text-h2 font-bold text-ink">
+              {plan.name.endsWith('+') ? (
+                <>
+                  {plan.name.slice(0, -1)}
+                  <span class="text-[var(--sky-action)]">+</span>
+                </>
+              ) : (
+                plan.name
+              )}
+            </h3>
+            <div class="flex items-baseline gap-1 whitespace-nowrap">
+              <span class="text-h1 font-bold text-ink">{plan.price}</span>
+              <span class="text-caption text-ink-soft">{p.hypotheses.priceSuffix}</span>
+            </div>
+          </div>
+          <p class="text-body text-ink leading-snug">{plan.description}</p>
+          <ul class="flex flex-col gap-2 text-body text-ink list-none p-0">
+            {plan.features.map((feature) => (
+              <li class="flex gap-2 items-start">
+                <Check
+                  size={18}
+                  strokeWidth={2}
+                  class="shrink-0 mt-1"
+                  style="color: var(--sky-action);"
+                  aria-hidden="true"
+                />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="text-caption text-ink-soft mt-auto pt-2 border-t border-[color-mix(in_srgb,var(--ink)_10%,transparent)]">
+            {plan.footnote}
+          </p>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<p class="text-caption text-ink-soft text-center mt-8">{p.hypotheses.priceCaption}</p>
+
