@@ -279,10 +279,7 @@ const bestFor: Record<typeof runners[number], string[]> = {
   }
 
   @media (max-width: 767px) {
-    .runner-tabs__panel { min-height: 700px; }
-    .runner-tabs__panel:has(.runner-tabs__pane[data-runner='private'][data-active='true']) {
-      min-height: 900px;
-    }
+    .runner-tabs__panel { min-height: var(--runner-panel-min-h, 720px); }
   }
 
   .runner-tabs__illu { display: flex; align-items: center; justify-content: center; }
@@ -384,8 +381,23 @@ const bestFor: Record<typeof runners[number], string[]> = {
   if (root) {
     const row = root.querySelector<HTMLElement>('.runner-tabs__row')!;
     const highlight = root.querySelector<HTMLElement>('.runner-tabs__highlight')!;
+    const panel = root.querySelector<HTMLElement>('.runner-tabs__panel')!;
     const tabs = Array.from(row.querySelectorAll<HTMLButtonElement>('.runner-tabs__btn'));
     const panes = Array.from(root.querySelectorAll<HTMLElement>('.runner-tabs__pane'));
+
+    const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+    function syncPanelHeight() {
+      if (!isMobile()) {
+        panel.style.removeProperty('--runner-panel-min-h');
+        return;
+      }
+      const active = panes.find((p) => p.dataset.active === 'true');
+      if (!active) return;
+      const padTop = parseFloat(getComputedStyle(panel).paddingTop) || 0;
+      const padBottom = parseFloat(getComputedStyle(panel).paddingBottom) || 0;
+      const h = Math.ceil(active.scrollHeight + padTop + padBottom);
+      panel.style.setProperty('--runner-panel-min-h', `${h}px`);
+    }
 
     function moveHighlight(target: HTMLElement) {
       const rowRect = row.getBoundingClientRect();
@@ -426,6 +438,7 @@ const bestFor: Record<typeof runners[number], string[]> = {
       });
 
       currentIdx = idx;
+      requestAnimationFrame(syncPanelHeight);
     }
 
     tabs.forEach((tab, i) => {
@@ -456,9 +469,15 @@ const bestFor: Record<typeof runners[number], string[]> = {
     const place = () => {
       const idx = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
       if (idx >= 0) moveHighlight(tabs[idx]);
+      syncPanelHeight();
     };
     place();
     window.addEventListener('resize', place);
     if (document.fonts?.ready) document.fonts.ready.then(place).catch(() => {});
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(() => syncPanelHeight());
+      panes.forEach((p) => ro.observe(p));
+    }
   }
 </script>
