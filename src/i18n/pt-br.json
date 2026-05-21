@@ -750,7 +750,7 @@
       "description": "Como a Syncologic coleta, armazena e usa o e-mail e as respostas de segmentação que você fornece ao entrar na lista de espera."
     },
     "title": "Privacidade",
-    "lastUpdated": "Atualizado em 6 de maio de 2026",
+    "lastUpdated": "Atualizado em 21 de maio de 2026",
     "intro": "A Syncologic ainda está em pré-lançamento. Os únicos dados pessoais que coletamos hoje são os que você nos dá ao entrar na lista de espera: seu e-mail e as respostas de segmentação que você escolher. Esta página explica exatamente o que guardamos, por quê, onde, por quanto tempo e como remover.",
     "sections": [
       {
@@ -759,7 +759,7 @@
           { "p": "Quando você entra na lista de espera:" },
           { "list": [
             "Seu e-mail.",
-            "As respostas de segmentação que você marca (caso de uso, provedor de origem, provedor de destino, tamanho estimado, frequência de transferência, runner preferido, perfil).",
+            "As respostas de segmentação que você marca (caso de uso, provedor de origem, provedor de destino, tamanho estimado).",
             "Seu idioma e a página de onde você entrou.",
             "Um hash não-reversível do seu endereço IP. Usamos só para limite de taxa e nunca guardamos o IP original.",
             "O user agent e o referrer do seu navegador, para análise de padrões de spam."

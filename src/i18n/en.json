@@ -750,7 +750,7 @@
       "description": "How Syncologic collects, stores, and uses the email and segmentation answers you give when you join the waitlist."
     },
     "title": "Privacy",
-    "lastUpdated": "Last updated: 6 May 2026",
+    "lastUpdated": "Last updated: 21 May 2026",
     "intro": "Syncologic is pre-launch. The only personal data we collect right now is what you give us when you join the waitlist: your email and the segmentation answers you choose. This page tells you exactly what we keep, why, where, for how long, and how to remove it.",
     "sections": [
       {
@@ -759,7 +759,7 @@
           { "p": "When you join the waitlist:" },
           { "list": [
             "Your email address.",
-            "The segmentation answers you pick (use case, source provider, destination provider, estimated size, transfer frequency, preferred runner, role).",
+            "The segmentation answers you pick (use case, source provider, destination provider, estimated size).",
             "Your language and the page you joined from.",
             "A non-reversible hash of your IP address. We use it for rate limiting and never store the original.",
             "Your browser's user agent and referrer header, used for spam-pattern analysis."
