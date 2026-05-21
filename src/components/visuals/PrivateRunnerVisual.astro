@@ -1,0 +1,311 @@
+---
+import ProviderLogo from '../ui/ProviderLogo.astro';
+
+interface Props {
+  ariaLabel?: string;
+}
+const { ariaLabel = 'A server you control inside your own network carries files between a cloud provider and your storage.' } = Astro.props;
+---
+
+<div class="private-stage" role="img" aria-label={ariaLabel}>
+  <svg class="private-stage__sky" viewBox="0 0 400 400" aria-hidden="true">
+    <defs>
+      <radialGradient id="private-stage-bloom" cx="50%" cy="58%" r="55%">
+        <stop offset="0%" stop-color="var(--sky-action)" stop-opacity="0.20" />
+        <stop offset="55%" stop-color="var(--sky-action)" stop-opacity="0.05" />
+        <stop offset="100%" stop-color="var(--sky-action)" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id="private-stage-stroke" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="var(--sky-action)" stop-opacity="0.55" />
+        <stop offset="100%" stop-color="var(--sky-action)" stop-opacity="0.15" />
+      </linearGradient>
+    </defs>
+
+    <circle cx="200" cy="220" r="170" fill="url(#private-stage-bloom)" />
+
+    <rect class="private-stage__perimeter"
+      x="32" y="156" width="336" height="284" rx="32"
+      fill="color-mix(in srgb, var(--sky-action) 6%, transparent)"
+      stroke="color-mix(in srgb, var(--sky-action) 55%, transparent)"
+      stroke-width="1.4"
+      stroke-dasharray="5 7" />
+
+    <path class="private-stage__arc private-stage__arc--in"
+      d="M 200 132 L 200 186"
+      fill="none" stroke="url(#private-stage-stroke)" stroke-width="1.2"
+      stroke-dasharray="3 6" stroke-linecap="round" />
+    <path class="private-stage__arc private-stage__arc--out"
+      d="M 200 278 L 200 324"
+      fill="none" stroke="url(#private-stage-stroke)" stroke-width="1.2"
+      stroke-dasharray="3 6" stroke-linecap="round" />
+
+    <g class="private-stage__pulse">
+      <rect x="128" y="196" width="144" height="72" rx="20" fill="none"
+        stroke="var(--sky-action)" stroke-opacity="0.18" />
+      <rect x="116" y="184" width="168" height="96" rx="26" fill="none"
+        stroke="var(--sky-action)" stroke-opacity="0.10" />
+    </g>
+
+    <g class="private-stage__packets" aria-hidden="true">
+      <rect class="private-stage__packet private-stage__packet--in"  x="-7" y="-5" width="14" height="10" rx="2.5" />
+      <rect class="private-stage__packet private-stage__packet--out" x="-7" y="-5" width="14" height="10" rx="2.5" />
+    </g>
+  </svg>
+
+  <div class="private-stage__label">YOUR NETWORK</div>
+
+  <div class="private-stage__chip private-stage__chip--cloud">
+    <div class="private-stage__chip-inner glass-pane" data-squircle data-squircle-radius="18">
+      <ProviderLogo provider="google-drive" size={36} />
+      <span class="private-stage__chip-label">Cloud</span>
+    </div>
+  </div>
+
+  <div class="private-stage__rack glass-pane" data-squircle data-squircle-radius="22">
+    <span class="private-stage__slot">
+      <span class="private-stage__led private-stage__led--1"></span>
+      <span class="private-stage__led private-stage__led--2"></span>
+      <span class="private-stage__bar"></span>
+    </span>
+    <span class="private-stage__slot">
+      <span class="private-stage__led private-stage__led--3"></span>
+      <span class="private-stage__led private-stage__led--4"></span>
+      <span class="private-stage__bar"></span>
+    </span>
+    <span class="private-stage__slot">
+      <span class="private-stage__led private-stage__led--5"></span>
+      <span class="private-stage__led private-stage__led--6"></span>
+      <span class="private-stage__bar"></span>
+    </span>
+  </div>
+
+  <span class="private-stage__lock" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="16" height="16">
+      <path d="M 8 11 V 8 a 4 4 0 0 1 8 0 V 11"
+        fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+      <rect x="5.5" y="11" width="13" height="9" rx="2" fill="#ffffff" />
+      <circle cx="12" cy="14.6" r="1.3" fill="var(--sky-action)" />
+      <rect x="11.35" y="14.6" width="1.3" height="3" rx="0.4" fill="var(--sky-action)" />
+    </svg>
+  </span>
+
+  <div class="private-stage__chip private-stage__chip--server">
+    <div class="private-stage__chip-inner glass-pane" data-squircle data-squircle-radius="18">
+      <ProviderLogo provider="your_server" size={36} />
+      <span class="private-stage__chip-label">Your storage</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .private-stage {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+  }
+
+  .private-stage__sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .private-stage__perimeter { animation: private-stage-perimeter 9s linear infinite; }
+  @keyframes private-stage-perimeter { to { stroke-dashoffset: -24; } }
+
+  .private-stage__arc {
+    stroke-dashoffset: 0;
+    animation: private-stage-flow 6s linear infinite;
+  }
+  .private-stage__arc--out { animation-delay: -3s; }
+  @keyframes private-stage-flow { to { stroke-dashoffset: -36; } }
+
+  .private-stage__pulse rect {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: private-stage-pulse 4.8s ease-in-out infinite;
+  }
+  .private-stage__pulse rect:nth-child(2) { animation-delay: 1.2s; }
+  @keyframes private-stage-pulse {
+    0%, 100% { transform: scale(0.97); opacity: 0.55; }
+    50%      { transform: scale(1.02); opacity: 1; }
+  }
+
+  .private-stage__packet {
+    fill: var(--sky-action);
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--sky-action) 60%, transparent));
+    opacity: 0;
+  }
+  .private-stage__packet--in {
+    offset-path: path('M 200 132 L 200 186');
+    animation: private-stage-trip 4.4s cubic-bezier(0.5, 0, 0.5, 1) -0.3s infinite,
+               private-stage-fade 4.4s linear -0.3s infinite;
+  }
+  .private-stage__packet--out {
+    offset-path: path('M 200 278 L 200 324');
+    animation: private-stage-trip 5.6s cubic-bezier(0.5, 0, 0.5, 1) -2.1s infinite,
+               private-stage-fade 5.6s linear -2.1s infinite;
+  }
+  @keyframes private-stage-trip { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+  @keyframes private-stage-fade {
+    0%   { opacity: 0; transform: scale(0.7); }
+    10%  { opacity: 1; transform: scale(1); }
+    50%  { opacity: 1; transform: scale(1.15); }
+    80%  { opacity: 1; transform: scale(1); }
+    88%  { opacity: 0; transform: scale(0.7); }
+    100% { opacity: 0; transform: scale(0.7); }
+  }
+
+  .private-stage__label {
+    position: absolute;
+    left: 24px;
+    top: 39%;
+    transform: translateY(-50%);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--on-action);
+    background: var(--sky-action);
+    box-shadow: 0 6px 14px -4px color-mix(in srgb, var(--sky-action) 50%, transparent);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .private-stage__chip {
+    position: absolute;
+    width: 24%;
+    aspect-ratio: 1 / 1;
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    place-items: center;
+  }
+  .private-stage__chip--cloud  { top: 2%; }
+  .private-stage__chip--server { bottom: -5%; }
+
+  .private-stage__chip-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    filter: var(--drop-shadow-sky-md);
+    will-change: transform;
+  }
+  .private-stage__chip--cloud  .private-stage__chip-inner { animation: private-stage-float-y 7s ease-in-out infinite; }
+  .private-stage__chip--server .private-stage__chip-inner { animation: private-stage-float-y 9s ease-in-out -3.2s infinite reverse; }
+  @keyframes private-stage-float-y {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  .private-stage__chip-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .private-stage__rack {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    width: 36%;
+    aspect-ratio: 1.6 / 1;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5%;
+    padding: 7% 8%;
+    filter: var(--drop-shadow-sky-lg);
+    animation: private-stage-float 9s ease-in-out infinite;
+  }
+  .private-stage__slot {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 22%;
+    padding: 0 6px;
+    border-radius: 5px;
+    background: color-mix(in srgb, var(--sky-action) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--sky-action) 25%, transparent);
+  }
+  .private-stage__led {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sky-action);
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--sky-action) 70%, transparent));
+    animation: private-stage-led 2.2s ease-in-out infinite;
+  }
+  .private-stage__led--2 { animation-delay: -0.3s; }
+  .private-stage__led--3 { animation-delay: -0.7s; }
+  .private-stage__led--4 { animation-delay: -1.1s; }
+  .private-stage__led--5 { animation-delay: -1.5s; }
+  .private-stage__led--6 { animation-delay: -1.9s; }
+  @keyframes private-stage-led {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.35; transform: scale(0.85); }
+  }
+  .private-stage__bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--sky-action) 38%, transparent),
+      color-mix(in srgb, var(--sky-action) 10%, transparent)
+    );
+  }
+  .private-stage__lock {
+    position: absolute;
+    top: calc(46.75% - 15px);
+    left: calc(68% - 15px);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(155deg, color-mix(in srgb, var(--sky-action) 92%, white 20%), var(--sky-action));
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--glass-bg-strong) 90%, transparent),
+      0 6px 14px -4px color-mix(in srgb, var(--sky-action) 60%, transparent),
+      inset 0 1px 0 rgb(255 255 255 / 0.28);
+    display: grid;
+    place-items: center;
+    z-index: 2;
+  }
+
+  @keyframes private-stage-float {
+    0%, 100% { transform: translate(-50%, -50%); }
+    50%      { transform: translate(-50%, calc(-50% - 6px)); }
+  }
+
+  @media (max-width: 640px) {
+    .private-stage { max-width: 360px; }
+    .private-stage__chip--cloud  { top: -6%; }
+    .private-stage__chip--server { bottom: -14%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .private-stage__perimeter,
+    .private-stage__arc,
+    .private-stage__pulse rect,
+    .private-stage__rack,
+    .private-stage__chip-inner,
+    .private-stage__led,
+    .private-stage__packet {
+      animation: none !important;
+    }
+    .private-stage__packet { opacity: 0; }
+  }
+</style>

@@ -1,0 +1,34 @@
+---
+// Fixed-position sky decoration: stars only. Sun, moon, and clouds were
+// removed in favor of the ProviderConstellation hero centerpiece. Stars
+// stagger-fade in on night theme (see global.css `.sky-stars` rules and
+// `[data-celestial='moon']`).
+---
+
+<div class="sky-clouds" aria-hidden="true">
+  <svg class="sky-stars" width="100%" height="60%" preserveAspectRatio="none" viewBox="0 0 1000 600">
+    <g fill="var(--ink)">
+      <circle cx="120" cy="80"  r="0.8" style="--star-i: 0" />
+      <circle cx="240" cy="40"  r="0.6" style="--star-i: 3" />
+      <circle cx="380" cy="120" r="0.7" style="--star-i: 7" />
+      <circle cx="460" cy="60"  r="1.0" style="--star-i: 1" />
+      <circle cx="540" cy="180" r="0.6" style="--star-i: 11" />
+      <circle cx="680" cy="90"  r="0.9" style="--star-i: 4" />
+      <circle cx="760" cy="200" r="0.7" style="--star-i: 13" />
+      <circle cx="820" cy="40"  r="0.5" style="--star-i: 2" />
+      <circle cx="900" cy="160" r="0.8" style="--star-i: 9" />
+      <circle cx="60"  cy="240" r="0.6" style="--star-i: 14" />
+      <circle cx="180" cy="300" r="0.5" style="--star-i: 6" />
+      <circle cx="320" cy="220" r="0.7" style="--star-i: 16" />
+      <circle cx="450" cy="340" r="0.6" style="--star-i: 5" />
+      <circle cx="600" cy="280" r="0.9" style="--star-i: 18" />
+      <circle cx="720" cy="380" r="0.5" style="--star-i: 8" />
+      <circle cx="860" cy="320" r="0.7" style="--star-i: 10" />
+      <circle cx="970" cy="240" r="0.6" style="--star-i: 15" />
+      <circle cx="80"  cy="420" r="0.8" style="--star-i: 12" />
+      <circle cx="280" cy="460" r="0.5" style="--star-i: 17" />
+      <circle cx="500" cy="500" r="0.6" style="--star-i: 19" />
+    </g>
+  </svg>
+</div>
+

@@ -1,0 +1,449 @@
+---
+import { getLocaleFromUrl } from '../../i18n/utils';
+import en from '../../i18n/en.json';
+import ptBr from '../../i18n/pt-br.json';
+
+const locale = getLocaleFromUrl(Astro.url);
+const dict = locale === 'pt-br' ? ptBr : en;
+const p = dict.pricing;
+
+type Tier = {
+  name: string;
+  price: string;
+  description: string;
+  features: string[];
+  footnote: string;
+};
+
+const free = p.hypotheses.free as Tier;
+const pro = p.hypotheses.pro as Tier;
+const business = p.hypotheses.business as Tier;
+
+const stops = [
+  { tier: free, volume: '5 GB', position: 15.625, recommended: false, key: 'free' as const },
+  { tier: pro, volume: '500 GB', position: 50, recommended: true, key: 'pro' as const },
+  { tier: business, volume: '5 TB', position: 84.375, recommended: false, key: 'business' as const },
+];
+
+const splitFeatures = (tier: Tier) => {
+  const [first, ...rest] = tier.features;
+  const carryover = /^(everything|tudo)/i.test(first ?? '') ? first : null;
+  const own = carryover ? rest : tier.features;
+  return { carryover, own };
+};
+---
+
+<div class="plans-shape">
+  <header class="plans-shape__header">
+    <h2 class="text-display-2 font-display font-bold text-ink leading-[1.1] tracking-tight">
+      {p.hypotheses.title}
+    </h2>
+    <p class="text-h2 text-ink-soft leading-snug">{p.hypotheses.subtitle}</p>
+  </header>
+
+  <figure class="plans-spectrum" aria-label={p.hypotheses.title}>
+    <div class="plans-spectrum__axis" aria-hidden="true">
+      <span class="plans-spectrum__line"></span>
+      {stops.map((s) => (
+        <span class="plans-spectrum__tick" style={`left: ${s.position}%;`} data-recommended={s.recommended}>
+          <span class="plans-spectrum__volume">{s.volume}{p.hypotheses.priceSuffix}</span>
+          <span class="plans-spectrum__dot"></span>
+        </span>
+      ))}
+    </div>
+
+    <ol class="plans-spectrum__tiers" role="list">
+      {stops.map((s) => {
+        const { carryover, own } = splitFeatures(s.tier);
+        const nameHtml = s.tier.name.endsWith('+');
+        return (
+          <li class="plans-tier" data-recommended={s.recommended}>
+            {s.recommended && (
+              <span class="plans-tier__badge">{p.hypotheses.recommendedLabel}</span>
+            )}
+            <div class="plans-tier__head">
+              <h3 class="plans-tier__name">
+                {nameHtml ? (
+                  <>
+                    {s.tier.name.slice(0, -1)}
+                    <span class="plans-tier__plus">+</span>
+                  </>
+                ) : (
+                  s.tier.name
+                )}
+              </h3>
+              <p class="plans-tier__price">
+                <span class="plans-tier__amount">{s.tier.price}</span>
+                <span class="plans-tier__suffix">{p.hypotheses.priceSuffix}</span>
+              </p>
+            </div>
+            <p class="plans-tier__desc">{s.tier.description}</p>
+            {carryover && (
+              <p class="plans-tier__carryover">{carryover}</p>
+            )}
+            <ul class="plans-tier__features">
+              {own.map((feature) => <li>{feature}</li>)}
+            </ul>
+            {s.tier.footnote && (
+              <p class="plans-tier__footnote">{s.tier.footnote}</p>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  </figure>
+
+  <p class="plans-shape__caption text-caption text-ink-soft">{p.hypotheses.priceCaption}</p>
+</div>
+
+<style>
+  .plans-shape {
+    max-width: 1120px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  .plans-shape__header {
+    text-align: center;
+    max-width: 42rem;
+    margin: 0 auto 4rem;
+  }
+
+  .plans-shape__header > * + * {
+    margin-top: 1rem;
+  }
+
+  .plans-spectrum {
+    margin: 0;
+  }
+
+  /* Axis */
+  .plans-spectrum__axis {
+    position: relative;
+    height: 52px;
+    margin: 0 0 40px;
+  }
+
+  .plans-spectrum__line {
+    position: absolute;
+    left: 15.625%;
+    right: 15.625%;
+    bottom: 8px;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--ink) 14%, transparent) 0%,
+      color-mix(in srgb, var(--sky-action) 45%, transparent) 50%,
+      color-mix(in srgb, var(--sky-action) 22%, transparent) 100%
+    );
+  }
+
+  .plans-spectrum__tick {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+  }
+
+  .plans-spectrum__volume {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    transform: translateX(-50%);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .plans-spectrum__dot {
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: var(--ink);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink) 6%, transparent);
+  }
+
+  .plans-spectrum__tick[data-recommended='true'] .plans-spectrum__dot {
+    width: 18px;
+    height: 18px;
+    bottom: -1px;
+    background: var(--sky-action);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--sky-action) 18%, transparent);
+  }
+
+  .plans-spectrum__tick[data-recommended='true'] .plans-spectrum__volume {
+    color: var(--sky-action);
+  }
+
+  /* Tier grid */
+  .plans-spectrum__tiers {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .plans-tier {
+    position: relative;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border-right: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  }
+
+  .plans-tier:last-child {
+    border-right: none;
+  }
+
+  .plans-tier[data-recommended='true'] {
+    background: var(--sky-action);
+    color: var(--on-action);
+    border-radius: 22px;
+    border-right: none;
+    padding: 38px 32px;
+    margin-top: -16px;
+    margin-bottom: -16px;
+    box-shadow: 0 18px 40px -20px color-mix(in srgb, var(--sky-action) 70%, transparent);
+  }
+
+  .plans-tier[data-recommended='true'] .plans-tier__name,
+  .plans-tier[data-recommended='true'] .plans-tier__amount,
+  .plans-tier[data-recommended='true'] .plans-tier__desc,
+  .plans-tier[data-recommended='true'] .plans-tier__features {
+    color: var(--on-action);
+  }
+
+  .plans-tier[data-recommended='true'] .plans-tier__plus {
+    color: var(--on-action);
+  }
+
+  .plans-tier[data-recommended='true'] .plans-tier__suffix,
+  .plans-tier[data-recommended='true'] .plans-tier__footnote {
+    color: color-mix(in srgb, var(--on-action) 80%, transparent);
+  }
+
+  .plans-tier[data-recommended='true'] .plans-tier__carryover {
+    color: color-mix(in srgb, var(--on-action) 78%, transparent);
+    border-top-color: color-mix(in srgb, var(--on-action) 24%, transparent);
+  }
+
+  .plans-tier[data-recommended='true'] .plans-tier__features li::before {
+    background: var(--on-action);
+  }
+
+  .plans-tier[data-recommended='true'] + .plans-tier {
+    border-left: none;
+  }
+
+  .plans-tier:has(+ .plans-tier[data-recommended='true']) {
+    border-right: none;
+  }
+
+  .plans-tier__badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--on-action);
+    color: var(--sky-action);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px -4px color-mix(in srgb, var(--sky-action) 50%, transparent);
+  }
+
+  .plans-tier__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 12px;
+  }
+
+  .plans-tier__name {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .plans-tier__plus {
+    color: var(--sky-action);
+  }
+
+  .plans-tier__price {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .plans-tier__amount {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .plans-tier__suffix {
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .plans-tier__desc {
+    color: var(--ink);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .plans-tier__carryover {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-top: 14px;
+    border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  }
+
+  .plans-tier__features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+
+  .plans-tier__features li {
+    position: relative;
+    padding-left: 18px;
+  }
+
+  .plans-tier__features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--sky-action);
+  }
+
+  .plans-tier__footnote {
+    margin: auto 0 0;
+    padding-top: 14px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+
+  .plans-shape__caption {
+    text-align: center;
+    margin-top: 40px;
+    max-width: 50rem;
+    margin-inline: auto;
+  }
+
+  /* Mobile: vertical timeline */
+  @media (max-width: 768px) {
+    .plans-spectrum__axis {
+      display: none;
+    }
+
+    .plans-spectrum__tiers {
+      grid-template-columns: 1fr;
+      gap: 0;
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .plans-spectrum__tiers::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      bottom: 14px;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--ink) 14%, transparent) 0%,
+        color-mix(in srgb, var(--sky-action) 45%, transparent) 50%,
+        color-mix(in srgb, var(--sky-action) 22%, transparent) 100%
+      );
+    }
+
+    .plans-tier {
+      border-right: none;
+      border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+      padding: 28px 0 28px 4px;
+    }
+
+    .plans-tier:last-child {
+      border-bottom: none;
+    }
+
+    .plans-tier::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 36px;
+      width: 13px;
+      height: 13px;
+      border-radius: 999px;
+      background: var(--ink);
+      box-shadow: 0 0 0 4px var(--surface, var(--bg-page, oklch(0.985 0.005 250)));
+    }
+
+    .plans-tier[data-recommended='true'] {
+      border-radius: 18px;
+      padding: 32px 20px 32px 24px;
+      margin-top: 0;
+      margin-bottom: 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    .plans-tier[data-recommended='true']::before {
+      left: -28px;
+      width: 17px;
+      height: 17px;
+      top: 36px;
+      background: var(--sky-action);
+    }
+
+    .plans-tier__badge {
+      position: static;
+      transform: none;
+      align-self: flex-start;
+      margin-bottom: 4px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .plans-tier,
+    .plans-spectrum__dot {
+      transition: none;
+    }
+  }
+</style>

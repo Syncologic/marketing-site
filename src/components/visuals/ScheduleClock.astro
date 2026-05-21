@@ -36,18 +36,18 @@ const DOW = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
     aria-label={altLabel}
     class="w-full h-auto block"
   >
-    <g class="sc-dow-text fill-slate-gray" aria-hidden="true">
+    <g class="sc-dow-text fill-[var(--ink-soft)]" aria-hidden="true">
       {DOW.map((d, i) => (
         <text x={42 + i * STRIDE} y="44">{d}</text>
       ))}
     </g>
 
-    <g class="fill-warm-gray stroke-divider" stroke-width="1" aria-hidden="true">
+    <g class="sc-cells fill-[var(--glass-bg-strong)]" aria-hidden="true">
       {CELLS.map((c) => (
-        <rect x={c.x} y={c.y} width="58" height="58" rx="10" />
+        <rect x={c.x} y={c.y} width="58" height="58" rx="12" />
       ))}
     </g>
-    <g class="sc-cell-num fill-slate-gray" aria-hidden="true">
+    <g class="sc-cell-num fill-[var(--ink-soft)]" aria-hidden="true">
       {CELLS.map((c) => (
         <text x={c.cx} y={c.cy + 6}>{c.date}</text>
       ))}
@@ -56,14 +56,14 @@ const DOW = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
     <g aria-hidden="true">
       {SCHEDULED.map((cell, i) => (
         <g class={`sc-slot sc-s${i + 1}`}>
-          <g class="sc-blue fill-brand-blue stroke-brand-blue">
-            <circle cx={cell.cx} cy={cell.cy} r="22" fill-opacity="0.10" stroke="none" />
-            <rect x={cell.x} y={cell.y} width="58" height="58" rx="10" fill="none" stroke-width="1.5" />
+          <g class="sc-blue fill-[var(--sky-action)] stroke-[var(--sky-action)]">
+            <rect x={cell.x} y={cell.y} width="58" height="58" rx="12" fill-opacity="0.12" stroke="none" />
+            <rect x={cell.x} y={cell.y} width="58" height="58" rx="12" fill="none" stroke-width="1.5" />
             <circle cx={cell.cx} cy={cell.cy + 18} r="3" stroke="none" class="sc-dot" />
           </g>
           <g class="sc-green fill-success stroke-success">
-            <circle cx={cell.cx} cy={cell.cy} r="22" fill-opacity="0.12" stroke="none" />
-            <rect x={cell.x} y={cell.y} width="58" height="58" rx="10" fill="none" stroke-width="1.5" />
+            <rect x={cell.x} y={cell.y} width="58" height="58" rx="12" fill-opacity="0.14" stroke="none" />
+            <rect x={cell.x} y={cell.y} width="58" height="58" rx="12" fill="none" stroke-width="1.5" />
             <circle cx={cell.cx} cy={cell.cy + 18} r="3" stroke="none" />
           </g>
         </g>
@@ -71,10 +71,10 @@ const DOW = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
     </g>
 
     <g class="sc-today" aria-hidden="true">
-      <rect class="fill-dark-charcoal" x="22" y="58" width="40" height="14" rx="7" />
+      <rect class="fill-[var(--sky-action)]" x="22" y="58" width="40" height="14" rx="7" />
       <text class="sc-today-text fill-white" x="42" y="68">TODAY</text>
     </g>
-    <rect class="sc-cursor stroke-dark-charcoal" x="13" y="70" width="58" height="58" rx="10" fill="none" stroke-width="2" />
+    <rect class="sc-cursor stroke-[var(--sky-action)]" x="13" y="70" width="58" height="58" rx="12" fill="none" stroke-width="2" />
   </svg>
 </div>
 
@@ -99,6 +99,8 @@ const DOW = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
     font-weight: 500;
     text-anchor: middle;
   }
+
+  .sc-cells { filter: var(--drop-shadow-sky-sm); }
 
   .sc-blue { opacity: 1; }
   .sc-green { opacity: 0; }

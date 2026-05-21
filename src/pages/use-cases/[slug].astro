@@ -7,7 +7,6 @@ import Hero from '../../components/sections/Hero.astro';
 import WaitlistForm from '../../components/sections/WaitlistForm.astro';
 import ProviderArc from '../../components/visuals/ProviderArc.astro';
 import MigrationChecklist from '../../components/visuals/MigrationChecklist.astro';
-import PrivateRunnerPath from '../../components/visuals/PrivateRunnerPath.astro';
 import ScheduleClock from '../../components/visuals/ScheduleClock.astro';
 import BeforeAfterTransfer from '../../components/visuals/BeforeAfterTransfer.astro';
 import PricingCurves from '../../components/visuals/PricingCurves.astro';
@@ -20,7 +19,6 @@ import { buildBreadcrumb } from '../../lib/breadcrumb';
 const visualMap: Record<string, typeof ProviderArc | undefined> = {
   'cloud-to-cloud-transfer': ProviderArc,
   'business-cloud-migration': MigrationChecklist,
-  'private-runner': PrivateRunnerPath,
   'scheduled-cloud-backup': ScheduleClock,
 };
 
@@ -28,7 +26,6 @@ const crossLinkMap: Record<string, string[]> = {
   'cloud-to-cloud-transfer': ['transfer-google-drive-to-onedrive', 'move-files-between-clouds-without-downloading'],
   'business-cloud-migration': ['transfer-google-drive-to-onedrive'],
   'scheduled-cloud-backup': ['move-files-between-clouds-without-downloading'],
-  'private-runner': ['move-files-between-clouds-without-downloading'],
 };
 
 export async function getStaticPaths() {
@@ -61,9 +58,9 @@ const breadcrumbSchema = buildBreadcrumb([
   <Nav slot="nav" />
   <Hero
     eyebrow={entry.data.eyebrow}
+    eyebrowAsBadge
     headline={entry.data.headline}
     subheading={entry.data.subheading}
-    primaryCta={entry.data.primaryCta}
   >
     {Visual && (
       <Fragment slot="visual">

@@ -2,12 +2,24 @@
 import ProviderLogo from '../ui/ProviderLogo.astro';
 import { getLocaleFromUrl, getT } from '../../i18n/utils';
 
+interface Props {
+  theme?: 'light' | 'on-blue';
+}
+
+const { theme = 'light' } = Astro.props as Props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 const altLabel = t('visuals.providerArc.alt');
+
+const onBlue = theme === 'on-blue';
+const chipFill = onBlue ? 'fill-white' : 'fill-[var(--glass-bg-strong)]';
+const arcStroke = onBlue ? 'stroke-white/30' : 'stroke-[color:color-mix(in_srgb,var(--ink)_18%,transparent)]';
+const arcSolidStroke = onBlue ? 'stroke-white' : 'stroke-[var(--sky-action)]';
+const pillStroke = onBlue ? 'stroke-[var(--sky-action)]' : 'stroke-[var(--sky-action)]';
+const pillLineStroke = onBlue ? 'stroke-[var(--sky-action)]' : 'stroke-[var(--sky-action)]';
 ---
 
-<div class="provider-arc relative w-full max-w-[480px] mx-auto" role="presentation">
+<div class="provider-arc relative w-full max-w-[480px] mx-auto" data-theme={theme} role="presentation">
   <svg
     viewBox="0 0 480 480"
     xmlns="http://www.w3.org/2000/svg"
@@ -15,8 +27,8 @@ const altLabel = t('visuals.providerArc.alt');
     aria-label={altLabel}
     class="w-full h-auto block"
   >
-    <rect x="40" y="180" width="120" height="120" rx="20" class="fill-warm-gray" />
-    <rect x="320" y="180" width="120" height="120" rx="20" class="fill-warm-gray" />
+    <rect x="40" y="180" width="120" height="120" rx="20" class={chipFill} />
+    <rect x="320" y="180" width="120" height="120" rx="20" class={chipFill} />
 
     <path
       d="M 100 240 Q 240 80 380 240"
@@ -24,14 +36,14 @@ const altLabel = t('visuals.providerArc.alt');
       stroke-width="1.5"
       stroke-dasharray="2 6"
       stroke-linecap="round"
-      class="arc-flow stroke-divider"
+      class={`arc-flow ${arcStroke}`}
     />
     <path
       d="M 100 240 Q 240 80 380 240"
       fill="none"
       stroke-width="1.5"
       stroke-linecap="round"
-      class="stroke-brand-blue"
+      class={arcSolidStroke}
     />
 
     <g transform="translate(56 196)">
@@ -43,19 +55,19 @@ const altLabel = t('visuals.providerArc.alt');
 
     <g class="file-pills" aria-hidden="true">
       <g class="file-pill" style="--pill-delay: 0s;">
-        <rect x="-22" y="-10" width="44" height="20" rx="10" class="fill-white stroke-brand-blue" stroke-width="1" />
-        <line x1="-12" y1="-3" x2="10" y2="-3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
-        <line x1="-12" y1="3"  x2="4"  y2="3"  stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+        <rect x="-22" y="-10" width="44" height="20" rx="10" class={`fill-white ${pillStroke}`} stroke-width="1" />
+        <line x1="-12" y1="-3" x2="10" y2="-3" stroke-width="1.5" stroke-linecap="round" class={pillLineStroke} />
+        <line x1="-12" y1="3"  x2="4"  y2="3"  stroke-width="1.5" stroke-linecap="round" class={pillLineStroke} />
       </g>
       <g class="file-pill" style="--pill-delay: 0.45s;">
-        <rect x="-22" y="-10" width="44" height="20" rx="10" class="fill-white stroke-brand-blue" stroke-width="1" />
-        <line x1="-12" y1="-3" x2="10" y2="-3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
-        <line x1="-12" y1="3"  x2="4"  y2="3"  stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+        <rect x="-22" y="-10" width="44" height="20" rx="10" class={`fill-white ${pillStroke}`} stroke-width="1" />
+        <line x1="-12" y1="-3" x2="10" y2="-3" stroke-width="1.5" stroke-linecap="round" class={pillLineStroke} />
+        <line x1="-12" y1="3"  x2="4"  y2="3"  stroke-width="1.5" stroke-linecap="round" class={pillLineStroke} />
       </g>
       <g class="file-pill" style="--pill-delay: 0.9s;">
-        <rect x="-22" y="-10" width="44" height="20" rx="10" class="fill-white stroke-brand-blue" stroke-width="1" />
-        <line x1="-12" y1="-3" x2="10" y2="-3" stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
-        <line x1="-12" y1="3"  x2="4"  y2="3"  stroke-width="1.5" stroke-linecap="round" class="stroke-brand-blue" />
+        <rect x="-22" y="-10" width="44" height="20" rx="10" class={`fill-white ${pillStroke}`} stroke-width="1" />
+        <line x1="-12" y1="-3" x2="10" y2="-3" stroke-width="1.5" stroke-linecap="round" class={pillLineStroke} />
+        <line x1="-12" y1="3"  x2="4"  y2="3"  stroke-width="1.5" stroke-linecap="round" class={pillLineStroke} />
       </g>
     </g>
   </svg>

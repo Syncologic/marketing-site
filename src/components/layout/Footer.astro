@@ -9,20 +9,21 @@ const pathname = Astro.url.pathname;
 const GITHUB_URL = 'https://github.com/syncologic';
 ---
 
-<footer class="bg-soft-gray border-t border-divider">
-  <div class="container-wide py-section">
+<footer class="footer-glass">
+  <div class="footer-shell py-section">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
       <div class="col-span-2 md:col-span-1">
         <a href={localizedPath(locale, '/')} class="flex items-center gap-2 mb-4">
-          <img src="/assets/brand/icon-white.svg" alt={t('site.name')} width="48" height="48" loading="lazy" decoding="async" class="rounded-input" />
-          <span class="text-h3 font-bold tracking-tight leading-none text-logo-blue">{t('site.name')}</span>
+          <img src="/assets/brand/icon_white_background.svg" alt={t('site.name')} width="48" height="48" loading="lazy" decoding="async" class="theme-asset-day rounded-input" />
+          <img src="/assets/brand/icon_dark_background.svg" alt="" width="48" height="48" loading="lazy" decoding="async" class="theme-asset-night rounded-input" />
+          <span class="text-h3 font-bold tracking-tight leading-none text-[var(--brand-text)]">{t('site.name')}</span>
         </a>
-        <p class="text-caption text-slate-gray max-w-xs">{t('site.tagline')}</p>
+        <p class="text-caption text-ink-soft max-w-xs">{t('site.tagline')}</p>
         <a
           href={GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 mt-4 text-caption text-slate-gray hover:text-dark-charcoal transition-colors"
+          class="inline-flex items-center gap-2 mt-4 text-caption text-ink-soft hover:text-ink transition-colors"
           aria-label="GitHub — github.com/syncologic"
         >
           <GithubIcon size={18} />
@@ -31,24 +32,22 @@ const GITHUB_URL = 'https://github.com/syncologic';
       </div>
 
       <div>
-        <h3 class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{t('footer.product')}</h3>
+        <h3 class="text-caption font-medium uppercase tracking-wide text-ink-soft mb-3">{t('footer.product')}</h3>
         <ul class="space-y-2 text-caption">
-          <li><a href={localizedPath(locale, '/plans')} class="hover:underline">{t('nav.pricing')}</a></li>
           <li><a href={localizedPath(locale, '/self-hosted')} class="hover:underline">{t('nav.selfHosted')}</a></li>
           <li><a href={localizedPath(locale, '/developers')} class="hover:underline">{t('nav.developers')}</a></li>
         </ul>
       </div>
 
       <div>
-        <h3 class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{t('footer.resourcesColumn.title')}</h3>
+        <h3 class="text-caption font-medium uppercase tracking-wide text-ink-soft mb-3">{t('footer.resourcesColumn.title')}</h3>
         <ul class="space-y-2 text-caption">
           <li><a href={localizedPath(locale, '/guides')} class="hover:underline">{t('footer.resourcesColumn.guides')}</a></li>
-          <li><a href={`${localizedPath(locale, '/')}#how-it-works`} class="hover:underline">{t('footer.resourcesColumn.useCases')}</a></li>
         </ul>
       </div>
 
       <div>
-        <h3 class="text-caption font-medium uppercase tracking-wide text-slate-gray mb-3">{t('language.label')}</h3>
+        <h3 class="text-caption font-medium uppercase tracking-wide text-ink-soft mb-3">{t('language.label')}</h3>
         <ul class="space-y-2 text-caption">
           <li><a href={localizedPath('en', pathname)} class="hover:underline" hreflang="en">{t('language.en')}</a></li>
           <li><a href={localizedPath('pt-br', pathname)} class="hover:underline" hreflang="pt-br">{t('language.pt-br')}</a></li>
@@ -56,10 +55,37 @@ const GITHUB_URL = 'https://github.com/syncologic';
       </div>
     </div>
 
-    <p class="text-small text-slate-gray mt-12">
+    <p class="text-small text-ink-soft mt-12">
       <span>{t('footer.copyright', { year })}</span>
       <span class="mx-2" aria-hidden="true">·</span>
       <a href={localizedPath(locale, '/privacy')} class="hover:underline">{t('footer.privacy')}</a>
     </p>
   </div>
 </footer>
+
+<style>
+  .footer-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border-top: 1px solid var(--glass-border-soft);
+    color: var(--ink);
+  }
+  .footer-glass :global(a:hover) {
+    color: var(--ink);
+  }
+  /* Match the navbar's effective horizontal offset: nav lives inside
+     a max-1560 wrapper with px-5 (lg px-8) AND sits inside a header
+     that's pulled in by left-3 / lg:left-6. Mirror both layers here so
+     the logo + brand line up vertically with the navbar's logo. */
+  .footer-shell {
+    max-width: 1560px;
+    margin-inline: auto;
+    padding-inline: calc(12px + 20px);
+  }
+  @media (min-width: 1024px) {
+    .footer-shell {
+      padding-inline: calc(24px + 32px);
+    }
+  }
+</style>

@@ -14,9 +14,7 @@ export const PROVIDERS = [
   'onedrive',
   'dropbox',
   's3',
-  'sftp',
   'your_server',
-  'nextcloud',
   'other',
 ] as const;
 

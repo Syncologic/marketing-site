@@ -10,6 +10,7 @@ interface Props {
   ariaLabel?: string;
   ariaDescribedBy?: string;
   ariaInvalid?: boolean;
+  maxLength?: number;
   class?: string;
 }
 
@@ -24,13 +25,14 @@ const {
   ariaLabel,
   ariaDescribedBy,
   ariaInvalid,
+  maxLength,
   class: extra = '',
 } = Astro.props;
 
 const classes = [
-  'w-full px-4 py-3 bg-white border border-divider rounded-input text-compact text-dark-charcoal',
-  'placeholder:text-slate-gray',
-  'focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/30 focus:outline-none',
+  'input-glass w-full px-4 py-3 rounded-input text-compact text-ink',
+  'placeholder:text-ink-soft',
+  'focus:border-[var(--sky-action)] focus:ring-2 focus:ring-[color:color-mix(in_srgb,var(--sky-action)_30%,transparent)] focus:outline-none',
   'aria-[invalid=true]:border-error aria-[invalid=true]:ring-error/30',
   'transition-colors duration-200',
   extra,
@@ -48,5 +50,8 @@ const classes = [
   aria-label={ariaLabel}
   aria-describedby={ariaDescribedBy}
   aria-invalid={ariaInvalid ? 'true' : undefined}
+  maxlength={maxLength}
   class={classes}
+  data-squircle
+  data-squircle-radius="12"
 />

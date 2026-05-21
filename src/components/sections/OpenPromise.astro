@@ -1,0 +1,457 @@
+---
+import GithubIcon from '../ui/GithubIcon.astro';
+import { Sparkles, CreditCard, Server, ChevronDown } from '@lucide/astro';
+import { getLocaleFromUrl, getT } from '../../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getT(locale);
+
+const items = [
+  { key: 'openSource',  Icon: GithubIcon },
+  { key: 'freePlan',    Icon: Sparkles },
+  { key: 'noCard',      Icon: CreditCard },
+  { key: 'selfHosting', Icon: Server },
+] as const;
+
+const panelId = 'open-promise-panel';
+---
+
+<div class="op-wrap" data-active="">
+  <div class="op-row-shadow">
+    <ul class="op-row" role="list" data-squircle data-squircle-radius="32">
+      <span class="op-row__highlight" aria-hidden="true" data-highlight></span>
+    {items.map(({ key, Icon }) => (
+      <li class="op-row__item">
+        <button
+          type="button"
+          class="op-row__trigger"
+          aria-expanded="false"
+          aria-controls={panelId}
+          data-key={key}
+          data-title={t(`openPromise.${key}.title`)}
+          data-desc={t(`openPromise.${key}.desc`)}
+        >
+          <span class="op-icon" aria-hidden="true">
+            <Icon size={16} strokeWidth={2} />
+          </span>
+          <span class="op-label">{t(`openPromise.${key}.title`)}</span>
+          <ChevronDown size={13} strokeWidth={2.25} class="op-row__chev" aria-hidden="true" />
+        </button>
+      </li>
+    ))}
+    </ul>
+  </div>
+
+  <div
+    class="op-panel"
+    id={panelId}
+    role="region"
+    aria-live="polite"
+    data-open="false"
+  >
+    <div class="op-panel__inner">
+      <p class="op-panel__title" data-active-title></p>
+      <p class="op-panel__desc" data-active-desc></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .op-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+  }
+
+  /* === Row === */
+  .op-row-shadow {
+    display: inline-flex;
+    filter: var(--drop-shadow-sky-md);
+  }
+  .op-row {
+    list-style: none;
+    padding: 6px 8px;
+    margin: 0 auto;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border: 1px solid var(--glass-border-soft);
+    border-radius: 999px;
+    box-shadow: var(--glass-shadow);
+    position: relative;
+    z-index: 2;
+  }
+  .op-row__item {
+    display: inline-flex;
+    align-items: stretch;
+    position: relative;
+  }
+  .op-row__item + .op-row__item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 22%;
+    bottom: 22%;
+    width: 1px;
+    background: var(--glass-border-soft);
+    z-index: 0;
+  }
+  .op-row__trigger {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    position: relative;
+    z-index: 1;
+    transition:
+      background 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .op-row__trigger:hover {
+    background: color-mix(in srgb, var(--sky-action) 8%, transparent);
+  }
+  .op-row__trigger:focus-visible {
+    outline: 3px solid var(--sky-action);
+    outline-offset: 2px;
+  }
+  .op-row__trigger[aria-expanded='true'] {
+    color: var(--on-action);
+    background: var(--sky-action);
+  }
+  .op-row__trigger[aria-expanded='true']:hover {
+    background: var(--sky-action);
+  }
+
+  /* Moving highlight pill behind the active item */
+  .op-row__highlight {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 0;
+    width: 0;
+    background: var(--sky-action);
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    transform: translateZ(0);
+    box-shadow: 0 6px 16px -8px color-mix(in srgb, var(--sky-action) 70%, transparent);
+    transition:
+      left 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      width 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 160ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .op-wrap[data-active=''] .op-row__highlight { opacity: 0; }
+  .op-row__chev {
+    opacity: 0.55;
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .op-row__trigger:hover .op-row__chev { opacity: 1; }
+  .op-row__trigger[aria-expanded='true'] .op-row__chev {
+    opacity: 1;
+    transform: rotate(180deg);
+  }
+
+  /* === Icon === */
+  .op-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sky-action) 14%, transparent);
+    color: var(--sky-action);
+    flex-shrink: 0;
+    transition: background 200ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .op-row__trigger[aria-expanded='true'] .op-icon {
+    background: rgba(255, 255, 255, 0.22);
+    color: var(--on-action);
+  }
+  .op-label {
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    white-space: nowrap;
+  }
+
+  /* === Panel === */
+  .op-panel {
+    width: 100%;
+    max-width: 560px;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 380ms cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    z-index: 1;
+  }
+  .op-panel[data-open='true'] { grid-template-rows: 1fr; }
+  .op-panel__inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .op-panel__title,
+  .op-panel__desc {
+    margin: 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .op-panel__title {
+    margin-top: 14px;
+    color: var(--sky-action);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .op-panel__desc {
+    margin-top: 4px;
+    padding: 0 12px 4px;
+    color: var(--ink);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .op-panel[data-open='true'] .op-panel__title,
+  .op-panel[data-open='true'] .op-panel__desc {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 120ms;
+  }
+  .op-panel[data-swapping='true'] .op-panel__title,
+  .op-panel[data-swapping='true'] .op-panel__desc {
+    opacity: 0;
+    transform: translateY(-4px);
+    transition-delay: 0ms;
+  }
+
+  @media (max-width: 640px) {
+    .op-wrap { gap: 0; }
+    .op-row-shadow { width: 100%; max-width: 420px; }
+    .op-row {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      padding: 6px;
+      gap: 2px;
+    }
+    .op-row__item { display: flex; width: 100%; }
+    .op-row__item + .op-row__item::before {
+      left: 14px;
+      right: 14px;
+      top: 0;
+      bottom: auto;
+      width: auto;
+      height: 1px;
+    }
+    .op-row__trigger {
+      width: 100%;
+      padding: 10px 14px;
+      gap: 10px;
+      border-radius: 14px;
+    }
+    .op-row__trigger[aria-expanded='true'] {
+      background: var(--sky-action);
+      color: var(--on-action);
+    }
+    .op-label {
+      font-size: 13.5px;
+      flex: 1;
+      text-align: left;
+    }
+    .op-row__chev { margin-left: auto; }
+    /* Sliding highlight doesn't translate well to a vertical stack — hide it and
+       fall back to per-item background fill (rule above). */
+    .op-row__highlight { display: none; }
+    .op-panel { max-width: 420px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .op-row__trigger,
+    .op-icon,
+    .op-row__chev,
+    .op-panel,
+    .op-panel__title,
+    .op-panel__desc { transition: none !important; }
+  }
+</style>
+
+<script>
+  const AUTO_CYCLE_MS = 5000;
+  const FIRST_OPEN_DELAY_MS = 5000;
+
+  document.querySelectorAll<HTMLElement>('.op-wrap').forEach((wrap) => {
+    const triggers = Array.from(wrap.querySelectorAll<HTMLButtonElement>('.op-row__trigger'));
+    const panel = wrap.querySelector<HTMLElement>('.op-panel');
+    const titleSlot = wrap.querySelector<HTMLElement>('[data-active-title]');
+    const descSlot = wrap.querySelector<HTMLElement>('[data-active-desc]');
+    const highlight = wrap.querySelector<HTMLElement>('[data-highlight]');
+    const row = wrap.querySelector<HTMLElement>('.op-row');
+    if (!panel || !titleSlot || !descSlot || !highlight || !row || triggers.length === 0) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let userInteracted = false;
+    let cycleTimer: ReturnType<typeof setInterval> | null = null;
+    let startTimer: ReturnType<typeof setTimeout> | null = null;
+    let swapTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const positionHighlight = (btn: HTMLButtonElement) => {
+      const rowRect = row.getBoundingClientRect();
+      const btnRect = btn.getBoundingClientRect();
+      highlight.style.left = `${btnRect.left - rowRect.left}px`;
+      highlight.style.width = `${btnRect.width}px`;
+      highlight.style.opacity = '1';
+    };
+
+    const setActiveButton = (btn: HTMLButtonElement) => {
+      triggers.forEach((b) => b.setAttribute('aria-expanded', 'false'));
+      btn.setAttribute('aria-expanded', 'true');
+      wrap.dataset.active = btn.dataset.key ?? '';
+      positionHighlight(btn);
+    };
+
+    const writeContent = (btn: HTMLButtonElement) => {
+      titleSlot.textContent = btn.dataset.title ?? '';
+      descSlot.textContent = btn.dataset.desc ?? '';
+    };
+
+    const open = (btn: HTMLButtonElement) => {
+      if (swapTimer) { clearTimeout(swapTimer); swapTimer = null; }
+      const wasOpen = panel.dataset.open === 'true';
+      setActiveButton(btn);
+      if (wasOpen && !reduced.matches) {
+        panel.dataset.swapping = 'true';
+        swapTimer = setTimeout(() => {
+          writeContent(btn);
+          panel.dataset.swapping = 'false';
+        }, 200);
+      } else {
+        writeContent(btn);
+        panel.dataset.open = 'true';
+      }
+    };
+
+    const close = () => {
+      if (swapTimer) { clearTimeout(swapTimer); swapTimer = null; }
+      triggers.forEach((b) => b.setAttribute('aria-expanded', 'false'));
+      panel.dataset.open = 'false';
+      panel.dataset.swapping = 'false';
+      wrap.dataset.active = '';
+      highlight.style.opacity = '0';
+    };
+
+    let isInView = false;
+    let tabVisible = !document.hidden;
+    let cycleStarted = false;
+    let pointerInside = false;
+
+    const canCycle = () =>
+      !reduced.matches && !userInteracted && isInView && tabVisible && !pointerInside;
+
+    const pauseCycle = () => {
+      if (startTimer) { clearTimeout(startTimer); startTimer = null; }
+      if (cycleTimer) { clearInterval(cycleTimer); cycleTimer = null; }
+    };
+
+    const resumeCycle = () => {
+      if (!canCycle()) return;
+      if (cycleTimer || startTimer) return;
+      if (!cycleStarted) {
+        startTimer = setTimeout(() => {
+          startTimer = null;
+          if (!canCycle()) return;
+          cycleStarted = true;
+          open(triggers[0]);
+          cycleTimer = setInterval(advance, AUTO_CYCLE_MS);
+        }, FIRST_OPEN_DELAY_MS);
+      } else {
+        cycleTimer = setInterval(advance, AUTO_CYCLE_MS);
+      }
+    };
+
+    const stopCycle = () => {
+      pauseCycle();
+    };
+
+    const advance = () => {
+      const activeIdx = triggers.findIndex((b) => b.getAttribute('aria-expanded') === 'true');
+      const next = triggers[(activeIdx + 1) % triggers.length];
+      open(next);
+    };
+
+    triggers.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        userInteracted = true;
+        stopCycle();
+        const isActive = btn.getAttribute('aria-expanded') === 'true';
+        if (isActive) close(); else open(btn);
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.dataset.open === 'true') {
+        userInteracted = true;
+        stopCycle();
+        close();
+      }
+    });
+
+    wrap.addEventListener('pointerenter', () => {
+      pointerInside = true;
+      pauseCycle();
+    });
+    wrap.addEventListener('pointerleave', () => {
+      pointerInside = false;
+      resumeCycle();
+    });
+
+    window.addEventListener('resize', () => {
+      const active = triggers.find((b) => b.getAttribute('aria-expanded') === 'true');
+      if (active) positionHighlight(active);
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      tabVisible = !document.hidden;
+      if (tabVisible) resumeCycle();
+      else pauseCycle();
+    });
+
+    if (reduced.matches) return;
+
+    if (typeof IntersectionObserver === 'function') {
+      const io = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          isInView = entry.isIntersecting;
+          if (isInView) resumeCycle();
+          else pauseCycle();
+        }
+      }, { threshold: 0.1 });
+      io.observe(wrap);
+    } else {
+      isInView = true;
+      resumeCycle();
+    }
+  });
+</script>
