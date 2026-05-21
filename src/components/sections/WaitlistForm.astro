@@ -722,7 +722,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       color-mix(in srgb, var(--sky-action) 92%, white) 0%,
       var(--sky-action-hover) 100%
     );
-    color: white;
+    color: var(--on-action);
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--sky-action) 30%, transparent);
   }
   [data-theme='night'] .waitlist-option {
@@ -753,7 +753,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
       color-mix(in srgb, var(--sky-action) 92%, white) 0%,
       var(--sky-action-hover) 100%
     );
-    color: white;
+    color: var(--on-action);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme='day']) .waitlist-option {
@@ -784,7 +784,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
         color-mix(in srgb, var(--sky-action) 92%, white) 0%,
         var(--sky-action-hover) 100%
       );
-      color: white;
+      color: var(--on-action);
     }
   }
 
@@ -812,7 +812,7 @@ const providerIconMap: Array<{ value: string; logoId: 'google-drive' | 'onedrive
   .waitlist-modal-nav:hover {
     background: var(--sky-action);
     border-color: var(--sky-action);
-    color: #ffffff;
+    color: var(--on-action);
     box-shadow:
       0 8px 20px -8px color-mix(in srgb, var(--sky-action) 55%, transparent),
       0 2px 4px -2px color-mix(in srgb, var(--sky-action) 35%, transparent);

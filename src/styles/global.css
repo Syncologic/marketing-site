@@ -153,6 +153,7 @@
   --ink-soft: var(--color-ink-soft-day);
   --sky-action: var(--color-sky-blue);
   --sky-action-hover: var(--color-sky-blue-hover);
+  --on-action: oklch(0.985 0.005 250);
   --glass-bg: rgb(255 255 255 / 0.86);
   --glass-bg-strong: rgb(255 255 255 / 0.94);
   --glass-border: color-mix(in srgb, var(--sky-action) 18%, transparent);
@@ -180,6 +181,7 @@
     --ink-soft: var(--color-ink-soft-night);
     --sky-action: #1C6BCC;
     --sky-action-hover: #1557AA;
+    --on-action: oklch(0.985 0.005 250);
     --glass-bg: rgb(20 27 46 / 0.58);
     --glass-bg-strong: rgb(20 27 46 / 0.70);
     --glass-border: rgb(255 255 255 / 0.18);
@@ -207,6 +209,7 @@
   --ink-soft: var(--color-ink-soft-night);
   --sky-action: #1C6BCC;
   --sky-action-hover: #1557AA;
+  --on-action: oklch(0.985 0.005 250);
   --glass-bg: rgb(20 27 46 / 0.75);
   --glass-bg-strong: rgb(20 27 46 / 0.94);
   --glass-border: rgb(255 255 255 / 0.14);
