@@ -28,19 +28,19 @@ const SUPPORT_EMAIL = 'hello@syncologic.com';
 <Layout title={privacy.meta.title} description={privacy.meta.description}>
   <Nav slot="nav" />
 
-  <article class="bg-reading-paper">
+  <article>
     <div class="container-wide max-w-3xl mx-auto py-section md:py-section-lg">
       <header class="mb-12">
-        <p class="text-caption text-slate-gray mb-3">{privacy.lastUpdated}</p>
-        <h1 class="text-h1 md:text-display-2 font-medium text-dark-charcoal mb-6">{privacy.title}</h1>
-        <p class="text-body text-slate-gray">{privacy.intro}</p>
+        <p class="text-caption text-ink-soft mb-3">{privacy.lastUpdated}</p>
+        <h1 class="text-h1 md:text-display-2 font-display font-bold text-ink mb-6">{privacy.title}</h1>
+        <p class="text-body text-ink">{privacy.intro}</p>
       </header>
 
       <div class="space-y-12">
         {privacy.sections.map((section) => (
           <section>
-            <h2 class="text-h2 md:text-h1 font-medium text-dark-charcoal mb-4">{section.title}</h2>
-            <div class="space-y-4 text-body text-slate-gray">
+            <h2 class="text-h2 md:text-h1 font-display font-bold text-ink mb-4">{section.title}</h2>
+            <div class="space-y-4 text-body text-ink">
               {section.body.map((block) =>
                 'p' in block ? (
                   <p>
@@ -48,7 +48,7 @@ const SUPPORT_EMAIL = 'hello@syncologic.com';
                       <Fragment>
                         {part}
                         {i < arr.length - 1 && (
-                          <a href={`mailto:${SUPPORT_EMAIL}`} class="text-brand-blue hover:underline">{SUPPORT_EMAIL}</a>
+                          <a href={`mailto:${SUPPORT_EMAIL}`} class="text-[var(--sky-action)] hover:underline">{SUPPORT_EMAIL}</a>
                         )}
                       </Fragment>
                     ))}

@@ -29,36 +29,38 @@ const indexDescription = t('guides.index.description');
 <Layout title={indexTitle} description={indexDescription}>
   <Nav slot="nav" />
 
-  <article class="bg-reading-paper">
+  <article>
     <div class="max-w-[960px] mx-auto px-6 py-section-lg">
       <header class="max-w-[720px] mb-12">
-        <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{t('guides.index.eyebrow')}</span>
-        <h1 class="text-h1 font-medium text-dark-charcoal mt-3 leading-tight">{t('guides.index.headline')}</h1>
-        <p class="text-body text-slate-gray mt-5 leading-relaxed">{t('guides.index.subheading')}</p>
+        <span class="guides-eyebrow-badge">{t('guides.index.eyebrow')}</span>
+        <h1 class="text-h1 font-display font-bold text-ink mt-4 leading-tight">{t('guides.index.headline')}</h1>
+        <p class="text-body text-ink mt-5 leading-relaxed">{t('guides.index.subheading')}</p>
       </header>
 
       <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {guides.map((g) => (
           <li>
-            <a
-              href={localizedPath('pt-br', `/guides/${g.slug}`)}
-              class="block group h-full"
-            >
-              <Card radius="card" elevation="flat" class="p-6 h-full transition-shadow group-hover:shadow-card">
-                <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{g.eyebrow}</span>
-                <h2 class="text-h3 font-bold text-dark-charcoal mt-2">{g.title}</h2>
-                <p class="text-body text-slate-gray mt-3 line-clamp-3">{g.description}</p>
-                <p class="text-caption text-slate-gray mt-4 flex flex-wrap gap-x-3 gap-y-1">
-                  <span>{t('guides.meta.readingTime', { minutes: g.readingTime })}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>
-                    {t('guides.meta.updated')}
-                    {' '}
-                    <time datetime={g.updatedIso}>{g.updatedLabel}</time>
-                  </span>
-                </p>
-              </Card>
-            </a>
+            <Card class="p-6 h-full">
+              <h2 class="text-h3 font-bold">
+                <a
+                  href={localizedPath('pt-br', `/guides/${g.slug}`)}
+                  class="group inline-flex items-start gap-2 text-ink hover:text-[var(--sky-action)] transition-colors"
+                >
+                  {g.title}
+                  <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+                </a>
+              </h2>
+              <p class="text-body text-ink mt-3 line-clamp-3">{g.description}</p>
+              <p class="text-caption text-ink-soft mt-4 flex flex-wrap gap-x-3 gap-y-1">
+                <span>{t('guides.meta.readingTime', { minutes: g.readingTime })}</span>
+                <span aria-hidden="true">·</span>
+                <span>
+                  {t('guides.meta.updated')}
+                  {' '}
+                  <time datetime={g.updatedIso}>{g.updatedLabel}</time>
+                </span>
+              </p>
+            </Card>
           </li>
         ))}
       </ul>
@@ -67,3 +69,19 @@ const indexDescription = t('guides.index.description');
 
   <Footer slot="footer" />
 </Layout>
+
+<style>
+  .guides-eyebrow-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1;
+    color: #ffffff;
+    background: var(--sky-action);
+  }
+</style>

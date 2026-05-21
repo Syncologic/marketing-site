@@ -6,6 +6,8 @@ import Footer from '../../components/layout/Footer.astro';
 import Hero from '../../components/sections/Hero.astro';
 import SelfHostedSections from '../../components/sections/SelfHostedSections.astro';
 import WaitlistForm from '../../components/sections/WaitlistForm.astro';
+import HeroEmailCapture from '../../components/sections/HeroEmailCapture.astro';
+import WaitlistJoinedCard from '../../components/sections/WaitlistJoinedCard.astro';
 import PrivateRunnerPath from '../../components/visuals/PrivateRunnerPath.astro';
 import { getLocaleFromUrl, getT, localizedPath } from '../../i18n/utils';
 import { buildBreadcrumb } from '../../lib/breadcrumb';
@@ -25,12 +27,30 @@ const breadcrumbSchema = buildBreadcrumb([
   <Nav slot="nav" />
   <div data-hero>
     <Hero
-      eyebrow={t('selfHosted.hero.eyebrow')}
       headline={t('selfHosted.hero.headline')}
       subheading={t('selfHosted.hero.subheading')}
       primaryCta={{ label: t('selfHosted.hero.primaryCta'), href: '#waitlist' }}
     >
-      <p slot="meta" class="text-caption text-slate-gray max-w-[640px]">
+      <span slot="banner" class="self-hosted-status">
+        <span class="self-hosted-status__dot" aria-hidden="true"></span>
+        {t('selfHosted.hero.banner')}
+      </span>
+      <Fragment slot="cta">
+        <div id="waitlist" class="self-hosted-join" data-join-swap data-joined-state="cta">
+          <button type="button" class="self-hosted-join__btn btn-primary-glass px-[26px] py-[14px] text-[16px] font-semibold" data-cta-trigger>
+            {t('selfHosted.hero.primaryCta')}
+          </button>
+          <div class="self-hosted-join__form-shadow">
+            <div class="self-hosted-join__form glass" data-squircle data-squircle-radius="22">
+              <HeroEmailCapture segmentHint="self_hosted" />
+            </div>
+          </div>
+          <div class="self-hosted-join__joined">
+            <WaitlistJoinedCard />
+          </div>
+        </div>
+      </Fragment>
+      <p slot="meta" class="text-caption text-ink-soft max-w-[640px]">
         {t('selfHosted.hero.audience')}
       </p>
       <Fragment slot="visual">
@@ -45,3 +65,127 @@ const breadcrumbSchema = buildBreadcrumb([
 
   <Footer slot="footer" />
 </Layout>
+
+<style>
+  .self-hosted-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    background: var(--sky-action);
+  }
+  .self-hosted-status__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px color-mix(in srgb, #ffffff 35%, transparent);
+    animation: self-hosted-status-dot 2s ease-in-out infinite;
+  }
+  @keyframes self-hosted-status-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.85); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .self-hosted-status__dot { animation: none; }
+  }
+
+  .self-hosted-join {
+    display: grid;
+    grid-template-areas: 'stack';
+    width: 100%;
+    max-width: 520px;
+    place-items: center stretch;
+  }
+  .self-hosted-join__btn,
+  .self-hosted-join__form-shadow,
+  .self-hosted-join__joined {
+    grid-area: stack;
+    transition:
+      opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .self-hosted-join__btn { justify-self: center; align-self: center; cursor: pointer; }
+  .self-hosted-join__form-shadow {
+    display: flex;
+    flex-direction: column;
+    filter: var(--drop-shadow-sky-md) blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.92);
+  }
+  .self-hosted-join__joined {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px) scale(0.985);
+  }
+  .self-hosted-join__form { padding: 8px; border-radius: 22px; }
+
+  [data-joined-state='form'] .self-hosted-join__btn {
+    opacity: 0;
+    transform: scale(0.72);
+    pointer-events: none;
+    box-shadow: none;
+  }
+  [data-joined-state='form'] .self-hosted-join__form-shadow {
+    opacity: 1;
+    transform: scale(1);
+    filter: var(--drop-shadow-sky-md) blur(0);
+    pointer-events: auto;
+  }
+
+  [data-joined-state='joined'] .self-hosted-join__btn { opacity: 0; pointer-events: none; transform: scale(0.85); }
+  [data-joined-state='joined'] .self-hosted-join__form-shadow {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.985);
+    filter: var(--drop-shadow-sky-md) blur(0);
+    pointer-events: none;
+  }
+  [data-joined-state='joined'] .self-hosted-join__joined {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .self-hosted-join__form :global(.hero-email-capture > *) {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 280ms cubic-bezier(0.22, 1, 0.36, 1) 120ms,
+      transform 360ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+  }
+  .self-hosted-join__form :global(.hero-email-capture > *:nth-child(2)) { transition-delay: 200ms; }
+  .self-hosted-join__form :global(.hero-email-capture > *:nth-child(3)) { transition-delay: 280ms; }
+  [data-joined-state='form'] .self-hosted-join__form :global(.hero-email-capture > *) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .self-hosted-join__btn,
+    .self-hosted-join__form-shadow,
+    .self-hosted-join__joined,
+    .self-hosted-join__form :global(.hero-email-capture > *) { transition: none; filter: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.self-hosted-join[data-join-swap]').forEach((wrap) => {
+    const btn = wrap.querySelector<HTMLButtonElement>('[data-cta-trigger]');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      if (wrap.dataset.joinedState !== 'cta') return;
+      wrap.dataset.joinedState = 'form';
+      const email = wrap.querySelector<HTMLInputElement>('input[name="email"]');
+      if (!email) return;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.setTimeout(() => email.focus({ preventScroll: true }), reduced ? 0 : 360);
+    });
+  });
+</script>

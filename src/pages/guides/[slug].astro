@@ -46,10 +46,6 @@ const t = getT('en');
 const minutes = readingTimeMinutes(entry.body ?? '');
 const updatedLabel = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(entry.data.updatedAt);
 const updatedIso = entry.data.updatedAt.toISOString().slice(0, 10);
-const segmentHref = entry.data.waitlistSegment === 'business_migration'
-  ? '/use-cases/business-cloud-migration'
-  : '/use-cases/cloud-to-cloud-transfer';
-
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://syncologic.com';
 const canonical = `${siteUrl}${localizedPath('en', `/guides/${slug}`)}`;
 const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
@@ -75,7 +71,7 @@ const articleSchema = {
     '@type': 'Organization',
     name: 'Syncologic',
     url: siteUrl,
-    logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/brand/icon-white.svg` },
+    logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/brand/icon_white_background.svg` },
   },
 };
 ---
@@ -84,7 +80,7 @@ const articleSchema = {
   <JsonLd slot="head" schema={[breadcrumbSchema, articleSchema]} />
   <Nav slot="nav" />
 
-  <article class="bg-reading-paper">
+  <article class="">
     <div class="max-w-[1280px] mx-auto px-6 py-section-lg lg:grid lg:grid-cols-[200px_minmax(0,880px)_120px] lg:gap-10">
       <aside class="hidden lg:block">
         <div class="sticky top-24">
@@ -94,10 +90,10 @@ const articleSchema = {
 
       <div class="min-w-0">
         <header class="mb-12">
-          <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{entry.data.eyebrow}</span>
-          <h1 class="text-h1 font-medium text-dark-charcoal mt-3 leading-tight">{entry.data.headline}</h1>
-          <p class="text-body text-slate-gray mt-5 leading-relaxed">{entry.data.subheading}</p>
-          <p class="text-caption text-slate-gray mt-6 flex flex-wrap gap-x-3 gap-y-1 items-center">
+          <span class="text-caption font-medium uppercase tracking-wide text-ink-soft">{entry.data.eyebrow}</span>
+          <h1 class="text-h1 font-display font-bold text-ink mt-3 leading-tight">{entry.data.headline}</h1>
+          <p class="text-body text-ink mt-5 leading-relaxed">{entry.data.subheading}</p>
+          <p class="text-caption text-ink-soft mt-6 flex flex-wrap gap-x-3 gap-y-1 items-center">
             <span>{t('guides.meta.readingTime', { minutes })}</span>
             <span aria-hidden="true">·</span>
             <span>
@@ -117,34 +113,36 @@ const articleSchema = {
     </div>
   </article>
 
-  <Section surface="soft" padding="md">
+  <Section surface="tint" padding="md">
     <div class="max-w-[720px] mx-auto text-center">
-      <h2 class="text-h1 font-medium text-dark-charcoal">{t('guides.cta.title')}</h2>
-      <p class="text-body text-slate-gray mt-4 leading-relaxed">{t('guides.cta.body')}</p>
+      <h2 class="text-h1 font-display font-bold text-ink">{t('guides.cta.title')}</h2>
+      <p class="text-body text-ink mt-4 leading-relaxed">{t('guides.cta.body')}</p>
       <div class="mt-6 flex flex-wrap justify-center gap-3">
-        <Button href={localizedPath('en', segmentHref)} variant="primary" size="lg">{t('guides.cta.primary')}</Button>
-        <Button href={localizedPath('en', '/')} variant="secondary" size="lg">{t('guides.cta.secondary')}</Button>
+        <Button href={localizedPath('en', '/')} variant="primary" size="lg">{t('guides.cta.primary')}</Button>
       </div>
     </div>
   </Section>
 
   {related.length > 0 && (
-    <Section surface="soft" padding="md">
+    <Section surface="tint" padding="md">
       <div class="max-w-[960px] mx-auto">
-        <h2 class="text-h1 font-medium text-dark-charcoal mb-8">{t('guides.meta.readNext')}</h2>
+        <h2 class="text-h1 font-display font-bold text-ink mb-8">{t('guides.meta.readNext')}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           {related.map((r) => (
-            <a
-              href={localizedPath('en', `/guides/${r.slug}`)}
-              class="block group"
-            >
-              <Card radius="card" elevation="flat" class="p-6 transition-shadow group-hover:shadow-card">
-                <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{r.eyebrow}</span>
-                <h3 class="text-h3 font-bold text-dark-charcoal mt-2">{r.title}</h3>
-                <p class="text-body text-slate-gray mt-3 line-clamp-3">{r.description}</p>
-                <p class="text-caption text-slate-gray mt-4">{t('guides.meta.readingTime', { minutes: r.readingTime })}</p>
-              </Card>
-            </a>
+            <Card class="p-6">
+              <span class="text-caption font-medium uppercase tracking-wide text-ink-soft">{r.eyebrow}</span>
+              <h3 class="text-h3 font-bold mt-2">
+                <a
+                  href={localizedPath('en', `/guides/${r.slug}`)}
+                  class="group inline-flex items-start gap-2 text-ink hover:text-[var(--sky-action)] transition-colors"
+                >
+                  {r.title}
+                  <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+                </a>
+              </h3>
+              <p class="text-body text-ink mt-3 line-clamp-3">{r.description}</p>
+              <p class="text-caption text-ink-soft mt-4">{t('guides.meta.readingTime', { minutes: r.readingTime })}</p>
+            </Card>
           ))}
         </div>
       </div>
