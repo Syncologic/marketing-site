@@ -5,15 +5,283 @@ import { getLocaleFromUrl, getT } from '../../i18n/utils';
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 
-const points = ['preview', 'scoped', 'progress', 'reports', 'transparency', 'sourceVisible'] as const;
+const points = [
+  { key: 'preview',       cls: 'trust-bento__cell--wide trust-bento__cell--feature' },
+  { key: 'reports',       cls: 'trust-bento__cell--tall' },
+  { key: 'scoped',        cls: '' },
+  { key: 'progress',      cls: '' },
+  { key: 'sourceVisible', cls: 'trust-bento__cell--wide' },
+  { key: 'transparency',  cls: '' },
+] as const;
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-  {points.map((p) => (
-    <div>
-      <TrustMicroVisuals variant={p} />
-      <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{t(`trust.${p}.title`)}</h3>
-      <p class="text-caption text-slate-gray leading-relaxed">{t(`trust.${p}.desc`)}</p>
-    </div>
-  ))}
+<div class="trust-bento-wrap" data-trust-bento>
+  <ul class="trust-bento" role="list">
+    {points.map(({ key, cls }) => (
+      <li class:list={['trust-bento__cell', cls]}>
+        <div class="trust-bento__card-wrap squircle-elevation">
+          <div
+            class="trust-bento__card glass-pane"
+            data-squircle
+            data-squircle-radius="22"
+          >
+            <div class="trust-bento__visual">
+              <TrustMicroVisuals variant={key} />
+            </div>
+            <div class="trust-bento__body">
+              <h3 class="trust-bento__title">{t(`trust.${key}.title`)}</h3>
+              <p class="trust-bento__desc">{t(`trust.${key}.desc`)}</p>
+            </div>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ul>
+  <div class="trust-bento__controls" aria-hidden="true">
+    <button type="button" class="trust-bento__arrow" data-trust-prev aria-label="Previous">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+    </button>
+    <ol class="trust-bento__dots">
+      {points.map((_, i) => (
+        <li>
+          <button type="button" class="trust-bento__dot" data-dot-index={i} tabindex="-1"></button>
+        </li>
+      ))}
+    </ol>
+    <button type="button" class="trust-bento__arrow" data-trust-next aria-label="Next">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+    </button>
+  </div>
 </div>
+
+<style>
+  .trust-bento-wrap { width: 100%; }
+  .trust-bento__controls { display: none; }
+  @media (max-width: 767px) {
+    .trust-bento-wrap {
+      width: 100vw;
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .trust-bento {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .trust-bento {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 0;
+      padding: 6px 0 6px;
+      margin: 0;
+      width: 100%;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+    }
+    .trust-bento::-webkit-scrollbar { display: none; }
+    .trust-bento__cell {
+      flex: 0 0 100%;
+      width: 100%;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      padding: 0 24px;
+      box-sizing: border-box;
+    }
+    .trust-bento__controls { padding: 0 24px; }
+
+    .trust-bento__card-wrap {
+      filter: none;
+      position: relative;
+    }
+    .trust-bento__card-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      box-shadow:
+        0 14px 28px -8px rgb(20 40 80 / 0.18),
+        0 4px 10px -2px rgb(20 40 80 / 0.10);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .trust-bento__controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .trust-bento__arrow {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sky-action);
+      background: color-mix(in srgb, var(--sky-action) 12%, transparent);
+      transition: background 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .trust-bento__arrow:hover,
+    .trust-bento__arrow:focus-visible {
+      background: var(--sky-action);
+      color: #ffffff;
+      outline: none;
+    }
+    .trust-bento__arrow:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: color-mix(in srgb, var(--sky-action) 8%, transparent);
+      color: var(--sky-action);
+    }
+    .trust-bento__dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .trust-bento__dot {
+      appearance: none;
+      border: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--sky-action) 22%, transparent);
+      padding: 0;
+      cursor: pointer;
+      transition: background 220ms cubic-bezier(0.22, 1, 0.36, 1), width 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .trust-bento__dot[data-active='true'] {
+      background: var(--sky-action);
+      width: 18px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .trust-bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  }
+  @media (min-width: 1024px) {
+    .trust-bento {
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-flow: row dense;
+      grid-auto-rows: minmax(170px, auto);
+      gap: 18px;
+    }
+    .trust-bento__cell--wide { grid-column: span 2; }
+    .trust-bento__cell--tall { grid-row: span 2; }
+  }
+
+  .trust-bento__cell { display: flex; }
+
+  .trust-bento__card-wrap {
+    flex: 1;
+    display: flex;
+  }
+
+  .trust-bento__card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 26px;
+    color: var(--ink);
+    background: #ffffff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  [data-theme='night'] .trust-bento__card,
+  :root:not([data-theme='day']) .trust-bento__card {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+  }
+
+  .trust-bento__visual {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .trust-bento__visual :global(svg),
+  .trust-bento__visual :global(img) { max-width: 100%; height: auto; }
+
+  .trust-bento__body { display: flex; flex-direction: column; gap: 6px; }
+  .trust-bento__title {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.25;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .trust-bento__desc {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+</style>
+
+<script>
+  const wraps = document.querySelectorAll<HTMLElement>('[data-trust-bento]');
+  wraps.forEach((wrap) => {
+    const scroller = wrap.querySelector<HTMLElement>('.trust-bento');
+    const dots = Array.from(wrap.querySelectorAll<HTMLButtonElement>('.trust-bento__dot'));
+    const cells = Array.from(wrap.querySelectorAll<HTMLElement>('.trust-bento__cell'));
+    const prev = wrap.querySelector<HTMLButtonElement>('[data-trust-prev]');
+    const next = wrap.querySelector<HTMLButtonElement>('[data-trust-next]');
+    if (!scroller || dots.length === 0 || cells.length === 0) return;
+
+    const mq = window.matchMedia('(max-width: 767px)');
+    let currentIdx = 0;
+
+    const setActive = (idx: number) => {
+      currentIdx = idx;
+      dots.forEach((d, i) => d.dataset.active = (i === idx ? 'true' : 'false'));
+      if (prev) prev.disabled = idx === 0;
+      if (next) next.disabled = idx === cells.length - 1;
+    };
+
+    const computeActive = () => {
+      const rect = scroller.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      cells.forEach((cell, i) => {
+        const r = cell.getBoundingClientRect();
+        const dist = Math.abs((r.left + r.width / 2) - centerX);
+        if (dist < bestDist) { bestDist = dist; bestIdx = i; }
+      });
+      setActive(bestIdx);
+    };
+
+    const goTo = (idx: number) => {
+      const clamped = Math.max(0, Math.min(cells.length - 1, idx));
+      cells[clamped]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    };
+
+    scroller.addEventListener('scroll', () => {
+      if (mq.matches) computeActive();
+    }, { passive: true });
+
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+    prev?.addEventListener('click', () => goTo(currentIdx - 1));
+    next?.addEventListener('click', () => goTo(currentIdx + 1));
+
+    if (mq.matches) computeActive();
+    mq.addEventListener('change', () => { if (mq.matches) computeActive(); });
+  });
+</script>

@@ -8,19 +8,50 @@ const t = getT(locale);
 const providers = [
   { id: 'google-drive' as const, key: 'googleDrive' },
   { id: 'onedrive' as const, key: 'oneDrive' },
-  { id: 'dropbox' as const, key: 'dropbox' },
   { id: 's3' as const, key: 's3' },
-  { id: 'sftp' as const, key: 'sftp' },
-  { id: 'your_server' as const, key: 'your_server' },
-  { id: 'nextcloud' as const, key: 'nextcloud' },
+  { id: 'dropbox' as const, key: 'dropbox' },
 ];
 ---
 
-<ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-y-8 gap-x-6 sm:gap-x-8 lg:gap-x-10 max-w-md sm:max-w-2xl lg:max-w-none mx-auto px-4 py-6 [&>li:last-child]:col-span-2 sm:[&>li:last-child]:col-span-3 lg:[&>li:last-child]:col-span-1">
+<ul class="provider-row grid grid-cols-2 sm:grid-cols-4 gap-y-12 gap-x-8 sm:gap-x-14 lg:gap-x-20 max-w-lg sm:max-w-4xl mx-auto px-4 py-10">
   {providers.map((p) => (
-    <li class="flex flex-col items-center gap-3 text-caption text-slate-gray whitespace-nowrap">
-      <ProviderLogo provider={p.id} size={56} />
-      <span>{t(`providers.${p.key}`)}</span>
+    <li class="flex flex-col items-center gap-4 text-body text-ink whitespace-nowrap">
+      <span class="provider-row__chip-shadow">
+        <span class="provider-row__chip glass-pane">
+          <ProviderLogo provider={p.id} size={72} />
+        </span>
+      </span>
+      <span class="text-[15px] font-medium">{t(`providers.${p.key}`)}</span>
     </li>
   ))}
 </ul>
+
+<style>
+  .provider-row :global(svg > rect:first-of-type) {
+    fill: transparent;
+    stroke: transparent;
+  }
+  .provider-row__chip-shadow {
+    position: relative;
+    display: inline-block;
+    filter: var(--drop-shadow-sky-lg);
+  }
+  .provider-row__chip-shadow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    box-shadow:
+      0 12px 24px -4px rgb(20 40 80 / 0.18),
+      0 4px 10px -2px rgb(20 40 80 / 0.10);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .provider-row__chip {
+    width: 112px;
+    height: 112px;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+  }
+</style>

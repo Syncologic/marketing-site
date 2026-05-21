@@ -14,55 +14,195 @@ interface FaqItem {
 interface Props {
   title: string;
   items: FaqItem[];
-  surface?: 'white' | 'soft' | 'dark';
+  surface?: 'sky' | 'pane' | 'tint';
   id?: string;
 }
 
-const { title, items, surface = 'soft', id } = Astro.props;
+const { title, items, surface = 'tint', id } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const resolveHref = (href: string) =>
   href.startsWith('/') ? localizedPath(locale, href) : href;
+const sectionId = id ?? 'faq';
 ---
 
 <Section surface={surface} padding="md" id={id}>
   <div class="max-w-[840px] mx-auto">
-    <h2 class="text-h1 font-medium text-dark-charcoal mb-8">{title}</h2>
+    <h2 class="text-h1 font-display font-bold text-ink mb-8">{title}</h2>
     <ul class="flex flex-col gap-3 list-none p-0">
-      {items.map((item) => (
-        <li class="border border-divider rounded-card bg-white">
-          <details class="group">
-            <summary class="flex items-center justify-between gap-4 cursor-pointer list-none px-6 py-5 text-h3 font-bold text-dark-charcoal min-h-[44px]">
-              <span>{item.q}</span>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                class="transition-transform group-open:rotate-180 shrink-0"
-                aria-hidden="true"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </summary>
-            <div class="px-6 pb-5 -mt-1 text-body text-slate-gray">
-              {item.a}
-              {item.link && (
-                <>
-                  {' '}
-                  <a
-                    href={resolveHref(item.link.href)}
-                    class="text-brand-blue hover:underline focus-visible:underline"
-                  >
-                    {item.link.label} →
-                  </a>
-                </>
-              )}
+      {items.map((item, i) => {
+        const panelId = `${sectionId}-panel-${i}`;
+        return (
+          <li class="faq-item glass-pane rounded-card overflow-hidden">
+            <button
+              type="button"
+              class="faq-trigger w-full flex items-center justify-between gap-4 list-none px-6 py-5 text-left text-h3 font-extrabold tracking-tight text-ink min-h-[44px]"
+              aria-expanded="false"
+              aria-controls={panelId}
+            >
+              <span class="faq-q">{item.q}</span>
+              <span class="faq-chevron-chip shrink-0">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="faq-chevron"
+                  aria-hidden="true"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-panel" id={panelId} role="region" aria-labelledby={panelId}>
+              <div class="faq-panel-inner px-6 text-body text-ink">
+                <div class="faq-divider" aria-hidden="true"></div>
+                {item.a}
+                {item.link && (
+                  <>
+                    {' '}
+                    <a
+                      href={resolveHref(item.link.href)}
+                      class="text-[var(--sky-action)] hover:underline focus-visible:underline font-medium"
+                    >
+                      {item.link.label} →
+                    </a>
+                  </>
+                )}
+              </div>
             </div>
-          </details>
-        </li>
-      ))}
+          </li>
+        );
+      })}
     </ul>
   </div>
 </Section>
+
+<style>
+  .faq-item {
+    position: relative;
+    box-shadow:
+      0 6px 18px -10px color-mix(in srgb, var(--sky-action) 28%, transparent),
+      0 1px 3px -1px color-mix(in srgb, var(--ink) 8%, transparent);
+    transition:
+      background 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .faq-item:hover {
+    transform: translateY(-1px);
+  }
+  .faq-item:has(.faq-trigger[aria-expanded='true']) {
+    background: color-mix(in srgb, var(--sky-action) 6%, var(--glass-bg-strong));
+    border-color: color-mix(in srgb, var(--sky-action) 35%, var(--glass-border-soft));
+    box-shadow:
+      0 10px 26px -14px color-mix(in srgb, var(--sky-action) 45%, transparent),
+      0 2px 6px -2px color-mix(in srgb, var(--sky-action) 18%, transparent);
+  }
+  .faq-trigger {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    transition: background 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .faq-trigger:hover {
+    background: color-mix(in srgb, var(--sky-action) 5%, transparent);
+  }
+  .faq-trigger:focus-visible {
+    outline: 3px solid var(--sky-action);
+    outline-offset: -3px;
+  }
+
+  .faq-q {
+    transition: color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .faq-trigger[aria-expanded='true'] .faq-q {
+    color: var(--sky-action);
+  }
+
+  .faq-chevron-chip {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sky-action) 10%, transparent);
+    color: var(--sky-action);
+    transition:
+      background 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .faq-trigger[aria-expanded='true'] .faq-chevron-chip {
+    background: var(--sky-action);
+    color: #ffffff;
+  }
+  .faq-chevron {
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .faq-trigger[aria-expanded='true'] .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-divider {
+    height: 1px;
+    margin: 0 0 16px;
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--sky-action) 30%, transparent),
+      color-mix(in srgb, var(--sky-action) 8%, transparent)
+    );
+  }
+
+  /* Collapsed: a CSS grid row with 0fr collapses children to 0 height while
+     keeping them in flow (no display:none). Opening: animate to 1fr. */
+  .faq-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .faq-panel-inner {
+    min-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    padding-top: 0;
+    padding-bottom: 0;
+    transition:
+      opacity 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      padding 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .faq-trigger[aria-expanded='true'] + .faq-panel {
+    grid-template-rows: 1fr;
+  }
+  .faq-trigger[aria-expanded='true'] + .faq-panel .faq-panel-inner {
+    opacity: 1;
+    transform: translateY(0);
+    padding-bottom: 1.5rem;
+    transition-delay: 120ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-item, .faq-trigger, .faq-q, .faq-chevron,
+    .faq-panel, .faq-panel-inner {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.faq-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      trigger.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+    });
+  });
+</script>

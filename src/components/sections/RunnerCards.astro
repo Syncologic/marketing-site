@@ -1,27 +1,464 @@
 ---
-import Card from '../ui/Card.astro';
-import RunnerCardIllustrations from '../visuals/RunnerCardIllustrations.astro';
+import { Check } from '@lucide/astro';
+import ProviderConstellation from '../visuals/ProviderConstellation.astro';
+import BrowserRunnerVisual from '../visuals/BrowserRunnerVisual.astro';
+import PrivateRunnerVisual from '../visuals/PrivateRunnerVisual.astro';
 import { getLocaleFromUrl, getT } from '../../i18n/utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getT(locale);
 
 const runners = ['cloud', 'browser', 'private'] as const;
+const bestForLabel = t('runners.bestForLabel');
+const bestFor: Record<typeof runners[number], string[]> = {
+  cloud: t('runners.cloud.bestFor') as unknown as string[],
+  browser: t('runners.browser.bestFor') as unknown as string[],
+  private: t('runners.private.bestFor') as unknown as string[],
+};
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-  {runners.map((r) => (
-    <Card class="p-8 h-full flex flex-col">
-      <RunnerCardIllustrations variant={r} />
-      <h3 class="text-h3 font-bold text-dark-charcoal mb-1">
-        {t(`runners.${r}.plainTitle`)}
-      </h3>
-      <p class="text-caption text-slate-gray mb-3">
-        ({t(`runners.${r}.name`)})
-      </p>
-      <p class="text-body text-slate-gray leading-relaxed">
-        {t(`runners.${r}.description`)}
-      </p>
-    </Card>
-  ))}
+<div class="runner-tabs">
+  <div class="runner-tabs__row-shadow">
+    <div class="runner-tabs__row glass" data-squircle data-squircle-radius="22" role="tablist" aria-label={t('homepage.runnersTitle')}>
+      <span class="runner-tabs__highlight" aria-hidden="true"></span>
+      {runners.map((r, i) => (
+        <button
+          type="button"
+          class="runner-tabs__btn"
+          role="tab"
+          id={`runner-tab-${r}`}
+          aria-controls={`runner-panel-${r}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          data-runner={r}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          <span class="runner-tabs__btn-label">{t(`runners.${r}.plainTitle`)}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="runner-tabs__panel-shadow">
+    <div class="runner-tabs__panel glass" data-squircle data-squircle-radius="22">
+      {runners.map((r, i) => (
+        <div
+          class="runner-tabs__pane"
+          role="tabpanel"
+          id={`runner-panel-${r}`}
+          aria-labelledby={`runner-tab-${r}`}
+          data-runner={r}
+          data-active={i === 0 ? 'true' : 'false'}
+        >
+          <div class="runner-tabs__copy">
+            <div class="runner-tabs__title-row">
+              <h3 class="runner-tabs__title font-display">
+                {t(`runners.${r}.plainTitle`)}
+              </h3>
+            </div>
+            <p class="runner-tabs__name">
+              {t(`runners.${r}.name`)}
+            </p>
+            {r === 'private' && (
+              <p class="runner-tabs__planned-note">
+                {t('runners.private.plannedNote')}
+              </p>
+            )}
+            <p class="runner-tabs__desc">
+              {t(`runners.${r}.description`)}
+            </p>
+          </div>
+          <div class="runner-tabs__illu">
+            {r === 'cloud' && <ProviderConstellation />}
+            {r === 'browser' && <BrowserRunnerVisual />}
+            {r === 'private' && <PrivateRunnerVisual />}
+          </div>
+          <div class="runner-tabs__best-for">
+            <span class="runner-tabs__best-for-label">{bestForLabel}</span>
+            <ul class="runner-tabs__best-for-list">
+              {bestFor[r].map((item) => (
+                <li class="runner-tabs__best-for-item">
+                  <span class="runner-tabs__best-for-icon" aria-hidden="true">
+                    <Check size={12} strokeWidth={3} />
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
 </div>
+
+<style>
+  .runner-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .runner-tabs__row-shadow {
+    filter: var(--drop-shadow-sky-md);
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .runner-tabs__row {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 6px;
+    border-radius: 22px;
+    isolation: isolate;
+  }
+  .runner-tabs__highlight {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    height: calc(100% - 12px);
+    width: 0;
+    border-radius: 16px;
+    background: var(--sky-action);
+    box-shadow:
+      0 8px 18px -6px color-mix(in srgb, var(--sky-action) 55%, transparent),
+      0 1px 2px -1px color-mix(in srgb, var(--sky-action) 35%, transparent);
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .runner-tabs__btn {
+    position: relative;
+    z-index: 1;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+    border-radius: 16px;
+    transition: color 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .runner-tabs__btn:hover { color: var(--sky-action); }
+  .runner-tabs__btn[aria-selected='true'] { color: #ffffff; }
+  .runner-tabs__btn[aria-selected='true']:hover { color: #ffffff; }
+  .runner-tabs__btn:focus-visible {
+    outline: 3px solid var(--sky-action);
+    outline-offset: 2px;
+  }
+  .runner-tabs__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: color-mix(in srgb, var(--sky-action) 14%, transparent);
+    color: var(--sky-action);
+  }
+
+  .runner-tabs__title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .runner-tabs__best-for {
+    padding: 18px 20px;
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--sky-action) 6%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sky-action) 18%, transparent);
+    max-width: 420px;
+  }
+  .runner-tabs__best-for-label {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sky-action);
+    margin-bottom: 10px;
+  }
+  .runner-tabs__best-for-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .runner-tabs__best-for-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .runner-tabs__best-for-icon {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--sky-action);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  .runner-tabs__panel-shadow {
+    filter: var(--drop-shadow-sky-md);
+  }
+  .runner-tabs__panel {
+    position: relative;
+    padding: clamp(32px, 4vw, 56px) clamp(24px, 4vw, 56px);
+    border-radius: 22px;
+    min-height: 580px;
+    overflow: hidden;
+  }
+  .runner-tabs__pane {
+    position: absolute;
+    inset: clamp(32px, 4vw, 56px) clamp(24px, 4vw, 56px);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "illu"
+      "best";
+    gap: 24px;
+    align-items: start;
+    opacity: 0;
+    transform: translateX(40px);
+    transition:
+      opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .runner-tabs__copy { grid-area: copy; }
+  .runner-tabs__illu { grid-area: illu; }
+  .runner-tabs__best-for { grid-area: best; }
+  .runner-tabs__pane[data-active='true'] { pointer-events: auto; }
+  .runner-tabs__pane[data-enter='left']  { transform: translateX(-40px); }
+  .runner-tabs__pane[data-enter='right'] { transform: translateX(40px); }
+  .runner-tabs__pane[data-active='true'] {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .runner-tabs__pane[hidden] { display: none; }
+  @media (min-width: 768px) {
+    .runner-tabs__pane {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "copy illu"
+        "best illu";
+      gap: clamp(20px, 3vw, 32px) clamp(32px, 4vw, 56px);
+    }
+    .runner-tabs__best-for { align-self: end; }
+    .runner-tabs__illu { align-self: center; }
+  }
+  @media (min-width: 1024px) {
+    .runner-tabs__pane {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .runner-tabs__panel { min-height: 700px; }
+    .runner-tabs__panel:has(.runner-tabs__pane[data-runner='private'][data-active='true']) {
+      min-height: 900px;
+    }
+  }
+
+  .runner-tabs__illu { display: flex; align-items: center; justify-content: center; }
+  .runner-tabs__illu :global(.runner-illustration) { margin-bottom: 0; }
+  .runner-tabs__illu :global(svg) { width: 100%; height: auto; max-width: 420px; margin: 0 auto; display: block; }
+
+  .runner-tabs__illu :global(.constellation) { max-width: 420px; }
+  .runner-tabs__illu :global(.private-stage) {
+    max-width: 420px;
+    margin-bottom: 48px;
+  }
+  .runner-tabs__illu :global(.browser-stage) { max-width: 620px; margin-inline: auto; transform: translateY(-24px); }
+
+  .runner-tabs__illu :global(.constellation__chip) { width: 22%; }
+
+  .runner-tabs__illu :global(.constellation__chip-inner),
+  .runner-tabs__illu :global(.browser-stage__chip-inner),
+  .runner-tabs__illu :global(.private-stage__chip-inner) {
+    background: color-mix(in srgb, var(--sky-action) 12%, color-mix(in srgb, #ffffff 22%, transparent));
+    border: 0;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--sky-action) 18%, transparent) inset;
+    filter: none;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 6px;
+    gap: 4px;
+  }
+  :global(.theme-night) .runner-tabs__illu :global(.constellation__chip-inner),
+  :global(.theme-night) .runner-tabs__illu :global(.browser-stage__chip-inner),
+  :global(.theme-night) .runner-tabs__illu :global(.private-stage__chip-inner) {
+    background: color-mix(in srgb, var(--sky-action) 18%, color-mix(in srgb, #ffffff 6%, transparent));
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--sky-action) 24%, transparent) inset;
+  }
+
+  .runner-tabs__illu :global(.constellation__chip-label) { font-size: 10px; }
+
+  .runner-tabs__illu :global(.constellation__chip svg > rect:first-of-type),
+  .runner-tabs__illu :global(.browser-stage__chip svg > rect:first-of-type),
+  .runner-tabs__illu :global(.private-stage__chip svg > rect:first-of-type) {
+    stroke: transparent;
+    fill: transparent;
+  }
+  .runner-tabs__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 56ch;
+  }
+  .runner-tabs__title {
+    margin: 0;
+    font-size: clamp(26px, 2.8vw, 36px);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .runner-tabs__name {
+    margin: 6px 0 0;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--sky-action);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .runner-tabs__desc {
+    margin: 16px 0 0;
+    font-size: clamp(16px, 1.15vw, 18px);
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .runner-tabs__planned-note {
+    margin: 8px 0 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    width: fit-content;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+    color: #ffffff;
+    background: var(--sky-action);
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .runner-tabs__highlight,
+    .runner-tabs__pane,
+    .runner-tabs__btn,
+    .runner-tabs__badge { transition: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.runner-tabs');
+  if (root) {
+    const row = root.querySelector<HTMLElement>('.runner-tabs__row')!;
+    const highlight = root.querySelector<HTMLElement>('.runner-tabs__highlight')!;
+    const tabs = Array.from(row.querySelectorAll<HTMLButtonElement>('.runner-tabs__btn'));
+    const panes = Array.from(root.querySelectorAll<HTMLElement>('.runner-tabs__pane'));
+
+    function moveHighlight(target: HTMLElement) {
+      const rowRect = row.getBoundingClientRect();
+      const r = target.getBoundingClientRect();
+      const x = r.left - rowRect.left;
+      highlight.style.transform = `translateX(${x}px)`;
+      highlight.style.width = `${r.width}px`;
+    }
+
+    let currentIdx = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
+    if (currentIdx < 0) currentIdx = 0;
+
+    function activate(idx: number) {
+      if (idx === currentIdx) return;
+      const dir: 'left' | 'right' = idx > currentIdx ? 'right' : 'left';
+      const outDir: 'left' | 'right' = dir === 'right' ? 'left' : 'right';
+
+      tabs.forEach((tab, i) => {
+        const active = i === idx;
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        tab.tabIndex = active ? 0 : -1;
+        if (active) moveHighlight(tab);
+      });
+
+      panes.forEach((pane, i) => {
+        if (i === idx) {
+          pane.dataset.enter = dir;
+          pane.dataset.active = 'false';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => { pane.dataset.active = 'true'; });
+          });
+        } else if (i === currentIdx) {
+          pane.dataset.enter = outDir;
+          pane.dataset.active = 'false';
+        } else {
+          pane.dataset.active = 'false';
+        }
+      });
+
+      currentIdx = idx;
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => activate(i));
+      tab.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          const next = (i + 1) % tabs.length;
+          tabs[next].focus();
+          activate(next);
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prev = (i - 1 + tabs.length) % tabs.length;
+          tabs[prev].focus();
+          activate(prev);
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          tabs[0].focus();
+          activate(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          tabs[tabs.length - 1].focus();
+          activate(tabs.length - 1);
+        }
+      });
+    });
+
+    const place = () => {
+      const idx = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
+      if (idx >= 0) moveHighlight(tabs[idx]);
+    };
+    place();
+    window.addEventListener('resize', place);
+    if (document.fonts?.ready) document.fonts.ready.then(place).catch(() => {});
+  }
+</script>

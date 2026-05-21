@@ -30,22 +30,25 @@ const guides = slugs
 ---
 
 {guides.length > 0 && (
-  <Section surface="soft" padding="md">
+  <Section surface="tint" padding="md">
     <div class="max-w-[960px] mx-auto">
-      <h2 class="text-h1 font-medium text-dark-charcoal mb-8">{t('useCases.furtherReading')}</h2>
+      <h2 class="text-h1 font-medium text-ink mb-8">{t('useCases.furtherReading')}</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {guides.map((g) => (
-          <a
-            href={localizedPath(locale, `/guides/${g.slug}`)}
-            class="block group transition-shadow group-hover:shadow-card"
-          >
-            <Card radius="card" elevation="flat" class="p-6 transition-shadow group-hover:shadow-card">
-              <span class="text-caption font-medium uppercase tracking-wide text-slate-gray">{g.eyebrow}</span>
-              <h3 class="text-h3 font-bold text-dark-charcoal mt-2">{g.title}</h3>
-              <p class="text-body text-slate-gray mt-3 line-clamp-3">{g.description}</p>
-              <p class="text-caption text-slate-gray mt-4">{t('guides.meta.readingTime', { minutes: g.readingTime })}</p>
-            </Card>
-          </a>
+          <Card class="p-6">
+            <span class="text-caption font-medium uppercase tracking-wide text-ink-soft">{g.eyebrow}</span>
+            <h3 class="text-h3 font-bold mt-2">
+              <a
+                href={localizedPath(locale, `/guides/${g.slug}`)}
+                class="group inline-flex items-start gap-2 text-ink hover:text-[var(--sky-action)] transition-colors"
+              >
+                {g.title}
+                <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+              </a>
+            </h3>
+            <p class="text-body text-ink mt-3 line-clamp-3">{g.description}</p>
+            <p class="text-caption text-ink-soft mt-4">{t('guides.meta.readingTime', { minutes: g.readingTime })}</p>
+          </Card>
         ))}
       </div>
     </div>

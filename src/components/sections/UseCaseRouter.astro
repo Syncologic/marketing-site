@@ -9,17 +9,22 @@ const useCases = [
   { slug: 'cloud-to-cloud-transfer', key: 'cloudToCloud' },
   { slug: 'business-cloud-migration', key: 'businessMigration' },
   { slug: 'scheduled-cloud-backup', key: 'scheduledBackup' },
-  { slug: 'private-runner', key: 'privateRunner' },
 ];
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
   {useCases.map((u) => (
-    <a href={localizedPath(locale, `/use-cases/${u.slug}`)} class="block group h-full">
-      <Card class="p-6 h-full transition-transform group-hover:-translate-y-0.5 group-hover:shadow-card">
-        <h3 class="text-h3 font-bold text-dark-charcoal mb-2">{t(`useCaseRouter.${u.key}.title`)}</h3>
-        <p class="text-caption text-slate-gray">{t(`useCaseRouter.${u.key}.desc`)}</p>
-      </Card>
-    </a>
+    <Card class="p-6 h-full">
+      <h3 class="text-h3 font-bold mb-2">
+        <a
+          href={localizedPath(locale, `/use-cases/${u.slug}`)}
+          class="group inline-flex items-center gap-2 text-ink hover:text-[var(--sky-action)] transition-colors"
+        >
+          {t(`useCaseRouter.${u.key}.title`)}
+          <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+        </a>
+      </h3>
+      <p class="text-caption text-ink">{t(`useCaseRouter.${u.key}.desc`)}</p>
+    </Card>
   ))}
 </div>
