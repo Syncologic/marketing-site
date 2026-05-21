@@ -27,13 +27,16 @@ const ogLocaleAlternate = locale === 'pt-br' ? 'en_US' : 'pt_BR';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={altEn} />
     <link rel="alternate" hreflang="pt-br" href={altPt} />
     <link rel="alternate" hreflang="x-default" href={altEn} />
-    <link rel="icon" type="image/svg+xml" href="/assets/brand/icon-white.svg" />
+    <link rel="icon" type="image/svg+xml" href="/assets/brand/icon_adaptive.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -48,10 +51,26 @@ const ogLocaleAlternate = locale === 'pt-br' ? 'en_US' : 'pt_BR';
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={og} />
     <slot name="head" />
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        var explicit = null;
+        try {
+          var t = localStorage.getItem('sky-theme');
+          if (t === 'day' || t === 'night') {
+            root.dataset.theme = t;
+            explicit = t;
+          }
+        } catch (e) {}
+        var effective = explicit ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day');
+        root.dataset.celestial = effective === 'night' ? 'moon' : 'sun';
+      })();
+    </script>
   </head>
   <body>
     <slot name="nav" />
-    <main id="main" class="pt-12 lg:pt-14">
+    <main id="main" class="pt-20 lg:pt-28">
       <slot />
     </main>
     <slot name="footer" />
