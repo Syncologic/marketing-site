@@ -1,26 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&display=swap');
 
 @import 'tailwindcss';
 
-@theme {
-  --font-sans: 'Montserrat', Helvetica, Arial, sans-serif;
+/* Register the theme tokens as <color> so the body gradient interpolates
+   between day and night instead of jumping. This is the smoothness unlock. */
+@property --sky-zenith        { syntax: '<color>'; inherits: true; initial-value: oklch(0.86 0.08 232); }
+@property --sky-mid           { syntax: '<color>'; inherits: true; initial-value: oklch(0.80 0.10 236); }
+@property --sky-horizon       { syntax: '<color>'; inherits: true; initial-value: oklch(0.96 0.025 80); }
+@property --ink               { syntax: '<color>'; inherits: true; initial-value: oklch(0.20 0.03 255); }
+@property --ink-soft          { syntax: '<color>'; inherits: true; initial-value: oklch(0.42 0.02 255); }
+@property --sun-glow          { syntax: '<color>'; inherits: true; initial-value: oklch(0.95 0.08 80); }
+@property --sky-action        { syntax: '<color>'; inherits: true; initial-value: oklch(0.48 0.19 252); }
+@property --sky-action-hover  { syntax: '<color>'; inherits: true; initial-value: oklch(0.40 0.20 252); }
+@property --glass-bg          { syntax: '<color>'; inherits: true; initial-value: rgb(255 255 255 / 0.86); }
+@property --glass-bg-strong   { syntax: '<color>'; inherits: true; initial-value: rgb(255 255 255 / 0.94); }
+@property --glass-border      { syntax: '<color>'; inherits: true; initial-value: rgb(255 255 255 / 0.95); }
+@property --glass-border-soft { syntax: '<color>'; inherits: true; initial-value: rgb(255 255 255 / 0.7); }
+@property --glass-tint        { syntax: '<color>'; inherits: true; initial-value: rgb(20 60 120 / 0.04); }
+@property --glass-highlight   { syntax: '<color>'; inherits: true; initial-value: rgb(255 255 255 / 0.6); }
+@property --cloud-light       { syntax: '<color>'; inherits: true; initial-value: rgb(255 255 255 / 0.95); }
+@property --cloud-shadow      { syntax: '<color>'; inherits: true; initial-value: rgb(180 200 230 / 0.5); }
+@property --cloud-stroke      { syntax: '<color>'; inherits: true; initial-value: rgb(255 255 255 / 0.85); }
 
-  --color-brand-blue: #0064E0;
-  --color-brand-blue-hover: #0143B5;
-  --color-brand-blue-pressed: #004BB9;
-  --color-brand-blue-light: #47A5FA;
-  --color-logo-blue: #0045AD;
-  --color-dark-charcoal: #1C2B33;
-  --color-slate-gray: #5D6C7B;
-  --color-soft-gray: #F1F4F7;
-  --color-warm-gray: #F7F8FA;
-  --color-reading-paper: #F6F5F1;
-  --color-baby-blue: #E8F3FF;
-  --color-near-black: #1C1E21;
-  --color-divider: #DEE3E9;
+@theme {
+  --font-sans: 'Switzer', system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  --font-display: 'Schibsted Grotesk', 'Switzer', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* === Sky palette (committed strategy: sky carries the surface) === */
+  --color-sky-zenith-day: oklch(0.97 0.028 232);
+  --color-sky-mid-day: oklch(0.955 0.035 236);
+  --color-sky-horizon-day: oklch(0.99 0.01 80);
+  --color-sky-zenith-night: oklch(0.16 0.05 265);
+  --color-sky-mid-night: oklch(0.22 0.06 255);
+  --color-sky-horizon-night: oklch(0.32 0.07 260);
+
+  /* === Ink (text on sky) === */
+  --color-ink-day: oklch(0.20 0.03 255);
+  --color-ink-soft-day: oklch(0.42 0.02 255);
+  --color-ink-night: oklch(0.96 0.005 250);
+  --color-ink-soft-night: oklch(0.78 0.01 250);
+
+  /* === Action — sky-aware blue === */
+  --color-sky-blue: oklch(0.48 0.19 252);
+  --color-sky-blue-hover: oklch(0.40 0.20 252);
+
+  /* === Residual legacy tokens (kept for components that still reference them) === */
   --color-btn-secondary: rgba(10, 19, 23, 0.12);
   --color-btn-secondary-hover: rgba(70, 90, 105, 0.08);
-  --color-nav: rgba(0, 0, 0, 0.06);
   --color-cta-disabled: #DEE3E9;
   --color-cta-disabled-text: #8595A4;
   --color-success: #007D1E;
@@ -31,7 +59,6 @@
   --color-chrome-green: #28C840;
   --color-error: #C80A28;
   --color-error-bg: rgba(200, 10, 40, 0.08);
-  --color-warning: #F7B928;
 
   --text-display-1: 64px;
   --text-display-1--line-height: 1.16;
@@ -63,28 +90,152 @@
   --text-small--line-height: 1.33;
   --text-small--font-weight: 400;
 
-  --radius-input: 8px;
-  --radius-card: 20px;
-  --radius-feature: 24px;
+  --radius-input: 12px;
+  --radius-card: 24px;
+  --radius-feature: 32px;
   --radius-pill: 100px;
+  --radius-glass: 32px;
 
-  --spacing-section-sm: 48px;
-  --spacing-section: 64px;
-  --spacing-section-lg: 80px;
+  --spacing-section-sm: 52px;
+  --spacing-section: 72px;
+  --spacing-section-lg: 88px;
 
   --shadow-card: 0 2px 4px rgba(0, 0, 0, 0.10);
   --shadow-card-elevated:
     0 12px 28px rgba(0, 0, 0, 0.20),
     0 2px 4px rgba(0, 0, 0, 0.10);
+  --shadow-glass-day:
+    0 1px 0 rgba(255, 255, 255, 0.55) inset,
+    0 12px 36px -8px rgba(20, 40, 80, 0.22),
+    0 2px 6px -2px rgba(20, 40, 80, 0.10);
+  --shadow-glass-night:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 14px 40px -8px rgba(0, 0, 0, 0.55),
+    0 2px 8px -2px rgba(0, 0, 0, 0.40);
+
+  /* === Sky-tinted drop shadows (use on elements floating on the sky) === */
+  --shadow-sky-sm:
+    0 2px 4px -1px rgb(20 40 80 / 0.06),
+    0 1px 2px -1px rgb(20 40 80 / 0.04);
+  --shadow-sky-md:
+    0 10px 22px -6px rgb(20 40 80 / 0.10),
+    0 2px 4px -1px rgb(20 40 80 / 0.06);
+  --shadow-sky-lg:
+    0 12px 24px -4px rgb(20 40 80 / 0.10),
+    0 2px 6px -2px rgb(20 40 80 / 0.06);
+  --shadow-sky-modal:
+    0 24px 60px -12px rgb(20 40 80 / 0.30),
+    0 4px 12px -2px rgb(20 40 80 / 0.12);
+
+  /* Drop-shadow filter variants (for squircle-clipped surfaces and SVG glyphs).
+     Use as `filter: var(--drop-shadow-sky-md)`. */
+  --drop-shadow-sky-sm:
+    drop-shadow(0 4px 10px rgb(20 40 80 / 0.08))
+    drop-shadow(0 1px 2px rgb(20 40 80 / 0.05));
+  --drop-shadow-sky-md:
+    drop-shadow(0 10px 22px rgb(20 40 80 / 0.10))
+    drop-shadow(0 2px 4px rgb(20 40 80 / 0.06));
+  --drop-shadow-sky-lg:
+    drop-shadow(0 14px 28px rgb(20 40 80 / 0.18))
+    drop-shadow(0 2px 6px rgb(20 40 80 / 0.10));
 
   --container-wide: 1440px;
 }
 
+/* === Semantic theme tokens (switch on data-theme or prefers-color-scheme) === */
+:root {
+  color-scheme: light;
+
+  --sky-zenith: var(--color-sky-zenith-day);
+  --sky-mid: var(--color-sky-mid-day);
+  --sky-horizon: var(--color-sky-horizon-day);
+  --ink: var(--color-ink-day);
+  --ink-soft: var(--color-ink-soft-day);
+  --sky-action: var(--color-sky-blue);
+  --sky-action-hover: var(--color-sky-blue-hover);
+  --glass-bg: rgb(255 255 255 / 0.86);
+  --glass-bg-strong: rgb(255 255 255 / 0.94);
+  --glass-border: color-mix(in srgb, var(--sky-action) 18%, transparent);
+  --glass-border-soft: color-mix(in srgb, var(--sky-action) 10%, transparent);
+  --glass-shadow: var(--shadow-glass-day);
+  --glass-tint: rgb(20 60 120 / 0.04);
+  --glass-highlight: rgb(255 255 255 / 0.75);
+  --cloud-light: rgb(255 255 255 / 0.95);
+  --cloud-shadow: rgb(180 200 230 / 0.5);
+  --cloud-stroke: rgb(255 255 255 / 0.85);
+  --sun-glow: oklch(0.95 0.08 80);
+  --brand-text: #0045AD;
+  --sky-bloom: #ffffff;
+  --text-error: #C80A28;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='day']) {
+    color-scheme: dark;
+
+    --sky-zenith: var(--color-sky-zenith-night);
+    --sky-mid: var(--color-sky-mid-night);
+    --sky-horizon: var(--color-sky-horizon-night);
+    --ink: var(--color-ink-night);
+    --ink-soft: var(--color-ink-soft-night);
+    --sky-action: #1C6BCC;
+    --sky-action-hover: #1557AA;
+    --glass-bg: rgb(20 27 46 / 0.58);
+    --glass-bg-strong: rgb(20 27 46 / 0.70);
+    --glass-border: rgb(255 255 255 / 0.18);
+    --glass-border-soft: rgb(255 255 255 / 0.10);
+    --glass-shadow: var(--shadow-glass-night);
+    --glass-tint: rgb(120 160 220 / 0.07);
+    --glass-highlight: rgb(255 255 255 / 0.14);
+    --cloud-light: rgb(180 195 230 / 0.18);
+    --cloud-shadow: rgb(15 20 40 / 0.6);
+    --cloud-stroke: rgb(220 230 255 / 0.20);
+    --sun-glow: oklch(0.82 0.10 280);
+    --brand-text: #1C6BCC;
+    --sky-bloom: color-mix(in srgb, white 10%, var(--sky-horizon));
+    --text-error: #FF8A95;
+  }
+}
+
+[data-theme='night'] {
+  color-scheme: dark;
+
+  --sky-zenith: var(--color-sky-zenith-night);
+  --sky-mid: var(--color-sky-mid-night);
+  --sky-horizon: var(--color-sky-horizon-night);
+  --ink: var(--color-ink-night);
+  --ink-soft: var(--color-ink-soft-night);
+  --sky-action: #1C6BCC;
+  --sky-action-hover: #1557AA;
+  --glass-bg: rgb(20 27 46 / 0.75);
+  --glass-bg-strong: rgb(20 27 46 / 0.94);
+  --glass-border: rgb(255 255 255 / 0.14);
+  --glass-border-soft: rgb(255 255 255 / 0.08);
+  --glass-shadow: var(--shadow-glass-night);
+  --glass-tint: rgb(120 160 220 / 0.06);
+  --glass-highlight: rgb(255 255 255 / 0.10);
+  --cloud-light: rgb(180 195 230 / 0.18);
+  --cloud-shadow: rgb(15 20 40 / 0.6);
+  --cloud-stroke: rgb(220 230 255 / 0.20);
+  --sun-glow: oklch(0.82 0.10 280);
+  --brand-text: #1C6BCC;
+  --sky-bloom: color-mix(in srgb, white 10%, var(--sky-horizon));
+}
+
 @layer base {
+  :root {
+    --theme-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --theme-duration: 600ms;
+
+    /* Theme tokens snap instantly; the .theme-ripple element masks the
+       snap moment so the user perceives a smooth transition without
+       every element repainting on every frame. */
+  }
+
   html {
     font-family: var(--font-sans);
-    color: var(--color-dark-charcoal);
-    background: #ffffff;
+    color: var(--ink);
+    background: var(--sky-zenith);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
@@ -95,10 +246,25 @@
   body {
     margin: 0;
     overscroll-behavior-y: contain;
+    background: var(--sky-zenith);
+    color: var(--ink);
+    min-height: 100vh;
+    position: relative;
+    isolation: isolate;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 110% 90% at 50% 50%, var(--sky-bloom) 0%, transparent 85%),
+      radial-gradient(ellipse 140% 120% at 50% 50%, var(--sky-mid) 0%, var(--sky-zenith) 95%);
+    pointer-events: none;
   }
 
   *:focus-visible {
-    outline: 3px solid var(--color-brand-blue);
+    outline: 3px solid var(--sky-action);
     outline-offset: 2px;
     border-radius: 4px;
   }
@@ -116,6 +282,202 @@
       padding-inline: 40px;
     }
   }
+
+  .text-ink { color: var(--ink); }
+  .text-ink-soft { color: var(--ink-soft); }
+  .bg-glass { background: var(--glass-bg); }
+  .border-glass { border-color: var(--glass-border); }
+  .border-glass-soft { border-color: var(--glass-border-soft); }
+  .font-display { font-family: var(--font-display); }
+  .font-mono { font-family: var(--font-mono); }
+}
+
+/* === Glass panel primitive === */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-glass);
+  position: relative;
+  isolation: isolate;
+}
+.glass::before { content: none; }
+.glass-strong {
+  background: var(--glass-bg-strong);
+}
+
+/* Squircle attribute → border-radius mapping. The figma-squircle JS was
+   removed; these rules let existing `data-squircle-radius="N"` attributes
+   keep rendering the right corner radius without the runtime hydration. */
+[data-squircle-radius="6"]  { border-radius: 6px !important; }
+[data-squircle-radius="8"]  { border-radius: 8px !important; }
+[data-squircle-radius="10"] { border-radius: 10px !important; }
+[data-squircle-radius="12"] { border-radius: 12px !important; }
+[data-squircle-radius="14"] { border-radius: 14px !important; }
+[data-squircle-radius="16"] { border-radius: 16px !important; }
+[data-squircle-radius="18"] { border-radius: 18px !important; }
+[data-squircle-radius="20"] { border-radius: 20px !important; }
+[data-squircle-radius="22"] { border-radius: 22px !important; }
+[data-squircle-radius="24"] { border-radius: 24px !important; }
+[data-squircle-radius="26"] { border-radius: 26px !important; }
+[data-squircle-radius="32"] { border-radius: 32px !important; }
+[data-squircle]:not([data-squircle-radius]) { border-radius: 22px !important; }
+[data-squircle] { border: 0 !important; }
+
+/* Pane: static glass card. Lightest material, no shadow, no hover.
+   Reads as "this is just holding content for you to read." */
+.glass-pane {
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border-soft);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border-radius: var(--radius-glass);
+  box-shadow: none;
+  position: relative;
+  isolation: isolate;
+}
+.glass-pane::before { content: none; }
+
+/* Elevation wrapper. With the squircle JS gone, drop-shadow on the parent
+   no longer reliably traces the child's rounded silhouette through its
+   backdrop-filter stacking context — so we apply box-shadow directly to
+   the squircled child, which respects border-radius natively. */
+.squircle-elevation {
+  height: 100%;
+}
+.squircle-elevation > * {
+  box-shadow: var(--shadow-sky-md);
+}
+
+/* Day/night swappable image assets (e.g. logos that need a different
+   SVG per theme). Mirrors the same cascade as the color tokens. */
+.theme-asset-night { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='day']) .theme-asset-day { display: none; }
+  :root:not([data-theme='day']) .theme-asset-night { display: inline-block; }
+}
+[data-theme='night'] .theme-asset-day { display: none; }
+[data-theme='night'] .theme-asset-night { display: inline-block; }
+
+/* Primary action: solid sky pill. Single canonical primary affordance —
+   matches the hero CTA so every primary button across the site reads the same. */
+.btn-primary-glass {
+  background: var(--sky-action);
+  border: 0;
+  border-radius: 999px;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow:
+    0 12px 28px -10px color-mix(in srgb, var(--sky-action) 60%, transparent),
+    0 2px 6px -2px color-mix(in srgb, var(--sky-action) 35%, transparent);
+  transition:
+    background 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-primary-glass:hover {
+  background: var(--sky-action-hover);
+  transform: translateY(-1px);
+}
+.btn-primary-glass:active {
+  background: var(--sky-action-hover);
+  transform: translateY(0);
+}
+.btn-primary-glass:focus-visible {
+  outline: 3px solid var(--sky-action);
+  outline-offset: 3px;
+}
+
+.input-glass {
+  background: color-mix(in srgb, var(--sky-action) 10%, color-mix(in srgb, #ffffff 65%, transparent));
+  border: 1px solid color-mix(in srgb, var(--sky-action) 22%, transparent);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.85),
+    inset 0 -1px 0 rgb(255 255 255 / 0.25),
+    0 1px 3px rgb(20 40 80 / 0.06);
+  transition:
+    background 180ms var(--theme-ease),
+    border-color 180ms var(--theme-ease),
+    box-shadow 180ms var(--theme-ease);
+}
+[data-theme='night'] .input-glass,
+:root:not([data-theme='day']) .input-glass {
+  background: color-mix(in srgb, white 8%, transparent);
+  border-color: color-mix(in srgb, white 22%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.10),
+    0 1px 2px rgb(0 0 0 / 0.2);
+}
+.input-glass:focus,
+.input-glass:focus-visible {
+  background: color-mix(in srgb, var(--sky-action) 22%, color-mix(in srgb, #ffffff 70%, transparent));
+  border-color: transparent;
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    inset 0 -1px 0 rgb(255 255 255 / 0.3);
+}
+[data-theme='night'] .input-glass:focus,
+:root:not([data-theme='day']) .input-glass:focus {
+  background: color-mix(in srgb, white 14%, transparent);
+}
+.input-glass[aria-invalid='true'],
+.input-glass.has-error {
+  background: color-mix(in srgb, var(--color-error, oklch(0.62 0.20 25)) 10%, white);
+  border-color: var(--color-error, oklch(0.62 0.20 25));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
+    0 0 0 3px color-mix(in srgb, var(--color-error, oklch(0.62 0.20 25)) 22%, transparent);
+}
+[data-theme='night'] .input-glass[aria-invalid='true'],
+[data-theme='night'] .input-glass.has-error,
+:root:not([data-theme='day']) .input-glass[aria-invalid='true'],
+:root:not([data-theme='day']) .input-glass.has-error {
+  background: color-mix(in srgb, var(--color-error, oklch(0.62 0.20 25)) 18%, transparent);
+}
+
+/* === Sky backdrop (decorative cloud layer, drifts) === */
+.sky-clouds {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+.sky-clouds svg {
+  position: absolute;
+  will-change: transform;
+}
+.sky-cloud-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+.cloud-drift-slow { animation: cloud-drift 110s linear infinite; }
+.cloud-drift-mid  { animation: cloud-drift 80s linear infinite; }
+.cloud-drift-fast { animation: cloud-drift 55s linear infinite; }
+
+@keyframes cloud-drift {
+  from { transform: translate3d(-40vw, 0, 0); }
+  to   { transform: translate3d(140vw, 0, 0); }
 }
 
 @keyframes hero-fade-in {
@@ -124,13 +486,15 @@
 }
 
 .hero-fade-in {
-  animation: hero-fade-in 600ms ease both;
+  animation: hero-fade-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 [data-reveal] {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 600ms ease, transform 600ms ease;
+  transform: translateY(24px);
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -139,6 +503,45 @@
   transform: none;
 }
 
+/* === Theme transition: View Transitions API ==========================
+   The browser snapshots the old and new states and crossfades between
+   them at the compositor level — no per-frame repaints, no backdrop-filter
+   recomputation. We stretch the default fade to a longer, gentler curve. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: normal;
+}
+
+/* Celestial bodies (sun + moon) live in SkyBackdrop; theme drives which is up. */
+.sky-sun, .sky-moon {
+  position: absolute;
+  transition:
+    transform var(--theme-duration) var(--theme-ease),
+    opacity   var(--theme-duration) var(--theme-ease);
+  will-change: transform, opacity;
+}
+@media (max-width: 767px) {
+  .sky-sun, .sky-moon {
+    opacity: 0 !important;
+    transform: scale(0.7) translateY(-30%) !important;
+    pointer-events: none;
+  }
+}
+:root[data-celestial='sun'] .sky-sun  { transform: translateY(0);     opacity: 1; }
+:root[data-celestial='sun'] .sky-moon { transform: translateY(-140%); opacity: 0; }
+:root[data-celestial='moon'] .sky-sun  { transform: translateY(-140%); opacity: 0; }
+:root[data-celestial='moon'] .sky-moon { transform: translateY(0);     opacity: 1; }
+
+/* Stars stagger in instead of fading as a block. */
+.sky-stars circle {
+  opacity: 0;
+  transition: opacity 900ms var(--theme-ease);
+  transition-delay: calc(var(--star-i, 0) * 55ms);
+}
+:root[data-celestial='moon'] .sky-stars circle { opacity: 0.9; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -146,27 +549,29 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .hero-fade-in {
-    animation: none;
-  }
+  .hero-fade-in { animation: none; }
+  .cloud-drift-slow, .cloud-drift-mid, .cloud-drift-fast { animation: none; }
   [data-reveal],
   [data-reveal].is-visible {
     opacity: 1;
     transform: none;
     transition: none;
   }
+  .sky-sun, .sky-moon, .sky-stars circle { transition: none !important; }
 }
 
 @layer components {
   .prose-syncologic {
-    @apply text-slate-gray;
+    color: color-mix(in srgb, var(--ink) 82%, var(--ink-soft));
     line-height: 1.7;
   }
   .prose-syncologic h2 {
-    @apply text-h1 font-medium text-dark-charcoal mt-12 mb-4;
+    @apply text-h1 font-display font-bold mt-12 mb-4;
+    color: var(--ink);
   }
   .prose-syncologic h3 {
-    @apply text-h3 font-bold text-dark-charcoal mt-8 mb-3;
+    @apply text-h3 font-bold mt-8 mb-3;
+    color: var(--ink);
   }
   .prose-syncologic p {
     @apply text-body mb-5;
@@ -181,25 +586,33 @@
     @apply mb-2;
   }
   .prose-syncologic a {
-    @apply text-brand-blue underline underline-offset-2;
+    color: var(--sky-action);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .prose-syncologic strong {
-    @apply text-dark-charcoal font-medium;
+    color: var(--ink);
+    font-weight: 600;
   }
   .prose-syncologic code {
-    @apply bg-soft-gray rounded-input px-1.5 py-0.5 text-caption;
+    background: var(--glass-bg);
+    border-radius: var(--radius-input);
+    padding: 0.125rem 0.375rem;
+    font-size: 0.875em;
   }
   .prose-syncologic table {
     @apply w-full my-6 text-body border-collapse;
   }
   .prose-syncologic thead {
-    @apply border-b border-divider;
+    border-bottom: 1px solid var(--glass-border-soft);
   }
   .prose-syncologic th {
-    @apply text-left font-medium text-dark-charcoal py-3 pr-4 align-top;
+    @apply text-left font-medium py-3 pr-4 align-top;
+    color: var(--ink);
   }
   .prose-syncologic td {
-    @apply py-3 pr-4 align-top border-b border-divider;
+    @apply py-3 pr-4 align-top;
+    border-bottom: 1px solid var(--glass-border-soft);
   }
   .prose-syncologic tr:last-child td {
     @apply border-b-0;
@@ -219,5 +632,20 @@
   }
   .prose-syncologic > :first-child {
     margin-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .text-h1 {
+    font-size: 26px;
+    line-height: 1.22;
+  }
+  .text-display-2 {
+    font-size: 34px;
+    line-height: 1.15;
+  }
+  .text-display-1 {
+    font-size: 40px;
+    line-height: 1.1;
   }
 }
