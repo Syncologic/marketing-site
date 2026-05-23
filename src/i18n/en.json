@@ -572,7 +572,7 @@
         },
         {
           "q": "What if I move more data than my plan includes?",
-          "a": "On Free, once you hit the 5 GB monthly cap, hosted transfers will stop until the next month — Browser Runner transfers will keep working. Pro and Pro+ will add 1 TB for $2.50 each time you go over. Self-hosting will have no GB cap at all; bytes will flow through your own server, on your bandwidth."
+          "a": "On Free, once you hit the 5 GB monthly cap, hosted transfers will stop until the next month — Browser Runner transfers will keep working. Pro and Pro+ will add 1 TB for $2.99 each time you go over. Self-hosting will have no GB cap at all; bytes will flow through your own server, on your bandwidth."
         },
         {
           "q": "Will failed transfers count against my quota?",

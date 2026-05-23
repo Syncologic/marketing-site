@@ -52,7 +52,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' va.vercel-scripts.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data:; connect-src 'self' va.vercel-scripts.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' va.vercel-scripts.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com api.fontshare.com; font-src 'self' fonts.gstatic.com cdn.fontshare.com; img-src 'self' data:; connect-src 'self' va.vercel-scripts.com api.fontshare.com cdn.fontshare.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
         }
       ]
     }
