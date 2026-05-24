@@ -121,13 +121,18 @@ export const POST: APIRoute = async ({ request }) => {
   const segmentationLink = `${SITE_URL}${source_page ?? '/'}?wl_id=${id}&wl_t=${token}#waitlist`;
   const unsubscribeLink = `${SITE_URL}/api/waitlist/unsubscribe?token=${unsubscribeToken}`;
 
-  sendWaitlistConfirmation({
-    to: email,
-    locale,
-    siteUrl: SITE_URL,
-    segmentationLink,
-    unsubscribeLink,
-  }).catch((err) => console.error('confirmation email failed', err));
+  try {
+    await sendWaitlistConfirmation({
+      to: email,
+      locale,
+      siteUrl: SITE_URL,
+      segmentationLink,
+      unsubscribeLink,
+    });
+  } catch (err) {
+    // Row is already saved — a failed email must not fail the signup, but log it.
+    console.error('confirmation email failed', err);
+  }
 
   return json({ id, token }, 200);
 };
