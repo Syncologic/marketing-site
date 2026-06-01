@@ -1,6 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": true,
   "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.syncologic.com" }],
+      "destination": "https://syncologic.com/",
+      "permanent": true
+    },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.syncologic.com" }],
